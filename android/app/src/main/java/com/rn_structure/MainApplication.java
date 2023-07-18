@@ -1,4 +1,4 @@
-package com.bookingapp.bookme;
+package com.prismatic.movers;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
