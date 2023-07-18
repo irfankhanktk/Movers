@@ -1,138 +1,109 @@
-import { colors } from 'config/colors';
-import React from 'react';
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { CurvedBottomBar } from 'react-native-curved-bottom-bar';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import * as SVGS from 'assets/icons/tab-icons';
+import {colors} from 'config/colors';
+import {mvs} from 'config/metrices';
+import {useAppSelector} from 'hooks/use-store';
+import {Text, TouchableOpacity, View} from 'react-native';
 import HomeTab from 'screens/home-tab';
-import LanguageScreen from 'screens/language-screen';
-
 import UserTab from 'screens/user-tab';
 
-export const TabBar = props => {
-  const _renderIcon = (routeName, selectedTab) => {
-    let icon = '';
-
-    switch (routeName) {
-      case 'title1':
-        icon = 'home';
-        break;
-
-      case 'title2':
-        icon = 'wallet';
-        break;
-      case 'title3':
-        icon = 'receipt';
-        break;
-      case 'title4':
-        icon = 'ios-person-sharp';
-        break;
-    }
-
-    return (
-      <Ionicons
-        name={icon}
-        size={25}
-        color={routeName === selectedTab ? colors.primary : 'black'}
-      />
-    );
-  };
-  const renderTabBar = ({ routeName, selectedTab, navigate }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigate(routeName)}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        {_renderIcon(routeName, selectedTab)}
-      </TouchableOpacity>
-    );
-  };
-
+function MyTabBar({state, descriptors, navigation}) {
   return (
-    <View style={{ flex: 1 }}>
-      <CurvedBottomBar.Navigator
-        screenOptions={{ headerShown: false }}
-        style={styles.bottomBar}
-        strokeWidth={0.5}
-        strokeColor="#DDDDDD"
-        height={55}
-        circleWidth={50}
-        bgColor="white"
-        initialRouteName="title1"
-        borderTopLeftRight
-        renderCircle={({ selectedTab, navigate }) => (
-          <Animated.View style={styles.btnCircle}>
-            <TouchableOpacity
+    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+      {state.routes.map((route, index) => {
+        const {options} = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+        const isFocused = state.index === index;
+        const Icon = SVGS[`${route.name}${isFocused ? 'Active' : ''}`];
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            // The `merge: true` option makes sure that the params inside the tab screen are preserved
+            navigation.navigate({name: route.name, merge: true});
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
+        return (
+          <TouchableOpacity
+            key={index}
+            accessibilityRole="button"
+            accessibilityState={isFocused ? {selected: true} : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              height: 80,
+            }}>
+            <View
+              style={{
+                backgroundColor: isFocused
+                  ? colors.primary
+                  : colors.transparent,
+                borderRadius: mvs(50),
+                height: mvs(60),
+                width: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: mvs(isFocused ? -20 : 0),
+              }}>
+              <Icon height={mvs(20)} width={mvs(20)} />
+            </View>
+            <View
               style={{
                 flex: 1,
-                justifyContent: 'center',
-              }}
-              onPress={() => navigate('WalletScreen')}>
-              <Ionicons name={'wallet'} color="white" size={25} />
-            </TouchableOpacity>
-          </Animated.View>
-        )}
-        tabBar={renderTabBar}>
-        <CurvedBottomBar.Screen
-          name="title1"
-          position="LEFT"
-          component={() => <HomeTab {...props} />}
-        />
-        {/* <CurvedBottomBar.Screen
-          name="title2"
-          position="LEFT"
-          component={() => <WalletScreen {...props} />}
-        /> */}
-        {/* <CurvedBottomBar.Screen
-          name="title3"
-          component={() => <AppointmentsList {...props} />}
-          position="RIGHT"
-        /> */}
-        <CurvedBottomBar.Screen
-          name="title4"
-          component={() => <UserTab {...props} />}
-          position="RIGHT"
-        />
-      </CurvedBottomBar.Navigator>
+                justifyContent: 'flex-end',
+                paddingBottom: mvs(10),
+              }}>
+              <Text
+                style={{
+                  fontSize: mvs(12),
+                  color: colors.black,
+                }}>
+                {label}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
-};
+}
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  button: {
-    marginVertical: 5,
-  },
-  bottomBar: {},
-  btnCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.primary,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 0.5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 1,
-    bottom: 30,
-  },
-  imgCircle: {
-    width: 30,
-    height: 30,
-    tintColor: 'gray',
-  },
-  img: {
-    width: 30,
-    height: 30,
-  },
-});
+// ...
+export const TabBar = () => {
+  const Tab = createBottomTabNavigator();
+  const {user} = useAppSelector(s => s);
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{headerShown: false}}
+      tabBar={props => <MyTabBar {...props} />}>
+      {/* <Tab.Screen name="Search" component={WalletScreen} /> */}
+      {/* <Tab.Screen name="Discovery" component={DiscoveryTab} options={{}} /> */}
+      <Tab.Screen name="Home" component={HomeTab} />
+      <Tab.Screen name="Me" component={UserTab} />
+      {/* <Tab.Screen name="Me" component={Me} /> */}
+    </Tab.Navigator>
+  );
+};

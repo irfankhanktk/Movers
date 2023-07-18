@@ -1,36 +1,23 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {SplashIcon} from 'assets/icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   eye,
-  profile,
-  left,
-  profile_pic,
-  orders_plus,
-  orders,
   inbox,
+  left,
+  orders,
+  orders_plus,
+  profile,
+  profile_pic,
   setting,
 } from 'assets/images';
-import React from 'react';
-import {ImageBackground, Image, View, Alert} from 'react-native';
-import i18n from 'translation';
-import {STORAGEKEYS} from '../../config/constants';
-import {
-  setLanguage,
-  setLocation,
-  setUserInfo,
-} from '../../store/reducers/user-reducer';
-import RootStackParamList from '../../types/navigation-types/root-stack';
-import {UTILS} from 'utils';
-import {useAppDispatch} from 'hooks/use-store';
-import styles from './styles';
-import Medium from 'typography/medium-text';
-import Bold from 'typography/bold-text';
-import {Row} from 'components/atoms/row';
-import {mvs, width} from 'config/metrices';
-import {colors} from 'config/colors';
-import Regular from 'typography/regular-text';
 import Line from 'components/atoms/line';
 import MeCard from 'components/molecules/me-card';
+import { colors } from 'config/colors';
+import { mvs } from 'config/metrices';
+import React from 'react';
+import { Alert, View } from 'react-native';
+import Bold from 'typography/bold-text';
+import RootStackParamList from '../../types/navigation-types/root-stack';
+import styles from './styles';
 type props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 const Me = (props: props) => {

@@ -1,0 +1,10 @@
+export {default as Search} from './search.svg';
+export {default as SearchActive} from './search-active.svg';
+export {default as Discovery} from './map.svg';
+export {default as DiscoveryActive} from './map-active.svg';
+export {default as Home} from './home.svg';
+export {default as HomeActive} from './home-active.svg';
+export {default as Cart} from './cart.svg';
+export {default as CartActive} from './cart-active.svg';
+export {default as Me} from './user.svg';
+export {default as MeActive} from './map-active.svg';
