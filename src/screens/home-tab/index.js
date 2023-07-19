@@ -6,7 +6,7 @@ import {SERVICE_LIST} from 'config/constants';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
@@ -44,7 +44,19 @@ const HomeTab = props => {
           style={styles.normaltext}
           numberOfLines={2}
         />
-
+        <View style={{paddingHorizontal: mvs(20)}}>
+          <Image
+            source={{
+              uri: 'https://getmovers.co.uk/static/media/banr.ae434e08.png',
+            }}
+            style={{
+              height: mvs(100),
+              width: '100%',
+              resizeMode: 'contain',
+              borderRadius: mvs(10),
+            }}
+          />
+        </View>
         <CustomFlatList
           numColumns={2}
           // emptyList={<EmptyList label={t('no_notification')} />}

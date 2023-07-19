@@ -20,3 +20,4 @@ export {default as servicePianoicon} from './piano.png';
 export {default as serviceParcelicon} from './parcel.png';
 export {default as serviceAntiqueicon} from './treasure-chest.png';
 export {default as serviceVehiclesicon} from './tire.png';
+export {default as serviceChairicon} from './chair.png';
