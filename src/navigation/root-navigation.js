@@ -16,6 +16,13 @@ import {horizontalAnimation} from '../utils';
 import {TabBar} from './curvedtabs';
 import Me from 'screens/me';
 import Search from 'screens/search';
+import OurServicesScreen from 'screens/our-services';
+import AboutUsScreen from 'screens/about-us';
+import BlogScreen from 'screens/blog';
+import DriveWithUsScreen from 'screens/drive-with-us';
+import AdviceFromUsScreen from 'screens/advice-from-us';
+import ContactUsScreen from 'screens/contact-us';
+import DriverLoginScreen from 'screens/driver-login';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -39,6 +46,25 @@ export const RootNavigator = () => {
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
           <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen
+            name="OurServicesScreen"
+            component={OurServicesScreen}
+          />
+          <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
+          <Stack.Screen name="BlogScreen" component={BlogScreen} />
+          <Stack.Screen
+            name="DriveWithUsScreen"
+            component={DriveWithUsScreen}
+          />
+          <Stack.Screen
+            name="AdviceFromUsScreen"
+            component={AdviceFromUsScreen}
+          />
+          <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} />
+          <Stack.Screen
+            name="DriverLoginScreen"
+            component={DriverLoginScreen}
+          />
         </Stack.Group>
         {/* location group */}
         <Stack.Group>
