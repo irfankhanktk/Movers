@@ -121,4 +121,10 @@ export const SERVICE_LIST = [
     title: 'quick_search',
     desc: 'explore_restaurant_around',
   },
+  {
+    image: 'https://getmovers.co.uk/static/media/b9.d6c8d9a2.jpg',
+    icon: IMG.serviceChairicon,
+    title: 'quick_search',
+    desc: 'explore_restaurant_around',
+  },
 ];
