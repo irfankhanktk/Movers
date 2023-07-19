@@ -22,6 +22,38 @@ export const weekDays = [
   'Sunday',
 ];
 
+export const SLIDES_LIST = [
+  {
+    image: 'https://getmovers.co.uk/static/media/s1.f9907177.jpg',
+    title: 'quick_search',
+    desc: 'Move Anything to Anywhere… at the cheapest rates!! Start your moving journey now with the United Kingdoms most convenient transport and removal agency.',
+  },
+  {
+    image: 'https://getmovers.co.uk/static/media/5.29deee86.png',
+    title: 'fast_shipping',
+    desc: 'Move Anything to Anywhere… at the cheapest rates!! Start your moving journey now with the United Kingdoms most convenient transport and removal agency.',
+  },
+  {
+    image: 'https://getmovers.co.uk/static/media/6.58041a1b.png',
+    title: 'free_rides',
+    desc: 'Move Anything to Anywhere… at the cheapest rates!! Start your moving journey now with the United Kingdoms most convenient transport and removal agency.',
+  },
+  {
+    image: 'https://getmovers.co.uk/static/media/7.fe4e3dab.png',
+    title: 'free_rides',
+    desc: 'Move Anything to Anywhere… at the cheapest rates!! Start your moving journey now with the United Kingdoms most convenient transport and removal agency.',
+  },
+  {
+    image: 'https://getmovers.co.uk/static/media/8.a16c3c07.png',
+    title: 'free_rides',
+    desc: 'Move Anything to Anywhere… at the cheapest rates!! Start your moving journey now with the United Kingdoms most convenient transport and removal agency.',
+  },
+  {
+    image: 'https://getmovers.co.uk/static/media/9.0ec25ad3.png',
+    title: 'free_rides',
+    desc: 'Move Anything to Anywhere… at the cheapest rates!! Start your moving journey now with the United Kingdoms most convenient transport and removal agency.',
+  },
+];
 export const ONBOARDING_LIST = [
   {
     image: IMG.rocket,
