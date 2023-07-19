@@ -1,6 +1,4 @@
-import CustomFlatList from 'components/atoms/custom-flatlist';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import SwiperCard from 'components/atoms/swiper';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
 import {View} from 'react-native';
@@ -8,6 +6,7 @@ import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
 import styles from './styles';
+import HomeSwiper from 'components/molecules/home-swiper';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -18,7 +17,8 @@ const HomeTab = props => {
   return (
     <View style={styles.container}>
       <Header1x2x back={false} />
-      <SwiperCard />
+      {/* <SwiperCard /> */}
+      <HomeSwiper />
       <View style={styles.body}>
         <Bold label={t('our_services')} style={styles.heading} />
         <Medium

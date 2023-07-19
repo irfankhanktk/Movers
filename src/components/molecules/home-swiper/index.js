@@ -3,19 +3,13 @@ import {mvs, width} from 'config/metrices';
 import {t} from 'i18next';
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import Swiper from 'react-native-swiper';
 import Medium from 'typography/medium-text';
-import {PrimaryButton} from '../buttons';
-const SwiperCard = () => {
+import CustomSwiper from 'components/atoms/swiper';
+import {PrimaryButton} from 'components/atoms/buttons';
+const HomeSwiper = () => {
   return (
     <View style={styles.container}>
-      <Swiper
-        autoplay
-        scrollEnabled={true}
-        dotStyle={styles.dotStyle}
-        activeDotStyle={styles.activeDotStyle}
-        style={styles.wrapper}
-        showsButtons={false}>
+      <CustomSwiper>
         <View style={styles.slide}>
           <Image
             source={{
@@ -232,12 +226,11 @@ const SwiperCard = () => {
             />
           </View>
         </View>
-      </Swiper>
+      </CustomSwiper>
     </View>
   );
 };
-export default SwiperCard;
-
+export default HomeSwiper;
 const styles = StyleSheet.create({
   container: {
     height: mvs(220),
