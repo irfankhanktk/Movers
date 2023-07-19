@@ -1,4 +1,8 @@
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
+import SwiperCard from 'components/atoms/swiper';
+import ServiceCard from 'components/molecules/service-card';
+import {SERVICE_LIST} from 'config/constants';
+import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
 import {View} from 'react-native';
@@ -7,6 +11,7 @@ import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
 import styles from './styles';
 import HomeSwiper from 'components/molecules/home-swiper';
+import CustomFlatList from 'components/atoms/custom-flatlist';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -14,10 +19,22 @@ const HomeTab = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
 
+  const itemSeparatorComponent = () => {
+    return <View style={{paddingVertical: mvs(5)}}></View>;
+  };
+
+  const renderServiceList = ({item}) => (
+    <ServiceCard
+      item={item}
+      // onPress={() =>
+      //   props?.navigation?.navigate(item?.screen, {title: t(item?.title)})
+      // }
+    />
+  );
+
   return (
     <View style={styles.container}>
       <Header1x2x back={false} />
-      {/* <SwiperCard /> */}
       <HomeSwiper />
       <View style={styles.body}>
         <Bold label={t('our_services')} style={styles.heading} />
@@ -29,15 +46,15 @@ const HomeTab = props => {
           numberOfLines={2}
         />
 
-        {/* <CustomFlatList
-          // emptyList={<EmptyList label={t('no_notification')} />}
+        <CustomFlatList
+          numColumns={2}
           contentContainerStyle={styles.contentContainerStyle}
           showsVerticalScrollIndicator={false}
-          data={notifications}
-          renderItem={renderAppointmentItem}
+          data={SERVICE_LIST}
+          renderItem={renderServiceList}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
           ItemSeparatorComponent={itemSeparatorComponent()}
-          keyExtractor={(_, index) => index?.toString()}
-        /> */}
+        />
       </View>
     </View>
   );

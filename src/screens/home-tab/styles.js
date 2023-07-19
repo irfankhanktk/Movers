@@ -8,8 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   body: {
-    paddingVertical: mvs(30),
-    paddingHorizontal: mvs(20),
+    flex: 1,
   },
   lan: {
     height: mvs(120),
@@ -22,10 +21,20 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: mvs(20),
     color: colors.primary,
+    marginHorizontal: mvs(20),
   },
   normaltext: {
     fontSize: mvs(14),
     paddingVertical: mvs(4),
+    marginHorizontal: mvs(20),
+  },
+
+  contentContainerStyle: {
+    flexGrow: 1,
+    paddingHorizontal: mvs(16),
+    paddingVertical: mvs(20),
+    // paddingBottom: mvs(100),
+    // margi
   },
 });
 export default styles;
