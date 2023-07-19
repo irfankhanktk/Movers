@@ -37,28 +37,30 @@ const HomeTab = props => {
       <Header1x2x back={false} />
       <HomeSwiper />
       <View style={styles.body}>
-        <Bold label={t('our_services')} style={styles.heading} />
-        <Medium
-          label={t(
-            'At GetMovers, our goal is to make moving as cheap and hassle-free as it possibly could be. With us, you get:',
-          )}
-          style={styles.normaltext}
-          numberOfLines={2}
-        />
-        <View style={{paddingHorizontal: mvs(20)}}>
-          <Image
-            source={{
-              uri: 'https://getmovers.co.uk/static/media/banr.ae434e08.png',
-            }}
-            style={{
-              height: mvs(100),
-              width: '100%',
-              resizeMode: 'contain',
-              borderRadius: mvs(10),
-            }}
-          />
-        </View>
         <CustomFlatList
+          ListHeaderComponent={
+            <View style={{marginBottom: mvs(10)}}>
+              <Bold label={t('our_services')} style={styles.heading} />
+              <Medium
+                label={t(
+                  'At GetMovers, our goal is to make moving as cheap and hassle-free as it possibly could be. With us, you get:',
+                )}
+                style={styles.normaltext}
+                numberOfLines={2}
+              />
+              <Image
+                source={{
+                  uri: 'https://getmovers.co.uk/static/media/banr.ae434e08.png',
+                }}
+                style={{
+                  height: mvs(100),
+                  width: '100%',
+                  resizeMode: 'contain',
+                  borderRadius: mvs(10),
+                }}
+              />
+            </View>
+          }
           numColumns={2}
           contentContainerStyle={styles.contentContainerStyle}
           showsVerticalScrollIndicator={false}

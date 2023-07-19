@@ -21,12 +21,10 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: mvs(20),
     color: colors.primary,
-    marginHorizontal: mvs(20),
   },
   normaltext: {
     fontSize: mvs(14),
     paddingVertical: mvs(4),
-    marginHorizontal: mvs(20),
   },
 
   contentContainerStyle: {
