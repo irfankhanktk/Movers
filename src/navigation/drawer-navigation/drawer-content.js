@@ -97,15 +97,19 @@ const CustomDrawerContent = props => {
             icon1={IMG.drawerDriverLoginIcon}
             label1={t('driver_login')}
             br={8}
+            containerStyle={styles.helpStyle}
           />
         </View>
       </ScrollView>
-      <DrawerHomeCard
-        onPress={() => props?.navigation?.toggleDrawer()}
-        icon1={IMG.drawerLogoutIcon}
-        label1={t('logout')}
-        br={8}
-      />
+      <View style={styles.needHelpContainer}>
+        <DrawerHomeCard
+          onPress={() => props?.navigation?.toggleDrawer()}
+          icon1={IMG.drawerLogoutIcon}
+          label1={t('logout')}
+          br={8}
+          containerStyle={styles.helpStyle}
+        />
+      </View>
     </View>
   );
 };
