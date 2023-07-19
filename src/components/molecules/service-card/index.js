@@ -3,6 +3,7 @@ import {PrimaryButton} from 'components/atoms/buttons';
 import {Row} from 'components/atoms/row';
 import React from 'react';
 import {
+  Image,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
@@ -17,6 +18,7 @@ import {colors} from '../../../config/colors';
 import {mvs} from '../../../config/metrices';
 import {SpecialistLocation} from 'assets/icons';
 import Entypo from 'react-native-vector-icons/Entypo';
+
 const ServiceCard = ({
   item,
   style,
@@ -28,59 +30,50 @@ const ServiceCard = ({
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <ImageBackground
-        source={{uri: `${item?.image_id}`}}
+        source={{uri: `${item?.image}`}}
         imageStyle={styles.imgStyle}
         style={styles.bg}>
         <LinearGradient
           style={styles.grd}
           colors={[
-            `${colors.primary}30`,
-            `${colors.primary}70`,
-            `${colors.primary}50`,
+            `${colors.black}30`,
+            `${colors.black}70`,
+            `${colors.black}50`,
           ]}>
-          <Row style={styles.row}>
-            <View>
-              <Medium label={item?.title} color={colors.white} />
-              <Row style={{justifyContent: 'flex-start'}}>
-                {/* <SpecialistLocation /> */}
-                <Entypo
-                  name="location"
-                  color={colors.red}
-                  size={mvs(18)}
-                  style={{marginRight: mvs(10)}}
-                />
-                <Regular
-                  fontSize={mvs(12)}
-                  label={item?.address}
-                  color={colors.white}
-                />
-              </Row>
-            </View>
-            <PrimaryButton
-              onPress={onPressCart}
-              containerStyle={styles.btn}
-              textStyle={styles.btnTxt}
-              title={`${item?.price} / ${t('night')}`}
+          <View
+            style={{
+              alignSelf: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+
+              flex: 1,
+            }}>
+            <Image
+              source={item?.icon}
+              style={{height: mvs(50), width: mvs(50), resizeMode: 'contain'}}
             />
-          </Row>
+            <Medium
+              label={item?.title}
+              color={colors.white}
+              fontSize={mvs(16)}
+            />
+            <Regular
+              label={item?.desc}
+              numberOfLines={1}
+              color={colors.white}
+              fontSize={mvs(14)}
+            />
+          </View>
         </LinearGradient>
       </ImageBackground>
-      <Row style={styles.rowRating}>
-        <Icon name={'star'} color={colors.white} size={mvs(12)} />
-        <Regular
-          style={styles.rateTxt}
-          label={`${item?.star_rate} (${item?.review_score})`}
-          fontSize={mvs(12)}
-          color={colors.white}
-        />
-      </Row>
     </TouchableOpacity>
   );
 };
 export default React.memo(ServiceCard);
 const styles = StyleSheet.create({
   container: {
-    height: mvs(210),
+    height: mvs(170),
+    width: '47%',
     borderRadius: mvs(15),
     marginBottom: mvs(20),
 
@@ -101,29 +94,9 @@ const styles = StyleSheet.create({
   },
   btnTxt: {color: colors.primary, fontSize: mvs(12), lineHeight: mvs(16)},
   imgStyle: {borderRadius: mvs(15)},
-  rowRating: {
-    position: 'absolute',
-    padding: mvs(15),
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.20)',
-    borderTopLeftRadius: mvs(15),
-    // borderBottomLeftRadius: mvs(15),
-  },
-  rowRating1: {
-    position: 'absolute',
-    top: mvs(40),
-    right: mvs(0),
-    paddingHorizontal: mvs(10),
-    paddingVertical: mvs(5),
-    alignItems: 'center',
-    // backgroundColor: 'rgba(0,0,0,0.20)',
-    backgroundColor: 'red',
-    // borderTopLeftRadius: mvs(15),
-    // borderBottomLeftRadius: mvs(15),
-  },
-  rateTxt: {marginLeft: mvs(10), lineHeight: mvs(16)},
+
   grd: {
-    height: mvs(80),
+    height: '100%',
     padding: mvs(15),
     borderRadius: mvs(15),
   },
