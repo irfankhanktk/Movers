@@ -19,5 +19,13 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: mvs(24),
   },
+  heading: {
+    fontSize: mvs(20),
+    color: colors.primary,
+  },
+  normaltext: {
+    fontSize: mvs(14),
+    paddingVertical: mvs(4),
+  },
 });
 export default styles;

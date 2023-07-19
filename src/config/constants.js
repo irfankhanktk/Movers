@@ -39,3 +39,21 @@ export const ONBOARDING_LIST = [
     desc: 'explore_restaurant_around',
   },
 ];
+export const SERVICE_LIST = [
+  {
+    image: 'https://getmovers.co.uk/static/media/b1.5e930fd5.jpg',
+
+    title: 'quick_search',
+    desc: 'explore_restaurant_around',
+  },
+  {
+    image: IMG.vehicle,
+    title: 'fast_shipping',
+    desc: 'explore_restaurant_around',
+  },
+  {
+    image: IMG.mobile,
+    title: 'free_rides',
+    desc: 'explore_restaurant_around',
+  },
+];
