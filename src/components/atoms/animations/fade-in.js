@@ -17,6 +17,7 @@ const FadeIn = ({children, currentIndex}) => {
   return (
     <Animated.View
       style={{
+        flex: 1,
         opacity: fadeAnim,
         transform: [
           {
