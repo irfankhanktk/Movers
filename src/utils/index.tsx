@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 import moment from 'moment';
 import {
   Alert,
@@ -12,32 +12,32 @@ import {
 import Geolocation from 'react-native-geolocation-service';
 import ImagePicker from 'react-native-image-crop-picker';
 import uuid from 'react-native-uuid';
-import { NavigationProps } from '../types/navigation-types';
+import {NavigationProps} from '../types/navigation-types';
 import Geocoder from 'react-native-geocoding';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 // Initialize the module (needs to be done only once)
 const getErrorList = (data: any) => {
-  const { message, errors } = data;
+  const {message, errors} = data;
   let concatenatedMessages: any = null;
   console.log('errors=>>::', errors);
 
   if (typeof errors === 'object' && Object.keys(errors)?.length) {
     concatenatedMessages = errors
-      ? Object.values(message)?.flat()?.join(", ")
+      ? Object.values(message)?.flat()?.join(', ')
       : null;
   } else if (typeof message === 'string') return message;
   concatenatedMessages = message
-    ? Object.values(message)?.flat()?.join(", ")
+    ? Object.values(message)?.flat()?.join(', ')
     : null;
 
   console.log(concatenatedMessages);
   return concatenatedMessages;
-}
+};
 export const horizontalAnimation: any = {
   headerShown: false,
   gestureDirection: 'horizontal',
-  cardStyleInterpolator: ({ current, layouts }: any) => {
+  cardStyleInterpolator: ({current, layouts}: any) => {
     return {
       cardStyle: {
         transform: [
@@ -102,6 +102,72 @@ export const UTILS = {
       return null;
     }
   },
+  openFacebookLink: () => {
+    // Replace "YOUR_FACEBOOK_PAGE_ID" with the actual ID or profile name of your Facebook page
+    const facebookURL =
+      'https://www.facebook.com/people/Shafqat-Naeem/pfbid02pu4CYps4CMA6WF9vmTG7NRn9jcTqdvcesv3UXE2bdsWy13rBKYS4kA89whvX762Wl/';
+
+    // Check if the Linking module is available on the device
+    // Linking.canOpenURL(facebookURL)
+    //   .then(supported => {
+    //     if (!supported) {
+    //       console.log('Cannot handle URL: ' + facebookURL);
+    //     } else {
+    // Open the link in the Facebook app or browser
+    return Linking.openURL(facebookURL);
+    // }
+    // })
+    // .catch(err => console.error('An error occurred: ', err));
+  },
+  openTwitterLink: () => {
+    // Replace "YOUR_TWITTER_USERNAME" with the actual username of your Twitter account
+    const twitterURL =
+      'https://twitter.com/i/flow/login?redirect_after_login=%2FGet_Mover';
+
+    // Check if the Linking module is available on the device
+    // Linking.canOpenURL(twitterURL)
+    //   .then(supported => {
+    //     if (!supported) {
+    //       console.log('Cannot handle URL: ' + twitterURL);
+    //     } else {
+    // Open the link in the Twitter app or browser
+    return Linking.openURL(twitterURL);
+    //   }
+    // })
+    // .catch(err => console.error('An error occurred: ', err));
+  },
+  openInstagramLink: () => {
+    // Replace "YOUR_INSTAGRAM_USERNAME" with the actual username of your Instagram account
+    const instagramURL = 'https://www.instagram.com/get_movers/';
+
+    // Check if the Linking module is available on the device
+    // Linking.canOpenURL(instagramURL)
+    //   .then(supported => {
+    //     if (!supported) {
+    //       console.log('Cannot handle URL: ' + instagramURL);
+    //     } else {
+    // Open the link in the Instagram app or browser
+    return Linking.openURL(instagramURL);
+    //   }
+    // })
+    // .catch(err => console.error('An error occurred: ', err));
+  },
+  openLinkedInLink: () => {
+    // Replace "YOUR_LINKEDIN_PROFILE_ID" with the actual ID or profile name of your LinkedIn account
+    const linkedInURL = 'https://www.linkedin.com/in/get-movers-84a373265/';
+
+    // Check if the Linking module is available on the device
+    // Linking.canOpenURL(linkedInURL)
+    //   .then(supported => {
+    //     if (!supported) {
+    //       console.log('Cannot handle URL: ' + linkedInURL);
+    //     } else {
+    // Open the link in the LinkedIn app or browser
+    return Linking.openURL(linkedInURL);
+    //   }
+    // })
+    // .catch(err => console.error('An error occurred: ', err));
+  },
   setItem: async (key: string, data: string) => {
     try {
       await AsyncStorage.setItem(key, data);
@@ -125,14 +191,13 @@ export const UTILS = {
   },
   returnError: (error: any) => {
     if (error?.response?.request) {
-      let { _response } = error?.response?.request;
-      console.log("FACTORY ERRORS :: ", JSON.parse(_response));
+      let {_response} = error?.response?.request;
+      console.log('FACTORY ERRORS :: ', JSON.parse(_response));
       const temp = JSON.parse(_response);
       const resp = getErrorList(temp);
       console.log('ASDFGFDSDF:::', resp);
-      return (resp)
-    }
-    else if (error.response) {
+      return resp;
+    } else if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       console.log('=>>>>>>::::', error.response.data?.errors);
@@ -186,8 +251,8 @@ export const UTILS = {
     }
   },
   get_current_location: async (
-    onSuccess = (position: any) => { },
-    onError = (error: any) => { },
+    onSuccess = (position: any) => {},
+    onError = (error: any) => {},
   ) => {
     try {
       const flag = await UTILS.requestLocationPermission();
@@ -204,7 +269,7 @@ export const UTILS = {
   },
 
   _returnAddress: async (latitude: any, longitude: any) => {
-    const addressObject = await Geocoder.from(latitude || '', longitude || '')
+    const addressObject = await Geocoder.from(latitude || '', longitude || '');
     let returnAddress = {
       street_number: null,
       street_address: null,
@@ -226,19 +291,19 @@ export const UTILS = {
         if (
           item.types.some((el: any) => el === 'administrative_area_level_1')
         ) {
-          returnAddress = { ...returnAddress, province: item.long_name };
+          returnAddress = {...returnAddress, province: item.long_name};
         } else if (
           item.types.some((el: any) => el === 'administrative_area_level_2')
         ) {
-          returnAddress = { ...returnAddress, district: item.long_name };
+          returnAddress = {...returnAddress, district: item.long_name};
         } else if (
           item.types.some((el: any) => el === 'administrative_area_level_3')
         ) {
-          returnAddress = { ...returnAddress, tehsil: item.long_name };
+          returnAddress = {...returnAddress, tehsil: item.long_name};
         } else if (item.types.some((el: any) => el === 'locality')) {
-          returnAddress = { ...returnAddress, city: item.long_name };
+          returnAddress = {...returnAddress, city: item.long_name};
         } else if (item.types.some((el: any) => el === 'sublocality')) {
-          returnAddress = { ...returnAddress, area: item.long_name };
+          returnAddress = {...returnAddress, area: item.long_name};
         } else if (item.types.some((el: any) => el === 'street_address')) {
           returnAddress = {
             ...returnAddress,

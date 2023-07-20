@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+    paddingHorizontal: mvs(10),
   },
   lan: {
     height: mvs(120),
@@ -33,6 +34,24 @@ const styles = StyleSheet.create({
     paddingVertical: mvs(20),
     // paddingBottom: mvs(100),
     // margi
+  },
+  contentContainerStyleNew: {
+    // flexGrow: 1,
+    paddingHorizontal: mvs(10),
+    marginVertical: mvs(10),
+    paddingVertical: mvs(10),
+    backgroundColor: colors.white,
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+    borderRadius: mvs(6),
   },
 });
 export default styles;
