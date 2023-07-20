@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white
     },
-    slide: { paddingHorizontal: mvs(20) },
+    slide: { paddingHorizontal: mvs(20), },
     contentContainerStyle: {
         paddingVertical: mvs(30),
         paddingHorizontal: mvs(0)
@@ -32,5 +32,19 @@ const styles = StyleSheet.create({
 
         // width: '100%',
     },
+    imageText:{
+    color: colors.primary,
+    fontSize:mvs(14),
+    marginBottom:mvs(10)
+    },
+    imageContainer:{
+        width:mvs(150),
+        height:mvs(150),
+        backgroundColor:colors.gray,
+        marginBottom:mvs(10),
+        alignItems:'center',
+        justifyContent:'center'
+        
+    }
 });
 export default styles;

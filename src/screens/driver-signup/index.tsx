@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
 import { useFormik } from 'formik';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Alert, TouchableOpacity, View,Image } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 
 import messaging from '@react-native-firebase/messaging';
@@ -28,6 +28,9 @@ import { mvs } from 'config/metrices';
 import { Animated } from 'react-native';
 import FadeIn from 'components/atoms/animations/fade-in';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Bold from 'typography/bold-text';
+import Regular from 'typography/regular-text';
+import Light from 'typography/light-text';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
@@ -71,8 +74,12 @@ const DriverSignup = (props: props) => {
     password: '',
     token: '',
     gender: '',
+
   };
   const [loading, setLoading] = React.useState(false);
+  const [image,setImage]=React.useState();
+  console.log('image check====>',image);
+  
   const { values, errors, touched, setFieldValue, setFieldTouched, isValid } =
     useFormik({
       initialValues: initialValues,
@@ -103,6 +110,14 @@ const DriverSignup = (props: props) => {
 
   }, []);
 
+  const ImageUpload = async () => {
+    try {
+      const img = await UTILS._returnImageGallery();
+      setImage(img);
+    } catch (error) {
+      Alert.alert('Error', UTILS?.returnError(error));
+    }
+  };
   return (
     <View style={styles.container}>
       <Header1x2x title={t('driver_registration')} />
@@ -119,6 +134,15 @@ const DriverSignup = (props: props) => {
               loop: false,
             }}>
             <View style={styles.slide}>
+              <Medium style={{marginBottom:mvs(10)}} fontSize={mvs(20)} label={'Personal Info:'}/>
+              <Regular style={styles.imageText} label={t('your_photo *')}/>
+              <TouchableOpacity  onPress={() => ImageUpload()} style={styles.imageContainer}>
+                <View style={{position:'absolute',zIndex:1,alignItems:'center'}}>
+                <AntDesign name='plus' size={25} color={colors.white} />
+                <Light color={colors.white} label={'Upload'} fontSize={mvs(18)}/>
+                </View>
+                <Image source={image} style={{width:150,height:150,resizeMode:'cover'}} />
+              </TouchableOpacity>
               <PrimaryInput
                 isRequired
                 error={touched?.name && errors?.name ? t(errors?.name) : ''}
@@ -128,11 +152,28 @@ const DriverSignup = (props: props) => {
                 onBlur={() => setFieldTouched('name', true)}
                 value={values.name}
               />
+              <PrimaryInput
+                error={touched?.name && errors?.name ? t(errors?.name) : ''}
+                label={t('middle_name')}
+                placeholder={t('name')}
+                onChangeText={str => setFieldValue('name', str)}
+                onBlur={() => setFieldTouched('name', true)}
+                value={values.name}
+              />
+              <PrimaryInput
+              isRequired
+                error={touched?.name && errors?.name ? t(errors?.name) : ''}
+                label={t('sure_name')}
+                placeholder={t('name')}
+                onChangeText={str => setFieldValue('name', str)}
+                onBlur={() => setFieldTouched('name', true)}
+                value={values.name}
+              />
               <InputWithIcon
                 isRequired
                 items={genderList}
                 id={values?.gender}
-                label={t('choose_category')}
+                label={t('gender')}
                 error={
                   errors?.gender && touched?.gender ? errors?.gender : ''
                 }

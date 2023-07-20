@@ -17,6 +17,7 @@ const CustomSwiper: React.FC<CustomSwiperProps> = forwardRef(
 
     return (
       <Swiper
+      style={{flex:1}}
         ref={ref}
         onIndexChanged={onIndexChanged}
         autoplay
