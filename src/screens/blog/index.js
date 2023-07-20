@@ -12,7 +12,7 @@ import Medium from 'typography/medium-text';
 import styles from './styles';
 import HomeSwiper from 'components/molecules/home-swiper';
 import CustomFlatList from 'components/atoms/custom-flatlist';
-const HomeTab = props => {
+const BlogScreen = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
   const language = user?.language;
@@ -34,7 +34,7 @@ const HomeTab = props => {
 
   return (
     <View style={styles.container}>
-      <Header1x2x back={false} />
+      <Header1x2x back={true} title={t('blogs')} />
       <HomeSwiper />
       <View style={styles.body}>
         <CustomFlatList
@@ -73,4 +73,4 @@ const HomeTab = props => {
     </View>
   );
 };
-export default HomeTab;
+export default BlogScreen;

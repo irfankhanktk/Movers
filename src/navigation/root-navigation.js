@@ -4,18 +4,25 @@ import {colors} from 'config/colors';
 import * as React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AboutUsScreen from 'screens/about-us';
+import AdviceFromUsScreen from 'screens/advice-from-us';
+import BlogScreen from 'screens/blog';
+import ContactUsScreen from 'screens/contact-us';
+import DriveWithUsScreen from 'screens/drive-with-us';
+import DriverLoginScreen from 'screens/driver-login';
+import DriverSignup from 'screens/driver-signup';
 import LanguageScreen from 'screens/language-screen';
 import LocationSetup from 'screens/location-setup';
 import LoginScreen from 'screens/login-screen';
 import Me from 'screens/me';
 import Notifications from 'screens/notifications';
 import Onboarding from 'screens/on-boarding';
+import OurServicesScreen from 'screens/our-services';
 import Search from 'screens/search';
 import Signup from 'screens/signup';
 import Splash from 'screens/splash';
 import {horizontalAnimation} from '../utils';
 import DrawerNavigation from './drawer-navigation/drawer-navigation';
-import DriverSignup from 'screens/driver-signup';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -39,6 +46,25 @@ export const RootNavigator = () => {
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
           <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen
+            name="OurServicesScreen"
+            component={OurServicesScreen}
+          />
+          <Stack.Screen name="AboutUsScreen" component={AboutUsScreen} />
+          <Stack.Screen name="BlogScreen" component={BlogScreen} />
+          <Stack.Screen
+            name="DriveWithUsScreen"
+            component={DriveWithUsScreen}
+          />
+          <Stack.Screen
+            name="AdviceFromUsScreen"
+            component={AdviceFromUsScreen}
+          />
+          <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} />
+          <Stack.Screen
+            name="DriverLoginScreen"
+            component={DriverLoginScreen}
+          />
         </Stack.Group>
         {/* location group */}
         <Stack.Group>

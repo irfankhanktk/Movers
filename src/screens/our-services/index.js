@@ -12,7 +12,7 @@ import Medium from 'typography/medium-text';
 import styles from './styles';
 import HomeSwiper from 'components/molecules/home-swiper';
 import CustomFlatList from 'components/atoms/custom-flatlist';
-const HomeTab = props => {
+const OurServicesScreen = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
   const language = user?.language;
@@ -34,8 +34,8 @@ const HomeTab = props => {
 
   return (
     <View style={styles.container}>
-      <Header1x2x back={false} />
-      <HomeSwiper />
+      <Header1x2x back={true} title={t('our_services')} />
+
       <View style={styles.body}>
         <CustomFlatList
           ListHeaderComponent={
@@ -47,17 +47,6 @@ const HomeTab = props => {
                 )}
                 style={styles.normaltext}
                 numberOfLines={2}
-              />
-              <Image
-                source={{
-                  uri: 'https://getmovers.co.uk/static/media/banr.ae434e08.png',
-                }}
-                style={{
-                  height: mvs(100),
-                  width: '100%',
-                  resizeMode: 'contain',
-                  borderRadius: mvs(10),
-                }}
               />
             </View>
           }
@@ -73,4 +62,4 @@ const HomeTab = props => {
     </View>
   );
 };
-export default HomeTab;
+export default OurServicesScreen;
