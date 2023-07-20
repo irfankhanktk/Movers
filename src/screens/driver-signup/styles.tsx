@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white
     },
-    slide: { paddingHorizontal: mvs(20), },
+    slide: { paddingHorizontal: mvs(0), },
     contentContainerStyle: {
         paddingVertical: mvs(30),
         paddingHorizontal: mvs(20)
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     bottom: {
         alignSelf: 'flex-end',
         position: 'absolute',
-        bottom: mvs(60),
-        right: mvs(20),
+        bottom: mvs(30),
+        right: mvs(10),
         paddingHorizontal: mvs(20),
         backgroundColor: colors.primary,
         justifyContent: 'center',
@@ -43,8 +43,11 @@ const styles = StyleSheet.create({
         backgroundColor: colors.gray,
         marginBottom: mvs(10),
         alignItems: 'center',
-        justifyContent: 'center'
-
-    }
+        justifyContent: 'center',
+        borderRadius:mvs(10)
+    },
+    image:{ width: mvs(150), height: mvs(150), resizeMode: 'cover',borderRadius:mvs(10) },
+    uploadContainer:{ position: 'absolute', zIndex: 1, alignItems: 'center' },
+    datePickerContainer:{height:40,borderWidth:1,alignItems:'center',justifyContent:'center'}
 });
 export default styles;

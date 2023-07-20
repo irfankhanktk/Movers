@@ -31,6 +31,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Bold from 'typography/bold-text';
 import Regular from 'typography/regular-text';
 import Light from 'typography/light-text';
+import { DatePicker } from 'components/atoms/date-picker';
+import { Row } from 'components/atoms/row';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
@@ -74,10 +76,40 @@ const DriverSignup = (props: props) => {
     password: '',
     token: '',
     gender: '',
+    cnic:'',
+    house_no:'',
+    dob:'',
+    postal_code:'',
+    country:'',
+    state:'',
+    city:'',
+    zip_code:'',
+    legal_identity:'',
+    company_registration:'',
+    vat_registration:'',
+    address:'',
+    liscence_no:'',
+    issue_date:'',
+    expiry_date:'',
+    goods_name:'',
+    account_title:'',
+    sort_code:'',
+    account_number:'',
+    bank_name:'',
+    insurance_name:'',
+    good_valid_form:'',
+    good_expiry_date:'',
+    insurance_valid_form:'',
+    insurance_expiry_form:'',
+    mot_issue_date:'',
+    mot_expiry_date:''
 
   };
   const [loading, setLoading] = React.useState(false);
   const [image, setImage] = React.useState('');
+  const [liscenceImage, setLiscenceImage] = React.useState('');
+  const [motImage, setMotImage] = React.useState('');
+  const [vehicleInsuranceImage, setVehicleInsuranceImage] = React.useState('');
 
   const { values, errors, touched, setFieldValue, setFieldTouched, isValid } =
     useFormik({
@@ -113,6 +145,10 @@ const DriverSignup = (props: props) => {
     try {
       const img = await UTILS._returnImageGallery();
       setImage(img);
+      setLiscenceImage(img);
+      setMotImage(img);
+      setVehicleInsuranceImage(img);
+
     } catch (error) {
       Alert.alert('Error', UTILS?.returnError(error));
     }
@@ -136,11 +172,14 @@ const DriverSignup = (props: props) => {
             <Medium style={{ marginBottom: mvs(10) }} fontSize={mvs(20)} label={'Personal Info:'} />
             <Regular style={styles.imageText} label={t('your_photo *')} />
             <TouchableOpacity onPress={() => ImageUpload()} style={styles.imageContainer}>
-              <View style={{ position: 'absolute', zIndex: 1, alignItems: 'center' }}>
+              <View style={styles.uploadContainer}>
                 <AntDesign name='plus' size={25} color={colors.white} />
                 <Light color={colors.white} label={'Upload'} fontSize={mvs(18)} />
               </View>
-              <Image source={image} style={{ width: 150, height: 150, resizeMode: 'cover' }} />
+              {image?(
+                <Image source={image} style={styles.image} />
+              ):(null)
+              }
             </TouchableOpacity>
             <PrimaryInput
               isRequired
@@ -180,7 +219,6 @@ const DriverSignup = (props: props) => {
                 setFieldValue('gender', str);
               }}
               onBlur={() => setFieldTouched('gender', true)}
-
             />
             <PrimaryInput
               isRequired
@@ -258,7 +296,11 @@ const DriverSignup = (props: props) => {
               value={values.dob}
             />
           </KeyboardAvoidScrollview>
-          <View style={styles.slide}>
+          
+          <KeyboardAvoidScrollview
+            contentContainerStyle={styles.contentContainerStyle}>
+          <Medium style={{ marginBottom: mvs(10) }} fontSize={mvs(20)} label={'Company Details:'} />
+          
             <PrimaryInput
               isRequired
               error={touched?.legal_identity && errors?.legal_identity ? t(errors?.legal_identity) : ''}
@@ -286,62 +328,180 @@ const DriverSignup = (props: props) => {
               onBlur={() => setFieldTouched('vat_registration', true)}
               value={`${values.vat_registration}`}
             />
-          </View>
-          <View style={styles.slide}>
-            <InputWithIcon
-              isRequired
-              items={genderList}
-              id={values?.gender}
-              label={t('choose_category')}
-              error={
-                errors?.gender && touched?.gender ? errors?.gender : ''
+          <Medium style={{ marginBottom: mvs(10) }} fontSize={mvs(20)} label={'Liscence Details:'} />
+          <Regular style={styles.imageText} label={t('license_photo *')} />
+            <TouchableOpacity onPress={() => ImageUpload()} style={styles.imageContainer}>
+              <View style={styles.uploadContainer}>
+                <AntDesign name='plus' size={25} color={colors.white} />
+                <Light color={colors.white} label={'Upload'} fontSize={mvs(18)} />
+              </View>
+              {image?(
+                <Image source={liscenceImage} style={styles.image} />
+              ):(null)
               }
-              onChangeText={str => {
-                setFieldValue('gender', str);
-              }}
-              onBlur={() => setFieldTouched('gender', true)}
+            </TouchableOpacity>
+          <PrimaryInput
+              isRequired
+              error={touched?.liscence_no && errors?.liscence_no ? t(errors?.liscence_no) : ''}
+              label={t('liscence_no')}
+              placeholder={t('liscence_no')}
+              onChangeText={str => setFieldValue('liscence_no', str)}
+              onBlur={() => setFieldTouched('liscence_no', true)}
+              value={`${values.liscence_no}`}
+            />
+            <Row>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('Liscence Issued Date *')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('issue_date',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.issue_date?values.issue_date:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('Liscence Expiry Date *')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('expiry_date',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.expiry_date?values.expiry_date:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          </Row>
+         
+         
+          <Medium style={{ marginTop: mvs(20),marginBottom:mvs(10) }} fontSize={mvs(20)} label={'MOT:'} />
+          <Regular style={styles.imageText} label={t('mot_photo *')} />
+            <TouchableOpacity onPress={() => ImageUpload()} style={styles.imageContainer}>
+              <View style={styles.uploadContainer}>
+                <AntDesign name='plus' size={25} color={colors.white} />
+                <Light color={colors.white} label={'Upload'} fontSize={mvs(18)} />
+              </View>
+              {image?(
+                <Image source={motImage} style={styles.image} />
+              ):(null)
+              }
+            </TouchableOpacity>
+            <Row>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('MOT Issued Date *')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('mot_issue_date',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.mot_issue_date?values.mot_issue_date:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('MOT Expiry Date *')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('mot_expiry_date',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.mot_expiry_date?values.mot_expiry_date:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          </Row>
+          </KeyboardAvoidScrollview>
 
-            />
-            <PrimaryInput
-              isRequired
-              keyboardType={'numeric'}
-              error={
-                touched?.zip_code && errors?.zip_code ? t(errors?.zip_code) : ''
+          
+          
+          <KeyboardAvoidScrollview
+            contentContainerStyle={styles.contentContainerStyle}>
+          <Medium style={{ marginBottom: mvs(10) }} fontSize={mvs(20)} label={'Vehicle Insurance:'} />
+          <Regular style={styles.imageText} label={t('your_photo *')} />
+            <TouchableOpacity onPress={() => ImageUpload()} style={styles.imageContainer}>
+              <View style={styles.uploadContainer}>
+                <AntDesign name='plus' size={25} color={colors.white} />
+                <Light color={colors.white} label={'Upload'} fontSize={mvs(18)} />
+              </View>
+              {image?(
+                <Image source={vehicleInsuranceImage} style={styles.image} />
+              ):(null)
               }
-              label={t('zip_code')}
-              placeholder={t('zip_code')}
-              onChangeText={str => setFieldValue('zip_code', str)}
-              onBlur={() => setFieldTouched('zip_code', true)}
-              value={`${values.zip_code}`}
-            />
-            <PrimaryInput
+            </TouchableOpacity>
+          <PrimaryInput
               isRequired
-              error={touched?.city && errors?.city ? t(errors?.city) : ''}
-              label={t('city')}
-              placeholder={t('city')}
-              onChangeText={str => setFieldValue('city', str)}
-              onBlur={() => setFieldTouched('city', true)}
-              value={`${values.city}`}
+              error={
+                touched?.insurance_name && errors?.insurance_name ? t(errors?.insurance_name) : ''
+              }
+              label={t('name')}
+              placeholder={t('insurance_name')}
+              onChangeText={str => setFieldValue('insurance_name', str)}
+              onBlur={() => setFieldTouched('insurance_name', true)}
+              value={`${values.insurance_name}`}
             />
-            <PrimaryInput
-              isRequired
-              error={touched?.state && errors?.state ? t(errors?.state) : ''}
-              label={t('state')}
-              placeholder={t('state')}
-              onChangeText={str => setFieldValue('state', str)}
-              onBlur={() => setFieldTouched('state', true)}
-              value={`${values.state}`}
-            />
-            <PrimaryInput
-              isRequired
-              error={touched?.country && errors?.country ? t(errors?.country) : ''}
-              label={t('country')}
-              placeholder={t('country')}
-              onChangeText={str => setFieldValue('country', str)}
-              onBlur={() => setFieldTouched('country', true)}
-              value={`${values.country}`}
-            />
+          <Row>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('Valid From*')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('insurance_valid_form',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.insurance_valid_form?values.insurance_valid_form:'Selecte date'}/>
+          </DatePicker>
           </View>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('Expiry Date *')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('insurance_expiry_form',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.insurance_expiry_form?values.insurance_expiry_form:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          </Row>
+
+          <Medium style={{ marginBottom: mvs(10),marginTop:mvs(20) }} fontSize={mvs(20)} label={'Goods in Transit:'} />
+            <PrimaryInput
+              isRequired
+              
+              error={
+                touched?.goods_name && errors?.goods_name ? t(errors?.goods_name) : ''
+              }
+              label={t('name')}
+              placeholder={t('goods_name')}
+              onChangeText={str => setFieldValue('goods_name', str)}
+              onBlur={() => setFieldTouched('goods_name', true)}
+              value={`${values.goods_name}`}
+            />
+          <Row>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('Valid From*')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('good_valid_form',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.good_valid_form?values.good_valid_form:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          <View style={{width:'48%'}}>
+          <Regular style={styles.imageText} label={t('Expiry Date *')} />
+          <DatePicker onChangeText={(str)=> setFieldValue('good_expiry_date',str)}  style={styles.datePickerContainer}>
+              <Regular label={values.good_expiry_date?values.good_expiry_date:'Selecte date'}/>
+          </DatePicker>
+          </View>
+          </Row>
+          <Medium style={{ marginTop: mvs(20),marginBottom:mvs(10) }} fontSize={mvs(20)} label={'Bank Details:'} />
+          <PrimaryInput
+              isRequired
+              error={touched?.bank_name && errors?.bank_name ? t(errors?.bank_name) : ''}
+              label={t('bank_name')}
+              placeholder={t('bank_name')}
+              onChangeText={str => setFieldValue('bank_name', str)}
+              onBlur={() => setFieldTouched('bank_name', true)}
+              value={`${values.bank_name}`}
+            />
+          <PrimaryInput
+              isRequired
+              error={touched?.account_title && errors?.account_title ? t(errors?.account_title) : ''}
+              label={t('account_title')}
+              placeholder={t('account_title')}
+              onChangeText={str => setFieldValue('account_title', str)}
+              onBlur={() => setFieldTouched('account_title', true)}
+              value={`${values.account_title}`}
+            />
+          <PrimaryInput
+              isRequired
+              error={touched?.sort_code && errors?.sort_code ? t(errors?.sort_code) : ''}
+              label={t('sort_code')}
+              placeholder={t('sort_code')}
+              onChangeText={str => setFieldValue('sort_code', str)}
+              onBlur={() => setFieldTouched('sort_code', true)}
+              value={`${values.sort_code}`}
+            />
+          <PrimaryInput
+              isRequired
+              error={touched?.account_number && errors?.account_number ? t(errors?.account_number) : ''}
+              label={t('account_number')}
+              placeholder={t('account_number')}
+              onChangeText={str => setFieldValue('account_number', str)}
+              onBlur={() => setFieldTouched('account_number', true)}
+              value={`${values.account_number}`}
+            />
+          </KeyboardAvoidScrollview>
+
+          
         </CustomSwiper>
       </FadeIn>
       <View style={styles.bottom}>
