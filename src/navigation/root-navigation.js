@@ -5,17 +5,17 @@ import * as React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import LanguageScreen from 'screens/language-screen';
+import LocationSetup from 'screens/location-setup';
 import LoginScreen from 'screens/login-screen';
+import Me from 'screens/me';
 import Notifications from 'screens/notifications';
+import Onboarding from 'screens/on-boarding';
+import Search from 'screens/search';
 import Signup from 'screens/signup';
 import Splash from 'screens/splash';
-import DrawerNavigation from './drawer-navigation/drawer-navigation';
-import Onboarding from 'screens/on-boarding';
-import LocationSetup from 'screens/location-setup';
 import {horizontalAnimation} from '../utils';
-import {TabBar} from './curvedtabs';
-import Me from 'screens/me';
-import Search from 'screens/search';
+import DrawerNavigation from './drawer-navigation/drawer-navigation';
+import DriverSignup from 'screens/driver-signup';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -28,7 +28,7 @@ export const RootNavigator = () => {
         barStyle={'dark-content'}
       />
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="DriverSignup"
         screenOptions={horizontalAnimation}>
         <Stack.Group>
           <Stack.Screen name="Splash" component={Splash} />
@@ -45,6 +45,7 @@ export const RootNavigator = () => {
           <Stack.Screen name="LocationSetup" component={LocationSetup} />
         </Stack.Group>
         <Stack.Screen name="Drawer" component={DrawerNavigation} />
+        <Stack.Screen name="DriverSignup" component={DriverSignup} />
       </Stack.Navigator>
     </View>
   );
