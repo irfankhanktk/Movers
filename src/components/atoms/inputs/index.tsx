@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import {
   I18nManager,
   Image,
@@ -17,17 +17,16 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import PhoneInput from 'react-native-phone-number-input';
 import Regular from 'typography/regular-text';
-import {mvs} from 'config/metrices';
-import {colors} from 'config/colors';
+import { mvs } from 'config/metrices';
+import { colors } from 'config/colors';
 import Medium from 'typography/medium-text';
-import {Row} from '../row';
-import {useAppSelector} from 'hooks/use-store';
+import { Row } from '../row';
+import { useAppSelector } from 'hooks/use-store';
 import CartModal from 'components/molecules/modals/cart-modal';
 import DropdownModal from 'components/molecules/modals/dropdown-modal';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {t} from 'i18next';
-import {menue} from 'assets/images';
-type Item = {label: string; value: string};
+import { t } from 'i18next';
+import { menue } from 'assets/images';
 type props = {
   isRequired?: boolean;
   onChangeText: (text: string) => void;
@@ -37,7 +36,7 @@ type props = {
   getCallingCode?: (text: string) => void | undefined;
   value?: string;
   label?: string;
-  items?: Item[];
+  items?: any[];
   placeholder?: string;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<ViewStyle>;
@@ -59,7 +58,7 @@ type props = {
 };
 export const InputPresciption = (props: props) => {
   const [secure, setSecure] = useState(true);
-  const {language} = useAppSelector(s => s.user);
+  const { language } = useAppSelector(s => s.user);
   const {
     onChangeText,
     value,
@@ -74,14 +73,14 @@ export const InputPresciption = (props: props) => {
     keyboardType,
     error,
     editable = true,
-    onBlur = () => {},
-    onPressIn = () => {},
-    onPressMinus = () => {},
+    onBlur = () => { },
+    onPressIn = () => { },
+    onPressMinus = () => { },
     isRequired = false,
   } = props;
   return (
     <>
-      <Row style={{alignItems: 'center'}}>
+      <Row style={{ alignItems: 'center' }}>
         <Regular label={label} style={[styles.labelStyle, labelStyle]} />
         <TouchableOpacity onPress={onPressMinus}>
           <AntDesign name="minuscircle" color={colors.primary} size={mvs(14)} />
@@ -101,7 +100,7 @@ export const InputPresciption = (props: props) => {
           style={[
             styles.textInput,
             style,
-            {textAlign: I18nManager.isRTL ? 'right' : 'left'},
+            { textAlign: I18nManager.isRTL ? 'right' : 'left' },
           ]}
         />
         {isPassword && (
@@ -125,7 +124,7 @@ export const InputPresciption = (props: props) => {
 };
 const PrimaryInput = (props: props) => {
   const [secure, setSecure] = useState(true);
-  const {language} = useAppSelector(s => s.user);
+  const { language } = useAppSelector(s => s.user);
   const {
     onChangeText,
     value,
@@ -141,8 +140,8 @@ const PrimaryInput = (props: props) => {
     error,
     mainContainer,
     editable = true,
-    onBlur = () => {},
-    onPressIn = () => {},
+    onBlur = () => { },
+    onPressIn = () => { },
     isRequired = false,
   } = props;
   return (
@@ -164,7 +163,7 @@ const PrimaryInput = (props: props) => {
           style={[
             styles.textInput,
             style,
-            {textAlign: I18nManager.isRTL ? 'right' : 'left'},
+            { textAlign: I18nManager.isRTL ? 'right' : 'left' },
           ]}
         />
         {isPassword && (
@@ -191,7 +190,7 @@ export default React.memo(PrimaryInput);
 export const CommentInput = (props: props) => {
   const {
     onChangeText,
-    onPress = () => {},
+    onPress = () => { },
     value,
     style,
     placeholder = 'Write Message',
@@ -199,7 +198,7 @@ export const CommentInput = (props: props) => {
     isPassword,
     keyboardType,
     error,
-    onBlur = () => {},
+    onBlur = () => { },
   } = props;
   return (
     <>
@@ -230,7 +229,7 @@ export const InputWithIcon = (props: props) => {
   const {
     items = [],
     onChangeText,
-    onBlur = () => {},
+    onBlur = () => { },
     value,
     style,
     containerStyle,
@@ -254,7 +253,7 @@ export const InputWithIcon = (props: props) => {
           onBlur();
         }}
         style={[styles.dropDownContainer, containerStyle]}>
-        <Medium label={value} />
+        <Medium label={items?.find(x => x?.id == id)?.title || ''} />
         <Feather size={25} name={'chevron-down'} color={colors.black} />
       </TouchableOpacity>
       <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />
@@ -272,8 +271,8 @@ export const InputWithIcon = (props: props) => {
 export const PrimaryPhoneInput = (props: props) => {
   const phoneRef = useRef<PhoneInput>(null);
   const {
-    onChangeText = t => {},
-    getCallingCode = t => {},
+    onChangeText = t => { },
+    getCallingCode = t => { },
     value,
     style,
     label,
@@ -290,7 +289,7 @@ export const PrimaryPhoneInput = (props: props) => {
     onBlur,
   } = props;
   return (
-    <>
+    <View>
       <PhoneInput
         ref={phoneRef}
         value={value}
@@ -308,7 +307,7 @@ export const PrimaryPhoneInput = (props: props) => {
         codeTextStyle={styles.codeTextStyle}
       />
       <Regular label={error} style={styles.errorLabel} />
-    </>
+    </View>
   );
 };
 export const SearchInput = (props: props) => {
@@ -331,11 +330,11 @@ export const SearchInput = (props: props) => {
   } = props;
   return (
     <View
-      style={[styles.searchContainer, containerStyle, {marginTop: mvs(mtop)}]}>
+      style={[styles.searchContainer, containerStyle]}>
       <TouchableOpacity
         disabled={disabledSearch}
         style={styles.searchIcon}
-        onPress={() => {}}>
+        onPress={() => { }}>
         <Feather size={mvs(22)} name={'search'} color={colors.grey} />
       </TouchableOpacity>
       <TextInput
@@ -351,8 +350,8 @@ export const SearchInput = (props: props) => {
       <TouchableOpacity
         disabled={disabledSearch}
         style={styles.searchIcon}
-        onPress={() => {}}>
-        <Image source={menue} style={{height: mvs(15), width: mvs(25)}} />
+        onPress={() => { }}>
+        <Image source={menue} style={{ height: mvs(15), width: mvs(25) }} />
       </TouchableOpacity>
     </View>
   );
@@ -360,11 +359,11 @@ export const SearchInput = (props: props) => {
 
 const styles = StyleSheet.create({
   Container: {
-    borderWidth: mvs(0.7),
+    borderBottomWidth: mvs(0.7),
     borderColor: colors.primary,
     height: mvs(50),
     paddingTop: mvs(7),
-    borderRadius: mvs(10),
+    // borderRadius: mvs(10),
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: mvs(10),
@@ -402,7 +401,7 @@ const styles = StyleSheet.create({
     borderRadius: mvs(10),
     overflow: 'hidden',
   },
-  textContainerStyle: {backgroundColor: colors.white},
+  textContainerStyle: { backgroundColor: colors.white },
   textInput: {
     color: colors.black,
     textAlignVertical: 'center',
@@ -438,7 +437,7 @@ const styles = StyleSheet.create({
     color: colors.red,
     // backgroundColor: 'red',
     fontSize: mvs(10),
-    marginBottom: mvs(5),
+    // marginBottom: mvs(5),
     height: mvs(15),
     marginHorizontal: mvs(5),
   },

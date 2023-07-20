@@ -4,25 +4,25 @@ import {colors} from 'config/colors';
 import * as React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AboutUsScreen from 'screens/about-us';
+import AdviceFromUsScreen from 'screens/advice-from-us';
+import BlogScreen from 'screens/blog';
+import ContactUsScreen from 'screens/contact-us';
+import DriveWithUsScreen from 'screens/drive-with-us';
+import DriverLoginScreen from 'screens/driver-login';
+import DriverSignup from 'screens/driver-signup';
 import LanguageScreen from 'screens/language-screen';
+import LocationSetup from 'screens/location-setup';
 import LoginScreen from 'screens/login-screen';
+import Me from 'screens/me';
 import Notifications from 'screens/notifications';
+import Onboarding from 'screens/on-boarding';
+import OurServicesScreen from 'screens/our-services';
+import Search from 'screens/search';
 import Signup from 'screens/signup';
 import Splash from 'screens/splash';
-import DrawerNavigation from './drawer-navigation/drawer-navigation';
-import Onboarding from 'screens/on-boarding';
-import LocationSetup from 'screens/location-setup';
 import {horizontalAnimation} from '../utils';
-import {TabBar} from './curvedtabs';
-import Me from 'screens/me';
-import Search from 'screens/search';
-import OurServicesScreen from 'screens/our-services';
-import AboutUsScreen from 'screens/about-us';
-import BlogScreen from 'screens/blog';
-import DriveWithUsScreen from 'screens/drive-with-us';
-import AdviceFromUsScreen from 'screens/advice-from-us';
-import ContactUsScreen from 'screens/contact-us';
-import DriverLoginScreen from 'screens/driver-login';
+import DrawerNavigation from './drawer-navigation/drawer-navigation';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -35,7 +35,7 @@ export const RootNavigator = () => {
         barStyle={'dark-content'}
       />
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="DriverSignup"
         screenOptions={horizontalAnimation}>
         <Stack.Group>
           <Stack.Screen name="Splash" component={Splash} />
@@ -71,6 +71,7 @@ export const RootNavigator = () => {
           <Stack.Screen name="LocationSetup" component={LocationSetup} />
         </Stack.Group>
         <Stack.Screen name="Drawer" component={DrawerNavigation} />
+        <Stack.Screen name="DriverSignup" component={DriverSignup} />
       </Stack.Navigator>
     </View>
   );
