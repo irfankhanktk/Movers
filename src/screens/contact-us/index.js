@@ -16,6 +16,7 @@ import {colors} from 'config/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Row} from 'components/atoms/row';
 import {UTILS} from 'utils';
+import CustomMap from 'components/atoms/custom-map';
 const ContactUsScreen = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -138,6 +139,7 @@ const ContactUsScreen = props => {
             />
           </Row>
         </View>
+        <CustomMap />
       </View>
     </View>
   );

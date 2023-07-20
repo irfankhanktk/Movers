@@ -1,8 +1,8 @@
-import { colors } from 'config/colors';
-import { mvs, width } from 'config/metrices';
+import {colors} from 'config/colors';
+import {mvs, width} from 'config/metrices';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
@@ -24,9 +24,8 @@ const GoogleSearchBar = ({
 }: any) => {
   const autoCompleteRef = React.useRef<any>(null);
 
-
   return (
-    <View style={{ ...styles.mainContainer, ...style }}>
+    <View style={{...styles.mainContainer, ...style}}>
       <GooglePlacesAutocomplete
         ref={autoCompleteRef}
         placeholder={placeholder}
@@ -36,21 +35,24 @@ const GoogleSearchBar = ({
         query={
           countrySlug
             ? {
-              key: 'AIzaSyCHIlIvmsXf-sllfpXK0Q-1dV7uzgyFvfw',
-              language: 'en',
-              components: `country:${countrySlug}`,
-            }
+                key: 'AIzaSyCHIlIvmsXf-sllfpXK0Q-1dV7uzgyFvfw',
+                language: 'en',
+                components: `country:${countrySlug}`,
+              }
             : {
-              key: 'AIzaSyCHIlIvmsXf-sllfpXK0Q-1dV7uzgyFvfw',
-              language: 'en',
-            }
+                key: 'AIzaSyCHIlIvmsXf-sllfpXK0Q-1dV7uzgyFvfw',
+                language: 'en',
+              }
         }
         styles={{
-          container: { marginHorizontal: mvs(0), ...containerStyle },
+          container: {marginHorizontal: mvs(0), ...containerStyle},
           textInputContainer: {
             backgroundColor: null,
             height: mvs(51),
+            borderWidth: 1,
+            borderColor: colors.gray,
             ...textInputContainer,
+            borderRadius: mvs(10),
           },
           textInput: {
             backgroundColor: null,
@@ -61,8 +63,8 @@ const GoogleSearchBar = ({
             ...inputStyle,
           },
           listView: {},
-          row: { zIndex: 1001 },
-          poweredContainer: { backgroundColor: null },
+          row: {zIndex: 1001},
+          poweredContainer: {backgroundColor: null},
         }}
         textInputProps={{
           clearButtonMode: false,
@@ -92,9 +94,11 @@ const GoogleSearchBar = ({
             <>
               <View style={styles.verticalLine} />
 
-              <TouchableOpacity onPress={() => {
-                autoCompleteRef?.current?.setAddressText('');
-              }} style={{ ...styles.search }}>
+              <TouchableOpacity
+                onPress={() => {
+                  autoCompleteRef?.current?.setAddressText('');
+                }}
+                style={{...styles.search}}>
                 <Entypo size={mvs(20)} name={'cross'} />
               </TouchableOpacity>
             </>
@@ -103,8 +107,7 @@ const GoogleSearchBar = ({
         renderLeftButton={() => {
           return (
             <>
-              <View
-                style={{ ...styles.search, marginEnd: mvs(10) }}>
+              <View style={{...styles.search, marginEnd: mvs(10)}}>
                 <EvilIcons size={mvs(20)} name={'search'} />
               </View>
             </>
@@ -120,7 +123,7 @@ export default GoogleSearchBar;
 const styles = StyleSheet.create({
   mainContainer: {
     // flex: 1,
-    width: width - mvs(40),
+    width: width - mvs(20),
     backgroundColor: colors.white,
     alignSelf: 'center',
     borderRadius: mvs(10),

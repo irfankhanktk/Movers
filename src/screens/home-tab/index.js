@@ -26,9 +26,7 @@ const HomeTab = props => {
   const renderServiceList = ({item}) => (
     <ServiceCard
       item={item}
-      // onPress={() =>
-      //   props?.navigation?.navigate(item?.screen, {title: t(item?.title)})
-      // }
+      onPress={() => props?.navigation?.navigate('WhereToMoveScreen')}
     />
   );
 

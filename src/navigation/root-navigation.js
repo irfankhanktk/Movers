@@ -21,6 +21,7 @@ import OurServicesScreen from 'screens/our-services';
 import Search from 'screens/search';
 import Signup from 'screens/signup';
 import Splash from 'screens/splash';
+import WhereToMoveScreen from 'screens/where-to-move';
 import {horizontalAnimation} from '../utils';
 import DrawerNavigation from './drawer-navigation/drawer-navigation';
 const Stack = createNativeStackNavigator();
@@ -35,7 +36,7 @@ export const RootNavigator = () => {
         barStyle={'dark-content'}
       />
       <Stack.Navigator
-        initialRouteName="DriverSignup"
+        initialRouteName="Splash"
         screenOptions={horizontalAnimation}>
         <Stack.Group>
           <Stack.Screen name="Splash" component={Splash} />
@@ -64,6 +65,10 @@ export const RootNavigator = () => {
           <Stack.Screen
             name="DriverLoginScreen"
             component={DriverLoginScreen}
+          />
+          <Stack.Screen
+            name="WhereToMoveScreen"
+            component={WhereToMoveScreen}
           />
         </Stack.Group>
         {/* location group */}

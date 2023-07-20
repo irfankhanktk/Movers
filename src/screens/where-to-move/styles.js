@@ -54,5 +54,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: mvs(6),
   },
+  searchContainer: {
+    marginVertical: mvs(20),
+    width: '90%',
+    alignSelf: 'center',
+  },
 });
 export default styles;

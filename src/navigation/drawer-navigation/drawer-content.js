@@ -10,6 +10,7 @@ import * as IMG from 'assets/images';
 import {t} from 'i18next';
 import Medium from 'typography/medium-text';
 import {navigate} from 'navigation/navigation-ref';
+import CustomMap from 'components/atoms/custom-map';
 const CustomDrawerContent = props => {
   return (
     <View style={styles.drawerContainer}>
@@ -73,7 +74,7 @@ const CustomDrawerContent = props => {
             containerStyle={styles.helpStyle}
           />
           <DrawerHomeCard
-            onPress={() => navigate('DriveWithUsScreen')}
+            onPress={() => navigate('DriverSignup')}
             icon1={IMG.drawerDrivwWithUsIcon}
             label1={t('drive_with_us')}
             containerStyle={styles.helpStyle}
