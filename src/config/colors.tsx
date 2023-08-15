@@ -6,6 +6,7 @@ export const colors = {
   white: '#FFFFFF',
   primary: '#D31E1E', //'#2962ff', //'#20D994', //'#5586FF,'
   lightGray: '#FFFFFFB2',
+  placeholder: '#707070',
   border: '#E8E8E8',
   black: '#000000',
   // black: '#706561',
@@ -27,6 +28,7 @@ export const colors = {
     shadowRadius: 2.22,
     elevation: 3,
   },
+  bluecolor: '#00ACDD',
 };
 export const darkTheme = {
   border: '#E8E8E8',

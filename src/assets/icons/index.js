@@ -11,3 +11,8 @@ export {default as DateIcon} from './date.svg';
 //this app svg
 export {default as SplashIcon} from './splash-icon.svg';
 export {default as RenewLogo} from './renew-logo.svg';
+export {default as GoogleIcon} from './google.svg';
+export {default as FacBookIcon} from './facebook.svg';
+
+// Lottie Files
+export {default as LoginAnimation} from './Login.json';

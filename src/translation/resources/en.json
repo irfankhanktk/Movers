@@ -8,5 +8,29 @@
   "login": "Login",
   "signup": "Signup",
   "next": "Next",
-  "get_started": "Get Started"
+  "get_started": "Get Started",
+  "login_to_movers":"Login In To Getmovers",
+  "Skip":"Skip",
+  "email":"Email",
+  "password":"Password",
+  "forgot_password?":"Forgot Password?",
+  "or_create_a_new_account":"Or Create a New Account",
+  "sign_up":"Sign Up",
+  "login_with":"Login With",
+  "google":"Google",
+  "facebook":"Facebook",
+  "signup_to_movers":"Sign Up To Getmovers",
+  "first_name":"First Name",
+  "middle_name":"Middle Name",
+  "surname":"Surname",
+  "male":"Male",
+  "female":"Female",
+  "other":"Other",
+  "phone":"Phone",
+  "i_agree to the,":" I agree to the,",
+  "terms_and_conditions":" Terms and Conditions,",
+  "return_policy & private_policy":" Return Policy & Private Policy"
+
+
+ 
 }

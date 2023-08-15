@@ -20,6 +20,7 @@ import Onboarding from 'screens/on-boarding';
 import OurServicesScreen from 'screens/our-services';
 import Search from 'screens/search';
 import Signup from 'screens/signup';
+import SignupNext from 'screens/signup-part-2';
 import Splash from 'screens/splash';
 import WhereToMoveScreen from 'screens/where-to-move';
 import {horizontalAnimation} from '../utils';
@@ -44,6 +45,7 @@ export const RootNavigator = () => {
           <Stack.Screen name="Me" component={Me} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="SignupNext" component={SignupNext} />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
           <Stack.Screen name="Search" component={Search} />

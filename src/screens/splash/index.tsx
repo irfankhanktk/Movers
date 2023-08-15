@@ -1,42 +1,51 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SplashIcon } from 'assets/icons';
-import { splash_bg } from 'assets/images';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import * as IMG from 'assets/images';
+import {SplashIcon} from 'assets/icons';
+import {splash_bg} from 'assets/images';
 import React from 'react';
-import { ImageBackground, View } from 'react-native';
+import {ImageBackground, View, Image, TouchableOpacity} from 'react-native';
 import i18n from 'translation';
-import { STORAGEKEYS } from '../../config/constants';
-import { setLanguage, setLocation, setUserInfo } from '../../store/reducers/user-reducer';
+import {STORAGEKEYS} from '../../config/constants';
+import {
+  setLanguage,
+  setLocation,
+  setUserInfo,
+} from '../../store/reducers/user-reducer';
 import RootStackParamList from '../../types/navigation-types/root-stack';
-import { UTILS } from 'utils';
-import { useAppDispatch } from 'hooks/use-store';
+import {UTILS} from 'utils';
+import {useAppDispatch} from 'hooks/use-store';
 import styles from './styles';
-import { mvs, width } from 'config/metrices';
+import {mvs, width} from 'config/metrices';
+import Medium from 'typography/medium-text';
+import {t} from 'i18next';
+import {colors} from 'config/colors';
+
 type props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 const Splash = (props: props) => {
-  const { navigation } = props;
+  const {navigation} = props;
   const dispatch = useAppDispatch();
 
+  React.useEffect(() => {}, []);
   React.useEffect(() => {
-  }, [])
-  React.useEffect(() => {
-
     (async () => {
       try {
         let screen: any = 'Onboarding';
-        UTILS.get_current_location((position) => {
-          dispatch(setLocation({
-            latitude: position?.coords?.latitude,
-            longitude: position?.coords?.longitude
-          }))
-
-        }, (error) => {
-
-        })
+        UTILS.get_current_location(
+          position => {
+            dispatch(
+              setLocation({
+                latitude: position?.coords?.latitude,
+                longitude: position?.coords?.longitude,
+              }),
+            );
+          },
+          error => {},
+        );
         UTILS.getItem(STORAGEKEYS.lang).then((lang: any) => {
           i18n.changeLanguage(lang);
           dispatch(setLanguage(lang ?? 'en'));
-        })
+        });
 
         UTILS.getItem(STORAGEKEYS.user).then((data: any) => {
           if (data) {
@@ -48,17 +57,40 @@ const Splash = (props: props) => {
             navigation?.replace(screen);
           }, 2000);
         });
-
-      } catch (error) {
-
-      }
-    })()
+      } catch (error) {}
+    })();
   }, []);
 
-
   return (
-    <View style={{ ...styles.container }}>
-      <SplashIcon width={width - mvs(60)} />
+    <View style={{...styles.container}}>
+      <TouchableOpacity
+        style={{
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          alignSelf: 'flex-end',
+          marginRight: mvs(20),
+        }}>
+        <Medium label={t('Skip')} color={colors.white} fontSize={mvs(24)} />
+      </TouchableOpacity>
+      <Image
+        source={IMG.Logo}
+        resizeMode={'contain'}
+        style={{width: mvs(100), height: mvs(100)}}
+      />
+      <Image
+        source={IMG.LogoText}
+        resizeMode={'contain'}
+        style={{width: mvs(250), height: mvs(100)}}
+      />
+      {/* <TouchableOpacity
+        style={{width: '80%', backgroundColor: 'white', height: mvs(400)}}> */}
+      <Image
+        source={IMG.SplashIcon}
+        resizeMode={'contain'}
+        style={{width: mvs(400), height: mvs(450)}}
+      />
+      {/* </TouchableOpacity> */}
+      {/* <SplashIcon width={width - mvs(60)} /> */}
     </View>
   );
 };

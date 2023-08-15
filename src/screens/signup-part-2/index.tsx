@@ -29,11 +29,12 @@ import {navigate} from 'navigation/navigation-ref';
 import {Row} from 'components/atoms/row';
 import {FacBookIcon, GoogleIcon} from 'assets/icons';
 import {Checkbox} from 'components/atoms/checkbox';
+import {DatePicker} from 'components/atoms/date-picker';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
-const Signup = (props: props) => {
+const SignupNext = (props: props) => {
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [value, setValue] = React.useState('');
   const [selectedGender, setSelectedGender] = React.useState('');
@@ -53,20 +54,15 @@ const Signup = (props: props) => {
     phone: '',
     confirm_password: '',
     password: '',
-    token: '',
-    doc_cat_id: '',
+    cnic: '',
+    passport_no: '',
+    house_name: '',
+    house_number: '',
+    address: '',
+    postal_code: '',
+    date_of_birth: '',
     city: '',
-    state: '',
-    country: '',
-    zip_code: '',
-    map_lat: '',
-    map_lng: '',
-    price: '',
-    short_description: '',
-    experience: 0,
-    min_day_before_booking: 0,
-    min_day_stays: 0,
-    enable_service_fee: 0,
+
     // bio: null,
   };
   const [loading, setLoading] = React.useState(false);
@@ -144,139 +140,90 @@ const Signup = (props: props) => {
             <PrimaryInput
               keyboardType={'email-address'}
               error={
-                touched?.middle_name && errors?.middle_name
-                  ? `${t(errors?.middle_name)}`
-                  : undefined
+                touched?.cnic && errors?.cnic ? `${t(errors?.cnic)}` : undefined
               }
               // label={t('email')}
-              placeholder={t('middle_name')}
-              onChangeText={str => setFieldValue('middle_name', str)}
-              onBlur={() => setFieldTouched('middle_name', true)}
-              value={values.middle_name}
+              placeholder={t('cnic/passport_no')}
+              onChangeText={str => setFieldValue('cnic', str)}
+              onBlur={() => setFieldTouched('cnic', true)}
+              value={values.cnic}
             />
             <PrimaryInput
               keyboardType={'email-address'}
               error={
-                touched?.surname && errors?.surname
-                  ? `${t(errors?.surname)}`
+                touched?.house_name && errors?.house_name
+                  ? `${t(errors?.house_name)}`
                   : undefined
               }
               // label={t('email')}
-              placeholder={t('surname')}
-              onChangeText={str => setFieldValue('surname', str)}
-              onBlur={() => setFieldTouched('surname', true)}
-              value={values.surname}
+              placeholder={t('house_name/number')}
+              onChangeText={str => setFieldValue('house_name', str)}
+              onBlur={() => setFieldTouched('house_name', true)}
+              value={values.house_name}
             />
-            <Row style={{marginBottom: mvs(20)}}>
-              <PrimaryButton
-                title={t('male')}
-                containerStyle={{
-                  width: mvs(88),
-                  height: mvs(39),
-                  backgroundColor:
-                    selectedGender === 'male' ? colors.bluecolor : colors.white,
-                  borderColor: colors.bluecolor,
-                  borderWidth: 1,
-                }}
-                textStyle={{
-                  color:
-                    selectedGender === 'male' ? colors.white : colors.black,
-                }}
-                onPress={() => setSelectedGender('male')}
-              />
-              <PrimaryButton
-                title={t('female')}
-                containerStyle={{
-                  width: mvs(88),
-                  height: mvs(39),
-                  backgroundColor:
-                    selectedGender === 'female'
-                      ? colors.bluecolor
-                      : colors.white,
-                  borderColor: colors.bluecolor,
-                  borderWidth: 1,
-                }}
-                textStyle={{
-                  color:
-                    selectedGender === 'female' ? colors.white : colors.black,
-                }}
-                onPress={() => setSelectedGender('female')}
-              />
-              <PrimaryButton
-                title={t('other')}
-                containerStyle={{
-                  width: mvs(88),
-                  height: mvs(39),
-                  backgroundColor:
-                    selectedGender === 'other'
-                      ? colors.bluecolor
-                      : colors.white,
-                  borderColor: colors.bluecolor,
-                  borderWidth: 1,
-                }}
-                textStyle={{
-                  color:
-                    selectedGender === 'other' ? colors.white : colors.black,
-                }}
-                onPress={() => setSelectedGender('other')}
-              />
-            </Row>
+
             <PrimaryInput
               keyboardType={'email-address'}
               error={
-                touched?.email && errors?.email
-                  ? `${t(errors?.email)}`
+                touched?.address && errors?.address
+                  ? `${t(errors?.address)}`
                   : undefined
               }
               // label={t('email')}
-              placeholder={t('email')}
-              onChangeText={str => setFieldValue('email', str)}
-              onBlur={() => setFieldTouched('email', true)}
-              value={values.email}
+              placeholder={t('first_line_of_address')}
+              onChangeText={str => setFieldValue('address', str)}
+              onBlur={() => setFieldTouched('address', true)}
+              value={values.address}
             />
             <PrimaryInput
-              keyboardType={'number-pad'}
+              keyboardType={'email_address'}
               error={
-                touched?.phone && errors?.phone
-                  ? `${t(errors?.phone)}`
+                touched?.city && errors?.city ? `${t(errors?.city)}` : undefined
+              }
+              // label={t('email')}
+              placeholder={t('city')}
+              onChangeText={str => setFieldValue('city', str)}
+              onBlur={() => setFieldTouched('city', true)}
+              value={values.city}
+            />
+            <PrimaryInput
+              keyboardType={'email_address'}
+              error={
+                touched?.postal_code && errors?.postal_code
+                  ? `${t(errors?.postal_code)}`
                   : undefined
               }
               // label={t('email')}
-              placeholder={t('phone')}
-              onChangeText={str => setFieldValue('phone', str)}
-              onBlur={() => setFieldTouched('phone', true)}
-              value={values.phone}
+              placeholder={t('postal_code')}
+              onChangeText={str => setFieldValue('postal_code', str)}
+              onBlur={() => setFieldTouched('postal_code', true)}
+              value={values.postal_code}
             />
-            <Row style={{marginBottom: mvs(10), alignItems: 'center'}}>
-              <Checkbox checked />
 
-              <Medium
-                fontSize={mvs(10)}
-                label={t('i_agree to the,')}
-                numberOfLines={2}
+            <DatePicker
+              onChangeText={(str: string) =>
+                setFieldValue('date_of_birth', str)
+              }>
+              <PrimaryInput
+                editable={false}
+                error={
+                  errors?.date_of_birth && touched?.date_of_birth
+                    ? `${errors?.date_of_birth}`
+                    : ''
+                }
+                placeholder={t('date_of_birth')}
+                onChangeText={str => setFieldValue('date_of_birth', str)}
+                value={values.date_of_birth}
               />
-
-              <Medium
-                numberOfLines={2}
-                fontSize={mvs(10)}
-                label={t('terms_and_conditions')}
-                color={colors.bluecolor}>
-                <Medium
-                  numberOfLines={2}
-                  fontSize={mvs(10)}
-                  label={t('return_policy & private_policy')}
-                  color={colors.bluecolor}
-                />
-              </Medium>
-            </Row>
+            </DatePicker>
 
             <PrimaryButton
               containerStyle={{
                 borderRadius: mvs(10),
               }}
               loading={loading}
-              onPress={() => navigate('SignupNext')}
-              title={t('next')}
+              // onPress={onSubmit}
+              title={t('login')}
             />
 
             {/* </KeyboardAvoidScrollview> */}
@@ -502,4 +449,4 @@ const Signup = (props: props) => {
     </View>
   );
 };
-export default Signup;
+export default SignupNext;
