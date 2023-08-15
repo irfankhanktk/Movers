@@ -1,5 +1,9 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -21,28 +25,15 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'RN_Structure' do
+target 'LuggageMovers' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
   flags = get_default_flags()
-#firebase google map
-  pod 'Firebase', :modular_headers => true
-  pod 'FirebaseCoreInternal', :modular_headers => true
-  pod 'GoogleUtilities', :modular_headers => true
-  pod 'FirebaseCore', :modular_headers => true
-  pod 'Google-Maps-iOS-Utils', :git => 'https://github.com/Simon-TechForm/google-maps-ios-utils.git', :branch => 'feat/support-apple-silicon'
-  rn_maps_path = '../node_modules/react-native-maps'
-  pod 'react-native-google-maps', :path => rn_maps_path
-
-
-
 
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
-    # Upcoming versions of React Native may rely on get_default_flags(), but
-    # we make it explicit here to aid in the React Native upgrade process.
     :hermes_enabled => flags[:hermes_enabled],
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
@@ -54,24 +45,18 @@ target 'RN_Structure' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'RN_StructureTests' do
+  target 'LuggageMoversTests' do
     inherit! :complete
     # Pods for testing
   end
 
   post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
       installer,
-      # Set `mac_catalyst_enabled` to `true` in order to apply patches
-      # necessary for Mac Catalyst builds
+      config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
-       # NOTE: Change IPHONEOS_DEPLOYMENT_TARGET to 13.0.
-      #  installer.pods_project.targets.each do |target|
-      #   target.build_configurations.each do |config|
-      #     config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
-      #   end
-      # end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
