@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175596648766",
+    "project_id": "luggage-movers",
+    "storage_bucket": "luggage-movers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175596648766:android:0d611b0fb082491068d46f",
+        "android_client_info": {
+          "package_name": "com.luggagemovers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175596648766-fb1s6grc6kcoip5nlp0gnifoviuepm02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQtBE7y25qxpmNIE1XsKaYVL_ZVTCRSeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175596648766-fb1s6grc6kcoip5nlp0gnifoviuepm02.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
