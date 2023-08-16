@@ -1,4 +1,6 @@
 import * as IMG from 'assets/images';
+import moment from 'moment';
+import {navigate} from 'navigation/navigation-ref';
 export const DATE_FORMAT = {
   yyyy_mm_dd: 'YYYY-MM-DD',
 };
@@ -73,59 +75,57 @@ export const ONBOARDING_LIST = [
 ];
 export const SERVICE_LIST = [
   {
-    image: 'https://getmovers.co.uk/static/media/b1.5e930fd5.jpg',
-    icon: IMG.serviceSofaicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    icon: IMG.HomeCartTool,
+    title: 'My Order',
+    screenName: 'MyOrderScreen',
   },
   {
-    image: 'https://getmovers.co.uk/static/media/b2.ba384810.jpg',
-    icon: IMG.serviceHomeicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    icon: IMG.HomeVehicleTool,
+    title: 'Manage Vehicle',
   },
 
   {
-    image: 'https://getmovers.co.uk/static/media/b3.b1647e55.jpg',
-    icon: IMG.serviceCaricon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    icon: IMG.HomehistoryTool,
+    title: 'History',
   },
   {
-    image: 'https://getmovers.co.uk/static/media/b4.a733c1ca.jpg',
-    icon: IMG.serviceMotorCycleicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    icon: IMG.HomeeraningTool,
+    title: 'Total Earning',
+  },
+];
+export const ORDER_LIST = [
+  {
+    Order_no: '123',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location:
+      'Pickup Location paddingVertical: mvs(8)paddingVertical: mvs(8)',
+    service_type: 'SERVICE TYPE',
   },
   {
-    image: 'https://getmovers.co.uk/static/media/b5.27373e64.jpg',
-    icon: IMG.servicePianoicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    Order_no: '123',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location: 'Pickup Location',
+    service_type: 'SERVICE TYPE',
   },
   {
-    image: 'https://getmovers.co.uk/static/media/b6.d98598b1.jpg',
-    icon: IMG.serviceParcelicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    Order_no: '123',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location: 'Pickup Location',
+    service_type: 'SERVICE TYPE',
   },
   {
-    image: 'https://getmovers.co.uk/static/media/b7.3cc02fb7.jpg',
-    icon: IMG.serviceAntiqueicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
-  },
-  {
-    image: 'https://getmovers.co.uk/static/media/b8.9f6f6cc7.jpg',
-    icon: IMG.serviceVehiclesicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
-  },
-  {
-    image: 'https://getmovers.co.uk/static/media/b9.d6c8d9a2.jpg',
-    icon: IMG.serviceChairicon,
-    title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    Order_no: '123',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location: 'Pickup Location',
+    service_type: 'SERVICE TYPE',
   },
 ];
 export const ABOUT_US_LIST = [

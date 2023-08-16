@@ -44,3 +44,7 @@ export {default as manageVehicleDrawer} from './manageVehicleDrawer.png';
 export {default as documentDrawer} from './documentDrawer.png';
 export {default as historyDarwer} from './historyDarwer.png';
 export {default as settings} from './settings.png';
+export {default as HomeCartTool} from './HomeCartTool.png';
+export {default as HomeeraningTool} from './HomeeraningTool.png';
+export {default as HomehistoryTool} from './HomehistoryTool.png';
+export {default as HomeVehicleTool} from './HomeVehicleTool.png';

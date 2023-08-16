@@ -56,7 +56,22 @@
   "documents":"Documents",
   "history":"History",
   "setting":"Settings",
-  "logout":"Logout"
+  "logout":"Logout",
+  "go_online":"Go Online",
+  "back_offline":"Back Offline",
+  "quick_tools":"Quick Tools",
+  "my_order":"My Orders",
+  "new":"New",
+  "processing":"Processing",
+  "delieverd":"Delieverd",
+  "Order":"Order",
+  "Name":"Name:",
+  "delivery_time":"Delivery Time:",
+  "pickup_location":"Pickup Location:",
+  "service_type":"Service Type:",
+  "accept":"Accept",
+  "rejected":"Rejected",
+  "details":"Details"
 
 
  

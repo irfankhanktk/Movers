@@ -21,6 +21,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 const ServiceCard = ({
   item,
+  backgroundColor,
+  index,
   style,
   onPress = () => {},
   onPressCart = () => {},
@@ -28,56 +30,57 @@ const ServiceCard = ({
   const {t} = i18n;
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <ImageBackground
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, {backgroundColor}]}>
+      {/* <ImageBackground
         source={{uri: `${item?.image}`}}
         imageStyle={styles.imgStyle}
-        style={styles.bg}>
-        <LinearGradient
+        style={styles.bg}> */}
+      <View style={styles.bg}>
+        {/* <LinearGradient
           style={styles.grd}
           colors={[
             `${colors.black}30`,
             `${colors.black}70`,
             `${colors.black}50`,
-          ]}>
-          <View
-            style={{
-              alignSelf: 'center',
-              justifyContent: 'center',
-              alignItems: 'center',
+          ]}> */}
+        <View
+          style={{
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
 
-              flex: 1,
-            }}>
-            <Image
-              source={item?.icon}
-              style={{height: mvs(50), width: mvs(50), resizeMode: 'contain'}}
-            />
-            <Medium
-              label={item?.title}
-              color={colors.white}
-              fontSize={mvs(16)}
-            />
-            <Regular
-              label={item?.desc}
-              numberOfLines={1}
-              color={colors.white}
-              fontSize={mvs(14)}
-            />
-          </View>
-        </LinearGradient>
-      </ImageBackground>
+            flex: 1,
+          }}>
+          <Image
+            source={item?.icon}
+            style={{height: mvs(36), width: mvs(36), resizeMode: 'contain'}}
+          />
+          <Medium
+            label={item?.title}
+            color={colors.primary}
+            fontSize={mvs(16)}
+            style={{marginTop: mvs(5)}}
+          />
+        </View>
+        {/* </LinearGradient> */}
+      </View>
+      {/* </ImageBackground> */}
     </TouchableOpacity>
   );
 };
 export default React.memo(ServiceCard);
 const styles = StyleSheet.create({
   container: {
-    height: mvs(170),
-    width: '47%',
+    height: mvs(123),
+    width: mvs(153),
     borderRadius: mvs(15),
     marginBottom: mvs(20),
+    // backgroundColor: colors.homecard2,
+    // backgroundColor: index % 2 === 0 ? colors.homecard1 : colors.homecard2,
 
-    ...colors.shadow,
+    // ...colors.shadow,
   },
   row: {alignItems: 'flex-end'},
   bg: {

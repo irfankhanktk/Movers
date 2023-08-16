@@ -19,7 +19,7 @@ const HomeSwiper = () => {
               }}
               style={styles.sliderImage}
             />
-            <View
+            {/* <View
               style={{
                 position: 'absolute',
                 bottom: mvs(30),
@@ -44,7 +44,7 @@ const HomeSwiper = () => {
                 }}
                 textStyle={{fontSize: mvs(12)}}
               />
-            </View>
+            </View> */}
           </View>
         ))}
       </CustomSwiper>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   container: {
     height: mvs(220),
     // marginHorizontal: mvs(20),
-    marginTop: mvs(10),
+    marginTop: mvs(60),
   },
   sliderImage: {
     width: width - mvs(40),

@@ -41,7 +41,7 @@ const HeaderX = ({
             <Icon
               name={I18nManager.isRTL ? 'arrowright' : 'arrowleft'}
               size={mvs(20)}
-              color={colors.white}
+              color={colors.primary}
             />
           </TouchableOpacity>
         ) : (
@@ -100,7 +100,7 @@ const HeaderX = ({
 export default React.memo(HeaderX);
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
     paddingHorizontal: mvs(22),
     paddingVertical: mvs(15),
   },
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: mvs(18),
-    color: colors.white,
+    color: colors.primary,
   },
   back: {},
 });
