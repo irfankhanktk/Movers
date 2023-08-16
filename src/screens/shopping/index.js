@@ -17,7 +17,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {Row} from 'components/atoms/row';
 import {UTILS} from 'utils';
 import CustomMap from 'components/atoms/custom-map';
-const ContactUsScreen = props => {
+const ShoppingScreen = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
   const language = user?.language;
@@ -144,4 +144,4 @@ const ContactUsScreen = props => {
     </View>
   );
 };
-export default ContactUsScreen;
+export default ShoppingScreen;

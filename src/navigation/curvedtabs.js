@@ -4,7 +4,10 @@ import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
 import {useAppSelector} from 'hooks/use-store';
 import {Text, TouchableOpacity, View} from 'react-native';
+import CartScreen from 'screens/cart';
+import AboutUsScreen from 'screens/categories';
 import HomeTab from 'screens/home-tab';
+import ShoppingScreen from 'screens/shopping';
 import UserTab from 'screens/user-tab';
 
 function MyTabBar({state, descriptors, navigation}) {
@@ -53,7 +56,7 @@ function MyTabBar({state, descriptors, navigation}) {
             style={{
               flex: 1,
               alignItems: 'center',
-              height: 80,
+              height: 65,
             }}>
             <View
               style={{
@@ -69,7 +72,7 @@ function MyTabBar({state, descriptors, navigation}) {
               }}>
               <Icon height={mvs(20)} width={mvs(20)} />
             </View>
-            <View
+            {/* <View
               style={{
                 flex: 1,
                 justifyContent: 'flex-end',
@@ -82,7 +85,7 @@ function MyTabBar({state, descriptors, navigation}) {
                 }}>
                 {label}
               </Text>
-            </View>
+            </View> */}
           </TouchableOpacity>
         );
       })}
@@ -102,7 +105,11 @@ export const TabBar = () => {
       {/* <Tab.Screen name="Search" component={WalletScreen} /> */}
       {/* <Tab.Screen name="Discovery" component={DiscoveryTab} options={{}} /> */}
       <Tab.Screen name="Home" component={HomeTab} />
+      <Tab.Screen name="Categories" component={AboutUsScreen} />
+      <Tab.Screen name="Shoppingbag" component={ShoppingScreen} />
+      <Tab.Screen name="Carrt" component={CartScreen} />
       <Tab.Screen name="Me" component={UserTab} />
+      {/* <Tab.Screen name="Me" component={UserTab} /> */}
       {/* <Tab.Screen name="Me" component={Me} /> */}
     </Tab.Navigator>
   );

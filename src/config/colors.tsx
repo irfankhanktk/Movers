@@ -7,7 +7,7 @@ export const colors = {
   primary: '#D31E1E', //'#2962ff', //'#20D994', //'#5586FF,'
   lightGray: '#FFFFFFB2',
   placeholder: '#707070',
-  border: '#E8E8E8',
+  border: '#DBDBDB',
   black: '#000000',
   // black: '#706561',
   red: '#ff0707',

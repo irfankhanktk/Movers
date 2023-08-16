@@ -30,12 +30,13 @@ import {Row} from 'components/atoms/row';
 import {FacBookIcon, GoogleIcon} from 'assets/icons';
 import {Checkbox} from 'components/atoms/checkbox';
 import {DatePicker} from 'components/atoms/date-picker';
+import SignUpModal from 'components/molecules/modals/SignUp-modal';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
 const SignupNext = (props: props) => {
-  const [otpModalVisible, setOtpModalVisible] = React.useState(false);
+  const [otpModalVisible, setOtpModalVisible] = React.useState(true);
   const [value, setValue] = React.useState('');
   const [selectedGender, setSelectedGender] = React.useState('');
 
@@ -107,7 +108,8 @@ const SignupNext = (props: props) => {
           position: 'absolute',
         }}
       />
-      <View style={{alignSelf: 'center', marginTop: mvs(20)}}>
+      <Header1x2x />
+      <View style={{alignSelf: 'center'}}>
         <Image
           source={IMG.LoginLogo}
           resizeMode={'contain'}
@@ -115,7 +117,12 @@ const SignupNext = (props: props) => {
         />
       </View>
       <View style={styles.contentContainerStyle}>
-        <ScrollView>
+        <KeyboardAvoidScrollview
+          contentContainerStyle={{
+            paddingHorizontal: mvs(0),
+            flexGrow: 0,
+            paddingBottom: mvs(150),
+          }}>
           <View style={styles.contentContainerStyleNew}>
             <Bold
               label={t('signup_to_movers')}
@@ -124,19 +131,7 @@ const SignupNext = (props: props) => {
               style={{marginTop: mvs(10), marginBottom: mvs(20)}}
             />
             {/* <KeyboardAvoidScrollview> */}
-            <PrimaryInput
-              keyboardType={'email-address'}
-              error={
-                touched?.first_name && errors?.first_name
-                  ? `${t(errors?.first_name)}`
-                  : undefined
-              }
-              // label={t('email')}
-              placeholder={t('first_name')}
-              onChangeText={str => setFieldValue('first_name', str)}
-              onBlur={() => setFieldTouched('first_name', true)}
-              value={values.first_name}
-            />
+
             <PrimaryInput
               keyboardType={'email-address'}
               error={
@@ -228,7 +223,15 @@ const SignupNext = (props: props) => {
 
             {/* </KeyboardAvoidScrollview> */}
           </View>
-        </ScrollView>
+          <SignUpModal
+            // email={values?.email}
+            onClose={() => setOtpModalVisible(false)}
+            visible={otpModalVisible}
+            setValue={setValue}
+            value={value}
+            {...props}
+          />
+        </KeyboardAvoidScrollview>
       </View>
       {/* <KeyboardAvoidScrollview
         contentContainerStyle={styles.contentContainerStyle}>
@@ -437,14 +440,7 @@ const SignupNext = (props: props) => {
           }}
           containerStyle={styles.button}
         />
-        <OtpModalRenewPassword
-          email={values?.email}
-          onClose={() => setOtpModalVisible(false)}
-          visible={otpModalVisible}
-          setValue={setValue}
-          value={value}
-          {...props}
-        />
+      
       </KeyboardAvoidScrollview> */}
     </View>
   );

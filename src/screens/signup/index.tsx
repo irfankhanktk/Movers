@@ -102,7 +102,6 @@ const Signup = (props: props) => {
 
   return (
     <View style={styles.container}>
-      {/* <Header1x2x title={t('signup')} /> */}
       <Image
         source={IMG.LogoBackground}
         style={{
@@ -111,7 +110,8 @@ const Signup = (props: props) => {
           position: 'absolute',
         }}
       />
-      <View style={{alignSelf: 'center', marginTop: mvs(20)}}>
+      <Header1x2x />
+      <View style={{alignSelf: 'center'}}>
         <Image
           source={IMG.LoginLogo}
           resizeMode={'contain'}
@@ -119,7 +119,12 @@ const Signup = (props: props) => {
         />
       </View>
       <View style={styles.contentContainerStyle}>
-        <ScrollView>
+        <KeyboardAvoidScrollview
+          contentContainerStyle={{
+            paddingHorizontal: mvs(0),
+            flexGrow: 0,
+            paddingBottom: mvs(200),
+          }}>
           <View style={styles.contentContainerStyleNew}>
             <Bold
               label={t('signup_to_movers')}
@@ -235,6 +240,32 @@ const Signup = (props: props) => {
               value={values.email}
             />
             <PrimaryInput
+              keyboardType={'email-address'}
+              error={
+                touched?.password && errors?.password
+                  ? `${t(errors?.password)}`
+                  : undefined
+              }
+              // label={t('email')}
+              placeholder={t('password')}
+              onChangeText={str => setFieldValue('password', str)}
+              onBlur={() => setFieldTouched('password', true)}
+              value={values.password}
+            />
+            <PrimaryInput
+              keyboardType={'email-address'}
+              error={
+                touched?.confirm_password && errors?.confirm_password
+                  ? `${t(errors?.confirm_password)}`
+                  : undefined
+              }
+              // label={t('email')}
+              placeholder={t('confirm_password')}
+              onChangeText={str => setFieldValue('confirm_password', str)}
+              onBlur={() => setFieldTouched('confirm_password', true)}
+              value={values.confirm_password}
+            />
+            <PrimaryInput
               keyboardType={'number-pad'}
               error={
                 touched?.phone && errors?.phone
@@ -281,7 +312,7 @@ const Signup = (props: props) => {
 
             {/* </KeyboardAvoidScrollview> */}
           </View>
-        </ScrollView>
+        </KeyboardAvoidScrollview>
       </View>
       {/* <KeyboardAvoidScrollview
         contentContainerStyle={styles.contentContainerStyle}>

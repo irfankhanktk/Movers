@@ -26,10 +26,17 @@ import {signinFormValidation} from 'validations';
 import styles from './styles';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
-import {Clock, FacBookIcon, GoogleIcon, LoginAnimation} from 'assets/icons';
+import {
+  Clock,
+  FacBookIcon,
+  ForgotPasswordAnimation,
+  GoogleIcon,
+  LoginAnimation,
+} from 'assets/icons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-const LoginScreen = props => {
+import Header1x2x from 'components/atoms/headers/header-1x-2x';
+const ForgotPasswordScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
@@ -63,7 +70,6 @@ const LoginScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <Header1x2x title={t('login')} /> */}
       {/* <View style={styles.container}> */}
       <Image
         source={IMG.LogoBackground}
@@ -73,7 +79,8 @@ const LoginScreen = props => {
           position: 'absolute',
         }}
       />
-      <View style={{alignSelf: 'center', marginTop: mvs(20)}}>
+      <Header1x2x />
+      <View style={{alignSelf: 'center'}}>
         <Image
           source={IMG.LoginLogo}
           resizeMode={'contain'}
@@ -92,14 +99,14 @@ const LoginScreen = props => {
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               {/* <Bold label={t('login')} style={styles.txt} /> */}
               <LottieView
-                source={LoginAnimation}
+                source={ForgotPasswordAnimation}
                 autoPlay={true}
                 loop={true}
                 style={{width: mvs(100), height: mvs(100)}}
               />
             </View>
             <Bold
-              label={t('login_to_movers')}
+              label={t('forgot_password')}
               color={colors.bluecolor}
               fontSize={mvs(16)}
               style={{marginTop: mvs(10), marginBottom: mvs(20)}}
@@ -118,93 +125,19 @@ const LoginScreen = props => {
               onBlur={() => setFieldTouched('email', true)}
               value={values.email}
             />
-            <PrimaryInput
-              isPassword
-              error={
-                touched?.password && errors?.password
-                  ? `${t(errors?.password)}`
-                  : undefined
-              }
-              placeholder={t('password')}
-              // label={t('password')}
-              onChangeText={str => setFieldValue('password', str)}
-              onBlur={() => setFieldTouched('password', true)}
-              value={values.password}
-              containerStyle={{marginBottom: 0}}
-              errorStyle={{marginBottom: 0}}
-            />
-            <TouchableOpacity
-              style={{alignSelf: 'flex-end', marginBottom: mvs(15)}}
-              onPress={() => navigate('ForgotPasswordScreen')}>
-              <Medium
-                label={t('forgot_password?')}
-                style={{textDecorationLine: 'underline'}}
-                color={colors.bluecolor}
-              />
-            </TouchableOpacity>
-            <PrimaryButton
-              containerStyle={{
-                borderRadius: mvs(10),
-              }}
-              loading={loading}
-              onPress={onSubmit}
-              title={t('login')}
-            />
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: mvs(20),
-              }}>
-              <Medium label={t('or_create_a_new_account')} />
-            </View>
 
             <PrimaryButton
               containerStyle={{
-                backgroundColor: colors.bluecolor,
-                marginTop: mvs(20),
                 borderRadius: mvs(10),
               }}
               loading={loading}
-              onPress={() => navigate('Signup')}
-              title={t('sign_up')}
+              onPress={() => navigate('ResetPasswordScreen')}
+              title={t('send')}
             />
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: mvs(20),
-              }}>
-              <Medium label={t('login_with')} />
-            </View>
-            <Row style={{marginTop: mvs(10)}}>
-              <TouchableOpacity style={styles.googlebutton}>
-                <Row style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <GoogleIcon height={mvs(20)} width={mvs(20)} />
-                  <Medium label={t('google')} style={{marginLeft: mvs(10)}} />
-                </Row>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.googlebutton}>
-                <Row style={{justifyContent: 'center', alignItems: 'center'}}>
-                  <FacBookIcon height={mvs(20)} width={mvs(20)} />
-                  <Medium label={t('facebook')} style={{marginLeft: mvs(10)}} />
-                </Row>
-              </TouchableOpacity>
-            </Row>
-            <OtpModal
-              onClose={() => setOtpModalVisible(false)}
-              visible={otpModalVisible}
-              setValue={setValue}
-              value={value}
-            />
-            {/* </KeyboardAvoidScrollview> */}
           </View>
         </KeyboardAvoidScrollview>
       </View>
-
-      {/* <View style={styles.button}>
-        </View> */}
-      {/* </Image> */}
-      {/* </View> */}
     </View>
   );
 };
-export default LoginScreen;
+export default ForgotPasswordScreen;

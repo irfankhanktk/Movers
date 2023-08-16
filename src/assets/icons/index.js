@@ -16,3 +16,8 @@ export {default as FacBookIcon} from './facebook.svg';
 
 // Lottie Files
 export {default as LoginAnimation} from './Login.json';
+export {default as ForgotPasswordAnimation} from './ForgotPassword.json';
+export {default as ResetYourPasswordAnimation} from './ResetYourPassword.json';
+export {default as PasswordChangedAnimation} from './PasswordChanged.json';
+export {default as OTPAnimation} from './OTP.json';
+export {default as CheckmarkAnimation} from './Checkmark.json';

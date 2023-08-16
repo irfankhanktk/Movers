@@ -10,11 +10,10 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     // flexGrow: 1,
     // paddingTop: '50%',
-    // borderWidth: 1,
-    // paddingBottom: mvs(200),
     paddingHorizontal: mvs(20),
   },
-  txt: {marginBottom: mvs(10), fontSize: mvs(20)},
+  txt: {marginBottom: mvs(10), fontSize: mvs(20), color: colors.bluecolor},
+  txt2: {marginBottom: mvs(10), fontSize: mvs(20), color: colors.primary},
   button: {
     width: '100%',
     paddingHorizontal: mvs(20),
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
     marginVertical: mvs(10),
     paddingVertical: mvs(20),
     backgroundColor: colors.white,
-
     justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: {

@@ -16,24 +16,48 @@ const CustomDrawerContent = props => {
     <View style={styles.drawerContainer}>
       <View style={styles.header}>
         <Image
-          source={IMG.drawerUserIcon}
+          source={IMG.DrawerLogo}
           style={{
-            width: mvs(100),
-            height: mvs(100),
-            resizeMode: 'cover',
-            borderRadius: mvs(50),
+            width: mvs(200),
+            // height: mvs(100),
+            resizeMode: 'contain',
+            // borderRadius: mvs(50),
           }}
         />
+        <View
+          style={{
+            height: mvs(100),
+            width: mvs(100),
+            borderRadius: mvs(50),
+            borderWidth: mvs(3),
+            borderColor: colors.primary,
+            backgroundColor: colors.transparent,
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+          }}>
+          <Image
+            source={IMG.Drawerman}
+            style={{
+              height: '100%',
+              width: '100%',
+              borderRadius: mvs(50),
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+          />
+        </View>
         <Medium
           label={'Ali Abdullah'}
           fontSize={mvs(18)}
-          color={colors.white}
+          color={colors.black}
           style={{marginTop: mvs(6)}}
         />
         <Medium
           label={'ali1234@gmail.com'}
           fontSize={mvs(14)}
-          color={colors.white}
+          color={colors.black}
           style={{marginTop: mvs(6)}}
         />
       </View>
@@ -41,76 +65,58 @@ const CustomDrawerContent = props => {
         style={{
           flexGrow: 1,
           paddingVertical: mvs(10),
+          borderBottomWidth: 1,
+          borderBottomColor: colors.border,
         }}>
-        <View style={styles.needHelpContainer}>
-          <DrawerHomeCard
-            onPress={() => navigate('Home')}
-            icon1={IMG.drawerHomeIcon}
-            label1={t('home')}
-            // br={8}
-            containerStyle={styles.helpStyle}
-          />
-          <DrawerHomeCard
-            onPress={() => navigate('OurServicesScreen')}
-            icon1={IMG.drawerOurServicesIcon}
-            label1={t('our_services')}
-            br={8}
-            containerStyle={styles.helpStyle}
-          />
-        </View>
-
-        <View style={styles.needHelpContainer}>
-          <DrawerHomeCard
-            onPress={() => navigate('AboutUsScreen')}
-            icon1={IMG.drawerAboutIcon}
-            label1={t('about_us')}
-            // br={8}
-            containerStyle={styles.helpStyle}
-          />
-          <DrawerHomeCard
-            onPress={() => navigate('BlogScreen')}
-            icon1={IMG.drawerBlogIcon}
-            label1={t('blog')}
-            containerStyle={styles.helpStyle}
-          />
-          <DrawerHomeCard
-            onPress={() => navigate('DriverSignup')}
-            icon1={IMG.drawerDrivwWithUsIcon}
-            label1={t('drive_with_us')}
-            containerStyle={styles.helpStyle}
-          />
-          <DrawerHomeCard
-            onPress={() => navigate('AdviceFromUsScreen')}
-            icon1={IMG.drawerAdviceFromUsIcon}
-            label1={t('advice_from_us')}
-            containerStyle={styles.helpStyle}
-          />
-          <DrawerHomeCard
-            onPress={() => navigate('ContactUsScreen')}
-            icon1={IMG.drawerContactUsIcon}
-            label1={t('contact_us')}
-            containerStyle={styles.helpStyle}
-          />
-        </View>
-        <View style={styles.needHelpContainer}>
-          <DrawerHomeCard
-            onPress={() => navigate('DriverLoginScreen')}
-            icon1={IMG.drawerDriverLoginIcon}
-            label1={t('driver_login')}
-            br={8}
-            containerStyle={styles.helpStyle}
-          />
-        </View>
-      </ScrollView>
-      <View style={styles.needHelpContainer}>
+        {/* <View style={styles.needHelpContainer}> */}
         <DrawerHomeCard
-          onPress={() => props?.navigation?.toggleDrawer()}
-          icon1={IMG.drawerLogoutIcon}
-          label1={t('logout')}
+          onPress={() => navigate('Me')}
+          icon1={IMG.userDarwer}
+          label1={t('my_profile')}
+          // br={8}
+          containerStyle={styles.helpStyle}
+        />
+        <DrawerHomeCard
+          onPress={() => navigate('OurServicesScreen')}
+          icon1={IMG.manageVehicleDrawer}
+          label1={t('manage_vehicle')}
           br={8}
           containerStyle={styles.helpStyle}
         />
-      </View>
+        {/* </View> */}
+
+        {/* <View style={styles.needHelpContainer}> */}
+        <DrawerHomeCard
+          onPress={() => navigate('AboutUsScreen')}
+          icon1={IMG.documentDrawer}
+          label1={t('documents')}
+          // br={8}
+          containerStyle={styles.helpStyle}
+        />
+        <DrawerHomeCard
+          onPress={() => navigate('BlogScreen')}
+          icon1={IMG.historyDarwer}
+          label1={t('history')}
+          containerStyle={styles.helpStyle}
+        />
+        <DrawerHomeCard
+          onPress={() => navigate('DriverSignup')}
+          icon1={IMG.settings}
+          label1={t('setting')}
+          containerStyle={styles.helpStyle}
+        />
+
+        {/* </View> */}
+      </ScrollView>
+      {/* <View style={styles.needHelpContainer}> */}
+      <DrawerHomeCard
+        onPress={() => props?.navigation?.toggleDrawer()}
+        icon1={IMG.drawerLogoutIcon}
+        label1={t('logout')}
+        br={8}
+        containerStyle={styles.helpStyle}
+      />
+      {/* </View> */}
     </View>
   );
 };
@@ -118,15 +124,17 @@ export default CustomDrawerContent;
 const styles = StyleSheet.create({
   drawerContainer: {
     flex: 1,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
   },
   header: {
-    height: mvs(180),
+    height: mvs(260),
     width: width - 60,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    borderBottomWidth: mvs(1),
+    borderColor: colors.border,
+    // backgroundColor: colors.primary,
   },
   needHelpContainer: {
     backgroundColor: colors.white,
