@@ -13,7 +13,7 @@ import Regular from 'typography/regular-text';
 import styles from './styles';
 import {EmptyList} from 'components/atoms/empty-list';
 import CustomFlatList from 'components/atoms/custom-flatlist';
-import {PrimaryButton} from 'components/atoms/buttons';
+import {PlusButton, PrimaryButton} from 'components/atoms/buttons';
 import MyOrderCard from 'components/molecules/my-order-card';
 import {ORDER_LIST} from 'config/constants';
 
@@ -105,6 +105,7 @@ const MyOrderScreen = props => {
           />
         )}
       </View>
+      <PlusButton />
     </View>
   );
 };
