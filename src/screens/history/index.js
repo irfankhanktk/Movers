@@ -133,7 +133,7 @@ const HistoryScreen = props => {
               />
 
               <Regular
-                label={'latest_delivery'}
+                label={t('latest_delivery')}
                 color={colors.white}
                 fontSize={mvs(12)}
                 style={{paddingHorizontal: mvs(14)}}

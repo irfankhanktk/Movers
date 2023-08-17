@@ -278,26 +278,36 @@ const Signup = (props: props) => {
               onBlur={() => setFieldTouched('phone', true)}
               value={values.phone}
             />
-            <Row style={{marginBottom: mvs(10), alignItems: 'center'}}>
+            <Row style={{marginBottom: mvs(10)}}>
               <Checkbox checked />
 
               <Medium
                 fontSize={mvs(10)}
                 label={t('i_agree to the,')}
                 numberOfLines={2}
-              />
-
-              <Medium
-                numberOfLines={2}
-                fontSize={mvs(10)}
-                label={t('terms_and_conditions')}
-                color={colors.bluecolor}>
+                style={{
+                  flex: 1,
+                  paddingHorizontal: mvs(8),
+                  textAlign: 'center',
+                }}>
+                {/* <TouchableOpacity onPress={()=>navigate("TermsandConditionsScreen")}> */}
                 <Medium
+                  onPress={() => navigate('TermsandConditionsScreen')}
                   numberOfLines={2}
                   fontSize={mvs(10)}
-                  label={t('return_policy & private_policy')}
-                  color={colors.bluecolor}
-                />
+                  label={t('terms_and_conditions')}
+                  color={colors.bluecolor}>
+                  {/* </TouchableOpacity> */}
+                  {/* <TouchableOpacity> */}
+                  <Medium
+                    onPress={() => navigate('PrivacyPolicyScreen')}
+                    numberOfLines={2}
+                    fontSize={mvs(10)}
+                    label={t('return_policy & private_policy')}
+                    color={colors.bluecolor}
+                  />
+                  {/* </TouchableOpacity> */}
+                </Medium>
               </Medium>
             </Row>
 

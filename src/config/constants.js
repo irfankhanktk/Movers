@@ -82,6 +82,7 @@ export const SERVICE_LIST = [
   {
     icon: IMG.HomeVehicleTool,
     title: 'Manage Vehicle',
+    screenName: 'ManageVehicleScreen',
   },
 
   {
@@ -92,6 +93,24 @@ export const SERVICE_LIST = [
   {
     icon: IMG.HomeeraningTool,
     title: 'Total Earning',
+  },
+];
+export const MANAGE_CAR_LIST = [
+  {
+    icon: IMG.truckvehicle,
+    title: 'Semi Figures',
+    desc: 'Loading Boxes',
+  },
+  {
+    icon: IMG.hondablackvehicle,
+    title: 'Honda NSX',
+    desc: 'The New Hybrid Super Car',
+  },
+
+  {
+    icon: IMG.hondavechile,
+    title: 'Honda NSX',
+    desc: 'The New Hybrid Super Car',
   },
 ];
 export const ORDER_DETAILS_LIST = {

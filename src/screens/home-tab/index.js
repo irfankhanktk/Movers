@@ -39,7 +39,10 @@ const HomeTab = props => {
         source={IMG.HomeBackground2}
         resizeMode="stretch"
         style={{width: '100%', height: '100%'}}>
-        <Header1x2x back={false} />
+        <Header1x2x
+          back={false}
+          style={{backgroundColor: colors.transparent}}
+        />
         <Medium
           label={'Hi Ali Abdullah'}
           fontSize={mvs(20)}

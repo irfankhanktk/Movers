@@ -33,6 +33,10 @@ import CartScreen from 'screens/cart';
 import MyOrderScreen from 'screens/my-order';
 import OrderDetailsScreen from 'screens/order-details';
 import HistoryScreen from 'screens/history';
+import ManageVehicleScreen from 'screens/manage-vehicles';
+import AddVehicleScreen from 'screens/add-vehicle';
+import TermsandConditionsScreen from 'screens/terms-and-conditions';
+import PrivacyPolicyScreen from 'screens/privacy-policy';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -70,6 +74,19 @@ export const RootNavigator = () => {
             component={OurServicesScreen}
           />
           <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
+          <Stack.Screen
+            name="TermsandConditionsScreen"
+            component={TermsandConditionsScreen}
+          />
+          <Stack.Screen
+            name="PrivacyPolicyScreen"
+            component={PrivacyPolicyScreen}
+          />
+          <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
+          <Stack.Screen
+            name="ManageVehicleScreen"
+            component={ManageVehicleScreen}
+          />
           <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
           <Stack.Screen
             name="OrderDetailsScreen"

@@ -50,3 +50,7 @@ export {default as HomehistoryTool} from './HomehistoryTool.png';
 export {default as HomeVehicleTool} from './HomeVehicleTool.png';
 export {default as historyCart} from './historyCart.png';
 export {default as historyearning} from './historyearning.png';
+export {default as truckvehicle} from './truckvehicle.png';
+export {default as hondablackvehicle} from './hondablackvehicle.png';
+export {default as hondavechile} from './hondavechile.png';
+export {default as addvehcilebackground} from './addvehcilebackground.png';

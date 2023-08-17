@@ -29,6 +29,7 @@
   "phone":"Phone",
   "i_agree to the,":" I agree to the,",
   "terms_and_conditions":" Terms and Conditions,",
+  "terms_&_conditions":" Terms and Conditions",
   "return_policy & private_policy":" Return Policy & Private Policy",
   "confirm_password":"Confirm Password",
   "cnic/passport_no":"CNIC/ Passport No.",
@@ -77,8 +78,17 @@
   "reject":"Reject",
   "total_earnings":"Total Earnings",
   "completed_order":"Completed Order",
-  "latest_delievry":"Latest Delievry",
-  "recent_order":"Recent Orders"
+  "latest_delivery":"Latest Delievry",
+  "recent_orders":"Recent Orders",
+  "add_vehicle":"Add Vehicles",
+  "vehicle_name":"Vehicle Name",
+  "vehcile_no":"Vehicle Number",
+  "vehcile_registration":"Vehicle Registration",
+  "vehcile_engine_no":"vehicle Engine Number",
+  "save":"Save",
+  "vehicle_details":"Vehicles Details",
+  "back":"Back"
+ 
 
 
 

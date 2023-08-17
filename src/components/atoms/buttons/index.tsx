@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   plusText: {
     color: colors.white,
-    fontSize: mvs(25),
+    fontSize: mvs(35),
     alignSelf: 'center',
   },
   primaryContainer: {
