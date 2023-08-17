@@ -15,6 +15,7 @@ export const KeyboardAvoidScrollview = (props: props) => {
   } = props;
   return (
     <KeyboardAwareScrollView
+      showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps={keyboardShouldPersistTaps}
       contentContainerStyle={[
         styles.contentContainerStyle,
