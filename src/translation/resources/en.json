@@ -71,7 +71,15 @@
   "service_type":"Service Type:",
   "accept":"Accept",
   "rejected":"Rejected",
-  "details":"Details"
+  "details":"Details",
+  "order_details":"Order Details",
+  "item_details":"Item Details",
+  "reject":"Reject",
+  "total_earnings":"Total Earnings",
+  "completed_order":"Completed Order",
+  "latest_delievry":"Latest Delievry",
+  "recent_order":"Recent Orders"
+
 
 
  

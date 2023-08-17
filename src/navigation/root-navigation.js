@@ -31,6 +31,8 @@ import CategoriesScreen from 'screens/categories';
 import ShoppingScreen from 'screens/shopping';
 import CartScreen from 'screens/cart';
 import MyOrderScreen from 'screens/my-order';
+import OrderDetailsScreen from 'screens/order-details';
+import HistoryScreen from 'screens/history';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -68,6 +70,11 @@ export const RootNavigator = () => {
             component={OurServicesScreen}
           />
           <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
+          <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
+          <Stack.Screen
+            name="OrderDetailsScreen"
+            component={OrderDetailsScreen}
+          />
           <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} />
           <Stack.Screen name="CartScreen" component={CartScreen} />
           <Stack.Screen

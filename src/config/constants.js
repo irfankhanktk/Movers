@@ -87,12 +87,22 @@ export const SERVICE_LIST = [
   {
     icon: IMG.HomehistoryTool,
     title: 'History',
+    screenName: 'HistoryScreen',
   },
   {
     icon: IMG.HomeeraningTool,
     title: 'Total Earning',
   },
 ];
+export const ORDER_DETAILS_LIST = {
+  Order_no: '123',
+  date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+  name: 'Ali Abdullah',
+  delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+  pickup_location: 'Pickup Location',
+  service_type: 'Service Type',
+};
+
 export const ORDER_LIST = [
   {
     Order_no: '123',
@@ -126,6 +136,75 @@ export const ORDER_LIST = [
     delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
     pickup_location: 'Pickup Location',
     service_type: 'SERVICE TYPE',
+  },
+];
+export const RECENT_ORDER_LIST = [
+  {
+    Order_no: '123',
+    status: 'Delieverd',
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location:
+      'Pickup Location paddingVertical: mvs(8)paddingVertical: mvs(8)',
+    service_type: 'SERVICE TYPE',
+  },
+  {
+    Order_no: '123',
+    status: 'Delieverd',
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location: 'Pickup Location',
+    service_type: 'SERVICE TYPE',
+  },
+  {
+    Order_no: '123',
+    status: 'Delieverd',
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location: 'Pickup Location',
+    service_type: 'SERVICE TYPE',
+  },
+  {
+    Order_no: '123',
+    status: 'Delieverd',
+    name: 'Ali Abdullah',
+    delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
+    pickup_location: 'Pickup Location',
+    service_type: 'SERVICE TYPE',
+  },
+];
+export const ITEM_DETAILS_LIST = [
+  {
+    item_name: 'SMART TV (Less than 30 inch, SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
+  },
+  {
+    item_name: 'SMART TV (Less than 30 inch',
+    quantity: '1',
   },
 ];
 export const ABOUT_US_LIST = [

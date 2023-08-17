@@ -48,3 +48,5 @@ export {default as HomeCartTool} from './HomeCartTool.png';
 export {default as HomeeraningTool} from './HomeeraningTool.png';
 export {default as HomehistoryTool} from './HomehistoryTool.png';
 export {default as HomeVehicleTool} from './HomeVehicleTool.png';
+export {default as historyCart} from './historyCart.png';
+export {default as historyearning} from './historyearning.png';

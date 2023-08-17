@@ -31,7 +31,12 @@ const MyOrderScreen = props => {
   };
 
   useEffect(() => {}, []);
-  const renderAppointmentItem = ({item, index}) => <MyOrderCard item={item} />;
+  const renderAppointmentItem = ({item, index}) => (
+    <MyOrderCard
+      item={item}
+      onPressDetails={() => props?.navigation?.navigate('OrderDetailsScreen')}
+    />
+  );
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };

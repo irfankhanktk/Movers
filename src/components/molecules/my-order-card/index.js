@@ -75,7 +75,7 @@ const MyOrderCard = ({
             label={t('Name')}
             fontSize={mvs(12)}
             color={colors.black}
-            style={{width: mvs(100)}}
+            style={{width: mvs(110)}}
           />
           <Medium
             label={`${item?.name}`}
@@ -86,7 +86,7 @@ const MyOrderCard = ({
         </Row>
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
           <Medium
-            style={{width: mvs(100)}}
+            style={{width: mvs(110)}}
             label={t('delivery_time')}
             fontSize={mvs(12)}
             color={colors.black}
@@ -104,7 +104,7 @@ const MyOrderCard = ({
             label={t('pickup_location')}
             fontSize={mvs(12)}
             color={colors.black}
-            style={{width: mvs(100)}}
+            style={{width: mvs(110)}}
           />
           <Medium
             label={`${item?.pickup_location}`}
@@ -118,7 +118,7 @@ const MyOrderCard = ({
             label={t('service_type')}
             fontSize={mvs(12)}
             color={colors.black}
-            style={{width: mvs(100)}}
+            style={{width: mvs(110)}}
           />
           <Medium
             label={`${item?.service_type}`}
