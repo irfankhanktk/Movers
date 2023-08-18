@@ -87,7 +87,7 @@ const CustomDrawerContent = props => {
 
         {/* <View style={styles.needHelpContainer}> */}
         <DrawerHomeCard
-          onPress={() => navigate('AboutUsScreen')}
+          onPress={() => navigate('UploadDocumentsScreen')}
           icon1={IMG.documentDrawer}
           label1={t('documents')}
           // br={8}

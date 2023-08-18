@@ -37,6 +37,14 @@ import ManageVehicleScreen from 'screens/manage-vehicles';
 import AddVehicleScreen from 'screens/add-vehicle';
 import TermsandConditionsScreen from 'screens/terms-and-conditions';
 import PrivacyPolicyScreen from 'screens/privacy-policy';
+import UploadDocumentsScreen from 'screens/upload-documents';
+import CompanyDetailsScreen from 'screens/company-details';
+import LicenseDetailsScreen from 'screens/license-details';
+import MOTDetailsScreen from 'screens/MOT-details';
+import VehicleInsuranceScreen from 'screens/vehicle-insurance';
+import GoodsInTransitScreen from 'screens/goods-in-transit';
+import BankDetailsScreen from 'screens/bank-details';
+import ManageVehicleDocumentScreen from 'screens/manage-vehicle-document';
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -79,6 +87,14 @@ export const RootNavigator = () => {
             component={TermsandConditionsScreen}
           />
           <Stack.Screen
+            name="UploadDocumentsScreen"
+            component={UploadDocumentsScreen}
+          />
+          <Stack.Screen
+            name="CompanyDetailsScreen"
+            component={CompanyDetailsScreen}
+          />
+          <Stack.Screen
             name="PrivacyPolicyScreen"
             component={PrivacyPolicyScreen}
           />
@@ -86,6 +102,27 @@ export const RootNavigator = () => {
           <Stack.Screen
             name="ManageVehicleScreen"
             component={ManageVehicleScreen}
+          />
+          <Stack.Screen name="MOTDetailsScreen" component={MOTDetailsScreen} />
+          <Stack.Screen
+            name="VehicleInsuranceScreen"
+            component={VehicleInsuranceScreen}
+          />
+          <Stack.Screen
+            name="LicenseDetailsScreen"
+            component={LicenseDetailsScreen}
+          />
+          <Stack.Screen
+            name="ManageVehicleDocumentScreen"
+            component={ManageVehicleDocumentScreen}
+          />
+          <Stack.Screen
+            name="BankDetailsScreen"
+            component={BankDetailsScreen}
+          />
+          <Stack.Screen
+            name="GoodsInTransitScreen"
+            component={GoodsInTransitScreen}
           />
           <Stack.Screen name="HistoryScreen" component={HistoryScreen} />
           <Stack.Screen

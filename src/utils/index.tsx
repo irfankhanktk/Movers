@@ -14,8 +14,27 @@ import ImagePicker from 'react-native-image-crop-picker';
 import uuid from 'react-native-uuid';
 import {NavigationProps} from '../types/navigation-types';
 import Geocoder from 'react-native-geocoding';
+
+import DocumentPicker from 'react-native-document-picker';
+
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
+export const pickDocument = async () => {
+  try {
+    const result = await DocumentPicker.pick({
+      copyTo: 'cachesDirectory',
+      type: [DocumentPicker.types.allFiles],
+    });
+    return result;
+  } catch (err) {
+    if (DocumentPicker.isCancel(err)) {
+      console.log('User cancelled the picker');
+    } else {
+      console.log('Error:', err);
+    }
+    throw err;
+  }
+};
 // Initialize the module (needs to be done only once)
 const getErrorList = (data: any) => {
   const {message, errors} = data;

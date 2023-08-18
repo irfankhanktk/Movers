@@ -87,7 +87,37 @@
   "vehcile_engine_no":"vehicle Engine Number",
   "save":"Save",
   "vehicle_details":"Vehicles Details",
-  "back":"Back"
+  "back":"Back",
+  "upload_documents":"Upload Documents",
+  "we_need_to_see_your_clearly_printed_on_an_official_document":"We Need To See Your Clearly Printed On An Official Document",
+  "add_file":"Add File",
+  "company_details":"Company Details",
+  "license_details":"License Details",
+  "MOT":"MOT",
+  "vehicle_insurance":"Vehicle Insurance",
+  "goods_in_transit":"Goods In Transit",
+  "bank_details":"Bank Details",
+  "legal_identity":"Legal Identity",
+  "compnay_registration":"Company Registraion #",
+  "vat_registration":"VAT Registration #",
+  "register_now":"Register Now",
+  "driving_license_no":"Driving License Number",
+  "license_issue_date":"License Isuue Date",
+  "license_expiry_date":"License Expiry Date",
+  "add_license_photo":"Add License Photo",
+  "add_mot_photo":"Add MOT Photo",
+  "mot_issue_date":"MOT Issue Date",
+  "mot_expiry_date":"MOT Expiry Date",
+  "add_vehicle_insurance_photo":"Add Vehcile Insurance Photo",
+  "insurance_company":"Insurance Company",
+  "valid_from":"Valid From",
+  "expiry_date":"Expiry Date",
+  "name":"Name",
+  "bank_name":"Bank Name",
+  "account_title":"Account title",
+  "sort_code":"Sort Code",
+  "account_number":"Account Number"
+  
  
 
 

@@ -14,6 +14,7 @@ export {default as RenewLogo} from './renew-logo.svg';
 export {default as GoogleIcon} from './google.svg';
 export {default as FacBookIcon} from './facebook.svg';
 export {default as HoemSVG} from './homearrow.svg';
+export {default as FileSVG} from './file.svg';
 
 // Lottie Files
 export {default as LoginAnimation} from './Login.json';
@@ -22,3 +23,4 @@ export {default as ResetYourPasswordAnimation} from './ResetYourPassword.json';
 export {default as PasswordChangedAnimation} from './PasswordChanged.json';
 export {default as OTPAnimation} from './OTP.json';
 export {default as CheckmarkAnimation} from './Checkmark.json';
+export {default as UploadDocumentsAnimation} from './UploadDocuments.json';

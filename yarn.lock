@@ -6725,6 +6725,13 @@ react-native-curved-bottom-tabbar@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-native-curved-bottom-tabbar/-/react-native-curved-bottom-tabbar-0.0.6.tgz#92b47d0df2624abbf0fe3002240287d248492d90"
   integrity sha512-etEvLvIY2XFnKCPQWJAijjXvzfa9WtaJ6rtua8Wgo40t8hmP4G634IOE/eBHx4t2RICi/JF8gDXMzMVRU09kTg==
 
+react-native-document-picker@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-9.0.1.tgz#a5ceec157f84dbadb85fe717c657569755f4c6ca"
+  integrity sha512-l2c2xChwsdjzZIV9QJc85buC3vXkM5ZuY4943yMDj3TiszJp1spmHNaRMZKYIh3yVwdD2jENm0DBU5AWa+jhLg==
+  dependencies:
+    invariant "^2.2.4"
+
 react-native-email-link@^1.14.3:
   version "1.14.6"
   resolved "https://registry.yarnpkg.com/react-native-email-link/-/react-native-email-link-1.14.6.tgz#f681a48a611d50b25a9b01c2154cc186c6e246b8"
