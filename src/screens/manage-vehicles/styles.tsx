@@ -59,5 +59,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: mvs(5),
   },
+  plusbutton: {
+    backgroundColor: colors.black,
+    marginBottom: mvs(40),
+  },
 });
 export default styles;

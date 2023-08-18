@@ -104,15 +104,7 @@ const LicenseDetailsScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <LottieView
@@ -126,35 +118,24 @@ const LicenseDetailsScreen = props => {
       <View style={styles.contentContainerStyle}>
         <View style={styles.contentContainerStyleNew}>
           <KeyboardAvoidScrollview
-            contentContainerStyle={{
-              paddingHorizontal: mvs(0),
-              flexGrow: 0,
-              paddingBottom: mvs(150),
-            }}>
+            contentContainerStyle={styles.keyboardcontentstyle}>
             <View style={{marginHorizontal: mvs(20)}}>
               <Bold
                 label={t('license_details')}
                 color={colors.bluecolor}
                 fontSize={mvs(16)}
-                style={{marginTop: mvs(10), marginBottom: mvs(5)}}
+                style={styles.boldtext}
               />
 
               <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderStyle: 'dashed',
-                  padding: mvs(5),
-                  borderRadius: mvs(5),
-                  borderColor: colors.bluecolor,
-                  paddingVertical: mvs(8),
-                }}
+                style={styles.uploadphotoview}
                 onPress={() => onPressAttachment()}>
                 {saveFile?.uri ? (
                   <Medium
                     label={saveFile?.name}
                     color={colors.primary}
                     fontSize={mvs(14)}
-                    style={{marginLeft: mvs(10), flex: 1, alignSelf: 'center'}}
+                    style={styles.filenametext}
                   />
                 ) : (
                   <Row style={{justifyContent: 'center'}}>
@@ -221,10 +202,7 @@ const LicenseDetailsScreen = props => {
                 </DatePicker>
 
                 <PrimaryButton
-                  containerStyle={{
-                    borderRadius: mvs(10),
-                    marginTop: mvs(20),
-                  }}
+                  containerStyle={styles.resgiterbutton}
                   loading={loading}
                   onPress={() => navigate('ResetPasswordScreen')}
                   title={t('register_now')}

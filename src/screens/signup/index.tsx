@@ -102,14 +102,7 @@ const Signup = (props: props) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.logobackground} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <Image
@@ -120,19 +113,15 @@ const Signup = (props: props) => {
       </View>
       <View style={styles.contentContainerStyle}>
         <KeyboardAvoidScrollview
-          contentContainerStyle={{
-            paddingHorizontal: mvs(0),
-            flexGrow: 0,
-            paddingBottom: mvs(200),
-          }}>
+          contentContainerStyle={styles.keyboardcontentcontainer}>
           <View style={styles.contentContainerStyleNew}>
             <Bold
               label={t('signup_to_movers')}
               color={colors.bluecolor}
               fontSize={mvs(16)}
-              style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+              style={styles.boldtext}
             />
-            {/* <KeyboardAvoidScrollview> */}
+
             <PrimaryInput
               keyboardType={'email-address'}
               error={
@@ -140,7 +129,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.first_name)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('first_name')}
               onChangeText={str => setFieldValue('first_name', str)}
               onBlur={() => setFieldTouched('first_name', true)}
@@ -153,7 +141,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.middle_name)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('middle_name')}
               onChangeText={str => setFieldValue('middle_name', str)}
               onBlur={() => setFieldTouched('middle_name', true)}
@@ -166,7 +153,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.surname)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('surname')}
               onChangeText={str => setFieldValue('surname', str)}
               onBlur={() => setFieldTouched('surname', true)}
@@ -233,7 +219,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.email)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('email')}
               onChangeText={str => setFieldValue('email', str)}
               onBlur={() => setFieldTouched('email', true)}
@@ -246,7 +231,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.password)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('password')}
               onChangeText={str => setFieldValue('password', str)}
               onBlur={() => setFieldTouched('password', true)}
@@ -259,7 +243,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.confirm_password)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('confirm_password')}
               onChangeText={str => setFieldValue('confirm_password', str)}
               onBlur={() => setFieldTouched('confirm_password', true)}
@@ -272,7 +255,6 @@ const Signup = (props: props) => {
                   ? `${t(errors?.phone)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('phone')}
               onChangeText={str => setFieldValue('phone', str)}
               onBlur={() => setFieldTouched('phone', true)}
@@ -285,20 +267,13 @@ const Signup = (props: props) => {
                 fontSize={mvs(10)}
                 label={t('i_agree to the,')}
                 numberOfLines={2}
-                style={{
-                  flex: 1,
-                  paddingHorizontal: mvs(8),
-                  textAlign: 'center',
-                }}>
-                {/* <TouchableOpacity onPress={()=>navigate("TermsandConditionsScreen")}> */}
+                style={styles.IAgreeView}>
                 <Medium
                   onPress={() => navigate('TermsandConditionsScreen')}
                   numberOfLines={2}
                   fontSize={mvs(10)}
                   label={t('terms_and_conditions')}
                   color={colors.bluecolor}>
-                  {/* </TouchableOpacity> */}
-                  {/* <TouchableOpacity> */}
                   <Medium
                     onPress={() => navigate('PrivacyPolicyScreen')}
                     numberOfLines={2}
@@ -306,7 +281,6 @@ const Signup = (props: props) => {
                     label={t('return_policy & private_policy')}
                     color={colors.bluecolor}
                   />
-                  {/* </TouchableOpacity> */}
                 </Medium>
               </Medium>
             </Row>

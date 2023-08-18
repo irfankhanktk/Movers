@@ -75,15 +75,7 @@ const ResetPasswordScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.logobackground} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <Image
@@ -95,16 +87,11 @@ const ResetPasswordScreen = props => {
 
       <View style={styles.contentContainerStyle}>
         <KeyboardAvoidScrollview
-          contentContainerStyle={{
-            paddingHorizontal: mvs(0),
-            flexGrow: 0,
-            paddingBottom: mvs(150),
-          }}>
+          contentContainerStyle={styles.keyboardcontentcontainer}>
           <View style={styles.contentContainerStyleNew}>
             {!isPasswordChanged ? (
               <>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                  {/* <Bold label={t('login')} style={styles.txt} /> */}
+                <View style={styles.lottiview}>
                   <LottieView
                     source={ResetYourPasswordAnimation}
                     autoPlay={true}
@@ -116,9 +103,9 @@ const ResetPasswordScreen = props => {
                   label={t('reset_your_password')}
                   color={colors.bluecolor}
                   fontSize={mvs(16)}
-                  style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+                  style={styles.resetpasswordtext}
                 />
-                {/* <KeyboardAvoidScrollview> */}
+
                 <PrimaryInput
                   isPassword
                   error={
@@ -127,7 +114,6 @@ const ResetPasswordScreen = props => {
                       : undefined
                   }
                   placeholder={t('new_password')}
-                  // label={t('password')}
                   onChangeText={str => setFieldValue('new_password', str)}
                   onBlur={() => setFieldTouched('new_password', true)}
                   value={values.new_password}
@@ -142,7 +128,6 @@ const ResetPasswordScreen = props => {
                       : undefined
                   }
                   placeholder={t('confirm_password')}
-                  // label={t('password')}
                   onChangeText={str => setFieldValue('confirm_password', str)}
                   onBlur={() => setFieldTouched('confirm_password', true)}
                   value={values.confirm_password}

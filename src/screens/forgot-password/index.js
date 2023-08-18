@@ -70,15 +70,7 @@ const ForgotPasswordScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.logobackground} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <Image
@@ -90,14 +82,9 @@ const ForgotPasswordScreen = props => {
 
       <View style={styles.contentContainerStyle}>
         <KeyboardAvoidScrollview
-          contentContainerStyle={{
-            paddingHorizontal: mvs(0),
-            flexGrow: 0,
-            paddingBottom: mvs(150),
-          }}>
+          contentContainerStyle={styles.keyboradscrollcontent}>
           <View style={styles.contentContainerStyleNew}>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              {/* <Bold label={t('login')} style={styles.txt} /> */}
+            <View style={styles.lottiview}>
               <LottieView
                 source={ForgotPasswordAnimation}
                 autoPlay={true}
@@ -109,9 +96,9 @@ const ForgotPasswordScreen = props => {
               label={t('forgot_password')}
               color={colors.bluecolor}
               fontSize={mvs(16)}
-              style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+              style={styles.forgottext}
             />
-            {/* <KeyboardAvoidScrollview> */}
+
             <PrimaryInput
               keyboardType={'email-address'}
               error={
@@ -119,7 +106,6 @@ const ForgotPasswordScreen = props => {
                   ? `${t(errors?.email)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('email')}
               onChangeText={str => setFieldValue('email', str)}
               onBlur={() => setFieldTouched('email', true)}

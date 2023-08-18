@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
 import {colors} from 'config/colors';
-import {height, mvs} from 'config/metrices';
+import {height, mvs, width} from 'config/metrices';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,6 +58,37 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  backgroiundimg: {
+    height: mvs(400),
+    width: width,
+    position: 'absolute',
+  },
+  keyboradconetnt: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 0,
+    paddingBottom: mvs(150),
+  },
+  boldtext: {
+    marginTop: mvs(10),
+    marginBottom: mvs(10),
+  },
+  uploadphotoview: {
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    padding: mvs(5),
+    borderRadius: mvs(5),
+    borderColor: colors.bluecolor,
+    paddingVertical: mvs(8),
+  },
+  uploadedtext: {
+    marginLeft: mvs(10),
+    flex: 1,
+    alignSelf: 'center',
+  },
+  registerbuton: {
+    borderRadius: mvs(10),
+    marginTop: mvs(20),
   },
 });
 export default styles;

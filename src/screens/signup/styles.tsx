@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
 import {colors} from 'config/colors';
-import {mvs} from 'config/metrices';
+import {mvs, width} from 'config/metrices';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,6 +58,32 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  logobackground: {
+    height: mvs(400),
+    width: width,
+    position: 'absolute',
+  },
+  keyboardcontentcontainer: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 0,
+    paddingBottom: mvs(200),
+  },
+  boldtext: {
+    marginTop: mvs(10),
+    marginBottom: mvs(20),
+  },
+  IAgreeView: {
+    flex: 1,
+    paddingHorizontal: mvs(8),
+    textAlign: 'center',
+  },
+  genderbuttoncontainer: {
+    width: mvs(88),
+    height: mvs(39),
+
+    borderColor: colors.bluecolor,
+    borderWidth: 1,
   },
 });
 export default styles;

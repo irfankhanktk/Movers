@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
 import {colors} from 'config/colors';
-import {mvs} from 'config/metrices';
+import {mvs, width} from 'config/metrices';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +57,29 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  backgroundimg: {
+    height: mvs(400),
+    width: width,
+    position: 'absolute',
+  },
+  scrollcontentcontainer: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 1,
+    paddingBottom: mvs(50),
+  },
+  uploadfileview: {
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    padding: mvs(5),
+    borderRadius: mvs(5),
+    borderColor: colors.bluecolor,
+    paddingVertical: mvs(8),
+  },
+  filenametext: {
+    marginLeft: mvs(10),
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 export default styles;

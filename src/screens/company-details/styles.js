@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
 import {colors} from 'config/colors';
-import {height, mvs} from 'config/metrices';
+import {height, mvs, width} from 'config/metrices';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +57,24 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  backgroundimg: {
+    height: mvs(400),
+    width: width,
+    position: 'absolute',
+  },
+  keyboardcontenview: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 0,
+    paddingBottom: mvs(150),
+  },
+  boldtext: {
+    marginTop: mvs(10),
+    marginBottom: mvs(20),
+  },
+  registernowbutton: {
+    borderRadius: mvs(10),
+    marginTop: mvs(20),
   },
 });
 export default styles;

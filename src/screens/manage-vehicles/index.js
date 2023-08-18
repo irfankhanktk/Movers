@@ -75,10 +75,7 @@ const ManageVehicleScreen = props => {
         )}
 
         <PlusButton
-          containerStyle={{
-            backgroundColor: colors.black,
-            marginBottom: mvs(40),
-          }}
+          containerStyle={styles.plusbutton}
           onPress={() => navigate('AddVehicleScreen')}
         />
       </View>

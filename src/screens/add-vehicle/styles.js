@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
 import {colors} from 'config/colors';
-import {mvs} from 'config/metrices';
+import {height, mvs} from 'config/metrices';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +62,28 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  backgroundimg: {
+    height: height,
+    width: '100%',
+    // position: 'absolute',
+  },
+  truckimageview: {
+    alignSelf: 'center',
+    position: 'absolute',
+    top: mvs(140),
+  },
+  keyboardcontentcontainer: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 1,
+    paddingBottom: mvs(250),
+  },
+  boldtext: {
+    marginTop: mvs(10),
+    marginBottom: mvs(20),
+  },
+  savebutton: {
+    borderRadius: mvs(10),
   },
 });
 export default styles;

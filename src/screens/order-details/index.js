@@ -90,21 +90,13 @@ const OrderDetailsScreen = props => {
             />
 
             <PrimaryButton
-              containerStyle={{
-                backgroundColor: colors.acceptcolor,
-                marginTop: mvs(5),
-                borderRadius: mvs(10),
-              }}
+              containerStyle={styles.acceptbutton}
               loading={loading}
               // onPress={() => navigate('Signup')}
               title={t('accept')}
             />
             <PrimaryButton
-              containerStyle={{
-                backgroundColor: colors.white,
-                marginTop: mvs(20),
-                borderRadius: mvs(10),
-              }}
+              containerStyle={styles.rejectbutton}
               // textStyle={colors.primary}
               loading={loading}
               textStyle={{color: colors.primary}}

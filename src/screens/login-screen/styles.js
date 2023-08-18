@@ -1,6 +1,6 @@
 import {Platform, StyleSheet} from 'react-native';
 import {colors} from 'config/colors';
-import {mvs} from 'config/metrices';
+import {mvs, width} from 'config/metrices';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,6 +55,45 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  imagebackground: {
+    height: mvs(400),
+    width: width,
+    position: 'absolute',
+  },
+  loginlogoview: {
+    alignSelf: 'center',
+    marginTop: mvs(20),
+  },
+  lottieview: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  keyboradscrollcontent: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 0,
+    paddingBottom: mvs(150),
+  },
+  loginmoverstext: {
+    marginTop: mvs(10),
+    marginBottom: mvs(20),
+  },
+  forgotpasswordview: {
+    alignSelf: 'flex-end',
+    marginBottom: mvs(15),
+  },
+  createaccountview: {
+    alignSelf: 'center',
+    marginTop: mvs(20),
+  },
+  signupbuttoncontainer: {
+    backgroundColor: colors.bluecolor,
+    marginTop: mvs(20),
+    borderRadius: mvs(10),
+  },
+  googlefacebookview: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default styles;

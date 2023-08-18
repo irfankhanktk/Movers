@@ -46,25 +46,11 @@ const HistoryScreen = props => {
       <Header1x2x title={t('history')} />
       <View style={styles.contentContainerStyle}>
         <Row>
-          <TouchableOpacity
-            style={{
-              width: '45%',
-              height: mvs(162),
-              ...colors.shadow,
-              borderRadius: mvs(6),
-              backgroundColor: colors.primary,
-              justifyContent: 'center',
-              // alignItems: 'center',
-            }}>
+          <TouchableOpacity style={styles.earningtoucbaleview}>
             <Image
               source={IMG.historyearning}
               resizeMode="contain"
-              style={{
-                width: mvs(50),
-                height: mvs(50),
-                alignSelf: 'center',
-                marginTop: mvs(12),
-              }}
+              style={styles.earningimg}
             />
             <View style={{flex: 1}}>
               <Regular
@@ -80,15 +66,7 @@ const HistoryScreen = props => {
                 style={{paddingHorizontal: mvs(14)}}
               />
 
-              <View
-                style={{
-                  backgroundColor: '#C21818',
-                  position: 'absolute',
-                  bottom: 0,
-                  width: '100%',
-                  paddingVertical: mvs(2),
-                  borderRadius: mvs(6),
-                }}>
+              <View style={styles.currencyview}>
                 <Regular
                   label={'USD'}
                   color={colors.white}
@@ -98,25 +76,11 @@ const HistoryScreen = props => {
               </View>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: '45%',
-              height: mvs(162),
-              ...colors.shadow,
-              borderRadius: mvs(6),
-              backgroundColor: colors.bluecolor,
-              justifyContent: 'center',
-              // alignItems: 'center',
-            }}>
+          <TouchableOpacity style={styles.compleetdorderview}>
             <Image
               source={IMG.historyCart}
               resizeMode="contain"
-              style={{
-                width: mvs(50),
-                height: mvs(50),
-                alignSelf: 'center',
-                marginTop: mvs(12),
-              }}
+              style={styles.completedorderimage}
             />
             <View style={{flex: 1}}>
               <Regular

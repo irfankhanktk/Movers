@@ -63,17 +63,8 @@ const LoginScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <Header1x2x title={t('login')} /> */}
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
-      <View style={{alignSelf: 'center', marginTop: mvs(20)}}>
+      <Image source={IMG.LogoBackground} style={styles.imagebackground} />
+      <View style={styles.loginlogoview}>
         <Image
           source={IMG.LoginLogo}
           resizeMode={'contain'}
@@ -83,14 +74,9 @@ const LoginScreen = props => {
 
       <View style={styles.contentContainerStyle}>
         <KeyboardAvoidScrollview
-          contentContainerStyle={{
-            paddingHorizontal: mvs(0),
-            flexGrow: 0,
-            paddingBottom: mvs(150),
-          }}>
+          contentContainerStyle={styles.keyboradscrollcontent}>
           <View style={styles.contentContainerStyleNew}>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              {/* <Bold label={t('login')} style={styles.txt} /> */}
+            <View style={styles.lottieview}>
               <LottieView
                 source={LoginAnimation}
                 autoPlay={true}
@@ -102,9 +88,9 @@ const LoginScreen = props => {
               label={t('login_to_movers')}
               color={colors.bluecolor}
               fontSize={mvs(16)}
-              style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+              style={styles.loginmoverstext}
             />
-            {/* <KeyboardAvoidScrollview> */}
+
             <PrimaryInput
               keyboardType={'email-address'}
               error={
@@ -112,7 +98,6 @@ const LoginScreen = props => {
                   ? `${t(errors?.email)}`
                   : undefined
               }
-              // label={t('email')}
               placeholder={t('email')}
               onChangeText={str => setFieldValue('email', str)}
               onBlur={() => setFieldTouched('email', true)}
@@ -134,7 +119,7 @@ const LoginScreen = props => {
               errorStyle={{marginBottom: 0}}
             />
             <TouchableOpacity
-              style={{alignSelf: 'flex-end', marginBottom: mvs(15)}}
+              style={styles.forgotpasswordview}
               onPress={() => navigate('ForgotPasswordScreen')}>
               <Medium
                 label={t('forgot_password?')}
@@ -150,40 +135,28 @@ const LoginScreen = props => {
               onPress={onSubmit}
               title={t('login')}
             />
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: mvs(20),
-              }}>
+            <View style={styles.createaccountview}>
               <Medium label={t('or_create_a_new_account')} />
             </View>
 
             <PrimaryButton
-              containerStyle={{
-                backgroundColor: colors.bluecolor,
-                marginTop: mvs(20),
-                borderRadius: mvs(10),
-              }}
+              containerStyle={styles.signupbuttoncontainer}
               loading={loading}
               onPress={() => navigate('Signup')}
               title={t('sign_up')}
             />
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: mvs(20),
-              }}>
+            <View style={styles.createaccountview}>
               <Medium label={t('login_with')} />
             </View>
             <Row style={{marginTop: mvs(10)}}>
               <TouchableOpacity style={styles.googlebutton}>
-                <Row style={{justifyContent: 'center', alignItems: 'center'}}>
+                <Row style={styles.googlefacebookview}>
                   <GoogleIcon height={mvs(20)} width={mvs(20)} />
                   <Medium label={t('google')} style={{marginLeft: mvs(10)}} />
                 </Row>
               </TouchableOpacity>
               <TouchableOpacity style={styles.googlebutton}>
-                <Row style={{justifyContent: 'center', alignItems: 'center'}}>
+                <Row style={styles.googlefacebookview}>
                   <FacBookIcon height={mvs(20)} width={mvs(20)} />
                   <Medium label={t('facebook')} style={{marginLeft: mvs(10)}} />
                 </Row>
@@ -195,15 +168,9 @@ const LoginScreen = props => {
               setValue={setValue}
               value={value}
             />
-            {/* </KeyboardAvoidScrollview> */}
           </View>
         </KeyboardAvoidScrollview>
       </View>
-
-      {/* <View style={styles.button}>
-        </View> */}
-      {/* </Image> */}
-      {/* </View> */}
     </View>
   );
 };

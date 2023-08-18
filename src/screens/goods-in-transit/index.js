@@ -73,15 +73,7 @@ const GoodsInTransitScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <LottieView
@@ -95,16 +87,12 @@ const GoodsInTransitScreen = props => {
       <View style={styles.contentContainerStyle}>
         <View style={styles.contentContainerStyleNew}>
           <KeyboardAvoidScrollview
-            contentContainerStyle={{
-              paddingHorizontal: mvs(0),
-              flexGrow: 0,
-              paddingBottom: mvs(150),
-            }}>
+            contentContainerStyle={styles.keyboradcontainer}>
             <Bold
               label={t('goods_in_transit')}
               color={colors.bluecolor}
               fontSize={mvs(16)}
-              style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+              style={styles.boldtext}
             />
 
             <PrimaryInput
@@ -147,10 +135,7 @@ const GoodsInTransitScreen = props => {
             </DatePicker>
 
             <PrimaryButton
-              containerStyle={{
-                borderRadius: mvs(10),
-                marginTop: mvs(20),
-              }}
+              containerStyle={styles.regiterbutton}
               loading={loading}
               onPress={() => navigate('ResetPasswordScreen')}
               title={t('register_now')}

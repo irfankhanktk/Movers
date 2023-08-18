@@ -37,5 +37,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: mvs(5),
   },
+  acceptbutton: {
+    backgroundColor: colors.acceptcolor,
+    marginTop: mvs(5),
+    borderRadius: mvs(10),
+  },
+  rejectbutton: {
+    backgroundColor: colors.white,
+    marginTop: mvs(20),
+    borderRadius: mvs(10),
+  },
 });
 export default styles;

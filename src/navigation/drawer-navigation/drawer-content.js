@@ -15,38 +15,9 @@ const CustomDrawerContent = props => {
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.header}>
-        <Image
-          source={IMG.DrawerLogo}
-          style={{
-            width: mvs(200),
-            // height: mvs(100),
-            resizeMode: 'contain',
-            // borderRadius: mvs(50),
-          }}
-        />
-        <View
-          style={{
-            height: mvs(100),
-            width: mvs(100),
-            borderRadius: mvs(50),
-            borderWidth: mvs(3),
-            borderColor: colors.primary,
-            backgroundColor: colors.transparent,
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignSelf: 'center',
-          }}>
-          <Image
-            source={IMG.Drawerman}
-            style={{
-              height: '100%',
-              width: '100%',
-              borderRadius: mvs(50),
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-          />
+        <Image source={IMG.DrawerLogo} style={styles.drawerlogo} />
+        <View style={styles.drawerheader}>
+          <Image source={IMG.Drawerman} style={styles.drawerman} />
         </View>
         <Medium
           label={'Ali Abdullah'}
@@ -61,19 +32,11 @@ const CustomDrawerContent = props => {
           style={{marginTop: mvs(6)}}
         />
       </View>
-      <ScrollView
-        style={{
-          flexGrow: 1,
-          paddingVertical: mvs(10),
-          borderBottomWidth: 1,
-          borderBottomColor: colors.border,
-        }}>
-        {/* <View style={styles.needHelpContainer}> */}
+      <ScrollView style={styles.scrololstyle}>
         <DrawerHomeCard
           onPress={() => navigate('Me')}
           icon1={IMG.userDarwer}
           label1={t('my_profile')}
-          // br={8}
           containerStyle={styles.helpStyle}
         />
         <DrawerHomeCard
@@ -83,9 +46,7 @@ const CustomDrawerContent = props => {
           br={8}
           containerStyle={styles.helpStyle}
         />
-        {/* </View> */}
 
-        {/* <View style={styles.needHelpContainer}> */}
         <DrawerHomeCard
           onPress={() => navigate('UploadDocumentsScreen')}
           icon1={IMG.documentDrawer}
@@ -105,10 +66,8 @@ const CustomDrawerContent = props => {
           label1={t('setting')}
           containerStyle={styles.helpStyle}
         />
-
-        {/* </View> */}
       </ScrollView>
-      {/* <View style={styles.needHelpContainer}> */}
+
       <DrawerHomeCard
         onPress={() => props?.navigation?.toggleDrawer()}
         icon1={IMG.drawerLogoutIcon}
@@ -116,7 +75,6 @@ const CustomDrawerContent = props => {
         br={8}
         containerStyle={styles.helpStyle}
       />
-      {/* </View> */}
     </View>
   );
 };
@@ -147,4 +105,34 @@ const styles = StyleSheet.create({
     ...colors.shadow,
   },
   helpStyle: {margin: mvs(10), width: width - 120, height: mvs(27)},
+  drawerlogo: {
+    width: mvs(200),
+    // height: mvs(100),
+    resizeMode: 'contain',
+  },
+  drawerheader: {
+    height: mvs(100),
+    width: mvs(100),
+    borderRadius: mvs(50),
+    borderWidth: mvs(3),
+    borderColor: colors.primary,
+    backgroundColor: colors.transparent,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  drawerman: {
+    height: '100%',
+    width: '100%',
+    borderRadius: mvs(50),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  scrololstyle: {
+    flexGrow: 1,
+    paddingVertical: mvs(10),
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
 });

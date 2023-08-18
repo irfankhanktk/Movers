@@ -38,7 +38,7 @@ const HomeTab = props => {
       <ImageBackground
         source={IMG.HomeBackground2}
         resizeMode="stretch"
-        style={{width: '100%', height: '100%'}}>
+        style={styles.backgroundimg}>
         <Header1x2x
           back={false}
           style={{backgroundColor: colors.transparent}}

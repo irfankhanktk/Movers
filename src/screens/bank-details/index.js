@@ -73,15 +73,7 @@ const BankDetailsScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <LottieView
@@ -95,16 +87,12 @@ const BankDetailsScreen = props => {
       <View style={styles.contentContainerStyle}>
         <View style={styles.contentContainerStyleNew}>
           <KeyboardAvoidScrollview
-            contentContainerStyle={{
-              paddingHorizontal: mvs(0),
-              flexGrow: 0,
-              paddingBottom: mvs(150),
-            }}>
+            contentContainerStyle={styles.keyboardcontainer}>
             <Bold
               label={t('bank_details')}
               color={colors.bluecolor}
               fontSize={mvs(16)}
-              style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+              style={styles.boldtext}
             />
 
             <PrimaryInput
@@ -157,10 +145,7 @@ const BankDetailsScreen = props => {
             />
 
             <PrimaryButton
-              containerStyle={{
-                borderRadius: mvs(10),
-                marginTop: mvs(20),
-              }}
+              containerStyle={styles.registerbutton}
               loading={loading}
               onPress={() => navigate('ResetPasswordScreen')}
               title={t('register_now')}

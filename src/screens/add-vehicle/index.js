@@ -72,17 +72,11 @@ const AddVehicleScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
       <ImageBackground
         source={IMG.addvehcilebackground}
-        style={{
-          height: height,
-          width: '100%',
-          // position: 'absolute',
-        }}>
+        style={styles.backgroundimg}>
         <Header1x2x title={t('add_vehicle')} />
-        <View
-          style={{alignSelf: 'center', position: 'absolute', top: mvs(140)}}>
+        <View style={styles.truckimageview}>
           <Image
             source={IMG.truckvehicle}
             resizeMode={'contain'}
@@ -90,18 +84,14 @@ const AddVehicleScreen = props => {
           />
         </View>
         <KeyboardAvoidScrollview
-          contentContainerStyle={{
-            paddingHorizontal: mvs(0),
-            flexGrow: 1,
-            paddingBottom: mvs(250),
-          }}>
+          contentContainerStyle={styles.keyboardcontentcontainer}>
           <View style={styles.contentContainerStyle}>
             <View style={styles.contentContainerStyleNew}>
               <Bold
                 label={t('add_vehicle')}
                 color={colors.bluecolor}
                 fontSize={mvs(16)}
-                style={{marginTop: mvs(10), marginBottom: mvs(20)}}
+                style={styles.boldtext}
               />
 
               <PrimaryInput
@@ -154,9 +144,7 @@ const AddVehicleScreen = props => {
               />
 
               <PrimaryButton
-                containerStyle={{
-                  borderRadius: mvs(10),
-                }}
+                containerStyle={styles.savebutton}
                 loading={loading}
                 onPress={() => navigate('ResetPasswordScreen')}
                 title={t('save')}

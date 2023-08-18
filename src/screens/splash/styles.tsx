@@ -12,5 +12,11 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: colors.white,
   },
+  skipbutton: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
+    marginRight: mvs(20),
+  },
 });
 export default styles;

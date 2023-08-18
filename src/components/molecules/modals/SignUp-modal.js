@@ -95,23 +95,12 @@ const SignUpModal = ({
             source={CheckmarkAnimation}
             autoPlay={true}
             loop={true}
-            style={{
-              width: mvs(150),
-              height: mvs(150),
-              alignSelf: 'center',
-              marginBottom: mvs(10),
-            }}
+            style={styles.lottieview}
           />
           <Medium
             // numberOfLines={2}
             label={t('your_otp_have_been_setup')}
-            style={{
-              fontSize: mvs(18),
-              color: colors.bluecolor,
-              // width: mvs(120),
-              alignSelf: 'center',
-              textAlign: 'center',
-            }}
+            style={styles.otpsetuptext}
           />
           <Medium
             numberOfLines={3}
@@ -122,20 +111,10 @@ const SignUpModal = ({
           <TouchableOpacity
             disabled={disabled}
             onPress={onPress}
-            style={{
-              backgroundColor: colors.primary,
-              alignSelf: 'center',
-              height: mvs(60),
-              width: mvs(60),
-              borderRadius: mvs(30),
-              marginTop: mvs(15),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+            style={styles.okbutton}>
             {loading ? (
               <Loader />
             ) : (
-              // <Icon color={colors.primary} size={25} name={'arrowright'} />
               <Medium label={t('ok')} fontSize={mvs(20)} color={colors.white} />
             )}
           </TouchableOpacity>
@@ -181,4 +160,27 @@ const styles = StyleSheet.create({
     marginBottom: mvs(20),
   },
   cross: {padding: mvs(10), alignSelf: 'flex-end', position: 'absolute'},
+  lottieview: {
+    width: mvs(150),
+    height: mvs(150),
+    alignSelf: 'center',
+    marginBottom: mvs(10),
+  },
+  otpsetuptext: {
+    fontSize: mvs(18),
+    color: colors.bluecolor,
+    // width: mvs(120),
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+  okbutton: {
+    backgroundColor: colors.primary,
+    alignSelf: 'center',
+    height: mvs(60),
+    width: mvs(60),
+    borderRadius: mvs(30),
+    marginTop: mvs(15),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

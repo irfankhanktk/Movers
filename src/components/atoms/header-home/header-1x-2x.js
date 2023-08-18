@@ -88,14 +88,15 @@ const HeaderX = ({
               <Row style={{alignItems: 'center'}}>
                 <Medium
                   label={t('back_offline')}
-                  fontSize={mvs(14)}
+                  fontSize={mvs(12)}
                   style={{marginLeft: mvs(10)}}
                   color={colors.white}
                 />
                 <AntDesign
                   name="arrowright"
-                  size={mvs(22)}
+                  size={mvs(18)}
                   color={colors.white}
+                  style={{marginLeft: mvs(5)}}
                 />
               </Row>
             </TouchableOpacity>

@@ -106,15 +106,7 @@ const UploadDocumentsScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image
-        source={IMG.LogoBackground}
-        style={{
-          height: mvs(400),
-          width: width,
-          position: 'absolute',
-        }}
-      />
+      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
       <Header1x2x />
       <View style={{alignSelf: 'center'}}>
         <LottieView
@@ -129,11 +121,7 @@ const UploadDocumentsScreen = props => {
         <View style={styles.contentContainerStyleNew}>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingHorizontal: mvs(0),
-              flexGrow: 1,
-              paddingBottom: mvs(50),
-            }}>
+            contentContainerStyle={styles.scrollcontentcontainer}>
             <View style={{marginHorizontal: mvs(20)}}>
               <Bold
                 label={t('upload_documents')}
@@ -150,21 +138,14 @@ const UploadDocumentsScreen = props => {
                 style={{marginBottom: mvs(5)}}
               />
               <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  borderStyle: 'dashed',
-                  padding: mvs(5),
-                  borderRadius: mvs(5),
-                  borderColor: colors.bluecolor,
-                  paddingVertical: mvs(8),
-                }}
+                style={styles.uploadfileview}
                 onPress={() => onPressAttachment()}>
                 {saveFile?.uri ? (
                   <Medium
                     label={saveFile?.name}
                     color={colors.primary}
                     fontSize={mvs(14)}
-                    style={{marginLeft: mvs(10), flex: 1, alignSelf: 'center'}}
+                    style={styles.filenametext}
                   />
                 ) : (
                   <Row style={{justifyContent: 'center'}}>

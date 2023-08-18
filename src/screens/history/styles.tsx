@@ -38,5 +38,42 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: mvs(5),
   },
+  earningtoucbaleview: {
+    width: '45%',
+    height: mvs(162),
+    ...colors.shadow,
+    borderRadius: mvs(6),
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+  },
+  earningimg: {
+    width: mvs(50),
+    height: mvs(50),
+    alignSelf: 'center',
+    marginTop: mvs(12),
+  },
+  currencyview: {
+    backgroundColor: '#C21818',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingVertical: mvs(2),
+    borderRadius: mvs(6),
+  },
+  compleetdorderview: {
+    width: '45%',
+    height: mvs(162),
+    ...colors.shadow,
+    borderRadius: mvs(6),
+    backgroundColor: colors.bluecolor,
+    justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  completedorderimage: {
+    width: mvs(50),
+    height: mvs(50),
+    alignSelf: 'center',
+    marginTop: mvs(12),
+  },
 });
 export default styles;
