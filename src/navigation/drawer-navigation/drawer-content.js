@@ -40,7 +40,7 @@ const CustomDrawerContent = props => {
           containerStyle={styles.helpStyle}
         />
         <DrawerHomeCard
-          onPress={() => navigate('OurServicesScreen')}
+          onPress={() => navigate('ManageVehicleScreen')}
           icon1={IMG.manageVehicleDrawer}
           label1={t('manage_vehicle')}
           br={8}
@@ -55,13 +55,13 @@ const CustomDrawerContent = props => {
           containerStyle={styles.helpStyle}
         />
         <DrawerHomeCard
-          onPress={() => navigate('BlogScreen')}
+          onPress={() => navigate('HistoryScreen')}
           icon1={IMG.historyDarwer}
           label1={t('history')}
           containerStyle={styles.helpStyle}
         />
         <DrawerHomeCard
-          onPress={() => navigate('DriverSignup')}
+          // onPress={() => navigate('DriverSignup')}
           icon1={IMG.settings}
           label1={t('setting')}
           containerStyle={styles.helpStyle}
