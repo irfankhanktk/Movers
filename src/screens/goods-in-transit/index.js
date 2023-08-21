@@ -108,6 +108,7 @@ const GoodsInTransitScreen = props => {
             <DatePicker
               onChangeText={(str: string) => setFieldValue('valid_from', str)}>
               <PrimaryInput
+                isCalendar
                 editable={false}
                 error={
                   errors?.valid_from && touched?.valid_from
@@ -122,6 +123,7 @@ const GoodsInTransitScreen = props => {
             <DatePicker
               onChangeText={(str: string) => setFieldValue('expiry_date', str)}>
               <PrimaryInput
+                isCalendar
                 editable={false}
                 error={
                   errors?.expiry_date && touched?.expiry_date

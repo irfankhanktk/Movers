@@ -167,6 +167,7 @@ const VehicleInsuranceScreen = props => {
                     setFieldValue('valid_from', str)
                   }>
                   <PrimaryInput
+                    isCalendar
                     editable={false}
                     error={
                       errors?.valid_from && touched?.valid_from
@@ -184,6 +185,7 @@ const VehicleInsuranceScreen = props => {
                     setFieldValue('expiry_date', str)
                   }>
                   <PrimaryInput
+                    isCalendar
                     editable={false}
                     error={
                       errors?.expiry_date && touched?.expiry_date

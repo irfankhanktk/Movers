@@ -184,6 +184,7 @@ const SignupNext = (props: props) => {
                 setFieldValue('date_of_birth', str)
               }>
               <PrimaryInput
+                isCalendar
                 editable={false}
                 error={
                   errors?.date_of_birth && touched?.date_of_birth

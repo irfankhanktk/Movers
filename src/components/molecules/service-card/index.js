@@ -74,7 +74,7 @@ export default React.memo(ServiceCard);
 const styles = StyleSheet.create({
   container: {
     height: mvs(123),
-    width: mvs(153),
+    width: '45%',
     borderRadius: mvs(15),
     marginBottom: mvs(20),
     // backgroundColor: colors.homecard2,

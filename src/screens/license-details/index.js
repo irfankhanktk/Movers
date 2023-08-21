@@ -167,6 +167,7 @@ const LicenseDetailsScreen = props => {
                     setFieldValue('license_issue_date', str)
                   }>
                   <PrimaryInput
+                    isCalendar
                     editable={false}
                     error={
                       errors?.license_issue_date && touched?.license_issue_date
@@ -186,6 +187,7 @@ const LicenseDetailsScreen = props => {
                     setFieldValue('license_expiry_date', str)
                   }>
                   <PrimaryInput
+                    isCalendar
                     editable={false}
                     error={
                       errors?.license_expiry_date &&

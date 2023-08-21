@@ -155,6 +155,7 @@ const MOTDetailsScreen = props => {
                     setFieldValue('mot_issue_date', str)
                   }>
                   <PrimaryInput
+                    isCalendar
                     editable={false}
                     error={
                       errors?.mot_issue_date && touched?.mot_issue_date
@@ -172,6 +173,7 @@ const MOTDetailsScreen = props => {
                     setFieldValue('mot_expiry_date', str)
                   }>
                   <PrimaryInput
+                    isCalendar
                     editable={false}
                     error={
                       errors?.mot_expiry_date && touched?.mot_expiry_date

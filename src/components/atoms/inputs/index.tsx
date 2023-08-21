@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import PhoneInput from 'react-native-phone-number-input';
 import Regular from 'typography/regular-text';
@@ -48,6 +49,7 @@ type props = {
   defaultCode?: 'PK';
   layout?: 'first';
   isPassword?: boolean;
+  isCalendar?: boolean;
   editable?: boolean;
   disabledSearch?: boolean;
   error?: string;
@@ -136,6 +138,7 @@ const PrimaryInput = (props: props) => {
     errorStyle,
     secureTextEntry,
     isPassword,
+    isCalendar,
     keyboardType,
     error,
     mainContainer,
@@ -177,6 +180,14 @@ const PrimaryInput = (props: props) => {
               name={secure ? 'eye' : 'eye-off'}
               color={colors.black}
             />
+          </TouchableOpacity>
+        )}
+        {isCalendar && (
+          <TouchableOpacity
+            style={styles.PasswordIcon}
+            // onPress={() => setSecure(!secure)}
+          >
+            <FontAwesome size={20} name={'calendar'} color={colors.black} />
           </TouchableOpacity>
         )}
       </View>
