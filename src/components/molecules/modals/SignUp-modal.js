@@ -89,7 +89,7 @@ const SignUpModal = ({
         <View style={styles.container}>
           <View style={styles.header} />
           <TouchableOpacity onPress={() => onClose()} style={styles.cross}>
-            <CrossModal height={mvs(30)} width={mvs(30)} />
+            <CrossModal height={mvs(25)} width={mvs(25)} />
           </TouchableOpacity>
           <LottieView
             source={CheckmarkAnimation}
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: mvs(30),
     marginBottom: mvs(20),
   },
-  cross: {padding: mvs(10), alignSelf: 'flex-end', position: 'absolute'},
+  cross: {padding: mvs(14), alignSelf: 'flex-end', position: 'absolute'},
   lottieview: {
     width: mvs(150),
     height: mvs(150),

@@ -7,13 +7,14 @@ import Medium from 'typography/medium-text';
 import CustomSwiper from 'components/atoms/swiper';
 import {PrimaryButton} from 'components/atoms/buttons';
 import {SLIDES_LIST} from 'config/constants';
+import FastImage from 'react-native-fast-image';
 const HomeSwiper = () => {
   return (
     <View style={styles.container}>
       <CustomSwiper>
         {SLIDES_LIST?.map((item, index) => (
           <View key={index} style={styles.slide}>
-            <Image
+            <FastImage
               source={{
                 uri: item?.image,
               }}
