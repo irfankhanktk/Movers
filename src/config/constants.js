@@ -60,17 +60,17 @@ export const ONBOARDING_LIST = [
   {
     image: IMG.rocket,
     title: 'quick_search',
-    desc: 'explore_restaurant_around',
+    desc: 'Pick Up Your Order',
   },
   {
     image: IMG.vehicle,
     title: 'fast_shipping',
-    desc: 'explore_restaurant_around',
+    desc: 'Pick Up Your Order',
   },
   {
     image: IMG.mobile,
     title: 'free_rides',
-    desc: 'explore_restaurant_around',
+    desc: 'Pick Up Your Order',
   },
 ];
 export const SERVICE_LIST = [
@@ -93,6 +93,7 @@ export const SERVICE_LIST = [
   {
     icon: IMG.HomeeraningTool,
     title: 'Total Earning',
+    screenName: 'HistoryScreen',
   },
 ];
 export const MANAGE_CAR_LIST = [

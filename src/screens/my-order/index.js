@@ -44,7 +44,7 @@ const MyOrderScreen = props => {
     <View style={styles.container}>
       <Header1x2x title={t('my_order')} />
       <View style={styles.contentContainerStyle}>
-        <Row>
+        <Row style={{marginBottom: mvs(20)}}>
           <PrimaryButton
             title={t('new')}
             containerStyle={{
@@ -110,7 +110,7 @@ const MyOrderScreen = props => {
           />
         )}
       </View>
-      <PlusButton />
+      {/* <PlusButton /> */}
     </View>
   );
 };

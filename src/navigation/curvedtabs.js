@@ -6,7 +6,10 @@ import {useAppSelector} from 'hooks/use-store';
 import {Text, TouchableOpacity, View} from 'react-native';
 import CartScreen from 'screens/cart';
 import AboutUsScreen from 'screens/categories';
+import HistoryScreen from 'screens/history';
 import HomeTab from 'screens/home-tab';
+import ManageVehicleScreen from 'screens/manage-vehicles';
+import MyOrderScreen from 'screens/my-order';
 import ShoppingScreen from 'screens/shopping';
 import UserTab from 'screens/user-tab';
 
@@ -105,9 +108,10 @@ export const TabBar = () => {
       {/* <Tab.Screen name="Search" component={WalletScreen} /> */}
       {/* <Tab.Screen name="Discovery" component={DiscoveryTab} options={{}} /> */}
       <Tab.Screen name="Home" component={HomeTab} />
-      <Tab.Screen name="Categories" component={AboutUsScreen} />
-      <Tab.Screen name="Shoppingbag" component={ShoppingScreen} />
-      <Tab.Screen name="Carrt" component={CartScreen} />
+      <Tab.Screen name="Shoppingbag" component={MyOrderScreen} />
+
+      <Tab.Screen name="Categories" component={HistoryScreen} />
+      <Tab.Screen name="Carrt" component={ManageVehicleScreen} />
       <Tab.Screen name="Me" component={UserTab} />
       {/* <Tab.Screen name="Me" component={UserTab} /> */}
       {/* <Tab.Screen name="Me" component={Me} /> */}

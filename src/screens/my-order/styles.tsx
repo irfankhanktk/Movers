@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   contentContainerStyleFlatlist: {
     paddingVertical: mvs(10),
     // paddingHorizontal: mvs(20),
-    paddingBottom: mvs(100),
+    paddingBottom: mvs(120),
   },
   columnWrapperStyle: {
     justifyContent: 'space-between',

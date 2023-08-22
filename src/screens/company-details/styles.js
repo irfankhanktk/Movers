@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   registernowbutton: {
     borderRadius: mvs(10),
     marginTop: mvs(20),
+    // width: '110%',
   },
 });
 export default styles;

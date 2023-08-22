@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   },
   savebutton: {
     borderRadius: mvs(10),
+    marginBottom: mvs(70),
   },
 });
 export default styles;

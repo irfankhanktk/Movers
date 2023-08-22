@@ -135,15 +135,16 @@ const GoodsInTransitScreen = props => {
                 value={values.expiry_date}
               />
             </DatePicker>
-
-            <PrimaryButton
-              containerStyle={styles.regiterbutton}
-              loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
-              title={t('register_now')}
-            />
           </KeyboardAvoidScrollview>
         </View>
+      </View>
+      <View style={{paddingHorizontal: mvs(20)}}>
+        <PrimaryButton
+          containerStyle={styles.regiterbutton}
+          loading={loading}
+          onPress={() => navigate('ResetPasswordScreen')}
+          title={t('register_now')}
+        />
       </View>
     </View>
   );

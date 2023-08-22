@@ -202,17 +202,18 @@ const LicenseDetailsScreen = props => {
                     value={values.license_expiry_date}
                   />
                 </DatePicker>
-
-                <PrimaryButton
-                  containerStyle={styles.resgiterbutton}
-                  loading={loading}
-                  onPress={() => navigate('ResetPasswordScreen')}
-                  title={t('register_now')}
-                />
               </View>
             </View>
           </KeyboardAvoidScrollview>
         </View>
+      </View>
+      <View style={{paddingHorizontal: mvs(20)}}>
+        <PrimaryButton
+          containerStyle={styles.resgiterbutton}
+          loading={loading}
+          onPress={() => navigate('ResetPasswordScreen')}
+          title={t('register_now')}
+        />
       </View>
     </View>
   );

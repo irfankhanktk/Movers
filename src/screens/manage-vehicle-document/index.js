@@ -144,15 +144,16 @@ const ManageVehicleDocumentScreen = props => {
               onBlur={() => setFieldTouched('account_number', true)}
               value={values.account_number}
             />
-
-            <PrimaryButton
-              containerStyle={styles.registerbutton}
-              loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
-              title={t('register_now')}
-            />
           </KeyboardAvoidScrollview>
         </View>
+      </View>
+      <View style={{paddingHorizontal: mvs(20)}}>
+        <PrimaryButton
+          containerStyle={styles.registerbutton}
+          loading={loading}
+          onPress={() => navigate('ResetPasswordScreen')}
+          title={t('register_now')}
+        />
       </View>
     </View>
   );

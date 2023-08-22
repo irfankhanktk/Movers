@@ -39,13 +39,15 @@ const styles = StyleSheet.create({
   },
   acceptbutton: {
     backgroundColor: colors.acceptcolor,
-    marginTop: mvs(5),
+    // marginTop: mvs(5),
     borderRadius: mvs(10),
+    width: '45%',
   },
   rejectbutton: {
     backgroundColor: colors.white,
-    marginTop: mvs(20),
+    // marginTop: mvs(20),
     borderRadius: mvs(10),
+    width: '45%',
   },
 });
 export default styles;

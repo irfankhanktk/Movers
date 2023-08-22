@@ -88,23 +88,29 @@ const OrderDetailsScreen = props => {
               // ItemSeparatorComponent={itemSeparatorComponent()}
               keyExtractor={(_, index) => index?.toString()}
             />
-
-            <PrimaryButton
-              containerStyle={styles.acceptbutton}
-              loading={loading}
-              // onPress={() => navigate('Signup')}
-              title={t('accept')}
-            />
-            <PrimaryButton
-              containerStyle={styles.rejectbutton}
-              // textStyle={colors.primary}
-              loading={loading}
-              textStyle={{color: colors.primary}}
-              // onPress={() => navigate('Signup')}
-              title={t('reject')}
-            />
           </View>
         </ScrollView>
+        <Row
+          style={{
+            paddingHorizontal: mvs(20),
+            alignItems: 'center',
+            marginBottom: mvs(20),
+          }}>
+          <PrimaryButton
+            containerStyle={styles.acceptbutton}
+            loading={loading}
+            // onPress={() => navigate('Signup')}
+            title={t('accept')}
+          />
+          <PrimaryButton
+            containerStyle={styles.rejectbutton}
+            // textStyle={colors.primary}
+            loading={loading}
+            textStyle={{color: colors.primary}}
+            // onPress={() => navigate('Signup')}
+            title={t('reject')}
+          />
+        </Row>
       </View>
     </View>
   );

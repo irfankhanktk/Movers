@@ -15,7 +15,7 @@ const CustomDrawerContent = props => {
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.header}>
-        <Image source={IMG.DrawerLogo} style={styles.drawerlogo} />
+        {/* <Image source={IMG.DrawerLogo} style={styles.drawerlogo} /> */}
         <View style={styles.drawerheader}>
           <Image source={IMG.Drawerman} style={styles.drawerman} />
         </View>

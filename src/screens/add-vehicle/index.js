@@ -142,16 +142,17 @@ const AddVehicleScreen = props => {
                 onBlur={() => setFieldTouched('vehcile_engine_no', true)}
                 value={values.vehcile_engine_no}
               />
-
-              <PrimaryButton
-                containerStyle={styles.savebutton}
-                loading={loading}
-                onPress={() => navigate('ResetPasswordScreen')}
-                title={t('save')}
-              />
             </View>
           </View>
         </KeyboardAvoidScrollview>
+        <View style={{paddingHorizontal: mvs(20)}}>
+          <PrimaryButton
+            containerStyle={styles.savebutton}
+            loading={loading}
+            onPress={() => navigate('ResetPasswordScreen')}
+            title={t('save')}
+          />
+        </View>
       </ImageBackground>
     </View>
   );

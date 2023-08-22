@@ -77,11 +77,16 @@ const LoginScreen = props => {
           contentContainerStyle={styles.keyboradscrollcontent}>
           <View style={styles.contentContainerStyleNew}>
             <View style={styles.lottieview}>
-              <LottieView
+              {/* <LottieView
                 source={LoginAnimation}
                 autoPlay={true}
                 loop={true}
                 style={{width: mvs(100), height: mvs(100)}}
+              /> */}
+              <Medium
+                label={t('login')}
+                fontSize={mvs(16)}
+                color={colors.black}
               />
             </View>
             <Bold
@@ -145,10 +150,10 @@ const LoginScreen = props => {
               onPress={() => navigate('Signup')}
               title={t('sign_up')}
             />
-            <View style={styles.createaccountview}>
+            {/* <View style={styles.createaccountview}>
               <Medium label={t('login_with')} />
-            </View>
-            <Row style={{marginTop: mvs(10)}}>
+            </View> */}
+            {/* <Row style={{marginTop: mvs(10)}}>
               <TouchableOpacity style={styles.googlebutton}>
                 <Row style={styles.googlefacebookview}>
                   <GoogleIcon height={mvs(20)} width={mvs(20)} />
@@ -161,7 +166,7 @@ const LoginScreen = props => {
                   <Medium label={t('facebook')} style={{marginLeft: mvs(10)}} />
                 </Row>
               </TouchableOpacity>
-            </Row>
+            </Row> */}
             <OtpModal
               onClose={() => setOtpModalVisible(false)}
               visible={otpModalVisible}
