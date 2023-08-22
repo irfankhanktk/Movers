@@ -451,7 +451,7 @@ const styles = StyleSheet.create({
     color: colors.red,
     // backgroundColor: 'red',
     fontSize: mvs(10),
-    // marginBottom: mvs(5),
+    marginBottom: mvs(5),
     height: mvs(15),
     marginHorizontal: mvs(5),
   },
