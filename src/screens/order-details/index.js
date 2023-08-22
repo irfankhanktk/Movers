@@ -95,6 +95,7 @@ const OrderDetailsScreen = props => {
             paddingHorizontal: mvs(20),
             alignItems: 'center',
             marginBottom: mvs(20),
+            paddingTop: mvs(16),
           }}>
           <PrimaryButton
             containerStyle={styles.acceptbutton}
