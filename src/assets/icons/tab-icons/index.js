@@ -14,3 +14,7 @@ export {default as Shoppingbag} from './shoppingbag.svg';
 export {default as ShoppingbagActive} from './shoppingbag-active.svg';
 export {default as Carrt} from './carrt.svg';
 export {default as CarrtActive} from './carrt-active.svg';
+export {default as Hsitory} from './history.svg';
+export {default as HsitoryActive} from './history-active.svg';
+export {default as Vehicle} from './vehicle.svg';
+export {default as VehicleActive} from './vehicle-active.svg';

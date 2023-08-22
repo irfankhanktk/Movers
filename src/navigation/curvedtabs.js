@@ -110,8 +110,8 @@ export const TabBar = () => {
       <Tab.Screen name="Home" component={HomeTab} />
       <Tab.Screen name="Shoppingbag" component={MyOrderScreen} />
 
-      <Tab.Screen name="Categories" component={HistoryScreen} />
-      <Tab.Screen name="Carrt" component={ManageVehicleScreen} />
+      <Tab.Screen name="Hsitory" component={HistoryScreen} />
+      <Tab.Screen name="Vehicle" component={ManageVehicleScreen} />
       <Tab.Screen name="Me" component={UserTab} />
       {/* <Tab.Screen name="Me" component={UserTab} /> */}
       {/* <Tab.Screen name="Me" component={Me} /> */}
