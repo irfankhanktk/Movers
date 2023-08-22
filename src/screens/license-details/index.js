@@ -88,6 +88,7 @@ const LicenseDetailsScreen = props => {
       const res = await UTILS._returnImageGallery();
 
       setSaveFile(res);
+      console.log(res);
       // const response = await postFormData({
       //   file: {
       //     ...res[0],

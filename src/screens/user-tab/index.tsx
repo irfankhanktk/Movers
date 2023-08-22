@@ -79,12 +79,10 @@ const UserTab = (props: props) => {
             <Loader color={colors.white} />
           ) : (
             <Image
-              // source={
-              //   userInfo?.avatar_id ? {uri: userInfo?.avatar_id} : IMG.User_img
-              // }
-              source={IMG.Drawerman}
+              source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}
+              // source={IMG.Drawerman}
               style={styles.imgUpload}
-              resizeMode="contain"
+              resizeMode="cover"
             />
           )}
           {/* {userInfo?.id && ( */}
