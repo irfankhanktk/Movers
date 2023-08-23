@@ -5,7 +5,7 @@ import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -108,58 +108,99 @@ const UserTab = (props: props) => {
         />
 
         <View style={styles.linkContainer}>
-          {/* {userInfo && ( */}
-          <TouchableOpacity
-            style={styles.itemtabs}
-            onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
-            <FontAwesome
-              name="shopping-cart"
-              size={mvs(22)}
-              color={colors.primary}
-            />
-            <Regular style={styles.itemText1} label={`${t('my_order')}`} />
-          </TouchableOpacity>
-          {/* )} */}
-          <TouchableOpacity
-            style={styles.itemtabs}
-            onPress={() => props?.navigation?.navigate('LanguageScreen')}>
-            <FontAwesome5 name="globe" size={mvs(22)} color={colors.primary} />
-            <Regular
-              style={styles.itemText1}
-              label={`${t('choose_language')}`}
-            />
-          </TouchableOpacity>
-          {/* {userInfo && ( */}
-          <TouchableOpacity
-            style={styles.itemtabs}
-            onPress={() =>
-              props?.navigation?.navigate('UploadDocumentsScreen')
-            }>
-            <Ionicons name="documents" size={mvs(22)} color={colors.primary} />
-            <Regular style={styles.itemText1} label={`${t('documents')}`} />
-          </TouchableOpacity>
-          {/* )} */}
-          {/* {userInfo && ( */}
-          <TouchableOpacity
-            style={styles.itemtabs}
-            onPress={() => props?.navigation?.navigate('HistoryScreen')}>
-            <Ionicons
-              name="timer-outline"
-              size={mvs(22)}
-              color={colors.primary}
-            />
-            <Regular style={styles.itemText1} label={`${t('history')}`} />
-          </TouchableOpacity>
-          {/* )} */}
-          <View
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flexGrow: 1, paddingBottom: mvs(100)}}>
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
+              <FontAwesome
+                name="shopping-cart"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular style={styles.itemText1} label={`${t('my_order')}`} />
+            </TouchableOpacity>
+            {/* )} */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() => props?.navigation?.navigate('LanguageScreen')}>
+              <FontAwesome5
+                name="globe"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular
+                style={styles.itemText1}
+                label={`${t('choose_language')}`}
+              />
+            </TouchableOpacity>
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                props?.navigation?.navigate('UploadDocumentsScreen')
+              }>
+              <Ionicons
+                name="documents"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular style={styles.itemText1} label={`${t('documents')}`} />
+            </TouchableOpacity>
+            {/* )} */}
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() => props?.navigation?.navigate('HistoryScreen')}>
+              <Ionicons
+                name="timer-outline"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular style={styles.itemText1} label={`${t('history')}`} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                props?.navigation?.navigate('TermsandConditionsScreen')
+              }>
+              <Ionicons
+                name="timer-outline"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular
+                style={styles.itemText1}
+                label={`${t('terms_and_conditions')}`}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                props?.navigation?.navigate('PrivacyPolicyScreen')
+              }>
+              <Ionicons
+                name="timer-outline"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular
+                style={styles.itemText1}
+                label={`${t('return_policy & private_policy')}`}
+              />
+            </TouchableOpacity>
+            {/* )} */}
+            {/* <View
             style={{
               flex: 1,
               justifyContent: 'flex-end',
 
               width: '100%',
               paddingBottom: mvs(60),
-            }}>
-            <TouchableOpacity style={styles.logouttab}>
+            }}> */}
+            <TouchableOpacity style={styles.itemtabs}>
               <AntDesign
                 name={`${userInfo ? 'logout' : 'login'}`}
                 size={mvs(22)}
@@ -170,7 +211,9 @@ const UserTab = (props: props) => {
                 label={`${t(userInfo ? 'logout' : 'login')}`}
               />
             </TouchableOpacity>
-          </View>
+
+            {/* </View> */}
+          </ScrollView>
         </View>
       </View>
     </View>

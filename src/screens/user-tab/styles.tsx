@@ -20,13 +20,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     marginTop: mvs(36),
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.white,
     width: width,
     borderTopLeftRadius: mvs(15),
     borderTopRightRadius: mvs(15),
     alignSelf: 'center',
     paddingTop: mvs(30),
     paddingHorizontal: mvs(20),
+    // marginBottom: mvs(20),
   },
   name: {
     alignSelf: 'center',
@@ -93,7 +94,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: colors.white,
   },
 });
 export default styles;
