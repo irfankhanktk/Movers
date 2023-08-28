@@ -104,112 +104,116 @@ const VehicleInsuranceScreen = props => {
   };
   return (
     <View style={styles.container}>
-      <Image source={IMG.LogoBackground} style={styles.backgroiundimg} />
-      <Header1x2x />
-      <View style={{alignSelf: 'center'}}>
-        <LottieView
-          source={UploadDocumentsAnimation}
-          autoPlay={true}
-          loop={true}
-          style={{width: mvs(200), height: mvs(200)}}
-        />
-      </View>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <Image source={IMG.LogoBackground} style={styles.backgroiundimg} />
+        <Header1x2x />
+        <View style={{alignSelf: 'center'}}>
+          <LottieView
+            source={UploadDocumentsAnimation}
+            autoPlay={true}
+            loop={true}
+            style={{width: mvs(200), height: mvs(200)}}
+          />
+        </View>
 
-      <View style={styles.contentContainerStyle}>
-        <View style={styles.contentContainerStyleNew}>
-          <KeyboardAvoidScrollview
-            contentContainerStyle={styles.keyboradconetnt}>
-            <View style={{marginHorizontal: mvs(20)}}>
-              <Bold
-                label={t('vehicle_insurance')}
-                color={colors.bluecolor}
-                fontSize={mvs(16)}
-                style={styles.boldtext}
-              />
+        <View style={styles.contentContainerStyle}>
+          <View style={styles.contentContainerStyleNew}>
+            <KeyboardAvoidScrollview
+              contentContainerStyle={styles.keyboradconetnt}>
+              <View style={{marginHorizontal: mvs(20)}}>
+                <Bold
+                  label={t('vehicle_insurance')}
+                  color={colors.bluecolor}
+                  fontSize={mvs(16)}
+                  style={styles.boldtext}
+                />
 
-              <TouchableOpacity
-                style={styles.uploadphotoview}
-                onPress={() => onPressAttachment()}>
-                {saveFile?.uri ? (
-                  <Medium
-                    label={saveFile?.name}
-                    color={colors.primary}
-                    fontSize={mvs(14)}
-                    style={styles.uploadedtext}
-                  />
-                ) : (
-                  <Row style={{justifyContent: 'center'}}>
-                    <FileSVG width={mvs(25)} height={mvs(25)} />
+                <TouchableOpacity
+                  style={styles.uploadphotoview}
+                  onPress={() => onPressAttachment()}>
+                  {saveFile?.uri ? (
                     <Medium
-                      label={t('add_vehicle_insurance_photo')}
+                      label={saveFile?.name}
                       color={colors.primary}
                       fontSize={mvs(14)}
-                      style={{marginLeft: mvs(10)}}
+                      style={styles.uploadedtext}
                     />
-                  </Row>
-                )}
-              </TouchableOpacity>
-              <View style={{marginVertical: mvs(14)}}>
-                <PrimaryInput
-                  keyboardType={'email-address'}
-                  error={
-                    touched?.insurance_company && errors?.insurance_company
-                      ? `${t(errors?.insurance_company)}`
-                      : undefined
-                  }
-                  placeholder={t('insurance_company')}
-                  onChangeText={str => setFieldValue('insurance_company', str)}
-                  onBlur={() => setFieldTouched('insurance_company', true)}
-                  value={values.insurance_company}
-                />
-                <DatePicker
-                  onChangeText={(str: string) =>
-                    setFieldValue('valid_from', str)
-                  }>
+                  ) : (
+                    <Row style={{justifyContent: 'center'}}>
+                      <FileSVG width={mvs(25)} height={mvs(25)} />
+                      <Medium
+                        label={t('add_vehicle_insurance_photo')}
+                        color={colors.primary}
+                        fontSize={mvs(14)}
+                        style={{marginLeft: mvs(10)}}
+                      />
+                    </Row>
+                  )}
+                </TouchableOpacity>
+                <View style={{marginVertical: mvs(14)}}>
                   <PrimaryInput
-                    isCalendar
-                    editable={false}
+                    keyboardType={'email-address'}
                     error={
-                      errors?.valid_from && touched?.valid_from
-                        ? `${errors?.valid_from}`
-                        : ''
+                      touched?.insurance_company && errors?.insurance_company
+                        ? `${t(errors?.insurance_company)}`
+                        : undefined
                     }
-                    placeholder={t('valid_from')}
-                    onChangeText={str => setFieldValue('valid_from', str)}
-                    value={values.valid_from}
+                    placeholder={t('insurance_company')}
+                    onChangeText={str =>
+                      setFieldValue('insurance_company', str)
+                    }
+                    onBlur={() => setFieldTouched('insurance_company', true)}
+                    value={values.insurance_company}
                   />
-                </DatePicker>
+                  <DatePicker
+                    onChangeText={(str: string) =>
+                      setFieldValue('valid_from', str)
+                    }>
+                    <PrimaryInput
+                      isCalendar
+                      editable={false}
+                      error={
+                        errors?.valid_from && touched?.valid_from
+                          ? `${errors?.valid_from}`
+                          : ''
+                      }
+                      placeholder={t('valid_from')}
+                      onChangeText={str => setFieldValue('valid_from', str)}
+                      value={values.valid_from}
+                    />
+                  </DatePicker>
 
-                <DatePicker
-                  onChangeText={(str: string) =>
-                    setFieldValue('expiry_date', str)
-                  }>
-                  <PrimaryInput
-                    isCalendar
-                    editable={false}
-                    error={
-                      errors?.expiry_date && touched?.expiry_date
-                        ? `${errors?.expiry_date}`
-                        : ''
-                    }
-                    placeholder={t('expiry_date')}
-                    onChangeText={str => setFieldValue('expiry_date', str)}
-                    value={values.expiry_date}
-                  />
-                </DatePicker>
+                  <DatePicker
+                    onChangeText={(str: string) =>
+                      setFieldValue('expiry_date', str)
+                    }>
+                    <PrimaryInput
+                      isCalendar
+                      editable={false}
+                      error={
+                        errors?.expiry_date && touched?.expiry_date
+                          ? `${errors?.expiry_date}`
+                          : ''
+                      }
+                      placeholder={t('expiry_date')}
+                      onChangeText={str => setFieldValue('expiry_date', str)}
+                      value={values.expiry_date}
+                    />
+                  </DatePicker>
+                </View>
               </View>
-            </View>
-          </KeyboardAvoidScrollview>
+            </KeyboardAvoidScrollview>
+          </View>
+          <View style={{paddingHorizontal: mvs(20)}}>
+            <PrimaryButton
+              containerStyle={styles.registerbuton}
+              loading={loading}
+              onPress={() => navigate('ResetPasswordScreen')}
+              title={t('register_now')}
+            />
+          </View>
         </View>
-      </View>
-      <View style={{paddingHorizontal: mvs(20)}}>
-        <PrimaryButton
-          containerStyle={styles.registerbuton}
-          loading={loading}
-          onPress={() => navigate('ResetPasswordScreen')}
-          title={t('register_now')}
-        />
-      </View>
+      </ScrollView>
     </View>
   );
 };

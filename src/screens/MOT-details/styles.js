@@ -11,8 +11,9 @@ const styles = StyleSheet.create({
     // flex: 1,
     // flexGrow: 1,
     // paddingTop: '50%',
-    paddingHorizontal: mvs(20),
-    height: height - 450,
+    // paddingHorizontal: mvs(20),
+    // height: height - 450,
+    flex: 1,
     // marginBottom: mvs(20),
   },
   txt: {marginBottom: mvs(10), fontSize: mvs(20)},
@@ -25,8 +26,9 @@ const styles = StyleSheet.create({
   },
   contentContainerStyleNew: {
     // flexGrow: 1,
-    // paddingHorizontal: mvs(20),
+    paddingHorizontal: mvs(20),
     // marginVertical: mvs(10),
+    marginHorizontal: mvs(20),
     paddingVertical: mvs(10),
     backgroundColor: colors.white,
     justifyContent: 'center',
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
   keybaordcontentview: {
     paddingHorizontal: mvs(0),
     flexGrow: 0,
-    paddingBottom: mvs(150),
+    paddingBottom: mvs(20),
   },
   boldtext: {
     marginTop: mvs(10),

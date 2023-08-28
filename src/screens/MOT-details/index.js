@@ -103,101 +103,105 @@ const MOTDetailsScreen = props => {
   };
   return (
     <View style={styles.container}>
-      {/* <View style={styles.container}> */}
-      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
-      <Header1x2x />
-      <View style={{alignSelf: 'center'}}>
-        <LottieView
-          source={UploadDocumentsAnimation}
-          autoPlay={true}
-          loop={true}
-          style={{width: mvs(200), height: mvs(200)}}
-        />
-      </View>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        {/* <View style={styles.container}> */}
+        <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
+        <Header1x2x />
+        <View style={{alignSelf: 'center'}}>
+          <LottieView
+            source={UploadDocumentsAnimation}
+            autoPlay={true}
+            loop={true}
+            style={{width: mvs(200), height: mvs(200)}}
+          />
+        </View>
 
-      <View style={styles.contentContainerStyle}>
-        <View style={styles.contentContainerStyleNew}>
-          <KeyboardAvoidScrollview
-            contentContainerStyle={styles.keybaordcontentview}>
-            <View style={{marginHorizontal: mvs(20)}}>
-              <Bold
-                label={t('MOT')}
-                color={colors.bluecolor}
-                fontSize={mvs(16)}
-                style={styles.boldtext}
-              />
+        <View style={styles.contentContainerStyle}>
+          <View style={styles.contentContainerStyleNew}>
+            <KeyboardAvoidScrollview
+              contentContainerStyle={styles.keybaordcontentview}>
+              <View style={{marginHorizontal: mvs(20)}}>
+                <Bold
+                  label={t('MOT')}
+                  color={colors.bluecolor}
+                  fontSize={mvs(16)}
+                  style={styles.boldtext}
+                />
 
-              <TouchableOpacity
-                style={styles.uploadphotoview}
-                onPress={() => onPressAttachment()}>
-                {saveFile?.uri ? (
-                  <Medium
-                    label={saveFile?.name}
-                    color={colors.primary}
-                    fontSize={mvs(14)}
-                    style={styles.uplaodfiletext}
-                  />
-                ) : (
-                  <Row style={{justifyContent: 'center'}}>
-                    <FileSVG width={mvs(25)} height={mvs(25)} />
+                <TouchableOpacity
+                  style={styles.uploadphotoview}
+                  onPress={() => onPressAttachment()}>
+                  {saveFile?.uri ? (
                     <Medium
-                      label={t('add_mot_photo')}
+                      label={saveFile?.name}
                       color={colors.primary}
                       fontSize={mvs(14)}
-                      style={{marginLeft: mvs(10)}}
+                      style={styles.uplaodfiletext}
                     />
-                  </Row>
-                )}
-              </TouchableOpacity>
-              <View style={{marginVertical: mvs(14)}}>
-                <DatePicker
-                  onChangeText={(str: string) =>
-                    setFieldValue('mot_issue_date', str)
-                  }>
-                  <PrimaryInput
-                    isCalendar
-                    editable={false}
-                    error={
-                      errors?.mot_issue_date && touched?.mot_issue_date
-                        ? `${errors?.mot_issue_date}`
-                        : ''
-                    }
-                    placeholder={t('mot_issue_date')}
-                    onChangeText={str => setFieldValue('mot_issue_date', str)}
-                    value={values.mot_issue_date}
-                  />
-                </DatePicker>
+                  ) : (
+                    <Row style={{justifyContent: 'center'}}>
+                      <FileSVG width={mvs(25)} height={mvs(25)} />
+                      <Medium
+                        label={t('add_mot_photo')}
+                        color={colors.primary}
+                        fontSize={mvs(14)}
+                        style={{marginLeft: mvs(10)}}
+                      />
+                    </Row>
+                  )}
+                </TouchableOpacity>
+                <View style={{marginVertical: mvs(14)}}>
+                  <DatePicker
+                    onChangeText={(str: string) =>
+                      setFieldValue('mot_issue_date', str)
+                    }>
+                    <PrimaryInput
+                      isCalendar
+                      editable={false}
+                      error={
+                        errors?.mot_issue_date && touched?.mot_issue_date
+                          ? `${errors?.mot_issue_date}`
+                          : ''
+                      }
+                      placeholder={t('mot_issue_date')}
+                      onChangeText={str => setFieldValue('mot_issue_date', str)}
+                      value={values.mot_issue_date}
+                    />
+                  </DatePicker>
 
-                <DatePicker
-                  onChangeText={(str: string) =>
-                    setFieldValue('mot_expiry_date', str)
-                  }>
-                  <PrimaryInput
-                    isCalendar
-                    editable={false}
-                    error={
-                      errors?.mot_expiry_date && touched?.mot_expiry_date
-                        ? `${errors?.mot_expiry_date}`
-                        : ''
-                    }
-                    placeholder={t('mot_expiry_date')}
-                    onChangeText={str => setFieldValue('mot_expiry_date', str)}
-                    value={values.mot_expiry_date}
-                  />
-                </DatePicker>
+                  <DatePicker
+                    onChangeText={(str: string) =>
+                      setFieldValue('mot_expiry_date', str)
+                    }>
+                    <PrimaryInput
+                      isCalendar
+                      editable={false}
+                      error={
+                        errors?.mot_expiry_date && touched?.mot_expiry_date
+                          ? `${errors?.mot_expiry_date}`
+                          : ''
+                      }
+                      placeholder={t('mot_expiry_date')}
+                      onChangeText={str =>
+                        setFieldValue('mot_expiry_date', str)
+                      }
+                      value={values.mot_expiry_date}
+                    />
+                  </DatePicker>
+                </View>
               </View>
-            </View>
-          </KeyboardAvoidScrollview>
+            </KeyboardAvoidScrollview>
+          </View>
+          <View style={{paddingHorizontal: mvs(20)}}>
+            <PrimaryButton
+              containerStyle={styles.registerbutton}
+              loading={loading}
+              onPress={() => navigate('ResetPasswordScreen')}
+              title={t('register_now')}
+            />
+          </View>
         </View>
-      </View>
-      <View style={{paddingHorizontal: mvs(20)}}>
-        <PrimaryButton
-          containerStyle={styles.registerbutton}
-          loading={loading}
-          onPress={() => navigate('ResetPasswordScreen')}
-          title={t('register_now')}
-        />
-      </View>
+      </ScrollView>
     </View>
   );
 };

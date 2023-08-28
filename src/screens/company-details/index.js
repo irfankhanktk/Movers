@@ -132,14 +132,14 @@ const CompanyDetailsScreen = props => {
             />
           </KeyboardAvoidScrollview>
         </View>
-      </View>
-      <View style={{paddingHorizontal: mvs(20)}}>
-        <PrimaryButton
-          containerStyle={styles.registernowbutton}
-          loading={loading}
-          onPress={() => navigate('ResetPasswordScreen')}
-          title={t('register_now')}
-        />
+        <View style={{paddingHorizontal: mvs(20)}}>
+          <PrimaryButton
+            containerStyle={styles.registernowbutton}
+            loading={loading}
+            onPress={() => navigate('ResetPasswordScreen')}
+            title={t('register_now')}
+          />
+        </View>
       </View>
     </View>
   );

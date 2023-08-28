@@ -61,7 +61,7 @@ const CustomDrawerContent = props => {
           containerStyle={styles.helpStyle}
         />
         <DrawerHomeCard
-          // onPress={() => navigate('DriverSignup')}
+          onPress={() => navigate('HistoryScreen')}
           icon1={IMG.settings}
           label1={t('setting')}
           containerStyle={styles.helpStyle}

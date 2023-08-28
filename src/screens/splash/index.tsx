@@ -63,9 +63,9 @@ const Splash = (props: props) => {
 
   return (
     <View style={{...styles.container}}>
-      <TouchableOpacity style={styles.skipbutton}>
+      {/* <TouchableOpacity style={styles.skipbutton}>
         <Medium label={t('Skip')} color={colors.white} fontSize={mvs(24)} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Image
         source={IMG.Logo}
         resizeMode={'contain'}
@@ -80,7 +80,7 @@ const Splash = (props: props) => {
       <Image
         source={IMG.SplashIcon}
         resizeMode={'contain'}
-        style={{width: mvs(400), height: mvs(450)}}
+        style={{width: mvs(400), height: '60%'}}
       />
     </View>
   );

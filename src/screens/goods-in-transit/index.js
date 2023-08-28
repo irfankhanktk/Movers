@@ -73,79 +73,87 @@ const GoodsInTransitScreen = props => {
   };
   return (
     <View style={styles.container}>
-      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
-      <Header1x2x />
-      <View style={{alignSelf: 'center'}}>
-        <LottieView
-          source={UploadDocumentsAnimation}
-          autoPlay={true}
-          loop={true}
-          style={{width: mvs(200), height: mvs(200)}}
-        />
-      </View>
-
-      <View style={styles.contentContainerStyle}>
-        <View style={styles.contentContainerStyleNew}>
-          <KeyboardAvoidScrollview
-            contentContainerStyle={styles.keyboradcontainer}>
-            <Bold
-              label={t('goods_in_transit')}
-              color={colors.bluecolor}
-              fontSize={mvs(16)}
-              style={styles.boldtext}
-            />
-
-            <PrimaryInput
-              keyboardType={'email-address'}
-              error={
-                touched?.name && errors?.name ? `${t(errors?.name)}` : undefined
-              }
-              placeholder={t('name')}
-              onChangeText={str => setFieldValue('name', str)}
-              onBlur={() => setFieldTouched('name', true)}
-              value={values.name}
-            />
-            <DatePicker
-              onChangeText={(str: string) => setFieldValue('valid_from', str)}>
-              <PrimaryInput
-                isCalendar
-                editable={false}
-                error={
-                  errors?.valid_from && touched?.valid_from
-                    ? `${errors?.valid_from}`
-                    : ''
-                }
-                placeholder={t('valid_from')}
-                onChangeText={str => setFieldValue('valid_from', str)}
-                value={values.valid_from}
-              />
-            </DatePicker>
-            <DatePicker
-              onChangeText={(str: string) => setFieldValue('expiry_date', str)}>
-              <PrimaryInput
-                isCalendar
-                editable={false}
-                error={
-                  errors?.expiry_date && touched?.expiry_date
-                    ? `${errors?.expiry_date}`
-                    : ''
-                }
-                placeholder={t('expiry_date')}
-                onChangeText={str => setFieldValue('expiry_date', str)}
-                value={values.expiry_date}
-              />
-            </DatePicker>
-          </KeyboardAvoidScrollview>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
+        <Header1x2x />
+        <View style={{alignSelf: 'center'}}>
+          <LottieView
+            source={UploadDocumentsAnimation}
+            autoPlay={true}
+            loop={true}
+            style={{width: mvs(200), height: mvs(200)}}
+          />
         </View>
-      </View>
-      <View style={{paddingHorizontal: mvs(20)}}>
-        <PrimaryButton
-          containerStyle={styles.regiterbutton}
-          loading={loading}
-          onPress={() => navigate('ResetPasswordScreen')}
-          title={t('register_now')}
-        />
-      </View>
+
+        <View style={styles.contentContainerStyle}>
+          <View style={styles.contentContainerStyleNew}>
+            <KeyboardAvoidScrollview
+              contentContainerStyle={styles.keyboradcontainer}>
+              <Bold
+                label={t('goods_in_transit')}
+                color={colors.bluecolor}
+                fontSize={mvs(16)}
+                style={styles.boldtext}
+              />
+
+              <PrimaryInput
+                keyboardType={'email-address'}
+                error={
+                  touched?.name && errors?.name
+                    ? `${t(errors?.name)}`
+                    : undefined
+                }
+                placeholder={t('name')}
+                onChangeText={str => setFieldValue('name', str)}
+                onBlur={() => setFieldTouched('name', true)}
+                value={values.name}
+              />
+              <DatePicker
+                onChangeText={(str: string) =>
+                  setFieldValue('valid_from', str)
+                }>
+                <PrimaryInput
+                  isCalendar
+                  editable={false}
+                  error={
+                    errors?.valid_from && touched?.valid_from
+                      ? `${errors?.valid_from}`
+                      : ''
+                  }
+                  placeholder={t('valid_from')}
+                  onChangeText={str => setFieldValue('valid_from', str)}
+                  value={values.valid_from}
+                />
+              </DatePicker>
+              <DatePicker
+                onChangeText={(str: string) =>
+                  setFieldValue('expiry_date', str)
+                }>
+                <PrimaryInput
+                  isCalendar
+                  editable={false}
+                  error={
+                    errors?.expiry_date && touched?.expiry_date
+                      ? `${errors?.expiry_date}`
+                      : ''
+                  }
+                  placeholder={t('expiry_date')}
+                  onChangeText={str => setFieldValue('expiry_date', str)}
+                  value={values.expiry_date}
+                />
+              </DatePicker>
+            </KeyboardAvoidScrollview>
+          </View>
+          <View style={{paddingHorizontal: mvs(20)}}>
+            <PrimaryButton
+              containerStyle={styles.regiterbutton}
+              loading={loading}
+              onPress={() => navigate('ResetPasswordScreen')}
+              title={t('register_now')}
+            />
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };

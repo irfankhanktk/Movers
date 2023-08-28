@@ -116,7 +116,9 @@
   "bank_name":"Bank Name",
   "account_title":"Account title",
   "sort_code":"Sort Code",
-  "account_number":"Account Number"
+  "account_number":"Account Number",
+  "choose_language":"Choose Language",
+  "guest_mode":"Guest Mode"
   
  
 
