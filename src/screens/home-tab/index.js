@@ -13,7 +13,9 @@ import styles from './styles';
 import HomeSwiper from 'components/molecules/home-swiper';
 import CustomFlatList from 'components/atoms/custom-flatlist';
 import * as IMG from 'assets/images';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from 'config/colors';
+import {Row} from 'components/atoms/row';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -43,12 +45,23 @@ const HomeTab = props => {
           back={false}
           style={{backgroundColor: colors.transparent}}
         />
-        <Medium
-          label={'Hi Ali Abdullah'}
-          fontSize={mvs(20)}
-          color={colors.white}
-          style={{marginLeft: mvs(25)}}
-        />
+        <Row
+          style={{
+            alignItems: 'center',
+
+            paddingHorizontal: mvs(20),
+          }}>
+          <Medium
+            label={'Hi Ali Abdullah'}
+            fontSize={mvs(20)}
+            color={colors.white}
+          />
+          <Ionicons
+            name={'notifications'}
+            color={colors.white}
+            size={mvs(25)}
+          />
+        </Row>
         <HomeSwiper />
         <View style={styles.body}>
           <CustomFlatList

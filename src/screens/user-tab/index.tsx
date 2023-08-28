@@ -10,6 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabParamList from 'types/navigation-types/bottom-tab';
 import Medium from 'typography/medium-text';
@@ -166,8 +167,8 @@ const UserTab = (props: props) => {
               onPress={() =>
                 props?.navigation?.navigate('TermsandConditionsScreen')
               }>
-              <Ionicons
-                name="timer-outline"
+              <Entypo
+                name="text-document-inverted"
                 size={mvs(22)}
                 color={colors.primary}
               />
@@ -181,8 +182,8 @@ const UserTab = (props: props) => {
               onPress={() =>
                 props?.navigation?.navigate('PrivacyPolicyScreen')
               }>
-              <Ionicons
-                name="timer-outline"
+              <MaterialIcons
+                name="privacy-tip"
                 size={mvs(22)}
                 color={colors.primary}
               />
