@@ -4,7 +4,7 @@ import {auth_bg} from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
 import OtpModal from 'components/molecules/modals/otp-modal';
 import {height, mvs, width} from 'config/metrices';
-import {useFormik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import {useAppDispatch} from 'hooks/use-store';
 import {navigate, resetStack} from 'navigation/navigation-ref';
 import React from 'react';
@@ -22,13 +22,14 @@ import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollvie
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
-import {signinFormValidation} from 'validations';
+import {signinFormValidation, signupDetailsFormValidation} from 'validations';
 import styles from './styles';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
 import {Clock, FacBookIcon, GoogleIcon, LoginAnimation} from 'assets/icons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {onLogin} from 'services/api/auth-api-actions';
 const LoginScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -37,30 +38,47 @@ const LoginScreen = props => {
   const initialValues = {
     email: '',
     password: '',
+    fcm_token: '123456',
   };
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
+  // const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
+  //   useFormik({
+  //     initialValues: initialValues,
+  //     validateOnBlur: true,
+  //     validateOnChange: true,
+  //     validationSchema: signinFormValidation,
+  //     onSubmit: () => {},
+  //   });
+  const handleFormSubmit = async values => {
     try {
+      setLoading(true);
       messaging()
         .getToken()
         .then(fcmToken => {
           console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
+          dispatch(onLogin({...values, token: fcmToken}, setLoading, props));
           resetStack('Drawer');
         })
         .catch(error => console.log(error));
     } catch (error) {
       console.log('error=>', error);
+      setLoading(false);
     }
   };
+  // const onSubmit = async () => {
+  //   try {
+  //     messaging()
+  //       .getToken()
+  //       .then(fcmToken => {
+  //         console.log('fcmToken=>', fcmToken);
+  //         // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
+  //         resetStack('Drawer');
+  //       })
+  //       .catch(error => console.log(error));
+  //   } catch (error) {
+  //     console.log('error=>', error);
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <Image source={IMG.LogoBackground} style={styles.imagebackground} />
@@ -95,61 +113,70 @@ const LoginScreen = props => {
               fontSize={mvs(16)}
               style={styles.loginmoverstext}
             />
+            <Formik
+              initialValues={initialValues}
+              validationSchema={signinFormValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <PrimaryInput
+                    keyboardType={'email-address'}
+                    error={touched?.email ? t(errors.email) : ''}
+                    placeholder={t('email')}
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                  />
+                  <PrimaryInput
+                    isPassword
+                    error={touched?.password ? t(errors.password) : ''}
+                    placeholder={t('password')}
+                    // label={t('password')}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
+                    containerStyle={{marginBottom: 0}}
+                    errorStyle={{marginBottom: 0}}
+                  />
+                  <TouchableOpacity
+                    style={styles.forgotpasswordview}
+                    onPress={() => navigate('ForgotPasswordScreen')}>
+                    <Medium
+                      label={t('forgot_password?')}
+                      style={{textDecorationLine: 'underline'}}
+                      color={colors.bluecolor}
+                    />
+                  </TouchableOpacity>
+                  <PrimaryButton
+                    containerStyle={{
+                      borderRadius: mvs(10),
+                    }}
+                    loading={loading}
+                    onPress={handleSubmit}
+                    title={t('login')}
+                  />
+                  <View style={styles.createaccountview}>
+                    <Medium label={t('or_create_a_new_account')} />
+                  </View>
 
-            <PrimaryInput
-              keyboardType={'email-address'}
-              error={
-                touched?.email && errors?.email
-                  ? `${t(errors?.email)}`
-                  : undefined
-              }
-              placeholder={t('email')}
-              onChangeText={str => setFieldValue('email', str)}
-              onBlur={() => setFieldTouched('email', true)}
-              value={values.email}
-            />
-            <PrimaryInput
-              isPassword
-              error={
-                touched?.password && errors?.password
-                  ? `${t(errors?.password)}`
-                  : undefined
-              }
-              placeholder={t('password')}
-              // label={t('password')}
-              onChangeText={str => setFieldValue('password', str)}
-              onBlur={() => setFieldTouched('password', true)}
-              value={values.password}
-              containerStyle={{marginBottom: 0}}
-              errorStyle={{marginBottom: 0}}
-            />
-            <TouchableOpacity
-              style={styles.forgotpasswordview}
-              onPress={() => navigate('ForgotPasswordScreen')}>
-              <Medium
-                label={t('forgot_password?')}
-                style={{textDecorationLine: 'underline'}}
-                color={colors.bluecolor}
-              />
-            </TouchableOpacity>
-            <PrimaryButton
-              containerStyle={{
-                borderRadius: mvs(10),
-              }}
-              loading={loading}
-              onPress={onSubmit}
-              title={t('login')}
-            />
-            <View style={styles.createaccountview}>
-              <Medium label={t('or_create_a_new_account')} />
-            </View>
-
-            <PrimaryButton
-              containerStyle={styles.signupbuttoncontainer}
-              loading={loading}
-              onPress={() => navigate('Signup')}
-              title={t('sign_up')}
-            />
+                  <PrimaryButton
+                    containerStyle={styles.signupbuttoncontainer}
+                    // loading={loading}
+                    onPress={() => navigate('Signup')}
+                    title={t('sign_up')}
+                  />
+                </>
+              )}
+            </Formik>
             {/* <View style={styles.createaccountview}>
               <Medium label={t('login_with')} />
             </View> */}

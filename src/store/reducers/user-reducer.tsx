@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 type Props = {
   userInfo: any;
@@ -8,15 +8,16 @@ type Props = {
     longitude: number;
   };
   notifications: any[];
-  wallet: any;
+
   unreadNotification: number;
+  countries: any[];
 };
 const initialState: Props = {
   userInfo: null,
   language: 'en',
   location: undefined,
   notifications: [],
-  wallet: {},
+  countries: [],
   unreadNotification: 0,
 };
 
@@ -42,9 +43,13 @@ export const userSlice = createSlice({
         (x: any) => !x?.is_read,
       )?.length;
     },
-    setWallet: (state, action) => {
-      state.wallet = action.payload;
+    setCountries: (state, action) => {
+      state.countries = action.payload;
     },
+    resetUser: (state, action) => {
+      return initialState;
+    },
+
     // demoAsync: (state, action) => {
     //   state.userInfo = action.payload
     // },
@@ -54,10 +59,12 @@ export const userSlice = createSlice({
 export const {
   setUserInfo,
   reset,
+  resetUser,
   setLanguage,
   setLocation,
   setNotifications,
-  setWallet,
+
+  setCountries,
   // demoAsync
 } = userSlice.actions;
 

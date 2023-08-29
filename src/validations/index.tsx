@@ -23,8 +23,8 @@ export const renewpasswordFormValidation = yup.object().shape({
     .oneOf([yup.ref('password')], 'miss_match_pass'),
 });
 export const signupFormValidation = yup.object().shape({
-  name: yup.string().required('req_name'),
-  // last_name: yup.string().required('req_first_name'),
+  first_name: yup.string().required('req_first_name'),
+  middle_name: yup.string().required('req_middle_name'),
   email: yup.string().email('invalid_email').required('req_email'),
   phone: yup
     .number()
@@ -38,13 +38,42 @@ export const signupFormValidation = yup.object().shape({
     .string()
     .required('req_pass')
     .oneOf([yup.ref('password')], 'miss_match_pass'),
-  doc_cat_id: yup.string().required('req_cat'),
-  zip_code: yup.string().required('req_zip_code'),
+  surname: yup.string().required('req_surname'),
+  // gender: yup.string().required('req_gender'),
+  // country_code: yup.string().required('req_country_code'),
+  // house_name: yup.string().required('req_house_name'),
+  // first_line_of_address: yup.string().required('req_first_line_of_address'),
+  // postal_code: yup.string().required('req_postal_code'),
+  // city: yup.string().required('req_city'),
+  // cnic: yup.number().min(13, 'invalid_cnic'),
+  // dob: yup.string().required('req_dob'),
+});
+
+export const signupDetailsFormValidation = yup.object().shape({
+  // first_name: yup.string().required('req_first_name'),
+  // middle_name: yup.string().required('req_middle_name'),
+  // email: yup.string().email('invalid_email').required('req_email'),
+  // phone: yup
+  //   .number()
+  //   .typeError('invalid_phone')
+  //   .positive('invalid_phone')
+  //   .integer('invalid_phone')
+  //   .min(8, 'invalid_phone')
+  //   .required('Phone is required'),
+  // password: yup.string().required('req_pass').min(8, 'weak_pass'),
+  // confirm_password: yup
+  //   .string()
+  //   .required('req_pass')
+  //   .oneOf([yup.ref('password')], 'miss_match_pass'),
+  // surname: yup.string().required('req_surname'),
+  // gender: yup.string().required('req_gender'),
+  // country_code: yup.string().required('req_country_code'),
+  house_name: yup.string().required('req_house_name'),
+  first_line_of_address: yup.string().required('req_first_line_of_address'),
+  postal_code: yup.string().required('req_postal_code'),
   city: yup.string().required('req_city'),
-  short_description: yup.string().required('req_short_description'),
-  state: yup.string().required('req_state'),
-  price: yup.string().required('req_price'),
-  experience: yup.string().required('req_experience'),
+  cnic: yup.number().min(13, 'invalid_cnic'),
+  dob: yup.string().required('req_dob'),
 });
 export const updateProfileFormValidation = yup.object().shape({
   name: yup.string().required('req_name'),
@@ -94,7 +123,7 @@ export const addHotelValidation = yup.object().shape({
     yup.object().shape({
       title: yup.string().required('policy_title'),
       content: yup.string().required('policy_content'),
-    })
+    }),
   ),
   banner_image_id: yup
     .object()
@@ -107,7 +136,7 @@ export const addHotelValidation = yup.object().shape({
     .of(
       yup.object().shape({
         url: yup.string().required('select_image'),
-      })
+      }),
     )
     .required('select_image'),
   image_id: yup
@@ -131,7 +160,7 @@ export const addRoomValidation = yup.object().shape({
     .of(
       yup.object().shape({
         url: yup.string().required('select_image'),
-      })
+      }),
     )
     .required('select_image'),
   image_id: yup

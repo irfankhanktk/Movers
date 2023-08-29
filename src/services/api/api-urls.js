@@ -1,16 +1,19 @@
-export const IP = 'http://124.29.208.60:5159';
+export const IP = 'https://luggage.prismatic-technologies.com';
 export const URLS = {
   base_url: `${IP}/api/`,
   image_url: `${IP}/`,
   auth: {
-    signup: 'doctor/signup',
-    login: 'auth/login',
+    signup: 'driver',
+    create_user: 'user/create',
+    login: 'login',
+    verify_otp: 'otpVerify',
     get_user_info: 'user/userInfo',
-    update_password: 'doctor/updatePassword',
-    change_password: 'doctor/changePassword',
-    otp_verify: 'doctor/otpVerify',
-    forget_password: 'doctor/forgetPassword',
-    update_profile: 'doctor/updateProfile',
+    forgot_password: 'sendOtp',
+    // update_password: 'doctor/updatePassword',
+    // change_password: 'doctor/changePassword',
+    // otp_verify: 'doctor/otpVerify',
+    // forget_password: 'doctor/forgetPassword',
+    // update_profile: 'doctor/updateProfile',
   },
   availability: {
     add: 'doctor/addDoctorAvailability',
@@ -60,6 +63,6 @@ export const URLS = {
     },
     store_file: 'hotel/store',
     locations: 'locations',
-    hotel_details: 'hotel/'//hotel slug
+    hotel_details: 'hotel/', //hotel slug
   },
 };

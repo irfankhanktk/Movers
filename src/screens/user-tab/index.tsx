@@ -21,6 +21,8 @@ import RootStackParamList from '../../types/navigation-types/root-stack';
 import styles from './styles';
 import * as IMG from 'assets/images';
 import {Loader} from 'components/atoms/loader';
+import {onLogoutPress} from 'services/api/auth-api-actions';
+import {t} from 'i18next';
 
 type props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'UserTab'>,
@@ -29,8 +31,8 @@ type props = CompositeScreenProps<
 const UserTab = (props: props) => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
+  const language = user?.language;
   const dispatch = useAppDispatch();
-  const {t} = i18n;
   const [saveFile, setSaveFile] = React.useState(null);
   const [fileLoading, setFileLoading] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -86,21 +88,21 @@ const UserTab = (props: props) => {
               resizeMode="cover"
             />
           )}
-          {/* {userInfo?.id && ( */}
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'white',
-              borderRadius: mvs(10),
-              position: 'absolute',
-              right: mvs(-16),
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => onPressAttachment()}>
-            <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
-          </TouchableOpacity>
-          {/* )} */}
+          {userInfo?.id && (
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'white',
+                borderRadius: mvs(10),
+                position: 'absolute',
+                right: mvs(-16),
+                alignSelf: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => onPressAttachment()}>
+              <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
+            </TouchableOpacity>
+          )}
         </View>
         <Medium label={userInfo?.name || t('guest_mode')} style={styles.name} />
         <Regular
@@ -112,18 +114,18 @@ const UserTab = (props: props) => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{flexGrow: 1, paddingBottom: mvs(100)}}>
-            {/* {userInfo && ( */}
-            <TouchableOpacity
-              style={styles.itemtabs}
-              onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
-              <FontAwesome
-                name="shopping-cart"
-                size={mvs(22)}
-                color={colors.primary}
-              />
-              <Regular style={styles.itemText1} label={`${t('my_order')}`} />
-            </TouchableOpacity>
-            {/* )} */}
+            {userInfo && (
+              <TouchableOpacity
+                style={styles.itemtabs}
+                onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
+                <FontAwesome
+                  name="shopping-cart"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+                <Regular style={styles.itemText1} label={`${t('my_order')}`} />
+              </TouchableOpacity>
+            )}
             <TouchableOpacity
               style={styles.itemtabs}
               onPress={() => props?.navigation?.navigate('LanguageScreen')}>
@@ -137,61 +139,66 @@ const UserTab = (props: props) => {
                 label={`${t('choose_language')}`}
               />
             </TouchableOpacity>
-            {/* {userInfo && ( */}
-            <TouchableOpacity
-              style={styles.itemtabs}
-              onPress={() =>
-                props?.navigation?.navigate('UploadDocumentsScreen')
-              }>
-              <Ionicons
-                name="documents"
-                size={mvs(22)}
-                color={colors.primary}
-              />
-              <Regular style={styles.itemText1} label={`${t('documents')}`} />
-            </TouchableOpacity>
-            {/* )} */}
-            {/* {userInfo && ( */}
-            <TouchableOpacity
-              style={styles.itemtabs}
-              onPress={() => props?.navigation?.navigate('HistoryScreen')}>
-              <Ionicons
-                name="timer-outline"
-                size={mvs(22)}
-                color={colors.primary}
-              />
-              <Regular style={styles.itemText1} label={`${t('history')}`} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.itemtabs}
-              onPress={() =>
-                props?.navigation?.navigate('TermsandConditionsScreen')
-              }>
-              <Entypo
-                name="text-document-inverted"
-                size={mvs(22)}
-                color={colors.primary}
-              />
-              <Regular
-                style={styles.itemText1}
-                label={`${t('terms_and_conditions')}`}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.itemtabs}
-              onPress={() =>
-                props?.navigation?.navigate('PrivacyPolicyScreen')
-              }>
-              <MaterialIcons
-                name="privacy-tip"
-                size={mvs(22)}
-                color={colors.primary}
-              />
-              <Regular
-                style={styles.itemText1}
-                label={`${t('return_policy & private_policy')}`}
-              />
-            </TouchableOpacity>
+            {userInfo && (
+              <TouchableOpacity
+                style={styles.itemtabs}
+                onPress={() =>
+                  props?.navigation?.navigate('UploadDocumentsScreen')
+                }>
+                <Ionicons
+                  name="documents"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+                <Regular style={styles.itemText1} label={`${t('documents')}`} />
+              </TouchableOpacity>
+            )}
+            {userInfo && (
+              <TouchableOpacity
+                style={styles.itemtabs}
+                onPress={() => props?.navigation?.navigate('HistoryScreen')}>
+                <Ionicons
+                  name="timer-outline"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+                <Regular style={styles.itemText1} label={`${t('history')}`} />
+              </TouchableOpacity>
+            )}
+            {userInfo && (
+              <TouchableOpacity
+                style={styles.itemtabs}
+                onPress={() =>
+                  props?.navigation?.navigate('TermsandConditionsScreen')
+                }>
+                <Entypo
+                  name="text-document-inverted"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+                <Regular
+                  style={styles.itemText1}
+                  label={`${t('terms_and_conditions')}`}
+                />
+              </TouchableOpacity>
+            )}
+            {userInfo && (
+              <TouchableOpacity
+                style={styles.itemtabs}
+                onPress={() =>
+                  props?.navigation?.navigate('PrivacyPolicyScreen')
+                }>
+                <MaterialIcons
+                  name="privacy-tip"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+                <Regular
+                  style={styles.itemText1}
+                  label={`${t('return_policy & private_policy')}`}
+                />
+              </TouchableOpacity>
+            )}
             {/* )} */}
             {/* <View
             style={{
@@ -201,7 +208,13 @@ const UserTab = (props: props) => {
               width: '100%',
               paddingBottom: mvs(60),
             }}> */}
-            <TouchableOpacity style={styles.itemtabs}>
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                userInfo
+                  ? dispatch(onLogoutPress())
+                  : props?.navigation?.navigate('Login')
+              }>
               <AntDesign
                 name={`${userInfo ? 'logout' : 'login'}`}
                 size={mvs(22)}

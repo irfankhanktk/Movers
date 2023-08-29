@@ -1,8 +1,8 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import {useFormik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import React from 'react';
-import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import * as IMG from 'assets/images';
 
@@ -19,7 +19,7 @@ import {onSignup} from 'services/api/auth-api-actions';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import {UTILS} from 'utils';
-import {signupFormValidation} from 'validations';
+import {signupDetailsFormValidation, signupFormValidation} from 'validations';
 import RootStackParamList from '../../types/navigation-types/root-stack';
 import styles from './styles';
 import {mvs, width} from 'config/metrices';
@@ -36,11 +36,13 @@ Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
 const SignupNext = (props: props) => {
-  const [otpModalVisible, setOtpModalVisible] = React.useState(true);
+  const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [value, setValue] = React.useState('');
   const [selectedGender, setSelectedGender] = React.useState('');
 
-  const {navigation} = props;
+  // const {navigation} = props;
+  const {values} = props?.route?.params;
+  console.log('values props', props?.route?.params);
   const {t} = i18n;
   const {user} = useAppSelector(s => s);
   const {location} = user;
@@ -48,55 +50,32 @@ const SignupNext = (props: props) => {
 
   const dispatch = useAppDispatch();
   const initialValues = {
-    first_name: '',
-    middle_name: '',
-    surname: '',
-    email: '',
-    phone: '',
-    confirm_password: '',
-    password: '',
     cnic: '',
-    passport_no: '',
     house_name: '',
-    house_number: '',
-    address: '',
-    postal_code: '',
-    date_of_birth: '',
+    first_line_of_address: '',
     city: '',
-
-    // bio: null,
+    postal_code: '',
+    roles: 'Driver',
+    dob: '',
   };
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signupFormValidation,
-      onSubmit: () => {},
-    });
 
-  console.log('errors=>', errors);
-  console.log('values=>', values);
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const addressComponent = await UTILS._returnAddress(
-          location?.latitude,
-          location?.longitude,
-        );
-        // console.log('addressComponent=>', addressComponent);
-        setFieldValue('map_lat', location?.latitude);
-        setFieldValue('map_lng', location?.longitude);
-        setFieldValue('city', addressComponent?.city);
-        setFieldValue('state', addressComponent?.province);
-        setFieldValue('country', addressComponent?.country);
-      } catch (error) {
-        console.log('error in location address', error);
-      }
-    })();
-  }, []);
-
+  const handleFormSubmit = async values => {
+    try {
+      setLoading(true);
+      const res = await onSignup({
+        ...values,
+        ...props?.route?.params,
+        fcm_token: '123',
+      });
+      setOtpModalVisible(true);
+      console.log(res);
+    } catch (error) {
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <View style={styles.container}>
       {/* <Header1x2x title={t('signup')} /> */}
@@ -119,100 +98,107 @@ const SignupNext = (props: props) => {
               fontSize={mvs(16)}
               style={styles.boldtext}
             />
+            <Formik
+              initialValues={initialValues}
+              validationSchema={signupDetailsFormValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <PrimaryInput
+                    error={touched?.cnic ? t(errors.cnic) : ''}
+                    placeholder={t('cnic')}
+                    onChangeText={handleChange('cnic')}
+                    onBlur={handleBlur('cnic')}
+                    value={values.cnic}
+                  />
+                  <PrimaryInput
+                    keyboardType={'email-address'}
+                    error={touched?.house_name ? t(errors.house_name) : ''}
+                    placeholder={t('house_name')}
+                    onChangeText={handleChange('house_name')}
+                    onBlur={handleBlur('house_name')}
+                    value={values.house_name}
+                  />
 
-            <PrimaryInput
-              keyboardType={'email-address'}
-              error={
-                touched?.cnic && errors?.cnic ? `${t(errors?.cnic)}` : undefined
-              }
-              placeholder={t('cnic/passport_no')}
-              onChangeText={str => setFieldValue('cnic', str)}
-              onBlur={() => setFieldTouched('cnic', true)}
-              value={values.cnic}
-            />
-            <PrimaryInput
-              keyboardType={'email-address'}
-              error={
-                touched?.house_name && errors?.house_name
-                  ? `${t(errors?.house_name)}`
-                  : undefined
-              }
-              placeholder={t('house_name/number')}
-              onChangeText={str => setFieldValue('house_name', str)}
-              onBlur={() => setFieldTouched('house_name', true)}
-              value={values.house_name}
-            />
+                  <PrimaryInput
+                    keyboardType={'email-address'}
+                    error={
+                      touched?.first_line_of_address
+                        ? t(errors.first_line_of_address)
+                        : ''
+                    }
+                    placeholder={t('first_line_of_address')}
+                    onChangeText={handleChange('first_line_of_address')}
+                    onBlur={handleBlur('first_line_of_address')}
+                    value={values.first_line_of_address}
+                  />
+                  <PrimaryInput
+                    keyboardType={'email_address'}
+                    error={touched?.city ? t(errors.city) : ''}
+                    // label={t('email')}
+                    placeholder={t('city')}
+                    onChangeText={handleChange('city')}
+                    onBlur={handleBlur('city')}
+                    value={values.city}
+                  />
+                  <PrimaryInput
+                    keyboardType={'email_address'}
+                    error={touched?.postal_code ? t(errors.postal_code) : ''}
+                    placeholder={t('postal_code')}
+                    onChangeText={handleChange('postal_code')}
+                    onBlur={handleBlur('postal_code', true)}
+                    value={values.postal_code}
+                  />
 
-            <PrimaryInput
-              keyboardType={'email-address'}
-              error={
-                touched?.address && errors?.address
-                  ? `${t(errors?.address)}`
-                  : undefined
-              }
-              placeholder={t('first_line_of_address')}
-              onChangeText={str => setFieldValue('address', str)}
-              onBlur={() => setFieldTouched('address', true)}
-              value={values.address}
-            />
-            <PrimaryInput
-              keyboardType={'email_address'}
-              error={
-                touched?.city && errors?.city ? `${t(errors?.city)}` : undefined
-              }
-              // label={t('email')}
-              placeholder={t('city')}
-              onChangeText={str => setFieldValue('city', str)}
-              onBlur={() => setFieldTouched('city', true)}
-              value={values.city}
-            />
-            <PrimaryInput
-              keyboardType={'email_address'}
-              error={
-                touched?.postal_code && errors?.postal_code
-                  ? `${t(errors?.postal_code)}`
-                  : undefined
-              }
-              placeholder={t('postal_code')}
-              onChangeText={str => setFieldValue('postal_code', str)}
-              onBlur={() => setFieldTouched('postal_code', true)}
-              value={values.postal_code}
-            />
+                  <DatePicker
+                    onChangeText={(str: string) => setFieldValue('dob', str)}>
+                    <PrimaryInput
+                      isCalendar
+                      editable={false}
+                      error={touched?.dob ? t(errors.dob) : ''}
+                      placeholder={t('date_of_birth')}
+                      onChangeText={handleChange('dob')}
+                      onBlur={handleBlur('dob', true)}
+                      value={values.dob}
+                    />
+                  </DatePicker>
 
-            <DatePicker
-              onChangeText={(str: string) =>
-                setFieldValue('date_of_birth', str)
-              }>
-              <PrimaryInput
-                isCalendar
-                editable={false}
-                error={
-                  errors?.date_of_birth && touched?.date_of_birth
-                    ? `${errors?.date_of_birth}`
-                    : ''
-                }
-                placeholder={t('date_of_birth')}
-                onChangeText={str => setFieldValue('date_of_birth', str)}
-                value={values.date_of_birth}
-              />
-            </DatePicker>
-
-            <PrimaryButton
-              containerStyle={{
-                borderRadius: mvs(10),
-              }}
-              loading={loading}
-              // onPress={onSubmit}
-              title={t('login')}
-            />
+                  <PrimaryButton
+                    containerStyle={{
+                      borderRadius: mvs(10),
+                    }}
+                    loading={loading}
+                    onPress={handleSubmit}
+                    title={t('login')}
+                  />
+                </>
+              )}
+            </Formik>
           </View>
+
           <SignUpModal
-            // email={values?.email}
+            email={props?.route?.params?.email}
             onClose={() => setOtpModalVisible(false)}
             visible={otpModalVisible}
             setValue={setValue}
             value={value}
             {...props}
+            isSignup={false}
+            // // email={values?.email}
+            // onClose={() => setOtpModalVisible(false)}
+            // visible={otpModalVisible}
+            // setValue={setValue}
+            // value={value}
+            // {...props}
           />
         </KeyboardAvoidScrollview>
       </View>

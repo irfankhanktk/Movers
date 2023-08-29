@@ -50,7 +50,7 @@ const Splash = (props: props) => {
         UTILS.getItem(STORAGEKEYS.user).then((data: any) => {
           if (data) {
             const user = JSON.parse(data);
-            screen = 'Onboarding';
+            screen = 'Drawer';
             dispatch(setUserInfo(user));
           }
           setTimeout(() => {

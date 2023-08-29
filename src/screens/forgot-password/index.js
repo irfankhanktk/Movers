@@ -36,6 +36,7 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
+import {onForgot} from 'services/api/auth-api-actions';
 const ForgotPasswordScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -56,16 +57,15 @@ const ForgotPasswordScreen = props => {
     });
   const onSubmit = async () => {
     try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
+      setLoading(true);
+      const res = await onForgot(values);
+      setLoading(false);
+      console.log('res===>>>>> forgot', res);
+      navigate('ResetPasswordScreen');
+      // setOtpModalVisible(true);
     } catch (error) {
       console.log('error=>', error);
+      setLoading(false);
     }
   };
   return (
@@ -112,12 +112,24 @@ const ForgotPasswordScreen = props => {
               value={values.email}
             />
 
-            <PrimaryButton
+            {/* <PrimaryButton
               containerStyle={{
                 borderRadius: mvs(10),
               }}
               loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
+              title={t('send')}
+            /> */}
+            <PrimaryButton
+              containerStyle={{
+                borderRadius: mvs(10),
+              }}
+              // disabled={
+              //   Object.keys(errors).length > 0 ||
+              //   Object.keys(touched).length === 0
+              // }
+              loading={loading}
+              // onPress={() => navigate('ResetPasswordScreen')}
+              onPress={onSubmit}
               title={t('send')}
             />
           </View>

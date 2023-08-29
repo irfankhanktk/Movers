@@ -11,17 +11,33 @@ import Medium from 'typography/medium-text';
 import {mvs} from 'config/metrices';
 import {OtpInput} from 'components/atoms/otp-input';
 import LottieView from 'lottie-react-native';
+import {onVerifyOtp} from 'services/api/auth-api-actions';
+import {useAppDispatch} from 'hooks/use-store';
 const SignUpModal = ({
   disabled,
-  loading,
+  // loading,
   style = {},
   email,
   visible = false,
   value,
+  isSignup = true,
   setValue,
   onClose = item => {},
   onPress = () => {},
 }) => {
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = React.useState(false);
+  const verifyOtp = () => {
+    dispatch(
+      onVerifyOtp(
+        {email, otp: value},
+        (onClose = () => {
+          setShowOtpModal(true);
+        }),
+        setLoading,
+      ),
+    );
+  };
   const [showOtpModal, setShowOtpModal] = React.useState(false);
   return (
     <ModalWrapper
@@ -66,8 +82,10 @@ const SignUpModal = ({
             <OtpInput setValue={setValue} value={value} />
           </View>
           <TouchableOpacity
-            disabled={disabled}
-            onPress={onPress}
+            disabled={value?.length !== 4}
+            onPress={() => {
+              verifyOtp();
+            }}
             style={{
               backgroundColor: colors.blueHalf,
               alignSelf: 'center',
@@ -110,7 +128,8 @@ const SignUpModal = ({
 
           <TouchableOpacity
             disabled={disabled}
-            onPress={onPress}
+            // onPress={onPress}
+            onPress={() => navigate('Login')}
             style={styles.okbutton}>
             {loading ? (
               <Loader />

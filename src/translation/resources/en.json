@@ -118,7 +118,9 @@
   "sort_code":"Sort Code",
   "account_number":"Account Number",
   "choose_language":"Choose Language",
-  "guest_mode":"Guest Mode"
+  "guest_mode":"Guest Mode",
+  "Select_Country_Code":"Select Country Code",
+  "house_name":"House Name"
   
  
 
