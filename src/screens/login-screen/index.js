@@ -56,8 +56,8 @@ const LoginScreen = props => {
         .getToken()
         .then(fcmToken => {
           console.log('fcmToken=>', fcmToken);
-          dispatch(onLogin({...values, token: fcmToken}, setLoading, props));
-          resetStack('Drawer');
+          dispatch(onLogin({...values, token: fcmToken}, setLoading));
+          // resetStack('Drawer');
         })
         .catch(error => console.log(error));
     } catch (error) {

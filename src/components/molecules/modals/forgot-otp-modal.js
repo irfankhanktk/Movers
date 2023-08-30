@@ -5,7 +5,7 @@ import {colors} from 'config/colors';
 import {t} from 'i18next';
 import {navigate} from 'navigation/navigation-ref';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Medium from 'typography/medium-text';
 import {mvs} from 'config/metrices';
@@ -13,9 +13,10 @@ import {OtpInput} from 'components/atoms/otp-input';
 import LottieView from 'lottie-react-native';
 import {onVerifyOtp} from 'services/api/auth-api-actions';
 import {useAppDispatch} from 'hooks/use-store';
-const SignUpModal = ({
+import {UTILS} from 'utils';
+const ForgotOtpModal = ({
   disabled,
-  // loading,
+  loading,
   style = {},
   email,
   visible = false,
@@ -26,23 +27,23 @@ const SignUpModal = ({
   onPress = () => {},
 }) => {
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = React.useState(false);
-  const verifyOtp = async () => {
-    try {
-      setLoading(true);
-      const res = await onVerifyOtp(
-        {email, otp: value},
-        (onClose = () => {
-          setShowOtpModal(true);
-        }),
-        // setLoading,
-      );
-    } catch (error) {
-      Alert.alert('Error', UTILS.returnError(error));
-    } finally {
-      setLoading(false);
-    }
-  };
+
+  // const verifyOtp = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await onVerifyOtp(
+  //       {email, otp: value},
+  //       // (onClose = () => {
+  //       //   setShowOtpModal(true);
+  //       // }),
+  //       // setLoading,
+  //     );
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const [showOtpModal, setShowOtpModal] = React.useState(false);
   return (
     <ModalWrapper
@@ -50,66 +51,64 @@ const SignUpModal = ({
       onBackButtonPress={() => onClose()}
       visible={visible}
       style={[styles.contentContainerStyle, style]}>
-      {!showOtpModal ? (
-        <View style={styles.container}>
-          <View style={styles.header} />
-          <TouchableOpacity onPress={() => onClose()} style={styles.cross}>
-            <CrossModal height={mvs(30)} width={mvs(30)} />
-          </TouchableOpacity>
-          <LottieView
-            source={OTPAnimation}
-            autoPlay={true}
-            loop={true}
-            style={{
-              width: mvs(150),
-              height: mvs(150),
-              alignSelf: 'center',
-              marginBottom: mvs(10),
-            }}
-          />
-          <Medium
-            numberOfLines={2}
-            label={t('verfication_OTP')}
-            style={{
-              fontSize: mvs(20),
-              color: colors.bluecolor,
-              width: mvs(120),
-              alignSelf: 'center',
-              textAlign: 'center',
-            }}
-          />
-          <Medium
-            numberOfLines={3}
-            style={styles.msg}
-            label={`${t('verfication_desc')} ${email || '@email'}`}
-          />
-          <View style={styles.otp}>
-            <OtpInput setValue={setValue} value={value} />
-          </View>
-          <TouchableOpacity
-            disabled={value?.length !== 4}
-            onPress={() => {
-              verifyOtp();
-            }}
-            style={{
-              backgroundColor: colors.blueHalf,
-              alignSelf: 'center',
-              height: mvs(60),
-              width: mvs(60),
-              borderRadius: mvs(30),
-              marginTop: mvs(15),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            {loading ? (
-              <Loader />
-            ) : (
-              <Icon color={colors.primary} size={25} name={'arrowright'} />
-            )}
-          </TouchableOpacity>
+      {/* {!showOtpModal ? ( */}
+      <View style={styles.container}>
+        <View style={styles.header} />
+        <TouchableOpacity onPress={() => onClose()} style={styles.cross}>
+          <CrossModal height={mvs(30)} width={mvs(30)} />
+        </TouchableOpacity>
+        <LottieView
+          source={OTPAnimation}
+          autoPlay={true}
+          loop={true}
+          style={{
+            width: mvs(150),
+            height: mvs(150),
+            alignSelf: 'center',
+            marginBottom: mvs(10),
+          }}
+        />
+        <Medium
+          numberOfLines={2}
+          label={t('verfication_OTP')}
+          style={{
+            fontSize: mvs(20),
+            color: colors.bluecolor,
+            width: mvs(120),
+            alignSelf: 'center',
+            textAlign: 'center',
+          }}
+        />
+        <Medium
+          numberOfLines={3}
+          style={styles.msg}
+          label={`${t('verfication_desc')} ${email || '@email'}`}
+        />
+        <View style={styles.otp}>
+          <OtpInput setValue={setValue} value={value} />
         </View>
-      ) : (
-        <View style={styles.container}>
+        <TouchableOpacity
+          disabled={value?.length !== 4}
+          onPress={onPress}
+          style={{
+            backgroundColor: colors.blueHalf,
+            alignSelf: 'center',
+            height: mvs(60),
+            width: mvs(60),
+            borderRadius: mvs(30),
+            marginTop: mvs(15),
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {loading ? (
+            <Loader />
+          ) : (
+            <Icon color={colors.primary} size={25} name={'arrowright'} />
+          )}
+        </TouchableOpacity>
+      </View>
+      {/* ) : ( */}
+      {/* <View style={styles.container}>
           <View style={styles.header} />
           <TouchableOpacity onPress={() => onClose()} style={styles.cross}>
             <CrossModal height={mvs(25)} width={mvs(25)} />
@@ -142,12 +141,12 @@ const SignUpModal = ({
               <Medium label={t('ok')} fontSize={mvs(20)} color={colors.white} />
             )}
           </TouchableOpacity>
-        </View>
-      )}
+        </View> */}
+      {/* )} */}
     </ModalWrapper>
   );
 };
-export default SignUpModal;
+export default ForgotOtpModal;
 const styles = StyleSheet.create({
   contentContainerStyle: {
     width: '100%',

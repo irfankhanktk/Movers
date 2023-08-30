@@ -1,6 +1,6 @@
-import { colors } from 'config/colors';
+import {colors} from 'config/colors';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 import {
   CodeField,
@@ -8,13 +8,13 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import { mvs } from 'config/metrices';
+import {mvs} from 'config/metrices';
 
-const CELL_COUNT = 6;
+const CELL_COUNT = 4;
 
-export const OtpInput = ({ value, setValue }) => {
+export const OtpInput = ({value, setValue}) => {
   // const [value, setValue] = useState('');
-  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
@@ -32,12 +32,12 @@ export const OtpInput = ({ value, setValue }) => {
       rootStyle={styles.codeFieldRoot}
       keyboardType="number-pad"
       textContentType="oneTimeCode"
-      renderCell={({ index, symbol, isFocused }) => (
+      renderCell={({index, symbol, isFocused}) => (
         <View
           onLayout={getCellOnLayoutHandler(index)}
           key={index}
           style={[
-            { marginHorizontal: mvs(5) },
+            {marginHorizontal: mvs(5)},
             styles.cellRoot,
             isFocused && styles.focusCell,
           ]}>

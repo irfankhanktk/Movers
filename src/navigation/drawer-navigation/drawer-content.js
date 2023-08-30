@@ -11,7 +11,12 @@ import {t} from 'i18next';
 import Medium from 'typography/medium-text';
 import {navigate} from 'navigation/navigation-ref';
 import CustomMap from 'components/atoms/custom-map';
+import {useAppDispatch, useAppSelector} from 'hooks/use-store';
+import {onLogoutPress} from 'services/api/auth-api-actions';
 const CustomDrawerContent = props => {
+  const user = useAppSelector(s => s?.user);
+  const userInfo = user?.userInfo;
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.header}>
@@ -19,14 +24,15 @@ const CustomDrawerContent = props => {
         <View style={styles.drawerheader}>
           <Image source={IMG.Drawerman} style={styles.drawerman} />
         </View>
+
         <Medium
-          label={'Ali Abdullah'}
+          label={userInfo?.name || t('guest_mode')}
           fontSize={mvs(18)}
           color={colors.black}
           style={{marginTop: mvs(6)}}
         />
         <Medium
-          label={'ali1234@gmail.com'}
+          label={`${userInfo?.email || 'guest@gmail.com'}`}
           fontSize={mvs(14)}
           color={colors.black}
           style={{marginTop: mvs(6)}}
@@ -69,7 +75,11 @@ const CustomDrawerContent = props => {
       </ScrollView>
 
       <DrawerHomeCard
-        onPress={() => props?.navigation?.toggleDrawer()}
+        onPress={() =>
+          userInfo
+            ? dispatch(onLogoutPress())
+            : props?.navigation?.navigate('Login')
+        }
         icon1={IMG.drawerLogoutIcon}
         label1={t('logout')}
         br={8}

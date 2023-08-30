@@ -9,7 +9,7 @@ export const URLS = {
     verify_otp: 'otpVerify',
     get_user_info: 'user/userInfo',
     forgot_password: 'sendOtp',
-    // update_password: 'doctor/updatePassword',
+    update_password: 'UpdatePassword',
     // change_password: 'doctor/changePassword',
     // otp_verify: 'doctor/otpVerify',
     // forget_password: 'doctor/forgetPassword',

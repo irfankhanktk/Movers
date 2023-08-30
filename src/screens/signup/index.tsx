@@ -215,6 +215,7 @@ const Signup = (props: props) => {
                     value={values.email}
                   />
                   <PrimaryInput
+                    isPassword
                     keyboardType={'email-address'}
                     error={touched?.password ? t(errors.password) : ''}
                     placeholder={t('password')}
@@ -223,6 +224,7 @@ const Signup = (props: props) => {
                     value={values.password}
                   />
                   <PrimaryInput
+                    isPassword
                     keyboardType={'email-address'}
                     error={
                       touched?.confirm_password

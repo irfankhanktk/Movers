@@ -16,7 +16,7 @@ export const getUserInfo = () => {
 export const onLogin = (
   values: any,
   setLoading: (bool: boolean) => void,
-  props: any,
+  // props: any,
 ) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
@@ -30,7 +30,7 @@ export const onLogin = (
       // console.log('userinfo', uRes);
       dispatch(setUserInfo(res?.user));
 
-      UTILS.resetStack(props, 'Drawer');
+      resetStack('Drawer');
     } catch (error: any) {
       console.log('error in login', UTILS.returnError(error));
       Alert.alert('', UTILS.returnError(error));
@@ -57,7 +57,7 @@ export const onForgot = async (values: any) => {
   try {
     const res = await getData(
       `${URLS.auth.forgot_password}?email=${values?.email}`,
-      values,
+      // values,
     );
     console.log('res of onforgot=>', res);
     return res;
@@ -66,41 +66,18 @@ export const onForgot = async (values: any) => {
     Alert.alert('', UTILS.returnError(error));
   }
 };
-export const onVerifyOtp = (
-  values: any,
-
-  onClose: any,
-  setLoading: (bool: boolean) => void,
-  // isSignup?: boolean,
-) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
-    try {
-      setLoading(true);
-      const res = await getData(
-        `${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}`,
-      );
-      setLoading(false);
-      console.log('res of onforgot=>', res);
-      // UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.user));
-      // dispatch(setUserInfo(res?.user));
-      // console.log('res===>>>>> onverifyotp', res);
-      // if (isSignup) {
-      //   // UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.user));
-      //   // dispatch(setUserInfo(res?.user));
-      //   resetStack('Login', {isBack: false});
-      // } else {
-      //   props?.navigation?.navigate('RenewPasswordScreen', {
-      //     email: values?.email,
-      //   });
-      // }
-    } catch (error: any) {
-      console.log('error in forgot password', UTILS.returnError(error));
-      Alert.alert('', UTILS.returnError(error));
-    } finally {
-      onClose();
-    }
-  };
+export const onUpdatePassword = async (values: any) => {
+  try {
+    const res = await postData(URLS.auth.update_password, values);
+    console.log('res of updateapssword=>', res);
+    return res;
+  } catch (error: any) {
+    console.log('error in updateapssword', UTILS.returnError(error));
+    Alert.alert('', UTILS.returnError(error));
+  }
 };
+export const onVerifyOtp = (values: any) =>
+  getData(`${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}`);
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
 
 export const getCountryCode = () => {

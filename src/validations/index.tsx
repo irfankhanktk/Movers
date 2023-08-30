@@ -107,12 +107,20 @@ export const updateProfileFormValidation = yup.object().shape({
 //     .required('Phone is required'),
 // });
 export const updatePasswordValidation = yup.object().shape({
-  email: yup.string().email('invalid_email').required('req_email'),
-  old_password: yup.string().required('req_pass').min(8, 'weak_pass'),
-  new_password: yup
+  // email: yup.string().email('invalid_email').required('req_email'),
+  password: yup.string().required('req_pass').min(8, 'weak_pass'),
+  confirm_password: yup
     .string()
     .required('New Password is required')
     .min(8, 'New weak_pass'),
+});
+export const forgotPasswordValidation = yup.object().shape({
+  email: yup.string().email('invalid_email').required('req_email'),
+  // password: yup.string().required('req_pass').min(8, 'weak_pass'),
+  // confirm_password: yup
+  //   .string()
+  //   .required('New Password is required')
+  //   .min(8, 'New weak_pass'),
 });
 export const addHotelValidation = yup.object().shape({
   title: yup.string().required('title_required'),
