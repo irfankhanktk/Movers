@@ -19,6 +19,7 @@ import {Row} from 'components/atoms/row';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
+  console.log('user', user);
   const language = user?.language;
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -52,7 +53,13 @@ const HomeTab = props => {
             paddingHorizontal: mvs(20),
           }}>
           <Medium
-            label={'Hi Ali Abdullah'}
+            label={`Hi, ${
+              userInfo?.name +
+              ' ' +
+              userInfo?.middle_name +
+              ' ' +
+              userInfo?.surname
+            }`}
             fontSize={mvs(20)}
             color={colors.white}
           />
