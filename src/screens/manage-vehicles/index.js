@@ -47,7 +47,7 @@ const ManageVehicleScreen = props => {
       setLoading(true);
       const res = await getVehcileList();
       setVehicleLists(res);
-      // setWishlistColor(res?.row?.has_wish_list ? true : false);
+
       console.log(res);
     } catch (error) {
       setLoading(false);

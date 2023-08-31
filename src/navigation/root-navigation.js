@@ -45,7 +45,7 @@ import VehicleInsuranceScreen from 'screens/vehicle-insurance';
 import GoodsInTransitScreen from 'screens/goods-in-transit';
 import BankDetailsScreen from 'screens/bank-details';
 import ManageVehicleDocumentScreen from 'screens/manage-vehicle-document';
-import UpdateVehicleScreen from 'screens/update-vehicle';
+
 const Stack = createNativeStackNavigator();
 
 export const RootNavigator = () => {
@@ -70,10 +70,7 @@ export const RootNavigator = () => {
             name="ForgotPasswordScreen"
             component={ForgotPasswordScreen}
           />
-          <Stack.Screen
-            name="UpdateVehicleScreen"
-            component={UpdateVehicleScreen}
-          />
+
           <Stack.Screen
             name="ResetPasswordScreen"
             component={ResetPasswordScreen}
