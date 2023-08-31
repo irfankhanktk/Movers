@@ -17,7 +17,7 @@ export const deleteData = async (url, payload) => {
 export const putData = async (url, data) => {
   console.log('url: ', url);
   const response = await client.put(url, data);
-  return response;
+  return response?.data;
 };
 export const postFormData = async (url, data) => {
   console.log('url==>', url);

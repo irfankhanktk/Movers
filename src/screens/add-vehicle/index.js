@@ -59,6 +59,7 @@ const AddVehicleScreen = props => {
     vehicle_model: '',
     vehicle_year: '',
     vehicle_load_capacity: '',
+    ...props?.route?.params?.vehicle,
   };
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
@@ -88,7 +89,9 @@ const AddVehicleScreen = props => {
       <ImageBackground
         source={IMG.addvehcilebackground}
         style={styles.backgroundimg}>
-        <Header1x2x title={t('add_vehicle')} />
+        <Header1x2x
+          title={t(initialValues?.id ? 'update_vehicle' : 'add_vehicle')}
+        />
 
         <View style={styles.truckimageview}>
           <Image
@@ -187,7 +190,7 @@ const AddVehicleScreen = props => {
                     containerStyle={styles.savebutton}
                     loading={loading}
                     onPress={handleSubmit}
-                    title={t('save')}
+                    title={t(initialValues?.id ? 'update_vehicle' : 'save')}
                   />
                 </View>
               </>

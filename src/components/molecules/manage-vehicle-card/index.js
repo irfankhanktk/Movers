@@ -17,7 +17,7 @@ import Regular from 'typography/regular-text';
 import {colors} from '../../../config/colors';
 import {mvs, width} from '../../../config/metrices';
 import {SpecialistLocation} from 'assets/icons';
-import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {ColorSpace} from 'react-native-reanimated';
 import moment from 'moment';
 const LabelValue = ({label, value, containerStyle, labelStyle, valueStyle}) => (
@@ -45,6 +45,7 @@ const MangeVehcileCard = ({
   onPressAccept = () => {},
   onPressReject = () => {},
   onPressDetails = () => {},
+  onPressEdit = () => {},
   onPressCart = () => {},
 }) => {
   const {t} = i18n;
@@ -52,6 +53,14 @@ const MangeVehcileCard = ({
   return (
     <View style={[styles.contentContainerStyleNew, {backgroundColor}]}>
       <View style={{marginTop: mvs(6)}}>
+        <TouchableOpacity
+          style={{
+            paddingHorizontal: mvs(20),
+            alignSelf: 'flex-end',
+          }}
+          onPress={onPressEdit}>
+          <FontAwesome name={'edit'} color={colors.white} size={mvs(25)} />
+        </TouchableOpacity>
         <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
           <Medium
             label={t('vehicle_type')}
@@ -179,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: mvs(40),
     paddingVertical: mvs(8),
     width: '100%',
-    height: mvs(206),
+    height: mvs(246),
     // borderColor: colors.primary,
     backgroundColor: colors.primary,
     // justifyContent: 'space-between',

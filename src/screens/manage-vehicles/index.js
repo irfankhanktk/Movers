@@ -26,8 +26,11 @@ import * as IMG from 'assets/images';
 import MangeVehcileCard from 'components/molecules/manage-vehicle-card';
 import {navigate} from 'navigation/navigation-ref';
 import {getVehcileList} from 'services/api/auth-api-actions';
+import {useIsFocused} from '@react-navigation/native';
+
 const ManageVehicleScreen = props => {
   const dispatch = useAppDispatch();
+  const isFocus = useIsFocused();
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
@@ -35,8 +38,10 @@ const ManageVehicleScreen = props => {
 
   const [selectedOrder, setSelectedOrder] = React.useState('');
   React.useEffect(() => {
-    getList();
-  }, []);
+    if (isFocus) {
+      getList();
+    }
+  }, [isFocus]);
   const getList = async () => {
     try {
       setLoading(true);
@@ -65,7 +70,12 @@ const ManageVehicleScreen = props => {
         // : '#434343'
       }
       item={item}
-      onPressDetails={() => props?.navigation?.navigate('OrderDetailsScreen')}
+      // onPressDetails={() => props?.navigation?.navigate('OrderDetailsScreen')}
+      onPressEdit={() =>
+        props?.navigation?.navigate('AddVehicleScreen', {
+          vehicle: item,
+        })
+      }
     />
   );
   const itemSeparatorComponent = () => {

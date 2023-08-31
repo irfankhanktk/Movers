@@ -1,5 +1,5 @@
 import {AppDispatch, RootState} from 'store';
-import {getData, postData} from './';
+import {getData, postData, putData} from './';
 import {URLS} from './api-urls';
 import {UTILS} from 'utils';
 import {STORAGEKEYS} from 'config/constants';
@@ -83,7 +83,12 @@ export const onVerifyOtp = (values: any) =>
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
 
 export const onStoreVehicle = (values: any) =>
-  postData(URLS.vehcile.store_vehicle, values);
+  values?.id
+    ? putData(`${URLS.vehcile.update_vehicle}${values?.id}`, values)
+    : postData(URLS.vehcile.store_vehicle, values);
+
+// export const onUpdateVehicle = (values: any, id: string) =>
+//   postData(`${URLS.vehcile.update_vehicle}${id}, values}`);
 
 export const getCountryCode = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {

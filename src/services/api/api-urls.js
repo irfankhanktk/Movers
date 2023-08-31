@@ -19,6 +19,7 @@ export const URLS = {
     create_vehilce: 'vehicle/create',
     store_vehicle: 'vehicle',
     vehicle_list: 'vehicle',
+    update_vehicle: 'vehicle/',
   },
   all_hospitals: 'doctor/allHospital',
 
