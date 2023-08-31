@@ -19,6 +19,7 @@ import {mvs, width} from '../../../config/metrices';
 import {SpecialistLocation} from 'assets/icons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ColorSpace} from 'react-native-reanimated';
+import moment from 'moment';
 const LabelValue = ({label, value, containerStyle, labelStyle, valueStyle}) => (
   <Row style={containerStyle}>
     <Medium
@@ -50,30 +51,105 @@ const MangeVehcileCard = ({
 
   return (
     <View style={[styles.contentContainerStyleNew, {backgroundColor}]}>
-      <View style={{marginTop: mvs(14)}}>
-        <Medium
-          label={item?.title}
-          color={colors.white}
-          style={{marginLeft: mvs(30)}}
-          fontSize={mvs(16)}
-        />
-        <Regular
-          label={item?.desc}
-          color={colors.white}
-          style={{marginLeft: mvs(30)}}
-          fontSize={mvs(14)}
-        />
+      <View style={{marginTop: mvs(6)}}>
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Medium
+            label={t('vehicle_type')}
+            color={colors.white}
+            style={{width: mvs(150)}}
+            fontSize={mvs(16)}
+          />
+          <Medium
+            label={item?.vehicle_type}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(16)}
+          />
+        </Row>
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
+            label={t('vehicle_model')}
+            color={colors.white}
+            style={{width: mvs(150)}}
+            fontSize={mvs(12)}
+          />
+          <Regular
+            label={item?.vehicle_model}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
+            label={t('vehicle_year')}
+            color={colors.white}
+            fontSize={mvs(12)}
+            style={{width: mvs(150)}}
+          />
+          <Regular
+            label={item?.vehicle_year}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
+            label={t('vehicle_make')}
+            color={colors.white}
+            style={{width: mvs(150)}}
+            fontSize={mvs(12)}
+          />
+          <Regular
+            label={item?.vehicle_make}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
+
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
+            label={t('vehicle_load_capacity')}
+            color={colors.white}
+            style={{width: mvs(150)}}
+            fontSize={mvs(12)}
+          />
+          <Regular
+            label={item?.vehicle_load_capacity}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
+
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
+            label={t('created_at')}
+            color={colors.white}
+            style={{width: mvs(150)}}
+            fontSize={mvs(12)}
+          />
+          <Regular
+            label={moment(item?.created_at).format('DD/MM/YYYY')}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
       </View>
       <View
         style={{
           position: 'absolute',
           alignSelf: 'center',
           // top: mvs(40),
-          right: mvs(30),
-          bottom: mvs(-45),
+          right: mvs(-10),
+          bottom: mvs(-75),
         }}>
         <Image
-          source={item?.icon}
+          // source={item?.icon}
+          source={IMG.hondablackvehicle}
           resizeMode="contain"
           style={{
             width: mvs(209),
@@ -103,7 +179,7 @@ const styles = StyleSheet.create({
     marginBottom: mvs(40),
     paddingVertical: mvs(8),
     width: '100%',
-    height: mvs(176),
+    height: mvs(206),
     // borderColor: colors.primary,
     backgroundColor: colors.primary,
     // justifyContent: 'space-between',

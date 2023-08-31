@@ -27,11 +27,10 @@ const styles = StyleSheet.create({
     paddingBottom: mvs(Platform?.OS === 'android' ? 20 : 40),
   },
   contentContainerStyleNew: {
-    // flexGrow: 1,
     paddingHorizontal: mvs(20),
     // marginVertical: mvs(10),
     marginHorizontal: mvs(20),
-    paddingVertical: mvs(20),
+    paddingVertical: mvs(10),
     backgroundColor: colors.white,
     justifyContent: 'center',
     shadowColor: '#000',
@@ -66,6 +65,7 @@ const styles = StyleSheet.create({
   backgroundimg: {
     height: height,
     width: '100%',
+    flex: 1,
     // position: 'absolute',
   },
   truckimageview: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   keyboardcontentcontainer: {
     paddingHorizontal: mvs(0),
     flexGrow: 1,
-    paddingBottom: mvs(250),
+    // paddingBottom: mvs(250),
   },
   boldtext: {
     marginTop: mvs(10),
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   savebutton: {
     borderRadius: mvs(10),
-    marginBottom: mvs(70),
+    marginBottom: mvs(20),
   },
 });
 export default styles;

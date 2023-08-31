@@ -25,35 +25,51 @@ import {MANAGE_CAR_LIST, ORDER_LIST, RECENT_ORDER_LIST} from 'config/constants';
 import * as IMG from 'assets/images';
 import MangeVehcileCard from 'components/molecules/manage-vehicle-card';
 import {navigate} from 'navigation/navigation-ref';
+import {getVehcileList} from 'services/api/auth-api-actions';
 const ManageVehicleScreen = props => {
   const dispatch = useAppDispatch();
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
+  const [vehcileLists, setVehicleLists] = React.useState([]);
+
   const [selectedOrder, setSelectedOrder] = React.useState('');
-  const readNotifications = async () => {
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
     try {
+      setLoading(true);
+      const res = await getVehcileList();
+      setVehicleLists(res);
+      // setWishlistColor(res?.row?.has_wish_list ? true : false);
+      console.log(res);
     } catch (error) {
-      console.log('error=>', error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
-
   useEffect(() => {}, []);
   const renderAppointmentItem = ({item, index}) => (
     <MangeVehcileCard
+      // backgroundColor={
+      //   index === 0
+      //     ? colors.primary
+      //     : index === 1
+      //     ? colors.bluecolor
+      //     : '#434343'
+      // }
       backgroundColor={
-        index === 0
-          ? colors.primary
-          : index === 1
-          ? colors.bluecolor
-          : '#434343'
+        index % 2 === 0 ? colors.primary : colors.bluecolor
+        // : '#434343'
       }
       item={item}
       onPressDetails={() => props?.navigation?.navigate('OrderDetailsScreen')}
     />
   );
   const itemSeparatorComponent = () => {
-    return <View style={{paddingVertical: mvs(5)}}></View>;
+    return <View style={{paddingVertical: mvs(10)}}></View>;
   };
   return (
     <View style={styles.container}>
@@ -67,7 +83,7 @@ const ManageVehicleScreen = props => {
             // emptyList={<EmptyList label={t('no_notification')} />}
             contentContainerStyle={styles.contentContainerStyleFlatlist}
             showsVerticalScrollIndicator={false}
-            data={MANAGE_CAR_LIST}
+            data={vehcileLists}
             renderItem={renderAppointmentItem}
             ItemSeparatorComponent={itemSeparatorComponent()}
             keyExtractor={(_, index) => index?.toString()}

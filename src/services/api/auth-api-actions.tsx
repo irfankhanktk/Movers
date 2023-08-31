@@ -8,6 +8,7 @@ import {
   resetUser,
   setCountries,
   setUserInfo,
+  setVehcileTypes,
 } from './../../store/reducers/user-reducer';
 import {resetStack} from 'navigation/navigation-ref';
 export const getUserInfo = () => {
@@ -78,7 +79,11 @@ export const onUpdatePassword = async (values: any) => {
 };
 export const onVerifyOtp = (values: any) =>
   getData(`${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}`);
+
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
+
+export const onStoreVehicle = (values: any) =>
+  postData(URLS.vehcile.store_vehicle, values);
 
 export const getCountryCode = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -96,4 +101,31 @@ export const getCountryCode = () => {
       Alert.alert('Error', UTILS.returnError(error));
     }
   };
+};
+export const onCreateVehicle = () => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const res = await getData(URLS.vehcile.create_vehilce);
+      const codeObj = res?.types;
+      const newList = Object.keys(codeObj)?.map((x, i) => ({
+        id: codeObj[x],
+      }));
+      dispatch(setVehcileTypes(newList));
+      console.log('newList:::', newList);
+    } catch (error) {
+      console.log('error', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
+};
+
+export const getVehcileList = async (slug: string) => {
+  try {
+    const res = await getData(URLS.vehcile.vehicle_list);
+    console.log('res of vehcilellist=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
 };

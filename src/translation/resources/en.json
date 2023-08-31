@@ -120,7 +120,15 @@
   "choose_language":"Choose Language",
   "guest_mode":"Guest Mode",
   "Select_Country_Code":"Select Country Code",
-  "house_name":"House Name"
+  "house_name":"House Name",
+  "select_vehicle_type":"Select Vehcile Type",
+  "vehicle_make":"Vehicle Make",
+  "vehicle_model":"Vehicle Model",
+  "vehicle_year":"Vehcile Year",
+  "vehicle_load_capacity":"Vehcile Load Capacity",
+  "vehicle_type":"Vehcile Type",
+  "created_at":"Created At"
+
   
  
 

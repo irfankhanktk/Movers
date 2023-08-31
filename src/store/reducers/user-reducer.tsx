@@ -11,6 +11,7 @@ type Props = {
 
   unreadNotification: number;
   countries: any[];
+  vehicle_types: any[];
 };
 const initialState: Props = {
   userInfo: null,
@@ -19,6 +20,7 @@ const initialState: Props = {
   notifications: [],
   countries: [],
   unreadNotification: 0,
+  vehicle_types: [],
 };
 
 export const userSlice = createSlice({
@@ -46,6 +48,9 @@ export const userSlice = createSlice({
     setCountries: (state, action) => {
       state.countries = action.payload;
     },
+    setVehcileTypes: (state, action) => {
+      state.vehicle_types = action.payload;
+    },
     resetUser: (state, action) => {
       return initialState;
     },
@@ -63,7 +68,7 @@ export const {
   setLanguage,
   setLocation,
   setNotifications,
-
+  setVehcileTypes,
   setCountries,
   // demoAsync
 } = userSlice.actions;

@@ -122,6 +122,19 @@ export const forgotPasswordValidation = yup.object().shape({
   //   .required('New Password is required')
   //   .min(8, 'New weak_pass'),
 });
+export const addVheicleValidation = yup.object().shape({
+  vehicle_type: yup.string().required('type_required'),
+  vehicle_make: yup.string().required('req_vehicle_make'),
+  vehicle_model: yup.string().required('req_vehicle_model'),
+  vehicle_year: yup.string().required('req_vehicle_year'),
+  vehicle_load_capacity: yup.string().required('req_vehicle_load_capacity'),
+
+  // password: yup.string().required('req_pass').min(8, 'weak_pass'),
+  // confirm_password: yup
+  //   .string()
+  //   .required('New Password is required')
+  //   .min(8, 'New weak_pass'),
+});
 export const addHotelValidation = yup.object().shape({
   title: yup.string().required('title_required'),
   content: yup.string().required('content_required'),

@@ -1,9 +1,10 @@
-import { CrossModal } from 'assets/icons';
-import { ModalWrapper } from 'components/atoms/modal-wrapper';
-import { colors } from 'config/colors';
-import { mvs } from 'config/metrices';
+import {CrossModal} from 'assets/icons';
+import {ModalWrapper} from 'components/atoms/modal-wrapper';
+import {colors} from 'config/colors';
+import {mvs} from 'config/metrices';
+import {t} from 'i18next';
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Medium from 'typography/medium-text';
 
@@ -11,7 +12,7 @@ const DropdownModal = ({
   style = {},
   value,
   visible = false,
-  onClose = item => { },
+  onClose = item => {},
   onChangeText,
   items = [],
 }) => {
@@ -29,7 +30,7 @@ const DropdownModal = ({
         <Medium
           numberOfLines={2}
           style={styles.pick}
-          label={`Please Select one`}
+          label={t('select_vehicle_type')}
         />
         <ScrollView
           contentContainerStyle={{
@@ -40,9 +41,13 @@ const DropdownModal = ({
           {items?.map((item, index) => {
             return (
               <TouchableOpacity
+                key={index}
                 onPress={() => onChangeText(item?.id)}
                 style={styles.button}>
-                <Medium label={item?.title} style={{ fontSize: mvs(16) }} />
+                <Medium
+                  label={item?.title || item?.name || item?.type || item?.id}
+                  style={{fontSize: mvs(16)}}
+                />
                 <Icon
                   name={
                     item?.id === value
@@ -97,5 +102,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: 0.7,
   },
-  cross: { padding: mvs(20), alignSelf: 'flex-end', position: 'absolute' },
+  cross: {padding: mvs(20), alignSelf: 'flex-end', position: 'absolute'},
 });

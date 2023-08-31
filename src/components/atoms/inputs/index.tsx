@@ -247,6 +247,7 @@ export const InputWithIcon = (props: props) => {
     style,
     containerStyle,
     id,
+    placeholder,
     editable,
     error,
     label,
@@ -266,7 +267,13 @@ export const InputWithIcon = (props: props) => {
           onBlur();
         }}
         style={[styles.dropDownContainer, containerStyle]}>
-        <Medium label={items?.find(x => x?.id == id)?.title || ''} />
+        <Medium
+          label={
+            items?.find(x => x?.id == id)?.title ||
+            items?.find(x => x?.id == id)?.id ||
+            placeholder
+          }
+        />
         <Feather size={25} name={'chevron-down'} color={colors.black} />
       </TouchableOpacity>
       <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />
