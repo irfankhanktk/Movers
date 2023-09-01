@@ -18,3 +18,5 @@ export {default as Hsitory} from './history.svg';
 export {default as HsitoryActive} from './history-active.svg';
 export {default as Vehicle} from './vehicle.svg';
 export {default as VehicleActive} from './vehicle-active.svg';
+export {default as Message} from './message.svg';
+export {default as MessageActive} from './message-active.svg';

@@ -9,6 +9,7 @@ import AboutUsScreen from 'screens/categories';
 import HistoryScreen from 'screens/history';
 import HomeTab from 'screens/home-tab';
 import ManageVehicleScreen from 'screens/manage-vehicles';
+import MessageHomeScreen from 'screens/messageHome';
 import MyOrderScreen from 'screens/my-order';
 import ShoppingScreen from 'screens/shopping';
 import UserTab from 'screens/user-tab';
@@ -110,7 +111,7 @@ export const TabBar = () => {
       <Tab.Screen name="Home" component={HomeTab} />
       <Tab.Screen name="Shoppingbag" component={MyOrderScreen} />
 
-      <Tab.Screen name="Hsitory" component={HistoryScreen} />
+      <Tab.Screen name="Message" component={MessageHomeScreen} />
       <Tab.Screen name="Vehicle" component={ManageVehicleScreen} />
       <Tab.Screen name="Me" component={UserTab} />
       {/* <Tab.Screen name="Me" component={UserTab} /> */}

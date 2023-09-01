@@ -46,7 +46,7 @@ const HeaderX = ({
             padding: mvs(2),
             // borderRadius: mvs(16),
             // borderWidth: 2,
-            borderRadius: mvs(16),
+            borderRadius: mvs(20),
             backgroundColor: colors.white,
           }}>
           {!isOnline ? (
