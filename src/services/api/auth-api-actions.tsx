@@ -61,6 +61,7 @@ export const onForgot = async (values: any) => {
       // values,
     );
     console.log('res of onforgot=>', res);
+
     return res;
   } catch (error: any) {
     console.log('error in forgot password', UTILS.returnError(error));

@@ -58,3 +58,4 @@ export {default as messageicon} from './messageicon.png';
 export {default as sendicon} from './sendicon.png';
 export {default as messagelogo} from './messagelogo.png';
 export {default as message} from './message.png';
+export {default as notificationIcon} from './notification-new.png';

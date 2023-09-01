@@ -40,7 +40,9 @@ const getErrorList = (data: any) => {
   const {message, errors} = data;
   let concatenatedMessages: any = null;
   console.log('errors=>>::', errors);
-
+  if (typeof errors === 'string') {
+    return errors;
+  }
   if (typeof errors === 'object' && Object.keys(errors)?.length) {
     concatenatedMessages = errors
       ? Object.values(message)?.flat()?.join(', ')

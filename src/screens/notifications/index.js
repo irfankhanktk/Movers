@@ -14,6 +14,7 @@ import styles from './styles';
 import {EmptyList} from 'components/atoms/empty-list';
 import CustomFlatList from 'components/atoms/custom-flatlist';
 import {NOTIFICATION_LIST} from 'config/constants';
+import * as IMG from 'assets/images';
 
 const Notifications = props => {
   const dispatch = useAppDispatch();
@@ -37,10 +38,20 @@ const Notifications = props => {
         styles.rendercontainer,
         // { backgroundColor: item?.is_read ? colors.white : colors?.blueHalf },
       ]}>
+      <View
+        style={{
+          alignSelf: 'flex-end',
+        }}>
+        <Image
+          source={IMG.notificationIcon}
+          resizeMode="cover"
+          style={{width: mvs(25), height: mvs(25)}}
+        />
+      </View>
       <Row style={{justifyContent: 'flex-start'}}>
         <View style={styles.titleandtextview}>
           <Row>
-            <Medium label={item.title} />
+            <Medium label={item.title} color={colors.black} />
           </Row>
           <Regular label={item?.desc} numberOfLines={3} />
         </View>
