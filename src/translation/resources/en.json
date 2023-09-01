@@ -128,7 +128,10 @@
   "vehicle_load_capacity":"Vehcile Load Capacity",
   "vehicle_type":"Vehcile Type",
   "created_at":"Created At",
-  "update_vehicle":"Update Vehicle"
+  "update_vehicle":"Update Vehicle",
+  "home_chat":"Home Chat",
+  "chat_screen":"Chat Screen",
+  "notifications":"Notifications"
 
   
  

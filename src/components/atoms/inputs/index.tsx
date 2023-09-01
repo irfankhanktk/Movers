@@ -15,6 +15,7 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 import PhoneInput from 'react-native-phone-number-input';
 import Regular from 'typography/regular-text';
@@ -237,6 +238,38 @@ export const CommentInput = (props: props) => {
     </>
   );
 };
+export const MessageInput = (props: props) => {
+  const {
+    onChangeText,
+    onPress = () => {},
+    value,
+    style,
+    placeholder = 'Write Message',
+    containerStyle,
+    isPassword,
+    keyboardType,
+    error,
+    onBlur = () => {},
+  } = props;
+  return (
+    <>
+      <Row style={[styles.messageContainer, containerStyle]}>
+        <TextInput
+          onBlur={onBlur}
+          keyboardType={keyboardType}
+          value={value}
+          placeholderTextColor={`${colors.black}50`}
+          onChangeText={onChangeText}
+          placeholder={placeholder}
+          style={[styles.textInput, style]}
+        />
+        <TouchableOpacity style={styles.PasswordIcon} onPress={onPress}>
+          <Entypo size={20} name={'attachment'} color={colors.attachmentgray} />
+        </TouchableOpacity>
+      </Row>
+    </>
+  );
+};
 export const InputWithIcon = (props: props) => {
   const [visible, setVisible] = React.useState(false);
   const {
@@ -412,6 +445,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: mvs(10),
     backgroundColor: colors.secondary,
+  },
+  messageContainer: {
+    alignItems: 'flex-start',
+    paddingVertical: mvs(7),
+    borderRadius: mvs(10),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: mvs(10),
+    backgroundColor: '#F6F6F6',
+    marginTop: mvs(5),
+    flex: 1,
   },
   phoneContainer: {
     width: '100%',

@@ -72,6 +72,12 @@ const CustomDrawerContent = props => {
           label1={t('setting')}
           containerStyle={styles.helpStyle}
         />
+        <DrawerHomeCard
+          onPress={() => navigate('MessageHomeScreen')}
+          icon1={IMG.message}
+          label1={t('chat_screen')}
+          containerStyle={styles.helpStyle}
+        />
       </ScrollView>
 
       <DrawerHomeCard

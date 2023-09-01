@@ -90,6 +90,7 @@ const AddVehicleScreen = props => {
         source={IMG.addvehcilebackground}
         style={styles.backgroundimg}>
         <Header1x2x
+          style={{backgroundColor: colors.transparent}}
           title={t(initialValues?.id ? 'update_vehicle' : 'add_vehicle')}
         />
 

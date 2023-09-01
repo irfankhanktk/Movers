@@ -5,7 +5,7 @@ import {SERVICE_LIST} from 'config/constants';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
-import {Image, ImageBackground, View} from 'react-native';
+import {Image, ImageBackground, TouchableOpacity, View} from 'react-native';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
@@ -16,6 +16,7 @@ import * as IMG from 'assets/images';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
+import {navigate} from 'navigation/navigation-ref';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -63,11 +64,13 @@ const HomeTab = props => {
             fontSize={mvs(20)}
             color={colors.white}
           />
-          <Ionicons
-            name={'notifications'}
-            color={colors.white}
-            size={mvs(25)}
-          />
+          <TouchableOpacity onPress={() => navigate('Notifications')}>
+            <Ionicons
+              name={'notifications'}
+              color={colors.white}
+              size={mvs(25)}
+            />
+          </TouchableOpacity>
         </Row>
         <HomeSwiper />
         <View style={styles.body}>

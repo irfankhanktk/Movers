@@ -54,3 +54,7 @@ export {default as truckvehicle} from './truckvehicle.png';
 export {default as hondablackvehicle} from './hondablackvehicle.png';
 export {default as hondavechile} from './hondavechile.png';
 export {default as addvehcilebackground} from './addvehcilebackground.png';
+export {default as messageicon} from './messageicon.png';
+export {default as sendicon} from './sendicon.png';
+export {default as messagelogo} from './messagelogo.png';
+export {default as message} from './message.png';

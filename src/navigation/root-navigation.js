@@ -45,6 +45,8 @@ import VehicleInsuranceScreen from 'screens/vehicle-insurance';
 import GoodsInTransitScreen from 'screens/goods-in-transit';
 import BankDetailsScreen from 'screens/bank-details';
 import ManageVehicleDocumentScreen from 'screens/manage-vehicle-document';
+import InboxScreen from 'screens/inbox-screen';
+import MessageHomeScreen from 'screens/messageHome';
 
 const Stack = createNativeStackNavigator();
 
@@ -101,6 +103,11 @@ export const RootNavigator = () => {
             component={PrivacyPolicyScreen}
           />
           <Stack.Screen name="AddVehicleScreen" component={AddVehicleScreen} />
+          <Stack.Screen name="InboxScreen" component={InboxScreen} />
+          <Stack.Screen
+            name="MessageHomeScreen"
+            component={MessageHomeScreen}
+          />
           <Stack.Screen
             name="ManageVehicleScreen"
             component={ManageVehicleScreen}

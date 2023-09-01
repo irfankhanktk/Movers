@@ -227,6 +227,23 @@ export const ITEM_DETAILS_LIST = [
     quantity: '1',
   },
 ];
+export const NOTIFICATION_LIST = [
+  {
+    title: 'message',
+    desc: 'Moving is pretty complicated; however, these four items can make your moving experience even worse!',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+  },
+  {
+    title: 'message',
+    desc: 'Moving is pretty complicated; however, these four items can make your moving experience even worse!',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+  },
+  {
+    title: 'message',
+    desc: 'Moving is pretty complicated; however, these four items can make your moving experience even worse!',
+    date: moment().format(DATE_FORMAT.yyyy_mm_dd),
+  },
+];
 export const ABOUT_US_LIST = [
   {
     image: 'https://getmovers.co.uk/static/media/get.0a606868.png',
