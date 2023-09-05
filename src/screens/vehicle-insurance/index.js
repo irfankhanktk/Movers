@@ -4,9 +4,9 @@ import {auth_bg} from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
 import OtpModal from 'components/molecules/modals/otp-modal';
 import {height, mvs, width} from 'config/metrices';
-import {useFormik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import {useAppDispatch} from 'hooks/use-store';
-import {navigate, resetStack} from 'navigation/navigation-ref';
+import {goBack, navigate, resetStack} from 'navigation/navigation-ref';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import {
@@ -17,6 +17,7 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import PrimaryInput from 'components/atoms/inputs';
@@ -24,7 +25,11 @@ import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollvie
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
-import {signinFormValidation} from 'validations';
+import {
+  addVheicleValidation,
+  signinFormValidation,
+  VehicleInsuranceValidation,
+} from 'validations';
 import styles from './styles';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
@@ -46,6 +51,7 @@ import UploadDocumentTile from 'components/molecules/upload-document-tile';
 import {pickDocument, UTILS} from 'utils';
 import {postFormData} from 'services/api';
 import {DatePicker} from 'components/atoms/date-picker';
+import {onStoreVehicle} from 'services/api/auth-api-actions';
 
 const VehicleInsuranceScreen = props => {
   const dispatch = useAppDispatch();
@@ -60,26 +66,19 @@ const VehicleInsuranceScreen = props => {
     expiry_date: '',
   };
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
+
+  const handleFormSubmit = async values => {
     try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
+      setLoading(true);
+      const res = await onStoreVehicle(values);
+      Alert.alert(res?.message);
+      goBack();
+
+      console.log(res);
     } catch (error) {
-      console.log('error=>', error);
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
     }
   };
   const onPressAttachment = async () => {
@@ -117,101 +116,122 @@ const VehicleInsuranceScreen = props => {
         </View>
 
         <View style={styles.contentContainerStyle}>
-          <View style={styles.contentContainerStyleNew}>
-            <KeyboardAvoidScrollview
-              contentContainerStyle={styles.keyboradconetnt}>
-              <View style={{marginHorizontal: mvs(20)}}>
-                <Bold
-                  label={t('vehicle_insurance')}
-                  color={colors.bluecolor}
-                  fontSize={mvs(16)}
-                  style={styles.boldtext}
-                />
+          <>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={VehicleInsuranceValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+                setFieldTouched,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <View style={styles.contentContainerStyleNew}>
+                    <KeyboardAvoidScrollview
+                      contentContainerStyle={styles.keyboradconetnt}>
+                      <View style={{marginHorizontal: mvs(20)}}>
+                        <Bold
+                          label={t('vehicle_insurance')}
+                          color={colors.bluecolor}
+                          fontSize={mvs(16)}
+                          style={styles.boldtext}
+                        />
 
-                <TouchableOpacity
-                  style={styles.uploadphotoview}
-                  onPress={() => onPressAttachment()}>
-                  {saveFile?.uri ? (
-                    <Medium
-                      label={saveFile?.name}
-                      color={colors.primary}
-                      fontSize={mvs(14)}
-                      style={styles.uploadedtext}
-                    />
-                  ) : (
-                    <Row style={{justifyContent: 'center'}}>
-                      <FileSVG width={mvs(25)} height={mvs(25)} />
-                      <Medium
-                        label={t('add_vehicle_insurance_photo')}
-                        color={colors.primary}
-                        fontSize={mvs(14)}
-                        style={{marginLeft: mvs(10)}}
-                      />
-                    </Row>
-                  )}
-                </TouchableOpacity>
-                <View style={{marginVertical: mvs(14)}}>
-                  <PrimaryInput
-                    keyboardType={'email-address'}
-                    error={
-                      touched?.insurance_company && errors?.insurance_company
-                        ? `${t(errors?.insurance_company)}`
-                        : undefined
-                    }
-                    placeholder={t('insurance_company')}
-                    onChangeText={str =>
-                      setFieldValue('insurance_company', str)
-                    }
-                    onBlur={() => setFieldTouched('insurance_company', true)}
-                    value={values.insurance_company}
-                  />
-                  <DatePicker
-                    onChangeText={(str: string) =>
-                      setFieldValue('valid_from', str)
-                    }>
-                    <PrimaryInput
-                      isCalendar
-                      editable={false}
-                      error={
-                        errors?.valid_from && touched?.valid_from
-                          ? `${errors?.valid_from}`
-                          : ''
-                      }
-                      placeholder={t('valid_from')}
-                      onChangeText={str => setFieldValue('valid_from', str)}
-                      value={values.valid_from}
-                    />
-                  </DatePicker>
+                        <TouchableOpacity
+                          style={styles.uploadphotoview}
+                          onPress={() => onPressAttachment()}>
+                          {saveFile?.uri ? (
+                            <Medium
+                              label={saveFile?.name}
+                              color={colors.primary}
+                              fontSize={mvs(14)}
+                              style={styles.uploadedtext}
+                            />
+                          ) : (
+                            <Row style={{justifyContent: 'center'}}>
+                              <FileSVG width={mvs(25)} height={mvs(25)} />
+                              <Medium
+                                label={t('add_vehicle_insurance_photo')}
+                                color={colors.primary}
+                                fontSize={mvs(14)}
+                                style={{marginLeft: mvs(10)}}
+                              />
+                            </Row>
+                          )}
+                        </TouchableOpacity>
+                        <View style={{marginVertical: mvs(14)}}>
+                          <PrimaryInput
+                            keyboardType={'email-address'}
+                            error={
+                              touched?.insurance_company
+                                ? t(errors.insurance_company)
+                                : ''
+                            }
+                            placeholder={t('insurance_company')}
+                            onChangeText={handleChange('insurance_company')}
+                            onBlur={handleBlur('insurance_company')}
+                            value={values.insurance_company}
+                          />
+                          <DatePicker
+                            onPress={() => setFieldTouched('valid_from', true)}
+                            onChangeText={(str: string) =>
+                              setFieldValue('valid_from', str)
+                            }>
+                            <PrimaryInput
+                              isCalendar
+                              editable={false}
+                              error={
+                                touched?.valid_from ? t(errors.valid_from) : ''
+                              }
+                              placeholder={t('valid_from')}
+                              onChangeText={handleChange('valid_from')}
+                              onBlur={handleBlur('valid_from', true)}
+                              value={values.valid_from}
+                            />
+                          </DatePicker>
 
-                  <DatePicker
-                    onChangeText={(str: string) =>
-                      setFieldValue('expiry_date', str)
-                    }>
-                    <PrimaryInput
-                      isCalendar
-                      editable={false}
-                      error={
-                        errors?.expiry_date && touched?.expiry_date
-                          ? `${errors?.expiry_date}`
-                          : ''
-                      }
-                      placeholder={t('expiry_date')}
-                      onChangeText={str => setFieldValue('expiry_date', str)}
-                      value={values.expiry_date}
+                          <DatePicker
+                            onPress={() => setFieldTouched('expiry_date', true)}
+                            onChangeText={(str: string) =>
+                              setFieldValue('expiry_date', str)
+                            }>
+                            <PrimaryInput
+                              isCalendar
+                              editable={false}
+                              error={
+                                touched?.expiry_date
+                                  ? t(errors.expiry_date)
+                                  : ''
+                              }
+                              placeholder={t('expiry_date')}
+                              onChangeText={handleChange('expiry_date')}
+                              onBlur={handleBlur('expiry_date', true)}
+                              value={values.expiry_date}
+                            />
+                          </DatePicker>
+                        </View>
+                      </View>
+                    </KeyboardAvoidScrollview>
+                  </View>
+                  <View style={{paddingHorizontal: mvs(20)}}>
+                    <PrimaryButton
+                      containerStyle={styles.registerbuton}
+                      loading={loading}
+                      onPress={handleSubmit}
+                      title={t('register_now')}
                     />
-                  </DatePicker>
-                </View>
-              </View>
-            </KeyboardAvoidScrollview>
-          </View>
-          <View style={{paddingHorizontal: mvs(20)}}>
-            <PrimaryButton
-              containerStyle={styles.registerbuton}
-              loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
-              title={t('register_now')}
-            />
-          </View>
+                  </View>
+                </>
+              )}
+            </Formik>
+          </>
         </View>
       </ScrollView>
     </View>

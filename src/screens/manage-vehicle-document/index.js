@@ -4,9 +4,9 @@ import {auth_bg} from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
 import OtpModal from 'components/molecules/modals/otp-modal';
 import {height, mvs, width} from 'config/metrices';
-import {useFormik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import {useAppDispatch} from 'hooks/use-store';
-import {navigate, resetStack} from 'navigation/navigation-ref';
+import {goBack, navigate, resetStack} from 'navigation/navigation-ref';
 import React from 'react';
 import {
   ImageBackground,
@@ -15,6 +15,7 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import PrimaryInput from 'components/atoms/inputs';
@@ -22,7 +23,7 @@ import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollvie
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
-import {signinFormValidation} from 'validations';
+import {BankDetailsValidation, signinFormValidation} from 'validations';
 import styles from './styles';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
@@ -37,6 +38,8 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
+import {onStoreVehicle} from 'services/api/auth-api-actions';
+import {UTILS} from 'utils';
 const ManageVehicleDocumentScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -49,26 +52,18 @@ const ManageVehicleDocumentScreen = props => {
     account_number: '',
   };
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
+  const handleFormSubmit = async values => {
     try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
+      setLoading(true);
+      const res = await onStoreVehicle(values);
+      Alert.alert(res?.message);
+      goBack();
+
+      console.log(res);
     } catch (error) {
-      console.log('error=>', error);
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -87,74 +82,85 @@ const ManageVehicleDocumentScreen = props => {
         </View>
 
         <View style={styles.contentContainerStyle}>
-          <View style={styles.contentContainerStyleNew}>
-            <KeyboardAvoidScrollview
-              contentContainerStyle={styles.keyboardcontainer}>
-              <Bold
-                label={t('manage_vehicle')}
-                color={colors.bluecolor}
-                fontSize={mvs(16)}
-                style={styles.boldtext}
-              />
+          <>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={BankDetailsValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+                setFieldTouched,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <View style={styles.contentContainerStyleNew}>
+                    <KeyboardAvoidScrollview
+                      contentContainerStyle={styles.keyboardcontainer}>
+                      <Bold
+                        label={t('manage_vehicle')}
+                        color={colors.bluecolor}
+                        fontSize={mvs(16)}
+                        style={styles.boldtext}
+                      />
 
-              <PrimaryInput
-                keyboardType={'email-address'}
-                error={
-                  touched?.bank_name && errors?.bank_name
-                    ? `${t(errors?.bank_name)}`
-                    : undefined
-                }
-                placeholder={t('bank_name')}
-                onChangeText={str => setFieldValue('bank_name', str)}
-                onBlur={() => setFieldTouched('bank_name', true)}
-                value={values.bank_name}
-              />
-              <PrimaryInput
-                keyboardType={'email-address'}
-                error={
-                  touched?.account_title && errors?.account_title
-                    ? `${t(errors?.account_title)}`
-                    : undefined
-                }
-                placeholder={t('account_title')}
-                onChangeText={str => setFieldValue('account_title', str)}
-                onBlur={() => setFieldTouched('account_title', true)}
-                value={values.account_title}
-              />
-              <PrimaryInput
-                keyboardType={'email-address'}
-                error={
-                  touched?.sort_code && errors?.sort_code
-                    ? `${t(errors?.sort_code)}`
-                    : undefined
-                }
-                placeholder={t('sort_code')}
-                onChangeText={str => setFieldValue('sort_code', str)}
-                onBlur={() => setFieldTouched('sort_code', true)}
-                value={values.sort_code}
-              />
-              <PrimaryInput
-                keyboardType={'email-address'}
-                error={
-                  touched?.account_number && errors?.account_number
-                    ? `${t(errors?.account_number)}`
-                    : undefined
-                }
-                placeholder={t('account_number')}
-                onChangeText={str => setFieldValue('account_number', str)}
-                onBlur={() => setFieldTouched('account_number', true)}
-                value={values.account_number}
-              />
-            </KeyboardAvoidScrollview>
-          </View>
-          <View style={{paddingHorizontal: mvs(20)}}>
-            <PrimaryButton
-              containerStyle={styles.registerbutton}
-              loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
-              title={t('register_now')}
-            />
-          </View>
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={touched?.bank_name ? t(errors.bank_name) : ''}
+                        placeholder={t('bank_name')}
+                        onChangeText={handleChange('bank_name')}
+                        onBlur={handleBlur('bank_name')}
+                        value={values.bank_name}
+                      />
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={
+                          touched?.account_title ? t(errors.account_title) : ''
+                        }
+                        placeholder={t('account_title')}
+                        onChangeText={handleChange('account_title')}
+                        onBlur={handleBlur('account_title')}
+                        value={values.account_title}
+                      />
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={touched?.sort_code ? t(errors.sort_code) : ''}
+                        placeholder={t('sort_code')}
+                        onChangeText={handleChange('sort_code')}
+                        onBlur={handleBlur('sort_code')}
+                        value={values.sort_code}
+                      />
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={
+                          touched?.account_number
+                            ? t(errors.account_number)
+                            : ''
+                        }
+                        placeholder={t('account_number')}
+                        onChangeText={handleChange('account_number')}
+                        onBlur={handleBlur('account_number')}
+                        value={values.account_number}
+                      />
+                    </KeyboardAvoidScrollview>
+                  </View>
+                  <View style={{paddingHorizontal: mvs(20)}}>
+                    <PrimaryButton
+                      containerStyle={styles.registerbutton}
+                      loading={loading}
+                      onPress={handleSubmit}
+                      title={t('register_now')}
+                    />
+                  </View>
+                </>
+              )}
+            </Formik>
+          </>
         </View>
       </ScrollView>
     </View>

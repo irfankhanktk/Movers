@@ -4,9 +4,9 @@ import {auth_bg} from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
 import OtpModal from 'components/molecules/modals/otp-modal';
 import {height, mvs, width} from 'config/metrices';
-import {useFormik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import {useAppDispatch} from 'hooks/use-store';
-import {navigate, resetStack} from 'navigation/navigation-ref';
+import {goBack, navigate, resetStack} from 'navigation/navigation-ref';
 import React from 'react';
 import {
   ImageBackground,
@@ -15,6 +15,7 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import PrimaryInput from 'components/atoms/inputs';
@@ -22,7 +23,11 @@ import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollvie
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
-import {signinFormValidation} from 'validations';
+import {
+  GoodsInTransitValidation,
+  signinFormValidation,
+  VehicleInsuranceValidation,
+} from 'validations';
 import styles from './styles';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
@@ -38,6 +43,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
 import {DatePicker} from 'components/atoms/date-picker';
+import {onStoreVehicle} from 'services/api/auth-api-actions';
+import {UTILS} from 'utils';
 const GoodsInTransitScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -49,26 +56,19 @@ const GoodsInTransitScreen = props => {
     expiry_date: '',
   };
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
+
+  const handleFormSubmit = async values => {
     try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
+      setLoading(true);
+      const res = await onStoreVehicle(values);
+      Alert.alert(res?.message);
+      goBack();
+
+      console.log(res);
     } catch (error) {
-      console.log('error=>', error);
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -86,72 +86,89 @@ const GoodsInTransitScreen = props => {
         </View>
 
         <View style={styles.contentContainerStyle}>
-          <View style={styles.contentContainerStyleNew}>
-            <KeyboardAvoidScrollview
-              contentContainerStyle={styles.keyboradcontainer}>
-              <Bold
-                label={t('goods_in_transit')}
-                color={colors.bluecolor}
-                fontSize={mvs(16)}
-                style={styles.boldtext}
-              />
+          <>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={GoodsInTransitValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+                setFieldTouched,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <View style={styles.contentContainerStyleNew}>
+                    <KeyboardAvoidScrollview
+                      contentContainerStyle={styles.keyboradcontainer}>
+                      <Bold
+                        label={t('goods_in_transit')}
+                        color={colors.bluecolor}
+                        fontSize={mvs(16)}
+                        style={styles.boldtext}
+                      />
 
-              <PrimaryInput
-                keyboardType={'email-address'}
-                error={
-                  touched?.name && errors?.name
-                    ? `${t(errors?.name)}`
-                    : undefined
-                }
-                placeholder={t('name')}
-                onChangeText={str => setFieldValue('name', str)}
-                onBlur={() => setFieldTouched('name', true)}
-                value={values.name}
-              />
-              <DatePicker
-                onChangeText={(str: string) =>
-                  setFieldValue('valid_from', str)
-                }>
-                <PrimaryInput
-                  isCalendar
-                  editable={false}
-                  error={
-                    errors?.valid_from && touched?.valid_from
-                      ? `${errors?.valid_from}`
-                      : ''
-                  }
-                  placeholder={t('valid_from')}
-                  onChangeText={str => setFieldValue('valid_from', str)}
-                  value={values.valid_from}
-                />
-              </DatePicker>
-              <DatePicker
-                onChangeText={(str: string) =>
-                  setFieldValue('expiry_date', str)
-                }>
-                <PrimaryInput
-                  isCalendar
-                  editable={false}
-                  error={
-                    errors?.expiry_date && touched?.expiry_date
-                      ? `${errors?.expiry_date}`
-                      : ''
-                  }
-                  placeholder={t('expiry_date')}
-                  onChangeText={str => setFieldValue('expiry_date', str)}
-                  value={values.expiry_date}
-                />
-              </DatePicker>
-            </KeyboardAvoidScrollview>
-          </View>
-          <View style={{paddingHorizontal: mvs(20)}}>
-            <PrimaryButton
-              containerStyle={styles.regiterbutton}
-              loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
-              title={t('register_now')}
-            />
-          </View>
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={touched?.name ? t(errors.name) : ''}
+                        placeholder={t('name')}
+                        onChangeText={handleChange('name')}
+                        onBlur={handleBlur('name')}
+                        value={values.name}
+                      />
+                      <DatePicker
+                        onPress={() => setFieldTouched('valid_from', true)}
+                        onChangeText={(str: string) =>
+                          setFieldValue('valid_from', str)
+                        }>
+                        <PrimaryInput
+                          isCalendar
+                          editable={false}
+                          error={
+                            touched?.valid_from ? t(errors.valid_from) : ''
+                          }
+                          placeholder={t('valid_from')}
+                          onChangeText={handleChange('valid_from')}
+                          onBlur={handleBlur('valid_from', true)}
+                          value={values.valid_from}
+                        />
+                      </DatePicker>
+                      <DatePicker
+                        onPress={() => setFieldTouched('valid_from', true)}
+                        onChangeText={(str: string) =>
+                          setFieldValue('expiry_date', str)
+                        }>
+                        <PrimaryInput
+                          isCalendar
+                          editable={false}
+                          error={
+                            touched?.expiry_date ? t(errors.expiry_date) : ''
+                          }
+                          placeholder={t('expiry_date')}
+                          onChangeText={handleChange('expiry_date')}
+                          onBlur={handleBlur('valid_from', true)}
+                          value={values.expiry_date}
+                        />
+                      </DatePicker>
+                    </KeyboardAvoidScrollview>
+                  </View>
+                  <View style={{paddingHorizontal: mvs(20)}}>
+                    <PrimaryButton
+                      containerStyle={styles.regiterbutton}
+                      loading={loading}
+                      onPress={handleSubmit}
+                      title={t('register_now')}
+                    />
+                  </View>
+                </>
+              )}
+            </Formik>
+          </>
         </View>
       </ScrollView>
     </View>

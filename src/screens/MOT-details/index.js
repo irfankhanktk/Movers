@@ -4,9 +4,9 @@ import {auth_bg} from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
 import OtpModal from 'components/molecules/modals/otp-modal';
 import {height, mvs, width} from 'config/metrices';
-import {useFormik} from 'formik';
+import {Formik, useFormik} from 'formik';
 import {useAppDispatch} from 'hooks/use-store';
-import {navigate, resetStack} from 'navigation/navigation-ref';
+import {goBack, navigate, resetStack} from 'navigation/navigation-ref';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import {
@@ -17,6 +17,7 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
 import PrimaryInput from 'components/atoms/inputs';
@@ -24,7 +25,11 @@ import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollvie
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
-import {signinFormValidation} from 'validations';
+import {
+  addVheicleValidation,
+  MOTDetailsValidation,
+  signinFormValidation,
+} from 'validations';
 import styles from './styles';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
@@ -46,6 +51,7 @@ import UploadDocumentTile from 'components/molecules/upload-document-tile';
 import {pickDocument, UTILS} from 'utils';
 import {postFormData} from 'services/api';
 import {DatePicker} from 'components/atoms/date-picker';
+import {onStoreVehicle} from 'services/api/auth-api-actions';
 
 const MOTDetailsScreen = props => {
   const dispatch = useAppDispatch();
@@ -59,28 +65,7 @@ const MOTDetailsScreen = props => {
     mot_expiry_date: '',
   };
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
-    try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
-    } catch (error) {
-      console.log('error=>', error);
-    }
-  };
+
   const onPressAttachment = async () => {
     try {
       setFileLoading(true);
@@ -101,6 +86,20 @@ const MOTDetailsScreen = props => {
       setFileLoading(false);
     }
   };
+  const handleFormSubmit = async values => {
+    try {
+      setLoading(true);
+      const res = await onStoreVehicle(values);
+      Alert.alert(res?.message);
+      goBack();
+
+      console.log(res);
+    } catch (error) {
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -117,89 +116,116 @@ const MOTDetailsScreen = props => {
         </View>
 
         <View style={styles.contentContainerStyle}>
-          <View style={styles.contentContainerStyleNew}>
-            <KeyboardAvoidScrollview
-              contentContainerStyle={styles.keybaordcontentview}>
-              <View style={{marginHorizontal: mvs(20)}}>
-                <Bold
-                  label={t('MOT')}
-                  color={colors.bluecolor}
-                  fontSize={mvs(16)}
-                  style={styles.boldtext}
-                />
+          <>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={MOTDetailsValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldTouched,
+                setFieldValue,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <View style={styles.contentContainerStyleNew}>
+                    <KeyboardAvoidScrollview
+                      contentContainerStyle={styles.keybaordcontentview}>
+                      <View style={{marginHorizontal: mvs(20)}}>
+                        <Bold
+                          label={t('MOT')}
+                          color={colors.bluecolor}
+                          fontSize={mvs(16)}
+                          style={styles.boldtext}
+                        />
 
-                <TouchableOpacity
-                  style={styles.uploadphotoview}
-                  onPress={() => onPressAttachment()}>
-                  {saveFile?.uri ? (
-                    <Medium
-                      label={saveFile?.name}
-                      color={colors.primary}
-                      fontSize={mvs(14)}
-                      style={styles.uplaodfiletext}
-                    />
-                  ) : (
-                    <Row style={{justifyContent: 'center'}}>
-                      <FileSVG width={mvs(25)} height={mvs(25)} />
-                      <Medium
-                        label={t('add_mot_photo')}
-                        color={colors.primary}
-                        fontSize={mvs(14)}
-                        style={{marginLeft: mvs(10)}}
-                      />
-                    </Row>
-                  )}
-                </TouchableOpacity>
-                <View style={{marginVertical: mvs(14)}}>
-                  <DatePicker
-                    onChangeText={(str: string) =>
-                      setFieldValue('mot_issue_date', str)
-                    }>
-                    <PrimaryInput
-                      isCalendar
-                      editable={false}
-                      error={
-                        errors?.mot_issue_date && touched?.mot_issue_date
-                          ? `${errors?.mot_issue_date}`
-                          : ''
-                      }
-                      placeholder={t('mot_issue_date')}
-                      onChangeText={str => setFieldValue('mot_issue_date', str)}
-                      value={values.mot_issue_date}
-                    />
-                  </DatePicker>
+                        <TouchableOpacity
+                          style={styles.uploadphotoview}
+                          onPress={() => onPressAttachment()}>
+                          {saveFile?.uri ? (
+                            <Medium
+                              label={saveFile?.name}
+                              color={colors.primary}
+                              fontSize={mvs(14)}
+                              style={styles.uplaodfiletext}
+                            />
+                          ) : (
+                            <Row style={{justifyContent: 'center'}}>
+                              <FileSVG width={mvs(25)} height={mvs(25)} />
+                              <Medium
+                                label={t('add_mot_photo')}
+                                color={colors.primary}
+                                fontSize={mvs(14)}
+                                style={{marginLeft: mvs(10)}}
+                              />
+                            </Row>
+                          )}
+                        </TouchableOpacity>
+                        <View style={{marginVertical: mvs(14)}}>
+                          <DatePicker
+                            onPress={() =>
+                              setFieldTouched('mot_issue_date', true)
+                            }
+                            onChangeText={(str: string) =>
+                              setFieldValue('mot_issue_date', str)
+                            }>
+                            <PrimaryInput
+                              isCalendar
+                              editable={false}
+                              error={
+                                touched?.mot_issue_date
+                                  ? t(errors.mot_issue_date)
+                                  : ''
+                              }
+                              placeholder={t('mot_issue_date')}
+                              onChangeText={handleChange('mot_issue_date')}
+                              onBlur={handleBlur('mot_issue_date', true)}
+                              value={values.mot_issue_date}
+                            />
+                          </DatePicker>
 
-                  <DatePicker
-                    onChangeText={(str: string) =>
-                      setFieldValue('mot_expiry_date', str)
-                    }>
-                    <PrimaryInput
-                      isCalendar
-                      editable={false}
-                      error={
-                        errors?.mot_expiry_date && touched?.mot_expiry_date
-                          ? `${errors?.mot_expiry_date}`
-                          : ''
-                      }
-                      placeholder={t('mot_expiry_date')}
-                      onChangeText={str =>
-                        setFieldValue('mot_expiry_date', str)
-                      }
-                      value={values.mot_expiry_date}
+                          <DatePicker
+                            onPress={() =>
+                              setFieldTouched('mot_expiry_date', true)
+                            }
+                            onChangeText={(str: string) =>
+                              setFieldValue('mot_expiry_date', str)
+                            }>
+                            <PrimaryInput
+                              isCalendar
+                              editable={false}
+                              error={
+                                touched?.mot_expiry_date
+                                  ? t(errors.mot_expiry_date)
+                                  : ''
+                              }
+                              placeholder={t('mot_expiry_date')}
+                              onChangeText={handleChange('mot_expiry_date')}
+                              onBlur={handleBlur('mot_expiry_date', true)}
+                              value={values.mot_expiry_date}
+                            />
+                          </DatePicker>
+                        </View>
+                      </View>
+                    </KeyboardAvoidScrollview>
+                  </View>
+                  <View style={{paddingHorizontal: mvs(20)}}>
+                    <PrimaryButton
+                      containerStyle={styles.registerbutton}
+                      loading={loading}
+                      onPress={handleSubmit}
+                      title={t('register_now')}
                     />
-                  </DatePicker>
-                </View>
-              </View>
-            </KeyboardAvoidScrollview>
-          </View>
-          <View style={{paddingHorizontal: mvs(20)}}>
-            <PrimaryButton
-              containerStyle={styles.registerbutton}
-              loading={loading}
-              onPress={() => navigate('ResetPasswordScreen')}
-              title={t('register_now')}
-            />
-          </View>
+                  </View>
+                </>
+              )}
+            </Formik>
+          </>
         </View>
       </ScrollView>
     </View>

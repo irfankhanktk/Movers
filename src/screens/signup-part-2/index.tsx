@@ -107,6 +107,7 @@ const SignupNext = (props: props) => {
                 handleBlur,
                 handleSubmit,
                 setFieldValue,
+                setFieldTouched,
                 touched,
                 values,
                 errors,
@@ -160,6 +161,7 @@ const SignupNext = (props: props) => {
                   />
 
                   <DatePicker
+                    onPress={() => setFieldTouched('dob', true)}
                     onChangeText={(str: string) => setFieldValue('dob', str)}>
                     <PrimaryInput
                       isCalendar

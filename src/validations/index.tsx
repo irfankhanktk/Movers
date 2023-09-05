@@ -135,6 +135,36 @@ export const addVheicleValidation = yup.object().shape({
   //   .required('New Password is required')
   //   .min(8, 'New weak_pass'),
 });
+export const CompanyDetailsValidation = yup.object().shape({
+  legal_identity: yup.string().required('req_legal_identity'),
+  compnay_registration: yup.string().required('req_compnay_registration'),
+  vat_registration: yup.string().required('req_vat_registration'),
+});
+export const LicenseDetailsValidation = yup.object().shape({
+  driving_license_no: yup.string().required('req_driving_license_no'),
+  license_issue_date: yup.string().required('req_license_issue_date'),
+  license_expiry_date: yup.string().required('req_vat_license_expiry_date'),
+});
+export const MOTDetailsValidation = yup.object().shape({
+  mot_issue_date: yup.string().required('req_mot_issue_date'),
+  mot_expiry_date: yup.string().required('req_mot_expiry_date'),
+});
+export const VehicleInsuranceValidation = yup.object().shape({
+  insurance_company: yup.string().required('req_insurance_company'),
+  valid_from: yup.string().required('req_valid_from'),
+  expiry_date: yup.string().required('req_expiry_date'),
+});
+export const BankDetailsValidation = yup.object().shape({
+  bank_name: yup.string().required('req_bank_name'),
+  account_title: yup.string().required('req_account_title'),
+  sort_code: yup.string().required('req_sort_code'),
+  account_number: yup.string().required('req_account_number'),
+});
+export const GoodsInTransitValidation = yup.object().shape({
+  name: yup.string().required('req_name'),
+  valid_from: yup.string().required('req_valid_from'),
+  expiry_date: yup.string().required('req_expiry_date'),
+});
 export const addHotelValidation = yup.object().shape({
   title: yup.string().required('title_required'),
   content: yup.string().required('content_required'),

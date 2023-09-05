@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   contentContainerStyleNew: {
     // flexGrow: 1,
-    paddingHorizontal: mvs(20),
+    // paddingHorizontal: mvs(20),
     // marginVertical: mvs(10),
     marginHorizontal: mvs(20),
     paddingVertical: mvs(10),
