@@ -94,14 +94,24 @@ export const onStoreVehicle = (values: any) =>
 export const getCountryCode = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
+      const {userInfo} = getState()?.user;
       const res = await getData(URLS.auth.create_user);
       const codeObj = res?.country_codes;
       const newList = Object.keys(codeObj)?.map(x => ({
         code: x,
         ...codeObj[x],
       }));
-      dispatch(setCountries(newList));
-      console.log('newList:::', newList);
+      if (userInfo?.id) {
+        let copy = [...newList];
+        copy = copy?.map(x => ({
+          ...x,
+          selected: x?.phone_code == userInfo?.country_code,
+        }));
+        dispatch(setCountries(copy));
+      } else {
+        dispatch(setCountries(newList));
+        console.log('newList:::', newList);
+      }
     } catch (error) {
       console.log('error', UTILS.returnError(error));
       Alert.alert('Error', UTILS.returnError(error));

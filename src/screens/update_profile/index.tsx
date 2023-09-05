@@ -74,6 +74,12 @@ const UpdateProfileScreen = (props: props) => {
   };
   React.useEffect(() => {
     getCountryCodeDetails();
+    // let copy = [...countries];
+    // copy = copy?.map(x => ({
+    //   ...x,
+    //   selected: x?.phone_code == userInfo?.country_code,
+    // }));
+    // dispatch(setCountries(copy));
   }, []);
   const getCountryCodeDetails = async () => {
     try {
