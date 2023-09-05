@@ -47,6 +47,7 @@ import BankDetailsScreen from 'screens/bank-details';
 import ManageVehicleDocumentScreen from 'screens/manage-vehicle-document';
 import InboxScreen from 'screens/inbox-screen';
 import MessageHomeScreen from 'screens/messageHome';
+import UpdateProfileScreen from 'screens/update_profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -84,6 +85,10 @@ export const RootNavigator = () => {
           <Stack.Screen
             name="OurServicesScreen"
             component={OurServicesScreen}
+          />
+          <Stack.Screen
+            name="UpdateProfileScreen"
+            component={UpdateProfileScreen}
           />
           <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
           <Stack.Screen

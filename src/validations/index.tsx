@@ -75,6 +75,26 @@ export const signupDetailsFormValidation = yup.object().shape({
   cnic: yup.number().min(13, 'invalid_cnic'),
   dob: yup.string().required('req_dob'),
 });
+export const UpdateProfileFormValidation = yup.object().shape({
+  first_name: yup.string().required('req_first_name'),
+  middle_name: yup.string().required('req_middle_name'),
+  email: yup.string().email('invalid_email').required('req_email'),
+  phone: yup
+    .number()
+    .typeError('invalid_phone')
+    .positive('invalid_phone')
+    .integer('invalid_phone')
+    .min(8, 'invalid_phone')
+    .required('Phone is required'),
+
+  surname: yup.string().required('req_surname'),
+  house_name: yup.string().required('req_house_name'),
+  first_line_of_address: yup.string().required('req_first_line_of_address'),
+  postal_code: yup.string().required('req_postal_code'),
+  city: yup.string().required('req_city'),
+  cnic: yup.number().min(13, 'invalid_cnic'),
+  dob: yup.string().required('req_dob'),
+});
 export const updateProfileFormValidation = yup.object().shape({
   name: yup.string().required('req_name'),
   // last_name: yup.string().required('req_first_name'),

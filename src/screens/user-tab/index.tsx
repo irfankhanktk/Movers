@@ -143,6 +143,23 @@ const UserTab = (props: props) => {
               <TouchableOpacity
                 style={styles.itemtabs}
                 onPress={() =>
+                  props?.navigation?.navigate('UpdateProfileScreen')
+                }>
+                <FontAwesome5
+                  name="user-edit"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+                <Regular
+                  style={styles.itemText1}
+                  label={`${t('update_profile')}`}
+                />
+              </TouchableOpacity>
+            )}
+            {userInfo && (
+              <TouchableOpacity
+                style={styles.itemtabs}
+                onPress={() =>
                   props?.navigation?.navigate('UploadDocumentsScreen')
                 }>
                 <Ionicons
