@@ -20,6 +20,7 @@ import {SpecialistLocation} from 'assets/icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {ColorSpace} from 'react-native-reanimated';
 import moment from 'moment';
+import {DATE_FORMAT} from 'config/constants';
 const LabelValue = ({label, value, containerStyle, labelStyle, valueStyle}) => (
   <Row style={containerStyle}>
     <Medium
@@ -141,7 +142,8 @@ const MangeVehcileCard = ({
             fontSize={mvs(12)}
           />
           <Regular
-            label={moment(item?.created_at).format('DD/MM/YYYY')}
+            // moment().format(DATE_FORMAT.yyyy_mm_dd)
+            label={moment(item?.created_at).format('DD MMM, YYYY  hh:mm a')}
             color={colors.white}
             style={{flex: 1}}
             fontSize={mvs(12)}
