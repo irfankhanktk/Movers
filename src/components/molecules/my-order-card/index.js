@@ -128,6 +128,20 @@ const MyOrderCard = ({
           />
         </Row>
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
+          <Medium
+            label={t('type')}
+            fontSize={mvs(12)}
+            color={colors.black}
+            style={{width: mvs(110)}}
+          />
+          <Medium
+            label={`${item?.type}`}
+            fontSize={mvs(12)}
+            color={colors.grey}
+            style={{flex: 1}}
+          />
+        </Row>
+        <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
           <PrimaryButton
             title={t('accept')}
             containerStyle={{

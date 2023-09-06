@@ -51,15 +51,21 @@ const MyOrderScreen = props => {
               width: mvs(88),
               height: mvs(39),
               backgroundColor:
-                selectedOrder === 'new' ? colors.primary : colors.white,
+                selectedOrder === 'New' ? colors.primary : colors.white,
               borderColor: colors.lightGray,
               borderWidth: 1,
               ...colors.shadow,
             }}
             textStyle={{
-              color: selectedOrder === 'new' ? colors.white : colors.primary,
+              color: selectedOrder === 'New' ? colors.white : colors.primary,
             }}
-            onPress={() => setSelectedOrder('new')}
+            onPress={() => {
+              if (selectedOrder === 'New') {
+                setSelectedOrder('');
+              } else {
+                setSelectedOrder('New');
+              }
+            }}
           />
           <PrimaryButton
             title={t('processing')}
@@ -76,7 +82,13 @@ const MyOrderScreen = props => {
               color:
                 selectedOrder === 'processing' ? colors.white : colors.primary,
             }}
-            onPress={() => setSelectedOrder('processing')}
+            onPress={() => {
+              if (selectedOrder === 'processing') {
+                setSelectedOrder('');
+              } else {
+                setSelectedOrder('processing');
+              }
+            }}
           />
           <PrimaryButton
             title={t('delieverd')}
@@ -93,7 +105,13 @@ const MyOrderScreen = props => {
               color:
                 selectedOrder === 'delieverd' ? colors.white : colors.primary,
             }}
-            onPress={() => setSelectedOrder('delieverd')}
+            onPress={() => {
+              if (selectedOrder === 'delieverd') {
+                setSelectedOrder('');
+              } else {
+                setSelectedOrder('delieverd');
+              }
+            }}
           />
         </Row>
         {loading ? (
@@ -103,7 +121,11 @@ const MyOrderScreen = props => {
             // emptyList={<EmptyList label={t('no_notification')} />}
             contentContainerStyle={styles.contentContainerStyleFlatlist}
             showsVerticalScrollIndicator={false}
-            data={ORDER_LIST}
+            data={
+              !selectedOrder
+                ? ORDER_LIST
+                : ORDER_LIST?.filter(item => item?.type === selectedOrder)
+            }
             renderItem={renderAppointmentItem}
             ItemSeparatorComponent={itemSeparatorComponent()}
             keyExtractor={(_, index) => index?.toString()}

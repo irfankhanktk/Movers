@@ -132,6 +132,7 @@ export const ORDER_LIST = [
     pickup_location:
       'Pickup Location paddingVertical: mvs(8)paddingVertical: mvs(8)',
     service_type: 'SERVICE TYPE',
+    type: 'New',
   },
   {
     Order_no: '123',
@@ -140,6 +141,7 @@ export const ORDER_LIST = [
     delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
     pickup_location: 'Pickup Location',
     service_type: 'SERVICE TYPE',
+    type: 'processing',
   },
   {
     Order_no: '123',
@@ -148,6 +150,7 @@ export const ORDER_LIST = [
     delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
     pickup_location: 'Pickup Location',
     service_type: 'SERVICE TYPE',
+    type: 'delieverd',
   },
   {
     Order_no: '123',
@@ -156,6 +159,7 @@ export const ORDER_LIST = [
     delivery_time: moment().format(DATE_FORMAT.yyyy_mm_dd),
     pickup_location: 'Pickup Location',
     service_type: 'SERVICE TYPE',
+    type: 'New',
   },
 ];
 export const RECENT_ORDER_LIST = [
