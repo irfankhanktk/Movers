@@ -155,16 +155,24 @@ const MangeVehcileCard = ({
           position: 'absolute',
           alignSelf: 'center',
           // top: mvs(40),
-          right: mvs(-10),
-          bottom: mvs(-75),
+          right: mvs(10),
+          bottom: mvs(-65),
         }}>
         <Image
           // source={item?.icon}
-          source={IMG.hondablackvehicle}
+          source={
+            item?.vehicle_type === 'Car' || item?.vehicle_type === 'car'
+              ? IMG.hondablackvehicle
+              : item?.vehicle_type === 'Truck'
+              ? IMG.truckvehicle
+              : item?.vehicle_type === 'Motor Cycle'
+              ? IMG.Bike
+              : ''
+          }
           resizeMode="contain"
           style={{
-            width: mvs(209),
-            height: mvs(142),
+            width: mvs(180),
+            height: mvs(122),
           }}
         />
       </View>
