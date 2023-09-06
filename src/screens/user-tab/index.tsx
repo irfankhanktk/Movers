@@ -5,7 +5,7 @@ import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
-import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -54,6 +54,25 @@ const UserTab = (props: props) => {
   //     Alert.alert('Error', UTILS?.returnError(error));
   //   }
   // };
+
+  const LogoutAccount = async () => {
+    Alert.alert('Warning!', 'Are you sure you want to Logout your account?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          userInfo
+            ? dispatch(onLogoutPress())
+            : props?.navigation?.navigate('Login');
+        },
+      },
+    ]);
+  };
+
   const onPressAttachment = async () => {
     try {
       setFileLoading(true);
@@ -228,9 +247,10 @@ const UserTab = (props: props) => {
             <TouchableOpacity
               style={styles.itemtabs}
               onPress={() =>
-                userInfo
-                  ? dispatch(onLogoutPress())
-                  : props?.navigation?.navigate('Login')
+                // userInfo
+                //   ? dispatch(onLogoutPress())
+                //   : props?.navigation?.navigate('Login')
+                LogoutAccount()
               }>
               <AntDesign
                 name={`${userInfo ? 'logout' : 'login'}`}

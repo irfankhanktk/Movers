@@ -4,7 +4,7 @@ import DrawerHomeCard from 'components/molecules/drawer-home-card';
 import {colors} from 'config/colors';
 import {mvs, width} from 'config/metrices';
 import React from 'react';
-import {Image, ScrollView, StyleSheet, View} from 'react-native';
+import {Alert, Image, ScrollView, StyleSheet, View} from 'react-native';
 import Bold from 'typography/bold-text';
 import * as IMG from 'assets/images';
 import {t} from 'i18next';
@@ -17,6 +17,24 @@ const CustomDrawerContent = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
   const dispatch = useAppDispatch();
+
+  const LogoutAccount = async () => {
+    Alert.alert('Warning!', 'Are you sure you want to Logout your account?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          userInfo
+            ? dispatch(onLogoutPress())
+            : props?.navigation?.navigate('Login');
+        },
+      },
+    ]);
+  };
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.header}>
@@ -82,9 +100,10 @@ const CustomDrawerContent = props => {
 
       <DrawerHomeCard
         onPress={() =>
-          userInfo
-            ? dispatch(onLogoutPress())
-            : props?.navigation?.navigate('Login')
+          // userInfo
+          //   ? dispatch(onLogoutPress())
+          //   : props?.navigation?.navigate('Login')
+          LogoutAccount()
         }
         icon1={IMG.drawerLogoutIcon}
         label1={t('logout')}
