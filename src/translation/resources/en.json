@@ -169,7 +169,9 @@
   "req_bank_name":"Bank Name is Required",
   "req_account_title":"Account Title is Required",
   "req_sort_code":"Sort Code is Requred",
-  "req_account_number":"Account Number is Required"
+  "req_account_number":"Account Number is Required",
+  "change_language":"Change Language",
+  "ar":"Arabic"
   
 
   
