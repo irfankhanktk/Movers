@@ -42,7 +42,7 @@ const DropdownModal = ({
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => onChangeText(item?.id)}
+                onPress={() => onChangeText(item?.id, onClose())}
                 style={styles.button}>
                 <Medium
                   label={item?.title || item?.name || item?.type || item?.id}
