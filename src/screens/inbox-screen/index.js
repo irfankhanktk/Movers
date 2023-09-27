@@ -11,7 +11,6 @@ import CustomFlatList from 'components/atoms/custom-flatlist';
 import i18n from 'translation';
 import styles from './styles';
 import * as IMG from 'assets/images';
-
 import {Row} from 'components/atoms/row';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {colors} from 'config/colors';

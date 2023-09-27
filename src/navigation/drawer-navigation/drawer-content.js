@@ -26,7 +26,7 @@ const CustomDrawerContent = props => {
         style: 'cancel',
       },
       {
-        text: 'Delete',
+        text: 'Logout',
         onPress: () => {
           userInfo
             ? dispatch(onLogoutPress())
