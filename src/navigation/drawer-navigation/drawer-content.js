@@ -19,7 +19,7 @@ const CustomDrawerContent = props => {
   const dispatch = useAppDispatch();
 
   const LogoutAccount = async () => {
-    Alert.alert('Warning!', 'Are you sure you want to Logout your account?', [
+    Alert.alert('Logout!', 'Are you sure you want to Logout your account?', [
       {
         text: 'Cancel',
         onPress: () => console.log('Cancel Pressed'),
