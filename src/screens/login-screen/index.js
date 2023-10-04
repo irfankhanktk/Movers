@@ -39,6 +39,7 @@ const LoginScreen = props => {
     email: '',
     password: '',
     fcm_token: '123456',
+    type: 'Driver',
   };
   const [loading, setLoading] = React.useState(false);
   // const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =

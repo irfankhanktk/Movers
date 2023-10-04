@@ -31,6 +31,8 @@ import {FacBookIcon, GoogleIcon} from 'assets/icons';
 import {Checkbox} from 'components/atoms/checkbox';
 import {DatePicker} from 'components/atoms/date-picker';
 import SignUpModal from 'components/molecules/modals/SignUp-modal';
+import GoogleSearchBar from 'components/atoms/google-auto-place';
+import Regular from 'typography/regular-text';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
@@ -47,9 +49,11 @@ const SignupNext = (props: props) => {
   const {user} = useAppSelector(s => s);
   const {location} = user;
   console.log('location=>>>', location);
+  const [data, setdata] = React.useState({});
 
   const dispatch = useAppDispatch();
   const initialValues = {
+    ...data,
     cnic: '',
     house_name: '',
     first_line_of_address: '',
@@ -65,6 +69,7 @@ const SignupNext = (props: props) => {
       setLoading(true);
       const res = await onSignup({
         ...values,
+        ...data,
         ...props?.route?.params,
         fcm_token: '123',
       });
@@ -75,6 +80,18 @@ const SignupNext = (props: props) => {
     } finally {
       setLoading(false);
     }
+  };
+  const handlePlaceSelection = (data, details) => {
+    // Extract latitude and longitude from details.geometry.location
+    const {lat, lng} = details.geometry.location;
+
+    // Determine whether this is for pickup or dropoff
+
+    setdata({
+      driver_lat: lat,
+      driver_long: lng,
+      driver_address: details.formatted_address,
+    });
   };
   return (
     <View style={styles.container}>
@@ -114,13 +131,39 @@ const SignupNext = (props: props) => {
               }) => (
                 <>
                   {console.log('errror2', errors)}
-                  <PrimaryInput
-                    error={touched?.cnic ? t(errors.cnic) : ''}
-                    placeholder={t('cnic')}
-                    onChangeText={handleChange('cnic')}
-                    onBlur={handleBlur('cnic')}
-                    value={values.cnic}
-                  />
+
+                  <View style={{marginHorizontal: mvs(20)}}>
+                    <Regular
+                      numberOfLines={2}
+                      label={t('please_enter_area_where_you_want_to_work')}
+                      color={colors.bluecolor}
+                      fontSize={mvs(12)}
+                    />
+                    <Regular
+                      numberOfLines={2}
+                      label={t('please_enable_your_location_to_use_this')}
+                      color={colors.primary}
+                      fontSize={mvs(14)}
+                    />
+                    <GoogleSearchBar
+                      onPress={handlePlaceSelection}
+                      // onPress={(data, details = null) => {
+                      //   // setValues({...values.searchMapInput?.details.formatted_address,})
+                      //   // 'details' is provided when fetchDetails = true
+                      //   console.log(data, details);
+                      // }}
+                      placeholder={'Select your Pickup Location '}
+                    />
+                  </View>
+                  <View style={{marginTop: mvs(20)}}>
+                    <PrimaryInput
+                      error={touched?.cnic ? t(errors.cnic) : ''}
+                      placeholder={t('cnic')}
+                      onChangeText={handleChange('cnic')}
+                      onBlur={handleBlur('cnic')}
+                      value={values.cnic}
+                    />
+                  </View>
                   <PrimaryInput
                     keyboardType={'email-address'}
                     error={touched?.house_name ? t(errors.house_name) : ''}

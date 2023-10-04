@@ -107,21 +107,21 @@ const UserTab = (props: props) => {
               resizeMode="cover"
             />
           )}
-          {userInfo?.id && (
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'white',
-                borderRadius: mvs(10),
-                position: 'absolute',
-                right: mvs(-16),
-                alignSelf: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={() => onPressAttachment()}>
-              <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
-            </TouchableOpacity>
-          )}
+          {/* {userInfo?.id && ( */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'white',
+              borderRadius: mvs(10),
+              position: 'absolute',
+              right: mvs(-16),
+              alignSelf: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => onPressAttachment()}>
+            <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
+          </TouchableOpacity>
+          {/* )} */}
         </View>
         <Medium label={userInfo?.name || t('guest_mode')} style={styles.name} />
         <Regular
@@ -133,18 +133,18 @@ const UserTab = (props: props) => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{flexGrow: 1, paddingBottom: mvs(100)}}>
-            {userInfo && (
-              <TouchableOpacity
-                style={styles.itemtabs}
-                onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
-                <FontAwesome
-                  name="shopping-cart"
-                  size={mvs(22)}
-                  color={colors.primary}
-                />
-                <Regular style={styles.itemText1} label={`${t('my_order')}`} />
-              </TouchableOpacity>
-            )}
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
+              <FontAwesome
+                name="shopping-cart"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular style={styles.itemText1} label={`${t('my_order')}`} />
+            </TouchableOpacity>
+            {/* )} */}
             <TouchableOpacity
               style={styles.itemtabs}
               onPress={() => props?.navigation?.navigate('LanguageScreen')}>
@@ -158,66 +158,66 @@ const UserTab = (props: props) => {
                 label={`${t('choose_language')}`}
               />
             </TouchableOpacity>
-            {userInfo && (
-              <TouchableOpacity
-                style={styles.itemtabs}
-                onPress={() =>
-                  props?.navigation?.navigate('UpdateProfileScreen')
-                }>
-                <FontAwesome5
-                  name="user-edit"
-                  size={mvs(22)}
-                  color={colors.primary}
-                />
-                <Regular
-                  style={styles.itemText1}
-                  label={`${t('update_profile')}`}
-                />
-              </TouchableOpacity>
-            )}
-            {userInfo && (
-              <TouchableOpacity
-                style={styles.itemtabs}
-                onPress={() =>
-                  props?.navigation?.navigate('UploadDocumentsScreen')
-                }>
-                <Ionicons
-                  name="documents"
-                  size={mvs(22)}
-                  color={colors.primary}
-                />
-                <Regular style={styles.itemText1} label={`${t('documents')}`} />
-              </TouchableOpacity>
-            )}
-            {userInfo && (
-              <TouchableOpacity
-                style={styles.itemtabs}
-                onPress={() => props?.navigation?.navigate('HistoryScreen')}>
-                <Ionicons
-                  name="timer-outline"
-                  size={mvs(22)}
-                  color={colors.primary}
-                />
-                <Regular style={styles.itemText1} label={`${t('history')}`} />
-              </TouchableOpacity>
-            )}
-            {userInfo && (
-              <TouchableOpacity
-                style={styles.itemtabs}
-                onPress={() =>
-                  props?.navigation?.navigate('TermsandConditionsScreen')
-                }>
-                <Entypo
-                  name="text-document-inverted"
-                  size={mvs(22)}
-                  color={colors.primary}
-                />
-                <Regular
-                  style={styles.itemText1}
-                  label={`${t('terms_and_conditions')}`}
-                />
-              </TouchableOpacity>
-            )}
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                props?.navigation?.navigate('UpdateProfileScreen')
+              }>
+              <FontAwesome5
+                name="user-edit"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular
+                style={styles.itemText1}
+                label={`${t('update_profile')}`}
+              />
+            </TouchableOpacity>
+            {/* )} */}
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                props?.navigation?.navigate('UploadDocumentsScreen')
+              }>
+              <Ionicons
+                name="documents"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular style={styles.itemText1} label={`${t('documents')}`} />
+            </TouchableOpacity>
+            {/* )} */}
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() => props?.navigation?.navigate('HistoryScreen')}>
+              <Ionicons
+                name="timer-outline"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular style={styles.itemText1} label={`${t('history')}`} />
+            </TouchableOpacity>
+            {/* )} */}
+            {/* {userInfo && ( */}
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() =>
+                props?.navigation?.navigate('TermsandConditionsScreen')
+              }>
+              <Entypo
+                name="text-document-inverted"
+                size={mvs(22)}
+                color={colors.primary}
+              />
+              <Regular
+                style={styles.itemText1}
+                label={`${t('terms_and_conditions')}`}
+              />
+            </TouchableOpacity>
+            {/* )} */}
             {userInfo && (
               <TouchableOpacity
                 style={styles.itemtabs}

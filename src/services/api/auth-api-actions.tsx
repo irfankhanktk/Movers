@@ -57,7 +57,7 @@ export const onLogoutPress = () => {
 export const onForgot = async (values: any) => {
   try {
     const res = await getData(
-      `${URLS.auth.forgot_password}?email=${values?.email}`,
+      `${URLS.auth.forgot_password}?email=${values?.email}&type=Driver`,
       // values,
     );
     console.log('res of onforgot=>', res);
@@ -79,7 +79,9 @@ export const onUpdatePassword = async (values: any) => {
   }
 };
 export const onVerifyOtp = (values: any) =>
-  getData(`${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}`);
+  getData(
+    `${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}&type=Driver`,
+  );
 
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
 
@@ -139,6 +141,20 @@ export const getVehcileList = async (slug: string) => {
   try {
     const res = await getData(URLS.vehcile.vehicle_list);
     console.log('res of vehcilellist=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+export const getStatusChange = async (status: any) => {
+  try {
+    console.log(status);
+    // return;
+    const res = await getData(
+      `${URLS.status_change.status}?online_status=${status}`,
+    );
+    console.log('res of status=>', res);
     return res;
   } catch (error) {
     console.log('error', UTILS.returnError(error));

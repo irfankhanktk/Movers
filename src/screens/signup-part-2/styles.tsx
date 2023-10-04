@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   keyboardcontentcontainer: {
     paddingHorizontal: mvs(0),
     flexGrow: 0,
-    paddingBottom: mvs(150),
+    paddingBottom: mvs(250),
   },
   boldtext: {
     marginTop: mvs(10),

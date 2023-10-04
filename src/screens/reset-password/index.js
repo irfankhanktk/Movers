@@ -60,6 +60,7 @@ const ResetPasswordScreen = props => {
     // email: '',
     password: '',
     confirm_password: '',
+    type: 'Driver',
   };
   const [loading, setLoading] = React.useState(false);
   const [verifyloading, setVerifyLoading] = React.useState(false);

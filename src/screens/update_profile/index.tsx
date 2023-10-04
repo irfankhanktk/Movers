@@ -345,7 +345,7 @@ const UpdateProfileScreen = (props: props) => {
                       borderRadius: mvs(10),
                     }}
                     loading={loading}
-                    onPress={handleSubmit}
+                    // onPress={handleSubmit}
                     title={t('update_profile')}
                   />
                 </>

@@ -3,6 +3,7 @@ import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
 import React from 'react';
 import {
+  Alert,
   I18nManager,
   Image,
   StyleSheet,
@@ -18,6 +19,12 @@ import {HoemSVG} from 'assets/icons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {t} from 'i18next';
+import {getStatusChange} from 'services/api/auth-api-actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {STORAGEKEYS} from 'config/constants';
+import {setUserInfo} from 'store/reducers/user-reducer';
+import {UTILS} from 'utils';
+import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 const HeaderX = ({
   style = {},
   mtop = 0,
@@ -29,8 +36,52 @@ const HeaderX = ({
   placeholder = 'Search here',
   ...props
 }) => {
+  const user = useAppSelector(s => s?.user);
+  const userInfo = user?.userInfo;
+  console.log('user', userInfo?.online_status);
+  const language = user?.language;
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const [isOnline, setIsOnline] = React.useState(true);
+  const status = userInfo?.online_status;
+  // const ChangeStatus = async () => {
+  //   try {
+  //     const newStatus = userInfo?.online_status === 0 ? 1 : 0;
+  //     const res = await getStatusChange(newStatus); // Pass the status value
+  //     console.log(res);
+  //     await AsyncStorage.setItem(STORAGEKEYS?.user, JSON.stringify(res?.user));
+  //     dispatch(setUserInfo(res?.user));
+  //     console.log(' resp==========>', res?.user);
+  //   } catch (error) {
+  //     console.log('Error===>', UTILS.returnError(error));
+  //     Alert.alert('Error-===============>', error);
+  //   }
+  // };
+  const ChangeStatus = async () => {
+    try {
+      // Toggle the online_status between 0 and 1
+      const newStatus = userInfo?.online_status === 0 ? 1 : 0;
+
+      // Make the API call with the new status
+      const res = await getStatusChange(newStatus);
+
+      // Update the userInfo with the new status
+      const updatedUserInfo = {...userInfo, online_status: newStatus};
+
+      // Update user info in AsyncStorage and Redux store
+      await AsyncStorage.setItem(
+        STORAGEKEYS.user,
+        JSON.stringify(updatedUserInfo),
+      );
+      dispatch(setUserInfo(updatedUserInfo));
+
+      console.log(' resp==========>', res);
+    } catch (error) {
+      console.log('Error:', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
+
   return (
     <View style={[styles.container, style]}>
       <Row style={{alignItems: 'center', justifyContent: 'space-between'}}>
@@ -49,9 +100,10 @@ const HeaderX = ({
             borderRadius: mvs(20),
             backgroundColor: colors.white,
           }}>
-          {!isOnline ? (
+          {userInfo?.online_status === 0 ? (
             <TouchableOpacity
-              onPress={() => setIsOnline(true)}
+              // onPress={() => setIsOnline(true)}
+              onPress={() => ChangeStatus()}
               style={{
                 backgroundColor: colors.white,
                 height: mvs(35),
@@ -76,7 +128,8 @@ const HeaderX = ({
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              onPress={() => setIsOnline(false)}
+              // onPress={() => setIsOnline(false)}
+              onPress={() => ChangeStatus()}
               style={{
                 backgroundColor: colors.primary,
                 height: mvs(35),

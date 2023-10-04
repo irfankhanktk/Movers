@@ -5,7 +5,7 @@ import {colors} from 'config/colors';
 import {t} from 'i18next';
 import {navigate} from 'navigation/navigation-ref';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Medium from 'typography/medium-text';
 import {mvs} from 'config/metrices';
@@ -37,6 +37,8 @@ const SignUpModal = ({
         }),
         // setLoading,
       );
+      Alert.alert('Your Account has been created Successfully');
+      navigate('Login');
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
     } finally {

@@ -21,6 +21,10 @@ export const URLS = {
     vehicle_list: 'vehicle',
     update_vehicle: 'vehicle/',
   },
+  status_change: {
+    status: 'onlineStatus',
+  },
+
   all_hospitals: 'doctor/allHospital',
 
   notification: {
