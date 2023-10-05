@@ -42,30 +42,53 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import {onStoreVehicle} from 'services/api/auth-api-actions';
+import {
+  getDriverDocument,
+  onPostDriverDocument,
+  onStoreVehicle,
+} from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
 const CompanyDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [value, setValue] = React.useState('');
+  const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
     legal_identity: '',
-    compnay_registration: '',
-    vat_registration: '',
+    company_reg: '',
+    vat_reg: '',
   };
   const [loading, setLoading] = React.useState(false);
 
   const handleFormSubmit = async values => {
     try {
+      console.log('values', values);
+      // return;
       setLoading(true);
-      const res = await onStoreVehicle(values);
+      const res = await onPostDriverDocument(values);
       Alert.alert(res?.message);
-      goBack();
+      // goBack();
 
       console.log(res);
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
+
+      console.log(res?.driverDetails);
+    } catch (error) {
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -118,31 +141,25 @@ const CompanyDetailsScreen = props => {
                       placeholder={t('legal_identity')}
                       onChangeText={handleChange('legal_identity')}
                       onBlur={handleBlur('legal_identity')}
-                      value={values.legal_identity}
+                      value={
+                        values.legal_identity || documentList?.legal_identity
+                      }
                     />
                     <PrimaryInput
                       keyboardType={'email-address'}
-                      error={
-                        touched?.compnay_registration
-                          ? t(errors.compnay_registration)
-                          : ''
-                      }
+                      error={touched?.company_reg ? t(errors.company_reg) : ''}
                       placeholder={t('compnay_registration')}
-                      onChangeText={handleChange('compnay_registration')}
-                      onBlur={handleBlur('compnay_registration')}
-                      value={values.compnay_registration}
+                      onChangeText={handleChange('company_reg')}
+                      onBlur={handleBlur('company_reg')}
+                      value={values.company_reg || documentList?.company_reg}
                     />
                     <PrimaryInput
                       keyboardType={'email-address'}
-                      error={
-                        touched?.vat_registration
-                          ? t(errors.vat_registration)
-                          : ''
-                      }
+                      error={touched?.vat_reg ? t(errors.vat_reg) : ''}
                       placeholder={t('vat_registration')}
-                      onChangeText={handleChange('vat_registration')}
-                      onBlur={handleBlur('vat_registration')}
-                      value={values.vat_registration}
+                      onChangeText={handleChange('vat_reg')}
+                      onBlur={handleBlur('vat_reg')}
+                      value={values.vat_reg || documentList?.vat_reg}
                     />
                   </KeyboardAvoidScrollview>
                 </View>

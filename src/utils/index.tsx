@@ -25,6 +25,7 @@ export const pickDocument = async () => {
       copyTo: 'cachesDirectory',
       type: [DocumentPicker.types.allFiles],
     });
+    console.log('Selected File:', result);
     return result;
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {

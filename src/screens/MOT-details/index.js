@@ -51,7 +51,11 @@ import UploadDocumentTile from 'components/molecules/upload-document-tile';
 import {pickDocument, UTILS} from 'utils';
 import {postFormData} from 'services/api';
 import {DatePicker} from 'components/atoms/date-picker';
-import {onStoreVehicle} from 'services/api/auth-api-actions';
+import {
+  getDriverDocument,
+  onPostDriverDocument,
+  onStoreVehicle,
+} from 'services/api/auth-api-actions';
 
 const MOTDetailsScreen = props => {
   const dispatch = useAppDispatch();
@@ -60,38 +64,23 @@ const MOTDetailsScreen = props => {
   const [fileLoading, setFileLoading] = React.useState(false);
   const [saveFile, setSaveFile] = React.useState(null);
   const [value, setValue] = React.useState('');
+  const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
-    mot_issue_date: '',
+    mot_issued_date: '',
     mot_expiry_date: '',
+    mot_photo: '' || documentList?.mot_photo,
   };
   const [loading, setLoading] = React.useState(false);
 
-  const onPressAttachment = async () => {
-    try {
-      setFileLoading(true);
-      const res = await UTILS._returnImageGallery();
-
-      setSaveFile(res);
-      // const response = await postFormData({
-      //   file: {
-      //     ...res[0],
-      //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      //   },
-      // });
-      //value array is maintained to be upload to server
-      // setFiles([...files, response?.data?.data || {}]);
-    } catch (error) {
-      console.log('error=>>', error);
-    } finally {
-      setFileLoading(false);
-    }
-  };
   const handleFormSubmit = async values => {
     try {
+      console.log('values', values);
+      // return;
       setLoading(true);
-      const res = await onStoreVehicle(values);
+      values.mot_photo = saveFile.name;
+      const res = await onPostDriverDocument(values);
       Alert.alert(res?.message);
-      goBack();
+      // goBack();
 
       console.log(res);
     } catch (error) {
@@ -100,6 +89,46 @@ const MOTDetailsScreen = props => {
       setLoading(false);
     }
   };
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
+
+      console.log(res?.driverDetails);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onPressAttachment = async () => {
+    try {
+      setFileLoading(true);
+      const res = await UTILS._returnImageGallery();
+      console.log(res);
+      if (res) {
+        const selectedFile = res;
+        setSaveFile({
+          uri: selectedFile.uri,
+          name: selectedFile.name,
+        });
+
+        console.log('Selected Image:', selectedFile.name);
+      } else {
+        // Handle the case where no image was selected.
+        console.log('No image selected.');
+      }
+    } catch (error) {
+      console.log('error=>>', error);
+    } finally {
+      setFileLoading(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -147,12 +176,12 @@ const MOTDetailsScreen = props => {
                         <TouchableOpacity
                           style={styles.uploadphotoview}
                           onPress={() => onPressAttachment()}>
-                          {saveFile?.uri ? (
+                          {documentList?.mot_photo ? (
                             <Medium
-                              label={saveFile?.name}
+                              label={saveFile?.name || documentList?.mot_photo}
                               color={colors.primary}
                               fontSize={mvs(14)}
-                              style={styles.uplaodfiletext}
+                              style={styles.filenametext}
                             />
                           ) : (
                             <Row style={{justifyContent: 'center'}}>
@@ -169,23 +198,26 @@ const MOTDetailsScreen = props => {
                         <View style={{marginVertical: mvs(14)}}>
                           <DatePicker
                             onPress={() =>
-                              setFieldTouched('mot_issue_date', true)
+                              setFieldTouched('mot_issued_date', true)
                             }
                             onChangeText={(str: string) =>
-                              setFieldValue('mot_issue_date', str)
+                              setFieldValue('mot_issued_date', str)
                             }>
                             <PrimaryInput
                               isCalendar
                               editable={false}
                               error={
-                                touched?.mot_issue_date
-                                  ? t(errors.mot_issue_date)
+                                touched?.mot_issued_date
+                                  ? t(errors.mot_issued_date)
                                   : ''
                               }
-                              placeholder={t('mot_issue_date')}
-                              onChangeText={handleChange('mot_issue_date')}
-                              onBlur={handleBlur('mot_issue_date', true)}
-                              value={values.mot_issue_date}
+                              placeholder={t('mot_issued_date')}
+                              onChangeText={handleChange('mot_issued_date')}
+                              onBlur={handleBlur('mot_issued_date', true)}
+                              value={
+                                values.mot_issued_date ||
+                                documentList?.mot_issued_date
+                              }
                             />
                           </DatePicker>
 
@@ -207,7 +239,10 @@ const MOTDetailsScreen = props => {
                               placeholder={t('mot_expiry_date')}
                               onChangeText={handleChange('mot_expiry_date')}
                               onBlur={handleBlur('mot_expiry_date', true)}
-                              value={values.mot_expiry_date}
+                              value={
+                                values.mot_expiry_date ||
+                                documentList?.mot_expiry_date
+                              }
                             />
                           </DatePicker>
                         </View>

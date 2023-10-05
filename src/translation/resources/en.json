@@ -101,12 +101,12 @@
   "compnay_registration": "Company Registraion #",
   "vat_registration": "VAT Registration #",
   "register_now": "Register Now",
-  "driving_license_no": "Driving License Number",
+  "driver_license_no": "Driving License Number",
   "license_issue_date": "License Isuue Date",
   "license_expiry_date": "License Expiry Date",
   "add_license_photo": "Add License Photo",
   "add_mot_photo": "Add MOT Photo",
-  "mot_issue_date": "MOT Issue Date",
+  "mot_issued_date": "MOT Issue Date",
   "mot_expiry_date": "MOT Expiry Date",
   "add_vehicle_insurance_photo": "Add Vehcile Insurance Photo",
   "insurance_company": "Insurance Company",
@@ -173,5 +173,8 @@
   "change_language": "Change Language",
   "ar": "Arabic",
   "please_enter_area_where_you_want_to_work":"Please enter area where you want to work",
-  "please_enable_your_location_to_use_this":"Please enable your mobile location to use this"
+  "please_enable_your_location_to_use_this":"Please enable your mobile location to use this",
+  "goods_name":"Goods Name",
+  "goods_valid_from":"Goods Valid From",
+  "goods_expiry_date":"Goods Expiry Date"
 }

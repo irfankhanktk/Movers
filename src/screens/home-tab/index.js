@@ -5,7 +5,13 @@ import {SERVICE_LIST} from 'config/constants';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import React from 'react';
-import {Image, ImageBackground, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
@@ -17,6 +23,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
 import {navigate} from 'navigation/navigation-ref';
+import {getDirection} from 'services/api/auth-api-actions';
+import {UTILS} from 'utils';
+import {setLocation} from 'store/reducers/user-reducer';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -24,7 +33,61 @@ const HomeTab = props => {
   const language = user?.language;
   const dispatch = useAppDispatch();
   const {t} = i18n;
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState();
+  const [latitude, setLatitude] = React.useState();
+  const [longitude, setLongitude] = React.useState();
+  React.useEffect(() => {
+    UTILS.get_current_location(
+      position => {
+        const lat = position?.coords?.latitude;
+        const long = position?.coords?.longitude;
 
+        // Dispatch the location to Redux
+        dispatch(
+          setLocation({
+            latitude: lat,
+            longitude: long,
+          }),
+        );
+
+        // Set latitude and longitude in component state
+        setLatitude(lat);
+        setLongitude(long);
+
+        // Console log the latitude and longitude
+        console.log('Latitude:', lat);
+        console.log('Longitude:', long);
+      },
+      error => {
+        // Handle the error here if needed
+        console.error('Error fetching location:', error);
+      },
+    );
+  }, [dispatch]);
+  // const latitude = user?.location?.latitude;
+  // const longitude = user?.location?.longitude;
+  const fetchDirection = async setLoading => {
+    try {
+      setLoading(true);
+      const res = await getDirection(latitude, longitude);
+      // setData(res);
+    } catch (error) {
+      console.log('Error in direction====>', error);
+      Alert.alert('get Directioin Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchDirection(setLoading);
+    const intervalId = setInterval(() => {
+      fetchDirection(() => {});
+    }, 25000); // 25 seconds in milliseconds
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [latitude, longitude]);
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };

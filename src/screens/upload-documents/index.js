@@ -185,10 +185,10 @@ const UploadDocumentsScreen = props => {
                 label={t('bank_details')}
                 onPress={() => navigate('BankDetailsScreen')}
               />
-              <UploadDocumentTile
+              {/* <UploadDocumentTile
                 label={t('manage_vehicle')}
                 onPress={() => navigate('ManageVehicleDocumentScreen')}
-              />
+              /> */}
             </View>
           </ScrollView>
         </View>

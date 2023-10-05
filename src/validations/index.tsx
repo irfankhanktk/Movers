@@ -136,16 +136,16 @@ export const addVheicleValidation = yup.object().shape({
 });
 export const CompanyDetailsValidation = yup.object().shape({
   legal_identity: yup.string().required('req_legal_identity'),
-  compnay_registration: yup.string().required('req_compnay_registration'),
-  vat_registration: yup.string().required('req_vat_registration'),
+  company_reg: yup.string().required('req_compnay_registration'),
+  vat_reg: yup.string().required('req_vat_registration'),
 });
 export const LicenseDetailsValidation = yup.object().shape({
-  driving_license_no: yup.string().required('req_driving_license_no'),
+  driver_license_no: yup.string().required('req_driving_license_no'),
   license_issue_date: yup.string().required('req_license_issue_date'),
   license_expiry_date: yup.string().required('req_vat_license_expiry_date'),
 });
 export const MOTDetailsValidation = yup.object().shape({
-  mot_issue_date: yup.string().required('req_mot_issue_date'),
+  mot_issued_date: yup.string().required('req_mot_issue_date'),
   mot_expiry_date: yup.string().required('req_mot_expiry_date'),
 });
 export const VehicleInsuranceValidation = yup.object().shape({
@@ -160,7 +160,7 @@ export const BankDetailsValidation = yup.object().shape({
   account_number: yup.string().required('req_account_number'),
 });
 export const GoodsInTransitValidation = yup.object().shape({
-  name: yup.string().required('req_name'),
-  valid_from: yup.string().required('req_valid_from'),
-  expiry_date: yup.string().required('req_expiry_date'),
+  goods_name: yup.string().required('req_name'),
+  goods_valid_from: yup.string().required('req_valid_from'),
+  goods_expiry_date: yup.string().required('req_expiry_date'),
 });

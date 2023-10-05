@@ -90,9 +90,19 @@ export const onStoreVehicle = (values: any) =>
     ? putData(`${URLS.vehcile.update_vehicle}${values?.id}`, values)
     : postData(URLS.vehcile.store_vehicle, values);
 
-// export const onUpdateVehicle = (values: any, id: string) =>
-//   postData(`${URLS.vehcile.update_vehicle}${id}, values}`);
+export const onPostDriverDocument = (values: any) =>
+  postData(`${URLS.document.update_document}`, values);
 
+export const getDriverDocument = async (slug: string) => {
+  try {
+    const res = await getData(URLS.document.get_document);
+    console.log('res of getcument=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 export const getCountryCode = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
@@ -161,3 +171,8 @@ export const getStatusChange = async (status: any) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+
+export const getDirection = (latitude: any, longitude: any) =>
+  postData(
+    `${URLS.auth.driver_location}?driver_lat=${latitude}&driver_long=${longitude}`,
+  );

@@ -81,6 +81,28 @@ const HeaderX = ({
       Alert.alert('Error', UTILS.returnError(error));
     }
   };
+  const showAlert = () => {
+    const statusMessage =
+      userInfo?.online_status === 0
+        ? 'Are you sure you want to go online?'
+        : 'Are you sure you want to go offline?';
+
+    Alert.alert(
+      'Change Status',
+      statusMessage,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: ChangeStatus,
+        },
+      ],
+      {cancelable: false},
+    );
+  };
 
   return (
     <View style={[styles.container, style]}>
@@ -103,7 +125,8 @@ const HeaderX = ({
           {userInfo?.online_status === 0 ? (
             <TouchableOpacity
               // onPress={() => setIsOnline(true)}
-              onPress={() => ChangeStatus()}
+              // onPress={() => ChangeStatus()}
+              onPress={() => showAlert()}
               style={{
                 backgroundColor: colors.white,
                 height: mvs(35),
@@ -129,7 +152,8 @@ const HeaderX = ({
           ) : (
             <TouchableOpacity
               // onPress={() => setIsOnline(false)}
-              onPress={() => ChangeStatus()}
+              // onPress={() => ChangeStatus()}
+              onPress={() => showAlert()}
               style={{
                 backgroundColor: colors.primary,
                 height: mvs(35),

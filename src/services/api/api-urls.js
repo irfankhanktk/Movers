@@ -10,6 +10,7 @@ export const URLS = {
     get_user_info: 'user/userInfo',
     forgot_password: 'sendOtp',
     update_password: 'UpdatePassword',
+    driver_location: 'updateDriverLocation',
     // change_password: 'doctor/changePassword',
     // otp_verify: 'doctor/otpVerify',
     // forget_password: 'doctor/forgetPassword',
@@ -23,6 +24,10 @@ export const URLS = {
   },
   status_change: {
     status: 'onlineStatus',
+  },
+  document: {
+    update_document: 'driverUpdate',
+    get_document: 'getDriverDetails',
   },
 
   all_hospitals: 'doctor/allHospital',

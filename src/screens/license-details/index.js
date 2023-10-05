@@ -1,78 +1,60 @@
-import messaging from '@react-native-firebase/messaging';
 import * as IMG from 'assets/images';
-import {auth_bg} from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
-import OtpModal from 'components/molecules/modals/otp-modal';
-import {height, mvs, width} from 'config/metrices';
-import {Formik, useFormik} from 'formik';
-import {useAppDispatch} from 'hooks/use-store';
-import {goBack, navigate, resetStack} from 'navigation/navigation-ref';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import React from 'react';
-import {
-  ImageBackground,
-  TouchableOpacity,
-  View,
-  Image,
-  StyleSheet,
-  ScrollView,
-  Platform,
-  Alert,
-} from 'react-native';
-import LottieView from 'lottie-react-native';
 import PrimaryInput from 'components/atoms/inputs';
 import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollview/index';
+import {Row} from 'components/atoms/row';
+import {colors} from 'config/colors';
+import {mvs} from 'config/metrices';
+import {Formik} from 'formik';
+import {useAppDispatch} from 'hooks/use-store';
+import LottieView from 'lottie-react-native';
+import React from 'react';
+import {Alert, Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
-import {
-  addVheicleValidation,
-  LicenseDetailsValidation,
-  signinFormValidation,
-} from 'validations';
+import {LicenseDetailsValidation} from 'validations';
 import styles from './styles';
-import {colors} from 'config/colors';
-import {Row} from 'components/atoms/row';
 
-import {
-  Clock,
-  FacBookIcon,
-  FileSVG,
-  ForgotPasswordAnimation,
-  GoogleIcon,
-  LoginAnimation,
-  UploadDocumentsAnimation,
-} from 'assets/icons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import Regular from 'typography/regular-text';
-import UploadDocumentTile from 'components/molecules/upload-document-tile';
-import {pickDocument, UTILS} from 'utils';
-import {postFormData} from 'services/api';
+import {FileSVG, UploadDocumentsAnimation} from 'assets/icons';
 import {DatePicker} from 'components/atoms/date-picker';
-import {onStoreVehicle} from 'services/api/auth-api-actions';
+import Header1x2x from 'components/atoms/headers/header-1x-2x';
+import {
+  getDriverDocument,
+  onPostDriverDocument,
+} from 'services/api/auth-api-actions';
+import {pickDocument, UTILS} from 'utils';
 
 const LicenseDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [fileLoading, setFileLoading] = React.useState(false);
-  const [saveFile, setSaveFile] = React.useState(null);
+  const [saveFile, setSaveFile] = React.useState({});
+  console.log(saveFile);
+  const [documentList, setDocumentList] = React.useState('');
   const [value, setValue] = React.useState('');
   const initialValues = {
-    driving_license_no: '',
+    driver_license_no: '',
     license_issue_date: '',
     license_expiry_date: '',
+    license_photo: saveFile?.uri || documentList?.license_photo,
   };
   const [loading, setLoading] = React.useState(false);
 
   const handleFormSubmit = async values => {
     try {
+      console.log('values', values);
+
       setLoading(true);
-      const res = await onStoreVehicle(values);
+      values.license_photo = saveFile?.uri;
+      const res = await onPostDriverDocument({
+        ...values,
+        file: img,
+        type: 'image',
+      });
       Alert.alert(res?.message);
-      goBack();
+      // goBack();
 
       console.log(res);
     } catch (error) {
@@ -81,13 +63,56 @@ const LicenseDetailsScreen = props => {
       setLoading(false);
     }
   };
+
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
+
+      console.log(res?.driverDetails);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  // const onPressAttachment = async () => {
+  //   try {
+  //     setFileLoading(true);
+  //     const res = await UTILS._returnImageGallery();
+  //     console.log(res);
+  //     if (res) {
+  //       const selectedFile = res;
+  //       setSaveFile({
+  //         uri: selectedFile.uri,
+  //         name: selectedFile.name,
+  //       });
+
+  //       console.log('Selected Image:', selectedFile.name);
+  //     } else {
+  //       // Handle the case where no image was selected.
+  //       console.log('No image selected.');
+  //     }
+  //   } catch (error) {
+  //     console.log('error=>>', error);
+  //   } finally {
+  //     setFileLoading(false);
+  //   }
+  // };
   const onPressAttachment = async () => {
     try {
       setFileLoading(true);
-      const res = await UTILS._returnImageGallery();
+      const res = await pickDocument();
 
-      setSaveFile(res);
-      console.log(res);
+      const file = {
+        ...res[0],
+        uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
+      };
+      setSaveFile(file);
       // const response = await postFormData({
       //   file: {
       //     ...res[0],
@@ -102,7 +127,6 @@ const LicenseDetailsScreen = props => {
       setFileLoading(false);
     }
   };
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -149,12 +173,20 @@ const LicenseDetailsScreen = props => {
                         <TouchableOpacity
                           style={styles.uploadphotoview}
                           onPress={() => onPressAttachment()}>
-                          {saveFile?.uri ? (
-                            <Medium
-                              label={saveFile?.name}
-                              color={colors.primary}
-                              fontSize={mvs(14)}
-                              style={styles.filenametext}
+                          {!documentList?.license_photo ? (
+                            <Image
+                              // label={
+                              //   saveFile?.uri || documentList?.license_photo
+                              // }
+                              source={{
+                                uri:
+                                  saveFile?.uri || documentList?.license_photo,
+                              }}
+                              resizeMode="cover"
+                              style={{width: mvs(50), height: mvs(50)}}
+                              // color={colors.primary}
+                              // fontSize={mvs(14)}
+                              // style={styles.filenametext}
                             />
                           ) : (
                             <Row style={{justifyContent: 'center'}}>
@@ -172,14 +204,17 @@ const LicenseDetailsScreen = props => {
                           <PrimaryInput
                             keyboardType={'email-address'}
                             error={
-                              touched?.driving_license_no
-                                ? t(errors.driving_license_no)
+                              touched?.driver_license_no
+                                ? t(errors.driver_license_no)
                                 : ''
                             }
-                            placeholder={t('driving_license_no')}
-                            onChangeText={handleChange('driving_license_no')}
-                            onBlur={handleBlur('driving_license_no')}
-                            value={values.driving_license_no}
+                            placeholder={t('driver_license_no')}
+                            onChangeText={handleChange('driver_license_no')}
+                            onBlur={handleBlur('driver_license_no')}
+                            value={
+                              values.driver_license_no ||
+                              documentList?.driver_license_no
+                            }
                           />
                           <DatePicker
                             onPress={() =>
@@ -199,7 +234,10 @@ const LicenseDetailsScreen = props => {
                               placeholder={t('license_issue_date')}
                               onChangeText={handleChange('license_issue_date')}
                               onBlur={handleBlur('license_issue_date', true)}
-                              value={values.license_issue_date}
+                              value={
+                                values.license_issue_date ||
+                                documentList?.license_issue_date
+                              }
                             />
                           </DatePicker>
 
@@ -221,7 +259,10 @@ const LicenseDetailsScreen = props => {
                               placeholder={t('license_expiry_date')}
                               onChangeText={handleChange('license_expiry_date')}
                               onBlur={handleBlur('license_expiry_date', true)}
-                              value={values.license_expiry_date}
+                              value={
+                                values.license_expiry_date ||
+                                documentList?.license_expiry_date
+                              }
                             />
                           </DatePicker>
                         </View>
