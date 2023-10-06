@@ -42,7 +42,7 @@ const MyOrderCard = ({
           color={colors.white}
         />
         <Medium
-          label={`#${item?.Order_no} `}
+          label={`#${item?.id || 'N/A'} `}
           fontSize={mvs(16)}
           color={colors.white}
         />
@@ -54,7 +54,7 @@ const MyOrderCard = ({
           paddingVertical: mvs(5),
         }}>
         <Medium
-          label={item?.date}
+          label={item?.pickup_date || 'N/A'}
           color={colors.bluecolor}
           fontSize={mvs(14)}
           style={{
@@ -78,7 +78,7 @@ const MyOrderCard = ({
             style={{width: mvs(110)}}
           />
           <Medium
-            label={`${item?.name}`}
+            label={`${item?.name || 'N/A'}`}
             fontSize={mvs(12)}
             color={colors.grey}
             style={{flex: 1}}
@@ -92,7 +92,7 @@ const MyOrderCard = ({
             color={colors.black}
           />
           <Medium
-            label={`${item?.delivery_time}`}
+            label={`${item?.pickup_date || 'N/A'}`}
             numberOfLines={1}
             fontSize={mvs(12)}
             color={colors.grey}
@@ -107,7 +107,7 @@ const MyOrderCard = ({
             style={{width: mvs(110)}}
           />
           <Medium
-            label={`${item?.pickup_location}`}
+            label={`${item?.pickup_address || 'N/A'}`}
             fontSize={mvs(12)}
             color={colors.grey}
             style={{flex: 1}}
@@ -121,26 +121,13 @@ const MyOrderCard = ({
             style={{width: mvs(110)}}
           />
           <Medium
-            label={`${item?.service_type}`}
+            label={`${item?.service?.title || 'N/A'}`}
             fontSize={mvs(12)}
             color={colors.grey}
             style={{flex: 1}}
           />
         </Row>
-        <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
-          <Medium
-            label={t('type')}
-            fontSize={mvs(12)}
-            color={colors.black}
-            style={{width: mvs(110)}}
-          />
-          <Medium
-            label={`${item?.type}`}
-            fontSize={mvs(12)}
-            color={colors.grey}
-            style={{flex: 1}}
-          />
-        </Row>
+
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
           <PrimaryButton
             title={t('accept')}

@@ -24,7 +24,7 @@ import {
   onPostDriverDocument,
 } from 'services/api/auth-api-actions';
 import {pickDocument, UTILS} from 'utils';
-
+import DocumentPicker from 'react-native-document-picker';
 const LicenseDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -34,11 +34,13 @@ const LicenseDetailsScreen = props => {
   console.log(saveFile);
   const [documentList, setDocumentList] = React.useState('');
   const [value, setValue] = React.useState('');
+  // const [selectedFile, setSelectedFile] = useState(null);
+
   const initialValues = {
     driver_license_no: '',
     license_issue_date: '',
     license_expiry_date: '',
-    license_photo: saveFile?.uri || documentList?.license_photo,
+    license_photo: '' || documentList?.license_photo,
   };
   const [loading, setLoading] = React.useState(false);
 
@@ -47,11 +49,9 @@ const LicenseDetailsScreen = props => {
       console.log('values', values);
 
       setLoading(true);
-      values.license_photo = saveFile?.uri;
+      values.license_photo = saveFile ? saveFile.uri : '';
       const res = await onPostDriverDocument({
-        ...values,
-        file: img,
-        type: 'image',
+        values,
       });
       Alert.alert(res?.message);
       // goBack();
@@ -80,53 +80,70 @@ const LicenseDetailsScreen = props => {
       setLoading(false);
     }
   };
-  // const onPressAttachment = async () => {
-  //   try {
-  //     setFileLoading(true);
-  //     const res = await UTILS._returnImageGallery();
-  //     console.log(res);
-  //     if (res) {
-  //       const selectedFile = res;
-  //       setSaveFile({
-  //         uri: selectedFile.uri,
-  //         name: selectedFile.name,
-  //       });
 
-  //       console.log('Selected Image:', selectedFile.name);
-  //     } else {
-  //       // Handle the case where no image was selected.
-  //       console.log('No image selected.');
-  //     }
-  //   } catch (error) {
-  //     console.log('error=>>', error);
-  //   } finally {
-  //     setFileLoading(false);
-  //   }
-  // };
   const onPressAttachment = async () => {
     try {
       setFileLoading(true);
-      const res = await pickDocument();
+      const res = await UTILS._returnImageGallery();
+      console.log(res);
+      if (res) {
+        const selectedFile = res;
+        setSaveFile({
+          uri: selectedFile.uri,
+          name: selectedFile.name,
+        });
 
-      const file = {
-        ...res[0],
-        uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      };
-      setSaveFile(file);
-      // const response = await postFormData({
-      //   file: {
-      //     ...res[0],
-      //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      //   },
-      // });
-      //value array is maintained to be upload to server
-      // setFiles([...files, response?.data?.data || {}]);
+        console.log('Selected Image:', selectedFile.name);
+      } else {
+        // Handle the case where no image was selected.
+        console.log('No image selected.');
+      }
     } catch (error) {
       console.log('error=>>', error);
     } finally {
       setFileLoading(false);
     }
   };
+  // const onPressAttachment = async () => {
+  //   try {
+  //     setFileLoading(true);
+  //     const res = await pickDocument();
+
+  //     const file = {
+  //       ...res[0],
+  //       uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
+  //     };
+  //     setSaveFile(file);
+  //     // const response = await postFormData({
+  //     //   file: {
+  //     //     ...res[0],
+  //     //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
+  //     //   },
+  //     // });
+  //     //value array is maintained to be upload to server
+  //     // setFiles([...files, response?.data?.data || {}]);
+  //   } catch (error) {
+  //     console.log('error=>>', error);
+  //   } finally {
+  //     setFileLoading(false);
+  //   }
+  // };
+
+  // const pickDocument = async () => {
+  //   try {
+  //     const result = await DocumentPicker.pick({
+  //       type: [DocumentPicker.types.allFiles],
+  //     });
+
+  //     setSelectedFile(result);
+  //   } catch (err) {
+  //     if (DocumentPicker.isCancel(err)) {
+  //       // User canceled the picker
+  //     } else {
+  //       throw err;
+  //     }
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -173,7 +190,7 @@ const LicenseDetailsScreen = props => {
                         <TouchableOpacity
                           style={styles.uploadphotoview}
                           onPress={() => onPressAttachment()}>
-                          {!documentList?.license_photo ? (
+                          {documentList?.license_photo ? (
                             <Image
                               // label={
                               //   saveFile?.uri || documentList?.license_photo

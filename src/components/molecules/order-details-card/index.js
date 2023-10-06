@@ -69,7 +69,7 @@ const OrderDetailsCard = ({
           borderBottomWidth: mvs(1),
           borderBottomColor: colors.white,
         }}
-        label={`${t('Odrer')}: #${item?.Order_no} `}
+        label={`${t('Odrer')}: #${item?.id} `}
         value={item?.date}
       />
       {/* <View
@@ -83,7 +83,7 @@ const OrderDetailsCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('Name')}
-        value={item?.name}
+        value={item?.name || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -93,7 +93,7 @@ const OrderDetailsCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('delivery_time')}
-        value={item?.delivery_time}
+        value={item?.pickup_date || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -103,7 +103,17 @@ const OrderDetailsCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('pickup_location')}
-        value={item?.pickup_location}
+        value={item?.value?.pickup_address || 'N/A'}
+        labelStyle={{flex: 1}}
+        valueStyle={{flex: 1}}
+      />
+      <LabelValue
+        containerStyle={{
+          // paddingHorizontal: mvs(10),
+          paddingVertical: mvs(8),
+        }}
+        label={t('dropoff_location')}
+        value={item?.dropoff_address || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     // flexGrow: 1,
+    flex: 1,
     paddingVertical: mvs(30),
     paddingHorizontal: mvs(20),
     // paddingBottom: mvs(100),

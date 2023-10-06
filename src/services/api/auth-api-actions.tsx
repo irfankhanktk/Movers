@@ -157,6 +157,53 @@ export const getVehcileList = async (slug: string) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getOrderListList = async (slug: string) => {
+  try {
+    const res = await getData(URLS.orderlist?.getorder);
+    console.log('res of myorders=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+export const getOrderDetails = async (id: any) => {
+  try {
+    const res = await getData(
+      `${URLS.orderlist?.getorderdetails}?service_id=${id}`,
+    );
+    console.log('res of myordersDetails=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+
+export const getDistance = async (
+  lat1: any,
+  lat2: any,
+  lon1: any,
+  lon2: any,
+) => {
+  console.log('lat1, lat2, lon1, lon2', lat1, lat2, lon1, lon2);
+
+  try {
+    var km = 1;
+    let time = 0;
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat1},${lon1}&destinations=${lat2},${lon2}&key=AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98`,
+    );
+    if (response?.data?.status === 'OK') {
+      console.log('Distance is ');
+      km = response?.data?.rows[0]?.elements[0]?.distance?.value / 1000;
+      time = response?.data?.rows[0]?.elements[0]?.duration?.text;
+    }
+    return {km, time};
+  } catch (error) {
+    throw new Error(UTILS.returnError(error));
+  }
+};
 export const getStatusChange = async (status: any) => {
   try {
     console.log(status);

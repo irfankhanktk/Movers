@@ -16,6 +16,10 @@ export const URLS = {
     // forget_password: 'doctor/forgetPassword',
     // update_profile: 'doctor/updateProfile',
   },
+  orderlist: {
+    getorder: 'DriverOrderList',
+    getorderdetails: 'OrderDetails',
+  },
   vehcile: {
     create_vehilce: 'vehicle/create',
     store_vehicle: 'vehicle',

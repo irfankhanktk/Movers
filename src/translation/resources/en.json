@@ -176,5 +176,9 @@
   "please_enable_your_location_to_use_this":"Please enable your mobile location to use this",
   "goods_name":"Goods Name",
   "goods_valid_from":"Goods Valid From",
-  "goods_expiry_date":"Goods Expiry Date"
+  "goods_expiry_date":"Goods Expiry Date",
+  "dropoff_location":"Dropoff Location",
+  "pending":"Pending",
+  "paid":"Paid",
+  "completed":"Completed"
 }

@@ -25,13 +25,18 @@ import CustomMap from 'components/atoms/custom-map';
 import {Marker} from 'react-native-maps';
 import OrderDetailsCard from 'components/molecules/order-details-card';
 import ItemDetailsCard from 'components/molecules/item-details-card';
+import {getDistance, getOrderDetails} from 'services/api/auth-api-actions';
 
 const OrderDetailsScreen = props => {
+  const {id} = props?.route?.params;
+  console.log(id);
   const dispatch = useAppDispatch();
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState('');
+  const [orderData, setOrderData] = React.useState({});
+  const [total, setTotal] = React.useState({});
   const readNotifications = async () => {
     try {
     } catch (error) {
@@ -39,7 +44,38 @@ const OrderDetailsScreen = props => {
     }
   };
 
-  useEffect(() => {}, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getOrderDetails(id);
+      setOrderData(res?.value);
+
+      console.log('data', res?.value);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  React.useEffect(() => {
+    getList();
+  }, []);
+  // const origin = {
+  //   latitude: orderData?.pickup_lat || 37.78825,
+  //   longitude: orderData?.pickup_long || -122.4324,
+  // };
+  console.log(
+    'lat',
+    orderData?.pickup_lat,
+    orderData?.pickup_long,
+    orderData?.dropoff_lat,
+    orderData?.dropoff_long,
+  );
+  // const destination = {
+  //   latitude: orderData?.dropoff_lat || 37.7749,
+  //   longitude: orderData?.dropoff_long || -122.4194,
+  // };
+
   const renderAppointmentItem = ({item, index}) => (
     <ItemDetailsCard item={item} />
   );
@@ -48,71 +84,100 @@ const OrderDetailsScreen = props => {
   };
   const origin = {latitude: 37.78825, longitude: -122.4324};
   const destination = {latitude: 37.7749, longitude: -122.4194};
+
+  // const getTimeDistance = async () => {
+  //   try {
+  //     const res = await getDistance(
+  //       origin?.latitude,
+  //       destination?.latitude,
+  //       origin?.longitude,
+  //       destination?.longitude,
+  //     );
+  //     setTotalDistance(res);
+  //   } catch (error) {
+  //     console.log('Error in getdiustance====>', error);
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //   }
+  // };
+  // useEffect(() => {
+  //   getTimeDistance();
+  // }, [total]);
   return (
     <View style={styles.container}>
       <Header1x2x title={t('order_details')} />
-      <View style={{flex: 1}}>
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
-          <View style={{height: mvs(250)}}>
-            <CustomMap>
-              <Marker
-                // coordinate={{latitude: 37.78825, longitude: -122.4324}}
-                coordinate={{latitude: 37.78825, longitude: -122.4324}}
-                title="Marker Title"
-                description="Marker Description"
-              />
-              <MapDirections
-                origin={origin}
-                destination={destination}
-                strokeWidth={3}
-                strokeColor="blue"
-              />
-            </CustomMap>
-          </View>
-          <View style={styles.contentContainerStyle}>
-            <OrderDetailsCard item={ORDER_DETAILS_LIST} />
+      {loading ? (
+        <Loader color={colors.white} />
+      ) : (
+        <View style={{flex: 1}}>
+          {orderData ? (
+            <ScrollView contentContainerStyle={{flexGrow: 1}}>
+              <View style={{height: mvs(250)}}>
+                <CustomMap
+                  initialRegion={{
+                    latitude: origin.latitude,
+                    longitude: origin.longitude,
+                    latitudeDelta: 0.05,
+                    longitudeDelta: 0.05,
+                  }}>
+                  <Marker coordinate={origin} />
+                  <Marker coordinate={destination} />
+                  <MapDirections
+                    origin={origin}
+                    destination={destination}
+                    strokeWidth={3}
+                    strokeColor="blue"
+                  />
+                </CustomMap>
+              </View>
+              <View style={styles.contentContainerStyle}>
+                <OrderDetailsCard item={orderData} />
 
-            <Medium
-              label={t('item_details')}
-              color={colors.white}
-              style={{alignSelf: 'center'}}
+                <Medium
+                  label={t('item_details')}
+                  color={colors.white}
+                  style={{alignSelf: 'center'}}
+                />
+                <CustomFlatList
+                  // emptyList={<EmptyList label={t('no_notification')} />}
+                  contentContainerStyle={styles.contentContainerStyleFlatlist}
+                  showsVerticalScrollIndicator={false}
+                  numColumns={2}
+                  data={ITEM_DETAILS_LIST}
+                  renderItem={renderAppointmentItem}
+                  columnWrapperStyle={{justifyContent: 'space-between'}}
+                  // ItemSeparatorComponent={itemSeparatorComponent()}
+                  keyExtractor={(_, index) => index?.toString()}
+                />
+              </View>
+            </ScrollView>
+          ) : (
+            <Medium label={t('no_order_data')} /> // Render an empty state when orderData is not available yet
+          )}
+          <Row
+            style={{
+              paddingHorizontal: mvs(20),
+              alignItems: 'center',
+              marginBottom: mvs(20),
+              paddingTop: mvs(16),
+            }}>
+            <PrimaryButton
+              containerStyle={styles.acceptbutton}
+              loading={loading}
+              // onPress={() => navigate('Signup')}
+              title={t('accept')}
             />
-            <CustomFlatList
-              // emptyList={<EmptyList label={t('no_notification')} />}
-              contentContainerStyle={styles.contentContainerStyleFlatlist}
-              showsVerticalScrollIndicator={false}
-              numColumns={2}
-              data={ITEM_DETAILS_LIST}
-              renderItem={renderAppointmentItem}
-              columnWrapperStyle={{justifyContent: 'space-between'}}
-              // ItemSeparatorComponent={itemSeparatorComponent()}
-              keyExtractor={(_, index) => index?.toString()}
+            <PrimaryButton
+              containerStyle={styles.rejectbutton}
+              // textStyle={colors.primary}
+              loading={loading}
+              textStyle={{color: colors.primary}}
+              // onPress={() => navigate('Signup')}
+              title={t('reject')}
             />
-          </View>
-        </ScrollView>
-        <Row
-          style={{
-            paddingHorizontal: mvs(20),
-            alignItems: 'center',
-            marginBottom: mvs(20),
-            paddingTop: mvs(16),
-          }}>
-          <PrimaryButton
-            containerStyle={styles.acceptbutton}
-            loading={loading}
-            // onPress={() => navigate('Signup')}
-            title={t('accept')}
-          />
-          <PrimaryButton
-            containerStyle={styles.rejectbutton}
-            // textStyle={colors.primary}
-            loading={loading}
-            textStyle={{color: colors.primary}}
-            // onPress={() => navigate('Signup')}
-            title={t('reject')}
-          />
-        </Row>
-      </View>
+          </Row>
+        </View>
+      )}
     </View>
   );
 };
