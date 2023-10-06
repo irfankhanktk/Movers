@@ -1,5 +1,5 @@
 import {AppDispatch, RootState} from 'store';
-import {getData, postData, putData} from './';
+import {getData, postData, postFormData, putData} from './';
 import {URLS} from './api-urls';
 import {UTILS} from 'utils';
 import {STORAGEKEYS} from 'config/constants';
@@ -91,7 +91,7 @@ export const onStoreVehicle = (values: any) =>
     : postData(URLS.vehcile.store_vehicle, values);
 
 export const onPostDriverDocument = (values: any) =>
-  postData(`${URLS.document.update_document}`, values);
+  postFormData(`${URLS.document.update_document}`, values);
 
 export const getDriverDocument = async (slug: string) => {
   try {

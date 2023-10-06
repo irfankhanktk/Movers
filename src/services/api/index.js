@@ -21,14 +21,16 @@ export const putData = async (url, data) => {
 };
 export const postFormData = async (url, data) => {
   console.log('url==>', url);
-
+  console.log('data1', data);
   data = UTILS.getFormData(data);
+  console.log('dataaa', data);
   const token = await AsyncStorage.getItem(STORAGEKEYS.token);
   return axios
     .post(URLS.base_url + url, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
+        Accept: '*/*',
       },
     })
     .then(res => res)

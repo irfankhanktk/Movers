@@ -51,12 +51,13 @@ const LicenseDetailsScreen = props => {
       setLoading(true);
       values.license_photo = saveFile ? saveFile.uri : '';
       const res = await onPostDriverDocument({
-        values,
+        ...values,
+        license_photo: saveFile,
       });
       Alert.alert(res?.message);
       // goBack();
 
-      console.log(res);
+      console.log(res?.data);
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
     } finally {
@@ -91,6 +92,7 @@ const LicenseDetailsScreen = props => {
         setSaveFile({
           uri: selectedFile.uri,
           name: selectedFile.name,
+          type: selectedFile?.type,
         });
 
         console.log('Selected Image:', selectedFile.name);

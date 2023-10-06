@@ -60,10 +60,10 @@ const OrderDetailsScreen = props => {
   React.useEffect(() => {
     getList();
   }, []);
-  // const origin = {
-  //   latitude: orderData?.pickup_lat || 37.78825,
-  //   longitude: orderData?.pickup_long || -122.4324,
-  // };
+  const origin = {
+    latitude: orderData?.pickup_lat * 1 || 37.78825,
+    longitude: orderData?.pickup_long * 1 || -122.4324,
+  };
   console.log(
     'lat',
     orderData?.pickup_lat,
@@ -71,10 +71,10 @@ const OrderDetailsScreen = props => {
     orderData?.dropoff_lat,
     orderData?.dropoff_long,
   );
-  // const destination = {
-  //   latitude: orderData?.dropoff_lat || 37.7749,
-  //   longitude: orderData?.dropoff_long || -122.4194,
-  // };
+  const destination = {
+    latitude: orderData?.dropoff_lat * 1 || 37.7749,
+    longitude: orderData?.dropoff_long * 1 || -122.4194,
+  };
 
   const renderAppointmentItem = ({item, index}) => (
     <ItemDetailsCard item={item} />
@@ -82,8 +82,8 @@ const OrderDetailsScreen = props => {
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
-  const origin = {latitude: 37.78825, longitude: -122.4324};
-  const destination = {latitude: 37.7749, longitude: -122.4194};
+  // const origin = {latitude: 37.78825, longitude: -122.4324};
+  // const destination = {latitude: 37.7749, longitude: -122.4194};
 
   // const getTimeDistance = async () => {
   //   try {
