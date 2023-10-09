@@ -62,7 +62,7 @@ const MOTDetailsScreen = props => {
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [fileLoading, setFileLoading] = React.useState(false);
-  const [saveFile, setSaveFile] = React.useState(null);
+  const [saveFile, setSaveFile] = React.useState({});
   const [value, setValue] = React.useState('');
   const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
@@ -75,14 +75,21 @@ const MOTDetailsScreen = props => {
   const handleFormSubmit = async values => {
     try {
       console.log('values', values);
-      // return;
+      if (!saveFile || !saveFile.uri) {
+        // Check if license_photo is empty
+        Alert.alert('Photo is required');
+        return; // Return early if validation fails
+      }
       setLoading(true);
-      values.mot_photo = saveFile.name;
-      const res = await onPostDriverDocument(values);
-      Alert.alert(res?.message);
+      values.mot_photo = saveFile ? saveFile.uri : '';
+      const res = await onPostDriverDocument({
+        ...values,
+        mot_photo: saveFile,
+      });
+      Alert.alert(res?.data?.message);
       // goBack();
 
-      console.log(res);
+      console.log(res?.data);
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
     } finally {
@@ -115,6 +122,7 @@ const MOTDetailsScreen = props => {
         setSaveFile({
           uri: selectedFile.uri,
           name: selectedFile.name,
+          type: selectedFile?.type,
         });
 
         console.log('Selected Image:', selectedFile.name);
@@ -176,12 +184,19 @@ const MOTDetailsScreen = props => {
                         <TouchableOpacity
                           style={styles.uploadphotoview}
                           onPress={() => onPressAttachment()}>
-                          {documentList?.mot_photo ? (
-                            <Medium
-                              label={saveFile?.name || documentList?.mot_photo}
-                              color={colors.primary}
-                              fontSize={mvs(14)}
-                              style={styles.filenametext}
+                          {documentList?.mot_photo || saveFile?.uri ? (
+                            <Image
+                              // label={
+                              //   saveFile?.uri || documentList?.license_photo
+                              // }
+                              source={{
+                                uri: saveFile?.uri || documentList?.mot_photo,
+                              }}
+                              resizeMode="cover"
+                              style={{width: mvs(50), height: mvs(50)}}
+                              // color={colors.primary}
+                              // fontSize={mvs(14)}
+                              // style={styles.filenametext}
                             />
                           ) : (
                             <Row style={{justifyContent: 'center'}}>

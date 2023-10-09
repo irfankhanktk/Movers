@@ -93,7 +93,7 @@ const OrderDetailsCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('delivery_time')}
-        value={item?.pickup_date || 'N/A'}
+        value={item?.duration || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -103,7 +103,7 @@ const OrderDetailsCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('pickup_location')}
-        value={item?.value?.pickup_address || 'N/A'}
+        value={item?.pickup_address || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -123,7 +123,7 @@ const OrderDetailsCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('service_type')}
-        value={item?.service_type}
+        value={item?.service?.title}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />

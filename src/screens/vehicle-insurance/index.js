@@ -51,32 +51,64 @@ import UploadDocumentTile from 'components/molecules/upload-document-tile';
 import {pickDocument, UTILS} from 'utils';
 import {postFormData} from 'services/api';
 import {DatePicker} from 'components/atoms/date-picker';
-import {onStoreVehicle} from 'services/api/auth-api-actions';
+import {
+  getDriverDocument,
+  onPostDriverDocument,
+  onStoreVehicle,
+} from 'services/api/auth-api-actions';
 
 const VehicleInsuranceScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [fileLoading, setFileLoading] = React.useState(false);
-  const [saveFile, setSaveFile] = React.useState(null);
+  const [saveFile, setSaveFile] = React.useState({});
   const [value, setValue] = React.useState('');
   const initialValues = {
     insurance_company: '',
-    valid_from: '',
-    expiry_date: '',
+    insurance_valid_from: '',
+    insurance_expiry_date: '',
+    vehicle_insurance_photo: '' || documentList?.vehicle_insurance_photo,
   };
+  const [documentList, setDocumentList] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
   const handleFormSubmit = async values => {
     try {
+      console.log('values', values);
+      if (!saveFile || !saveFile.uri) {
+        // Check if license_photo is empty
+        Alert.alert('Photo is required');
+        return; // Return early if validation fails
+      }
       setLoading(true);
-      const res = await onStoreVehicle(values);
-      Alert.alert(res?.message);
-      goBack();
+      values.vehicle_insurance_photo = saveFile ? saveFile.uri : '';
+      const res = await onPostDriverDocument({
+        ...values,
+        vehicle_insurance_photo: saveFile,
+      });
+      Alert.alert(res?.data?.message);
+      // goBack();
 
-      console.log(res);
+      console.log(res?.data);
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
+
+      console.log(res?.driverDetails);
+    } catch (error) {
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -85,16 +117,20 @@ const VehicleInsuranceScreen = props => {
     try {
       setFileLoading(true);
       const res = await UTILS._returnImageGallery();
+      console.log(res);
+      if (res) {
+        const selectedFile = res;
+        setSaveFile({
+          uri: selectedFile.uri,
+          name: selectedFile.name,
+          type: selectedFile?.type,
+        });
 
-      setSaveFile(res);
-      // const response = await postFormData({
-      //   file: {
-      //     ...res[0],
-      //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      //   },
-      // });
-      //value array is maintained to be upload to server
-      // setFiles([...files, response?.data?.data || {}]);
+        console.log('Selected Image:', selectedFile.name);
+      } else {
+        // Handle the case where no image was selected.
+        console.log('No image selected.');
+      }
     } catch (error) {
       console.log('error=>>', error);
     } finally {
@@ -147,12 +183,22 @@ const VehicleInsuranceScreen = props => {
                         <TouchableOpacity
                           style={styles.uploadphotoview}
                           onPress={() => onPressAttachment()}>
-                          {saveFile?.uri ? (
-                            <Medium
-                              label={saveFile?.name}
-                              color={colors.primary}
-                              fontSize={mvs(14)}
-                              style={styles.uploadedtext}
+                          {documentList?.vehicle_insurance_photo ||
+                          saveFile?.uri ? (
+                            <Image
+                              // label={
+                              //   saveFile?.uri || documentList?.license_photo
+                              // }
+                              source={{
+                                uri:
+                                  saveFile?.uri ||
+                                  documentList?.vehicle_insurance_photo,
+                              }}
+                              resizeMode="cover"
+                              style={{width: mvs(50), height: mvs(50)}}
+                              // color={colors.primary}
+                              // fontSize={mvs(14)}
+                              // style={styles.filenametext}
                             />
                           ) : (
                             <Row style={{justifyContent: 'center'}}>
@@ -177,43 +223,62 @@ const VehicleInsuranceScreen = props => {
                             placeholder={t('insurance_company')}
                             onChangeText={handleChange('insurance_company')}
                             onBlur={handleBlur('insurance_company')}
-                            value={values.insurance_company}
+                            value={
+                              values.insurance_company ||
+                              documentList?.insurance_company
+                            }
                           />
                           <DatePicker
-                            onPress={() => setFieldTouched('valid_from', true)}
+                            onPress={() =>
+                              setFieldTouched('insurance_valid_from', true)
+                            }
                             onChangeText={(str: string) =>
-                              setFieldValue('valid_from', str)
+                              setFieldValue('insurance_valid_from', str)
                             }>
                             <PrimaryInput
                               isCalendar
                               editable={false}
                               error={
-                                touched?.valid_from ? t(errors.valid_from) : ''
+                                touched?.insurance_valid_from
+                                  ? t(errors.insurance_valid_from)
+                                  : ''
                               }
-                              placeholder={t('valid_from')}
-                              onChangeText={handleChange('valid_from')}
-                              onBlur={handleBlur('valid_from', true)}
-                              value={values.valid_from}
+                              placeholder={t('insurance_valid_from')}
+                              onChangeText={handleChange(
+                                'insurance_valid_from',
+                              )}
+                              onBlur={handleBlur('insurance_valid_from', true)}
+                              value={
+                                values.insurance_valid_from ||
+                                documentList?.insurance_valid_from
+                              }
                             />
                           </DatePicker>
 
                           <DatePicker
-                            onPress={() => setFieldTouched('expiry_date', true)}
+                            onPress={() =>
+                              setFieldTouched('insurance_expiry_date', true)
+                            }
                             onChangeText={(str: string) =>
-                              setFieldValue('expiry_date', str)
+                              setFieldValue('insurance_expiry_date', str)
                             }>
                             <PrimaryInput
                               isCalendar
                               editable={false}
                               error={
-                                touched?.expiry_date
-                                  ? t(errors.expiry_date)
+                                touched?.insurance_expiry_date
+                                  ? t(errors.insurance_expiry_date)
                                   : ''
                               }
-                              placeholder={t('expiry_date')}
-                              onChangeText={handleChange('expiry_date')}
-                              onBlur={handleBlur('expiry_date', true)}
-                              value={values.expiry_date}
+                              placeholder={t('insurance_expiry_date')}
+                              onChangeText={handleChange(
+                                'insurance_expiry_date',
+                              )}
+                              onBlur={handleBlur('insurance_expiry_date', true)}
+                              value={
+                                values.insurance_expiry_date ||
+                                documentList?.insurance_expiry_date
+                              }
                             />
                           </DatePicker>
                         </View>

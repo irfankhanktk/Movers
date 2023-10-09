@@ -54,11 +54,13 @@ const GoodsInTransitScreen = props => {
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [value, setValue] = React.useState('');
-  const [documentList, setDocumentList] = React.useState('');
+  const {documentList} = props?.route?.params;
+  // const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
     goods_name: '',
     goods_valid_from: '',
     goods_expiry_date: '',
+    ...(documentList || {}),
   };
   const [loading, setLoading] = React.useState(false);
   const handleFormSubmit = async values => {
@@ -67,7 +69,7 @@ const GoodsInTransitScreen = props => {
       // return;
       setLoading(true);
       const res = await onPostDriverDocument(values);
-      Alert.alert(res?.message);
+      Alert.alert(res?.data?.message);
       // goBack();
 
       console.log(res);
@@ -77,22 +79,22 @@ const GoodsInTransitScreen = props => {
       setLoading(false);
     }
   };
-  React.useEffect(() => {
-    getList();
-  }, []);
-  const getList = async () => {
-    try {
-      setLoading(true);
-      const res = await getDriverDocument();
-      setDocumentList(res?.driverDetails);
+  // React.useEffect(() => {
+  //   getList();
+  // }, []);
+  // const getList = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await getDriverDocument();
+  //     setDocumentList(res?.driverDetails);
 
-      console.log(res?.driverDetails);
-    } catch (error) {
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     console.log(res?.driverDetails);
+  //   } catch (error) {
+  //     setLoading(false);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -141,7 +143,10 @@ const GoodsInTransitScreen = props => {
                         placeholder={t('goods_name')}
                         onChangeText={handleChange('goods_name')}
                         onBlur={handleBlur('goods_name')}
-                        value={values.goods_name || documentList?.goods_name}
+                        value={
+                          values.goods_name
+                          // || documentList?.goods_name
+                        }
                       />
                       <DatePicker
                         onPress={() =>
@@ -162,8 +167,9 @@ const GoodsInTransitScreen = props => {
                           onChangeText={handleChange('goods_valid_from')}
                           onBlur={handleBlur('goods_valid_from', true)}
                           value={
-                            values.goods_valid_from ||
-                            documentList?.goods_valid_from
+                            values.goods_valid_from
+                            // ||
+                            // documentList?.goods_valid_from
                           }
                         />
                       </DatePicker>
@@ -186,8 +192,9 @@ const GoodsInTransitScreen = props => {
                           onChangeText={handleChange('goods_expiry_date')}
                           onBlur={handleBlur('goods_valid_from', true)}
                           value={
-                            values.goods_expiry_date ||
-                            documentList?.goods_expiry_date
+                            values.goods_expiry_date
+                            // ||
+                            // documentList?.goods_expiry_date
                           }
                         />
                       </DatePicker>

@@ -45,65 +45,42 @@ import Regular from 'typography/regular-text';
 import UploadDocumentTile from 'components/molecules/upload-document-tile';
 import {pickDocument, UTILS} from 'utils';
 import {postFormData} from 'services/api';
+import {getDriverDocument} from 'services/api/auth-api-actions';
+import {useIsFocused} from '@react-navigation/native';
+import {Loader} from 'components/atoms/loader';
 
 const UploadDocumentsScreen = props => {
   const dispatch = useAppDispatch();
+  const isFocus = useIsFocused();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [fileLoading, setFileLoading] = React.useState(false);
   const [saveFile, setSaveFile] = React.useState(null);
   const [value, setValue] = React.useState('');
-  const initialValues = {
-    email: '',
-    password: '',
-  };
-  const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
-    try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
-    } catch (error) {
-      console.log('error=>', error);
-    }
-  };
-  const onPressAttachment = async () => {
-    try {
-      setFileLoading(true);
-      const res = await pickDocument();
 
-      const file = {
-        ...res[0],
-        uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      };
-      setSaveFile(file);
-      // const response = await postFormData({
-      //   file: {
-      //     ...res[0],
-      //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      //   },
-      // });
-      //value array is maintained to be upload to server
-      // setFiles([...files, response?.data?.data || {}]);
+  const [documentList, setDocumentList] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isFocus) {
+      getList();
+    }
+  }, [isFocus]);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
+      console.log('res?.driverDetails', res?.driverDetails);
+
+      console.log(res?.driverDetails);
     } catch (error) {
-      console.log('error=>>', error);
+      setLoading(false);
     } finally {
-      setFileLoading(false);
+      setLoading(false);
     }
   };
+
   return (
     <View style={styles.container}>
       <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
@@ -116,83 +93,119 @@ const UploadDocumentsScreen = props => {
           style={{width: mvs(200), height: mvs(200)}}
         />
       </View>
-
-      <View style={styles.contentContainerStyle}>
-        <View style={styles.contentContainerStyleNew}>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.scrollcontentcontainer}>
-            <View style={{marginHorizontal: mvs(20)}}>
-              <Bold
-                label={t('upload_documents')}
-                color={colors.bluecolor}
-                fontSize={mvs(16)}
-                style={{marginTop: mvs(10), marginBottom: mvs(5)}}
-              />
-              <Regular
-                label={t(
-                  'we_need_to_see_your_clearly_printed_on_an_official_document',
-                )}
-                numberOfLines={2}
-                fontSize={mvs(12)}
-                style={{marginBottom: mvs(5)}}
-              />
-              <TouchableOpacity
-                style={styles.uploadfileview}
-                onPress={() => onPressAttachment()}>
-                {saveFile?.uri ? (
-                  <Medium
-                    label={saveFile?.name}
-                    color={colors.primary}
-                    fontSize={mvs(14)}
-                    style={styles.filenametext}
-                  />
-                ) : (
-                  <Row style={{justifyContent: 'center'}}>
-                    <FileSVG width={mvs(25)} height={mvs(25)} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <View style={styles.contentContainerStyle}>
+          <View style={styles.contentContainerStyleNew}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.scrollcontentcontainer}>
+              <View style={{marginHorizontal: mvs(20)}}>
+                <Bold
+                  label={t('upload_documents')}
+                  color={colors.bluecolor}
+                  fontSize={mvs(16)}
+                  style={{marginTop: mvs(10), marginBottom: mvs(5)}}
+                />
+                <Regular
+                  label={t(
+                    'we_need_to_see_your_clearly_printed_on_an_official_document',
+                  )}
+                  numberOfLines={2}
+                  fontSize={mvs(12)}
+                  style={{marginBottom: mvs(5)}}
+                />
+                <TouchableOpacity
+                  style={styles.uploadfileview}
+                  onPress={() => onPressAttachment()}>
+                  {saveFile?.uri ? (
                     <Medium
-                      label={t('add_file')}
+                      label={saveFile?.name}
                       color={colors.primary}
                       fontSize={mvs(14)}
-                      style={{marginLeft: mvs(10)}}
+                      style={styles.filenametext}
                     />
-                  </Row>
-                )}
-              </TouchableOpacity>
-            </View>
-            <View style={{paddingVertical: mvs(10)}}>
-              <UploadDocumentTile
-                label={t('company_details')}
-                onPress={() => navigate('CompanyDetailsScreen')}
-              />
-              <UploadDocumentTile
-                label={t('license_details')}
-                onPress={() => navigate('LicenseDetailsScreen')}
-              />
-              <UploadDocumentTile
-                label={t('MOT')}
-                onPress={() => navigate('MOTDetailsScreen')}
-              />
-              <UploadDocumentTile
-                label={t('vehicle_insurance')}
-                onPress={() => navigate('VehicleInsuranceScreen')}
-              />
-              <UploadDocumentTile
-                label={t('goods_in_transit')}
-                onPress={() => navigate('GoodsInTransitScreen')}
-              />
-              <UploadDocumentTile
-                label={t('bank_details')}
-                onPress={() => navigate('BankDetailsScreen')}
-              />
-              {/* <UploadDocumentTile
+                  ) : (
+                    <Row style={{justifyContent: 'center'}}>
+                      <FileSVG width={mvs(25)} height={mvs(25)} />
+                      <Medium
+                        label={t('add_file')}
+                        color={colors.primary}
+                        fontSize={mvs(14)}
+                        style={{marginLeft: mvs(10)}}
+                      />
+                    </Row>
+                  )}
+                </TouchableOpacity>
+              </View>
+              <View style={{paddingVertical: mvs(10)}}>
+                <UploadDocumentTile
+                  label={t('company_details')}
+                  onPress={() =>
+                    navigate('CompanyDetailsScreen', {
+                      documentList: documentList,
+                    })
+                  }
+                />
+                <UploadDocumentTile
+                  label={t('license_details')}
+                  onPress={() =>
+                    navigate(
+                      'LicenseDetailsScreen',
+                      //  {
+                      //   documentList: documentList,
+                      // }
+                    )
+                  }
+                />
+                <UploadDocumentTile
+                  label={t('MOT')}
+                  onPress={() =>
+                    navigate(
+                      'MOTDetailsScreen',
+                      // {
+                      //   documentList: documentList,
+                      // }
+                    )
+                  }
+                />
+                <UploadDocumentTile
+                  label={t('vehicle_insurance')}
+                  onPress={() =>
+                    navigate(
+                      'VehicleInsuranceScreen',
+                      //  {
+                      //   documentList: documentList,
+                      // }
+                    )
+                  }
+                />
+                <UploadDocumentTile
+                  label={t('goods_in_transit')}
+                  onPress={() =>
+                    navigate('GoodsInTransitScreen', {
+                      documentList: documentList,
+                    })
+                  }
+                />
+                <UploadDocumentTile
+                  label={t('bank_details')}
+                  onPress={() =>
+                    navigate('BankDetailsScreen', {
+                      documentList: documentList,
+                    })
+                  }
+                />
+                {/* <UploadDocumentTile
                 label={t('manage_vehicle')}
                 onPress={() => navigate('ManageVehicleDocumentScreen')}
               /> */}
-            </View>
-          </ScrollView>
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

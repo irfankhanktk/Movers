@@ -40,6 +40,8 @@ const ItemDetailsCard = ({
   backgroundColor,
   index,
   style,
+  selectedLabel,
+  quantity,
   onPress = () => {},
   onPressAccept = () => {},
   onPressReject = () => {},
@@ -59,12 +61,12 @@ const ItemDetailsCard = ({
         <Regular
           // style={{width: width / 3}}
           style={{flex: 1}}
-          label={item?.item_name}
+          label={selectedLabel} // Display the selected label here
           fontSize={mvs(9)}
           color={colors.white}
         />
         <PrimaryButton
-          title={item?.quantity}
+          title={quantity}
           containerStyle={{
             width: mvs(31),
             height: mvs(20),

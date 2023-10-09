@@ -34,6 +34,7 @@ const OrderDetailsScreen = props => {
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
+  const [quantityData, setQuantityData] = React.useState({});
   const [selectedOrder, setSelectedOrder] = React.useState('');
   const [orderData, setOrderData] = React.useState({});
   const [total, setTotal] = React.useState({});
@@ -76,9 +77,39 @@ const OrderDetailsScreen = props => {
     longitude: orderData?.dropoff_long * 1 || -122.4194,
   };
 
-  const renderAppointmentItem = ({item, index}) => (
-    <ItemDetailsCard item={item} />
-  );
+  const renderAppointmentItem = ({item, index}) => {
+    // Filter out items with type 'hidden' or 'header'
+    const visibleItems = Array.isArray(item.values)
+      ? item.values.filter(
+          value => value.type !== 'hidden' && value.type !== 'header',
+        )
+      : [];
+
+    // Find the selected label in visibleItems
+    const selectedValue = visibleItems.find(value => value.selected === 1);
+    const selectedLabel = selectedValue ? selectedValue.label : '';
+
+    // Find the corresponding quantity_json value based on the selectedLabel
+    const quantityJson = orderData?.quantity_json
+      ? JSON.parse(orderData.quantity_json)
+      : {};
+
+    const quantity = quantityJson[selectedLabel] || '';
+
+    // Check if there are visible items to render
+    if (visibleItems.length > 0) {
+      return (
+        <ItemDetailsCard
+          item={item}
+          selectedLabel={selectedLabel}
+          quantity={quantity}
+        />
+      );
+    } else {
+      return null; // Don't render anything if no visible items
+    }
+  };
+
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
@@ -143,7 +174,7 @@ const OrderDetailsScreen = props => {
                   contentContainerStyle={styles.contentContainerStyleFlatlist}
                   showsVerticalScrollIndicator={false}
                   numColumns={2}
-                  data={ITEM_DETAILS_LIST}
+                  data={orderData?.json}
                   renderItem={renderAppointmentItem}
                   columnWrapperStyle={{justifyContent: 'space-between'}}
                   // ItemSeparatorComponent={itemSeparatorComponent()}

@@ -180,5 +180,7 @@
   "dropoff_location":"Dropoff Location",
   "pending":"Pending",
   "paid":"Paid",
-  "completed":"Completed"
+  "completed":"Completed",
+  "insurance_valid_from":"Insurance Valid From",
+  "insurance_expiry_date":"Insurance Expiry Date"
 }

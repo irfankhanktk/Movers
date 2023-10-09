@@ -4,7 +4,7 @@
 //   return re.test(String(email).toLowerCase());
 // };
 import * as yup from 'yup';
-
+import mime from 'mime';
 export const signinFormValidation = yup.object().shape({
   email: yup.string().email('invalid_email').required('req_email'),
   password: yup.string().required('req_pass').min(8, 'req_pass_short'),
@@ -138,20 +138,49 @@ export const CompanyDetailsValidation = yup.object().shape({
   legal_identity: yup.string().required('req_legal_identity'),
   company_reg: yup.string().required('req_compnay_registration'),
   vat_reg: yup.string().required('req_vat_registration'),
+  // vehicle_insurance_photo: yup.mixed().required('requiered'),
 });
 export const LicenseDetailsValidation = yup.object().shape({
   driver_license_no: yup.string().required('req_driving_license_no'),
   license_issue_date: yup.string().required('req_license_issue_date'),
   license_expiry_date: yup.string().required('req_vat_license_expiry_date'),
+  // license_photo: yup
+  //   .mixed()
+  //   .test('fileFormat', 'Invalid file format', value => {
+  //     if (!value || !value.uri) return true; // Allow empty file or invalid value
+  //     const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+  //     const fileExtension = (value.uri.split('.').pop() || '').toLowerCase();
+  //     return allowedExtensions.includes(`.${fileExtension}`);
+  //   }),
+  // license_photo: yup
+  //   .mixed()
+  //   .test('required', 'License Photo is required', value => {
+  //     return value && value !== ''; // Check if the value is not an empty string
+  //   }),
 });
+// export const LicenseDetailsValidation = values => {
+//   return yup.object().shape({
+//     driver_license_no: yup.string().default(''),
+//     license_issue_date: yup.string().when('driver_license_no', {
+//       is: driver_license_no => !!driver_license_no,
+//       then: yup.string().required('req_license_issue_date'),
+//       otherwise: yup.string(),
+//     }),
+//     license_expiry_date: yup.string().when('driver_license_no', {
+//       is: driver_license_no => !!driver_license_no,
+//       then: yup.string().required('req_vat_license_expiry_date'),
+//       otherwise: yup.string(),
+//     }),
+//   });
+// };
 export const MOTDetailsValidation = yup.object().shape({
   mot_issued_date: yup.string().required('req_mot_issue_date'),
   mot_expiry_date: yup.string().required('req_mot_expiry_date'),
 });
 export const VehicleInsuranceValidation = yup.object().shape({
   insurance_company: yup.string().required('req_insurance_company'),
-  valid_from: yup.string().required('req_valid_from'),
-  expiry_date: yup.string().required('req_expiry_date'),
+  insurance_valid_from: yup.string().required('req_valid_from'),
+  insurance_expiry_date: yup.string().required('req_expiry_date'),
 });
 export const BankDetailsValidation = yup.object().shape({
   bank_name: yup.string().required('req_bank_name'),

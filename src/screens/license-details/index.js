@@ -25,6 +25,7 @@ import {
 } from 'services/api/auth-api-actions';
 import {pickDocument, UTILS} from 'utils';
 import DocumentPicker from 'react-native-document-picker';
+import Regular from 'typography/regular-text';
 const LicenseDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -40,13 +41,18 @@ const LicenseDetailsScreen = props => {
     driver_license_no: '',
     license_issue_date: '',
     license_expiry_date: '',
-    license_photo: '' || documentList?.license_photo,
+    license_photo: documentList?.license_photo || {},
   };
   const [loading, setLoading] = React.useState(false);
 
   const handleFormSubmit = async values => {
     try {
       console.log('values', values);
+      // if (!saveFile || !saveFile.uri) {
+      //   // Check if license_photo is empty
+      //   Alert.alert('Photo is required');
+      //   return; // Return early if validation fails
+      // }
 
       setLoading(true);
       values.license_photo = saveFile ? saveFile.uri : '';
@@ -54,7 +60,7 @@ const LicenseDetailsScreen = props => {
         ...values,
         license_photo: saveFile,
       });
-      Alert.alert(res?.message);
+      Alert.alert(res?.data?.message);
       // goBack();
 
       console.log(res?.data);
@@ -178,6 +184,7 @@ const LicenseDetailsScreen = props => {
               }) => (
                 <>
                   {console.log('errror2', errors)}
+
                   <View style={styles.contentContainerStyleNew}>
                     <KeyboardAvoidScrollview
                       contentContainerStyle={styles.keyboardcontentstyle}>
@@ -192,7 +199,7 @@ const LicenseDetailsScreen = props => {
                         <TouchableOpacity
                           style={styles.uploadphotoview}
                           onPress={() => onPressAttachment()}>
-                          {documentList?.license_photo ? (
+                          {documentList?.license_photo || saveFile?.uri ? (
                             <Image
                               // label={
                               //   saveFile?.uri || documentList?.license_photo
@@ -219,6 +226,11 @@ const LicenseDetailsScreen = props => {
                             </Row>
                           )}
                         </TouchableOpacity>
+                        {errors.license_photo && (
+                          <Regular style={{color: 'red'}} fontSize={mvs(12)}>
+                            {errors.license_photo}
+                          </Regular>
+                        )}
                         <View style={{marginVertical: mvs(14)}}>
                           <PrimaryInput
                             keyboardType={'email-address'}
