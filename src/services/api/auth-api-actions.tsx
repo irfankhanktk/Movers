@@ -218,6 +218,20 @@ export const getStatusChange = async (status: any) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getOrderStatusChange = async (id: string, status: any) => {
+  try {
+    console.log(status);
+    // return;
+    const res = await getData(
+      `${URLS.orderlist.orderStatus}?service_id=${id}&status=${status}`,
+    );
+    console.log('res of status=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 
 export const getDirection = (latitude: any, longitude: any) =>
   postData(

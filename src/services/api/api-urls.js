@@ -19,6 +19,7 @@ export const URLS = {
   orderlist: {
     getorder: 'DriverOrderList',
     getorderdetails: 'OrderDetails',
+    orderStatus: 'DriverOrderStatus',
   },
   vehcile: {
     create_vehilce: 'vehicle/create',

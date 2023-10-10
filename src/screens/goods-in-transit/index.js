@@ -49,6 +49,7 @@ import {
   onStoreVehicle,
 } from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
+import {Loader} from 'components/atoms/loader';
 const GoodsInTransitScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -70,7 +71,7 @@ const GoodsInTransitScreen = props => {
       setLoading(true);
       const res = await onPostDriverDocument(values);
       Alert.alert(res?.data?.message);
-      // goBack();
+      goBack();
 
       console.log(res);
     } catch (error) {
@@ -108,7 +109,9 @@ const GoodsInTransitScreen = props => {
             style={{width: mvs(200), height: mvs(200)}}
           />
         </View>
-
+        {/* {loading ? (
+          <Loader />
+        ) : ( */}
         <View style={styles.contentContainerStyle}>
           <>
             <Formik
@@ -213,6 +216,7 @@ const GoodsInTransitScreen = props => {
             </Formik>
           </>
         </View>
+        {/* )} */}
       </ScrollView>
     </View>
   );

@@ -6,7 +6,7 @@ import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import moment from 'moment';
 import React, {useEffect} from 'react';
-import {FlatList, Image, View} from 'react-native';
+import {Alert, FlatList, Image, View} from 'react-native';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
@@ -16,7 +16,12 @@ import CustomFlatList from 'components/atoms/custom-flatlist';
 import {PlusButton, PrimaryButton} from 'components/atoms/buttons';
 import MyOrderCard from 'components/molecules/my-order-card';
 import {ORDER_LIST} from 'config/constants';
-import {getOrderListList} from 'services/api/auth-api-actions';
+import {
+  getOrderListList,
+  getOrderStatusChange,
+} from 'services/api/auth-api-actions';
+import {UTILS} from 'utils';
+import {useIsFocused} from '@react-navigation/native';
 
 const MyOrderScreen = props => {
   const dispatch = useAppDispatch();
@@ -25,10 +30,13 @@ const MyOrderScreen = props => {
   const [loading, setLoading] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState('');
   const [orderData, setOrderData] = React.useState([]);
+  const isFocus = useIsFocused();
 
   React.useEffect(() => {
-    getList();
-  }, []);
+    if (isFocus) {
+      getList();
+    }
+  }, [isFocus]);
   const getList = async () => {
     try {
       setLoading(true);
@@ -49,6 +57,29 @@ const MyOrderScreen = props => {
     }
   };
 
+  const onPressAccept = itemId => {
+    // To accept the order (status 1)
+    ChangeStatus(itemId, 1);
+  };
+
+  const onPressReject = itemId => {
+    // To reject the order (status 0)
+    ChangeStatus(itemId, 0);
+  };
+  const ChangeStatus = async (id, status) => {
+    console.log('id', id, status);
+    // return;
+    try {
+      // const status = isRejected ? 0 : 1;
+
+      const res = await getOrderStatusChange(id, status);
+
+      console.log('resp==========>', res);
+    } catch (error) {
+      console.log('Error:', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
   useEffect(() => {}, []);
   const renderAppointmentItem = ({item, index}) => (
     <MyOrderCard
@@ -58,6 +89,8 @@ const MyOrderScreen = props => {
           id: item?.id,
         })
       }
+      onPressAccept={() => onPressAccept(item?.id)} // To accept the order
+      onPressReject={() => onPressReject(item?.id)} // To reject the order
     />
   );
   const itemSeparatorComponent = () => {

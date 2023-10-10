@@ -48,6 +48,7 @@ import {
   onStoreVehicle,
 } from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
+import {Loader} from 'components/atoms/loader';
 const CompanyDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -69,7 +70,7 @@ const CompanyDetailsScreen = props => {
       setLoading(true);
       const res = await onPostDriverDocument(values);
       Alert.alert(res?.data?.message);
-      // goBack();
+      goBack();
 
       console.log(res);
     } catch (error) {
@@ -106,7 +107,9 @@ const CompanyDetailsScreen = props => {
           style={{width: mvs(200), height: mvs(200)}}
         />
       </View>
-
+      {/* {loading ? (
+        <Loader />
+      ) : ( */}
       <View style={styles.contentContainerStyle}>
         <>
           <Formik
@@ -185,6 +188,7 @@ const CompanyDetailsScreen = props => {
           </Formik>
         </>
       </View>
+      {/* )} */}
     </View>
   );
 };

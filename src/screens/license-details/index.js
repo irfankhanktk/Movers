@@ -26,6 +26,7 @@ import {
 import {pickDocument, UTILS} from 'utils';
 import DocumentPicker from 'react-native-document-picker';
 import Regular from 'typography/regular-text';
+import {Loader} from 'components/atoms/loader';
 const LicenseDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -165,154 +166,162 @@ const LicenseDetailsScreen = props => {
             style={{width: mvs(200), height: mvs(200)}}
           />
         </View>
+        {loading ? (
+          <Loader />
+        ) : (
+          <View style={styles.contentContainerStyle}>
+            <>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={LicenseDetailsValidation}
+                onSubmit={handleFormSubmit}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  setFieldTouched,
+                  setFieldValue,
+                  touched,
+                  values,
+                  errors,
+                }) => (
+                  <>
+                    {console.log('errror2', errors)}
 
-        <View style={styles.contentContainerStyle}>
-          <>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={LicenseDetailsValidation}
-              onSubmit={handleFormSubmit}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                setFieldTouched,
-                setFieldValue,
-                touched,
-                values,
-                errors,
-              }) => (
-                <>
-                  {console.log('errror2', errors)}
-
-                  <View style={styles.contentContainerStyleNew}>
-                    <KeyboardAvoidScrollview
-                      contentContainerStyle={styles.keyboardcontentstyle}>
-                      <View style={{marginHorizontal: mvs(20)}}>
-                        <Bold
-                          label={t('license_details')}
-                          color={colors.bluecolor}
-                          fontSize={mvs(16)}
-                          style={styles.boldtext}
-                        />
-
-                        <TouchableOpacity
-                          style={styles.uploadphotoview}
-                          onPress={() => onPressAttachment()}>
-                          {documentList?.license_photo || saveFile?.uri ? (
-                            <Image
-                              // label={
-                              //   saveFile?.uri || documentList?.license_photo
-                              // }
-                              source={{
-                                uri:
-                                  saveFile?.uri || documentList?.license_photo,
-                              }}
-                              resizeMode="cover"
-                              style={{width: mvs(50), height: mvs(50)}}
-                              // color={colors.primary}
-                              // fontSize={mvs(14)}
-                              // style={styles.filenametext}
-                            />
-                          ) : (
-                            <Row style={{justifyContent: 'center'}}>
-                              <FileSVG width={mvs(25)} height={mvs(25)} />
-                              <Medium
-                                label={t('add_license_photo')}
-                                color={colors.primary}
-                                fontSize={mvs(14)}
-                                style={{marginLeft: mvs(10)}}
-                              />
-                            </Row>
-                          )}
-                        </TouchableOpacity>
-                        {errors.license_photo && (
-                          <Regular style={{color: 'red'}} fontSize={mvs(12)}>
-                            {errors.license_photo}
-                          </Regular>
-                        )}
-                        <View style={{marginVertical: mvs(14)}}>
-                          <PrimaryInput
-                            keyboardType={'email-address'}
-                            error={
-                              touched?.driver_license_no
-                                ? t(errors.driver_license_no)
-                                : ''
-                            }
-                            placeholder={t('driver_license_no')}
-                            onChangeText={handleChange('driver_license_no')}
-                            onBlur={handleBlur('driver_license_no')}
-                            value={
-                              values.driver_license_no ||
-                              documentList?.driver_license_no
-                            }
+                    <View style={styles.contentContainerStyleNew}>
+                      <KeyboardAvoidScrollview
+                        contentContainerStyle={styles.keyboardcontentstyle}>
+                        <View style={{marginHorizontal: mvs(20)}}>
+                          <Bold
+                            label={t('license_details')}
+                            color={colors.bluecolor}
+                            fontSize={mvs(16)}
+                            style={styles.boldtext}
                           />
-                          <DatePicker
-                            onPress={() =>
-                              setFieldTouched('license_issue_date', true)
-                            }
-                            onChangeText={(str: string) =>
-                              setFieldValue('license_issue_date', str)
-                            }>
-                            <PrimaryInput
-                              isCalendar
-                              editable={false}
-                              error={
-                                touched?.license_issue_date
-                                  ? t(errors.license_issue_date)
-                                  : ''
-                              }
-                              placeholder={t('license_issue_date')}
-                              onChangeText={handleChange('license_issue_date')}
-                              onBlur={handleBlur('license_issue_date', true)}
-                              value={
-                                values.license_issue_date ||
-                                documentList?.license_issue_date
-                              }
-                            />
-                          </DatePicker>
 
-                          <DatePicker
-                            onPress={() =>
-                              setFieldTouched('license_expiry_date', true)
-                            }
-                            onChangeText={(str: string) =>
-                              setFieldValue('license_expiry_date', str)
-                            }>
+                          <TouchableOpacity
+                            style={styles.uploadphotoview}
+                            onPress={() => onPressAttachment()}>
+                            {documentList?.license_photo || saveFile?.uri ? (
+                              <Image
+                                // label={
+                                //   saveFile?.uri || documentList?.license_photo
+                                // }
+                                source={{
+                                  uri:
+                                    saveFile?.uri ||
+                                    documentList?.license_photo,
+                                }}
+                                resizeMode="cover"
+                                style={{width: mvs(50), height: mvs(50)}}
+                                // color={colors.primary}
+                                // fontSize={mvs(14)}
+                                // style={styles.filenametext}
+                              />
+                            ) : (
+                              <Row style={{justifyContent: 'center'}}>
+                                <FileSVG width={mvs(25)} height={mvs(25)} />
+                                <Medium
+                                  label={t('add_license_photo')}
+                                  color={colors.primary}
+                                  fontSize={mvs(14)}
+                                  style={{marginLeft: mvs(10)}}
+                                />
+                              </Row>
+                            )}
+                          </TouchableOpacity>
+                          {errors.license_photo && (
+                            <Regular style={{color: 'red'}} fontSize={mvs(12)}>
+                              {errors.license_photo}
+                            </Regular>
+                          )}
+                          <View style={{marginVertical: mvs(14)}}>
                             <PrimaryInput
-                              isCalendar
-                              editable={false}
+                              keyboardType={'email-address'}
                               error={
-                                touched?.license_expiry_date
-                                  ? t(errors.license_expiry_date)
+                                touched?.driver_license_no
+                                  ? t(errors.driver_license_no)
                                   : ''
                               }
-                              placeholder={t('license_expiry_date')}
-                              onChangeText={handleChange('license_expiry_date')}
-                              onBlur={handleBlur('license_expiry_date', true)}
+                              placeholder={t('driver_license_no')}
+                              onChangeText={handleChange('driver_license_no')}
+                              onBlur={handleBlur('driver_license_no')}
                               value={
-                                values.license_expiry_date ||
-                                documentList?.license_expiry_date
+                                values.driver_license_no ||
+                                documentList?.driver_license_no
                               }
                             />
-                          </DatePicker>
+                            <DatePicker
+                              onPress={() =>
+                                setFieldTouched('license_issue_date', true)
+                              }
+                              onChangeText={(str: string) =>
+                                setFieldValue('license_issue_date', str)
+                              }>
+                              <PrimaryInput
+                                isCalendar
+                                editable={false}
+                                error={
+                                  touched?.license_issue_date
+                                    ? t(errors.license_issue_date)
+                                    : ''
+                                }
+                                placeholder={t('license_issue_date')}
+                                onChangeText={handleChange(
+                                  'license_issue_date',
+                                )}
+                                onBlur={handleBlur('license_issue_date', true)}
+                                value={
+                                  values.license_issue_date ||
+                                  documentList?.license_issue_date
+                                }
+                              />
+                            </DatePicker>
+
+                            <DatePicker
+                              onPress={() =>
+                                setFieldTouched('license_expiry_date', true)
+                              }
+                              onChangeText={(str: string) =>
+                                setFieldValue('license_expiry_date', str)
+                              }>
+                              <PrimaryInput
+                                isCalendar
+                                editable={false}
+                                error={
+                                  touched?.license_expiry_date
+                                    ? t(errors.license_expiry_date)
+                                    : ''
+                                }
+                                placeholder={t('license_expiry_date')}
+                                onChangeText={handleChange(
+                                  'license_expiry_date',
+                                )}
+                                onBlur={handleBlur('license_expiry_date', true)}
+                                value={
+                                  values.license_expiry_date ||
+                                  documentList?.license_expiry_date
+                                }
+                              />
+                            </DatePicker>
+                          </View>
                         </View>
-                      </View>
-                    </KeyboardAvoidScrollview>
-                  </View>
-                  <View style={{paddingHorizontal: mvs(20)}}>
-                    <PrimaryButton
-                      containerStyle={styles.resgiterbutton}
-                      loading={loading}
-                      onPress={handleSubmit}
-                      title={t('register_now')}
-                    />
-                  </View>
-                </>
-              )}
-            </Formik>
-          </>
-        </View>
+                      </KeyboardAvoidScrollview>
+                    </View>
+                    <View style={{paddingHorizontal: mvs(20)}}>
+                      <PrimaryButton
+                        containerStyle={styles.resgiterbutton}
+                        loading={loading}
+                        onPress={handleSubmit}
+                        title={t('register_now')}
+                      />
+                    </View>
+                  </>
+                )}
+              </Formik>
+            </>
+          </View>
+        )}
       </ScrollView>
     </View>
   );

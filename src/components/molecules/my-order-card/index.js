@@ -32,7 +32,15 @@ const MyOrderCard = ({
   onPressCart = () => {},
 }) => {
   const {t} = i18n;
+  const [isAccepted, setIsAccepted] = React.useState(false);
+  const handleAccept = () => {
+    setIsAccepted(true);
+    onPressAccept(item?.id, 1); // Pass 1 to represent acceptance
+  };
 
+  const handleReject = () => {
+    onPressReject(item?.id, 0); // Pass 0 to represent rejection
+  };
   return (
     <Row onPress={onPress} style={styles.contentContainerStyleNew}>
       <View style={{alignSelf: 'center', padding: mvs(10)}}>
@@ -129,33 +137,50 @@ const MyOrderCard = ({
         </Row>
 
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
-          <PrimaryButton
-            title={t('accept')}
-            containerStyle={{
-              width: mvs(80),
-              height: mvs(30),
-              backgroundColor: colors.acceptcolor,
-              borderColor: colors.lightGray,
-            }}
-            textStyle={{
-              color: colors.white,
-            }}
-            onPress={onPressAccept}
-          />
-          <PrimaryButton
-            title={t('rejected')}
-            containerStyle={{
-              width: mvs(80),
-              height: mvs(30),
-              backgroundColor: colors.primary,
-
-              ...colors.shadow,
-            }}
-            textStyle={{
-              color: colors.white,
-            }}
-            onPress={onPressReject}
-          />
+          {isAccepted ? (
+            <PrimaryButton
+              title={t('accepted')}
+              containerStyle={{
+                width: mvs(80),
+                height: mvs(30),
+                backgroundColor: colors.acceptcolor,
+                borderColor: colors.lightGray,
+              }}
+              textStyle={{
+                color: colors.white,
+              }}
+              disabled // Disable the button
+            />
+          ) : (
+            <>
+              <PrimaryButton
+                title={t('accept')}
+                containerStyle={{
+                  width: mvs(80),
+                  height: mvs(30),
+                  backgroundColor: colors.acceptcolor,
+                  borderColor: colors.lightGray,
+                }}
+                textStyle={{
+                  color: colors.white,
+                }}
+                onPress={handleAccept}
+              />
+              <PrimaryButton
+                title={t('rejected')}
+                containerStyle={{
+                  width: mvs(80),
+                  height: mvs(30),
+                  backgroundColor: colors.primary,
+                  ...colors.shadow,
+                }}
+                textStyle={{
+                  color: colors.white,
+                }}
+                onPress={handleReject}
+              />
+            </>
+          )}
           <PrimaryButton
             title={t('details')}
             containerStyle={{
