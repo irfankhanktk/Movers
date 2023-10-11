@@ -50,6 +50,7 @@ const MyOrderScreen = props => {
       setLoading(false);
     }
   };
+
   const readNotifications = async () => {
     try {
     } catch (error) {
@@ -58,13 +59,53 @@ const MyOrderScreen = props => {
   };
 
   const onPressAccept = itemId => {
-    // To accept the order (status 1)
-    ChangeStatus(itemId, 1);
+    // Display an alert to confirm the acceptance
+    Alert.alert(
+      'Confirm Acceptance',
+      'Do you want to accept this order?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Accept',
+          onPress: () => {
+            // If the user confirms the acceptance, call the ChangeStatus function
+            ChangeStatus(itemId, 1);
+            // Then, refresh the list
+            Alert.alert('Order has been accepted');
+            getList();
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   };
 
   const onPressReject = itemId => {
-    // To reject the order (status 0)
-    ChangeStatus(itemId, 0);
+    // Display an alert to confirm the rejection
+    Alert.alert(
+      'Confirm Rejection',
+      'Do you want to reject this order?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Reject',
+          onPress: () => {
+            // If the user confirms the rejection, call the ChangeStatus function
+            ChangeStatus(itemId, 0);
+            Alert.alert('Order has been Rejected');
+            // Then, refresh the list
+            getList();
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   };
   const ChangeStatus = async (id, status) => {
     console.log('id', id, status);
@@ -89,6 +130,9 @@ const MyOrderScreen = props => {
           id: item?.id,
         })
       }
+      acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
+      disabledAccept={item?.status === 'accepted'}
+      // onRefreshList={getList}
       onPressAccept={() => onPressAccept(item?.id)} // To accept the order
       onPressReject={() => onPressReject(item?.id)} // To reject the order
     />
@@ -102,25 +146,25 @@ const MyOrderScreen = props => {
       <View style={styles.contentContainerStyle}>
         <Row style={{marginBottom: mvs(20)}}>
           <PrimaryButton
-            title={t('pending')}
+            title={t('accepted')}
             containerStyle={{
               width: mvs(88),
               height: mvs(39),
               backgroundColor:
-                selectedOrder === 'pending' ? colors.primary : colors.white,
+                selectedOrder === 'accepted' ? colors.primary : colors.white,
               borderColor: colors.lightGray,
               borderWidth: 1,
               ...colors.shadow,
             }}
             textStyle={{
               color:
-                selectedOrder === 'pending' ? colors.white : colors.primary,
+                selectedOrder === 'accepted' ? colors.white : colors.primary,
             }}
             onPress={() => {
-              if (selectedOrder === 'pending') {
+              if (selectedOrder === 'accepted') {
                 setSelectedOrder('');
               } else {
-                setSelectedOrder('pending');
+                setSelectedOrder('accepted');
               }
             }}
           />

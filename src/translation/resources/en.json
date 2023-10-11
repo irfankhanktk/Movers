@@ -182,5 +182,8 @@
   "paid":"Paid",
   "completed":"Completed",
   "insurance_valid_from":"Insurance Valid From",
-  "insurance_expiry_date":"Insurance Expiry Date"
+  "insurance_expiry_date":"Insurance Expiry Date",
+  "accepted":"Accepted",
+  "start":"Start",
+  "delivery_date":"Delivery Date"
 }

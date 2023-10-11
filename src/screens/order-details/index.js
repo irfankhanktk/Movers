@@ -78,36 +78,36 @@ const OrderDetailsScreen = props => {
   };
 
   const renderAppointmentItem = ({item, index}) => {
-    // Filter out items with type 'hidden' or 'header'
-    const visibleItems = Array.isArray(item.values)
-      ? item.values.filter(
-          value => value.type !== 'hidden' && value.type !== 'header',
-        )
-      : [];
+    // // Filter out items with type 'hidden' or 'header'
+    // const visibleItems = Array.isArray(item.values)
+    //   ? item.values.filter(
+    //       value => value.type !== 'hidden' && value.type !== 'header',
+    //     )
+    //   : [];
 
-    // Find the selected label in visibleItems
-    const selectedValue = visibleItems.find(value => value.selected === 1);
-    const selectedLabel = selectedValue ? selectedValue.label : '';
+    // // Find the selected label in visibleItems
+    // const selectedValue = visibleItems.find(value => value.selected === 1);
+    // const selectedLabel = selectedValue ? selectedValue.label : '';
 
-    // Find the corresponding quantity_json value based on the selectedLabel
-    const quantityJson = orderData?.quantity_json
-      ? JSON.parse(orderData.quantity_json)
-      : {};
+    // // Find the corresponding quantity_json value based on the selectedLabel
+    // const quantityJson = orderData?.quantity_json
+    //   ? JSON.parse(orderData.quantity_json)
+    //   : {};
 
-    const quantity = quantityJson[selectedLabel] || '';
+    // const quantity = quantityJson[selectedLabel] || '';
 
-    // Check if there are visible items to render
-    if (visibleItems.length > 0) {
-      return (
-        <ItemDetailsCard
-          item={item}
-          selectedLabel={selectedLabel}
-          quantity={quantity}
-        />
-      );
-    } else {
-      return null; // Don't render anything if no visible items
-    }
+    // // Check if there are visible items to render
+    // if (visibleItems.length > 0) {
+    return (
+      <ItemDetailsCard
+        item={item}
+        // selectedLabel={selectedLabel}
+        // quantity={quantity}
+      />
+    );
+    // } else {
+    //   return null; // Don't render anything if no visible items
+    // }
   };
 
   const itemSeparatorComponent = () => {
@@ -192,20 +192,25 @@ const OrderDetailsScreen = props => {
               marginBottom: mvs(20),
               paddingTop: mvs(16),
             }}>
-            <PrimaryButton
-              containerStyle={styles.acceptbutton}
-              loading={loading}
-              // onPress={() => navigate('Signup')}
-              title={t('accept')}
-            />
-            <PrimaryButton
+            {orderData?.status === 'accepted' && (
+              <PrimaryButton
+                containerStyle={styles.acceptbutton}
+                // loading={loading}
+                title={t('start')}
+                onPress={() => {
+                  // Handle the action when the "Start" button is pressed
+                  // You can add your logic here
+                }}
+              />
+            )}
+            {/* <PrimaryButton
               containerStyle={styles.rejectbutton}
               // textStyle={colors.primary}
               loading={loading}
               textStyle={{color: colors.primary}}
               // onPress={() => navigate('Signup')}
               title={t('reject')}
-            />
+            /> */}
           </Row>
         </View>
       )}

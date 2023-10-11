@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.acceptcolor,
     // marginTop: mvs(5),
     borderRadius: mvs(10),
-    width: '45%',
+    width: '100%',
   },
   rejectbutton: {
     backgroundColor: colors.white,

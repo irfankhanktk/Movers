@@ -19,27 +19,34 @@ import {mvs} from '../../../config/metrices';
 import {SpecialistLocation} from 'assets/icons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ColorSpace} from 'react-native-reanimated';
+import moment from 'moment';
 
 const MyOrderCard = ({
   item,
   backgroundColor,
   index,
   style,
+  acceptTitle,
+  rejectTitle,
+  onRefreshList,
   onPress = () => {},
   onPressAccept = () => {},
   onPressReject = () => {},
   onPressDetails = () => {},
   onPressCart = () => {},
+  disabledAccept,
 }) => {
   const {t} = i18n;
   const [isAccepted, setIsAccepted] = React.useState(false);
   const handleAccept = () => {
     setIsAccepted(true);
-    onPressAccept(item?.id, 1); // Pass 1 to represent acceptance
+    onPressAccept(item?.id, 1);
+    // onRefreshList(); // Pass 1 to represent acceptance
   };
 
   const handleReject = () => {
-    onPressReject(item?.id, 0); // Pass 0 to represent rejection
+    onPressReject(item?.id, 0);
+    // onRefreshList(); // Pass 0 to represent rejection
   };
   return (
     <Row onPress={onPress} style={styles.contentContainerStyleNew}>
@@ -62,7 +69,11 @@ const MyOrderCard = ({
           paddingVertical: mvs(5),
         }}>
         <Medium
-          label={item?.pickup_date || 'N/A'}
+          label={
+            item?.pickup_date
+              ? moment(item.pickup_date).format('DD-MM-YYYY')
+              : 'N/A'
+          }
           color={colors.bluecolor}
           fontSize={mvs(14)}
           style={{
@@ -100,7 +111,11 @@ const MyOrderCard = ({
             color={colors.black}
           />
           <Medium
-            label={`${item?.pickup_date || 'N/A'}`}
+            label={
+              item?.pickup_date
+                ? moment(item.pickup_date).format('DD-MM-YYYY')
+                : 'N/A'
+            }
             numberOfLines={1}
             fontSize={mvs(12)}
             color={colors.grey}
@@ -137,8 +152,8 @@ const MyOrderCard = ({
         </Row>
 
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
-          {isAccepted ? (
-            <PrimaryButton
+          {/* {isAccepted ? ( */}
+          {/* <PrimaryButton
               title={t('accepted')}
               containerStyle={{
                 width: mvs(80),
@@ -150,37 +165,43 @@ const MyOrderCard = ({
                 color: colors.white,
               }}
               disabled // Disable the button
+            /> */}
+          {/* ) : (
+            <> */}
+          <PrimaryButton
+            title={acceptTitle}
+            // title={t('accept')}
+            containerStyle={{
+              width: mvs(80),
+              height: mvs(30),
+              backgroundColor: colors.acceptcolor,
+              borderColor: colors.lightGray,
+            }}
+            textStyle={{
+              color: colors.white,
+            }}
+            onPress={onPressAccept}
+            disabled={disabledAccept}
+            // onPressAccept
+            // onPress={handleAccept}
+          />
+          {item?.status === 'accepted' ? null : ( // Do not render the "Reject" button when status is "accepted"
+            <PrimaryButton
+              title={t('reject')}
+              containerStyle={{
+                width: mvs(80),
+                height: mvs(30),
+                backgroundColor: colors.primary,
+                ...colors.shadow,
+              }}
+              textStyle={{
+                color: colors.white,
+              }}
+              onPress={onPressReject}
             />
-          ) : (
-            <>
-              <PrimaryButton
-                title={t('accept')}
-                containerStyle={{
-                  width: mvs(80),
-                  height: mvs(30),
-                  backgroundColor: colors.acceptcolor,
-                  borderColor: colors.lightGray,
-                }}
-                textStyle={{
-                  color: colors.white,
-                }}
-                onPress={handleAccept}
-              />
-              <PrimaryButton
-                title={t('rejected')}
-                containerStyle={{
-                  width: mvs(80),
-                  height: mvs(30),
-                  backgroundColor: colors.primary,
-                  ...colors.shadow,
-                }}
-                textStyle={{
-                  color: colors.white,
-                }}
-                onPress={handleReject}
-              />
-            </>
           )}
+          {/* </> */}
+          {/* )} */}
           <PrimaryButton
             title={t('details')}
             containerStyle={{

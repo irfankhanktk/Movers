@@ -61,12 +61,12 @@ const ItemDetailsCard = ({
         <Regular
           // style={{width: width / 3}}
           style={{flex: 1}}
-          label={selectedLabel} // Display the selected label here
+          label={item?.label} // Display the selected label here
           fontSize={mvs(9)}
           color={colors.white}
         />
         <PrimaryButton
-          title={quantity}
+          title={item?.quantity || 0}
           containerStyle={{
             width: mvs(31),
             height: mvs(20),

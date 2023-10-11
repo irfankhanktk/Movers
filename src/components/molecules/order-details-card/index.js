@@ -19,6 +19,7 @@ import {mvs, width} from '../../../config/metrices';
 import {SpecialistLocation} from 'assets/icons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ColorSpace} from 'react-native-reanimated';
+import moment from 'moment';
 const LabelValue = ({label, value, containerStyle, labelStyle, valueStyle}) => (
   <Row style={containerStyle}>
     <Medium
@@ -70,7 +71,13 @@ const OrderDetailsCard = ({
           borderBottomColor: colors.white,
         }}
         label={`${t('Odrer')}: #${item?.id} `}
-        value={item?.date}
+        // value={moment(item?.pickup_date).format('DD-MM-YYYY')}
+        value={`${t('delivery_date')}: ${
+          item?.pickup_date
+            ? moment(item.pickup_date).format('DD-MM-YYYY')
+            : 'N/A'
+        }`}
+        // value={moment(item?.pickup_date).format('DD-MM-YYYY')}
       />
       {/* <View
         style={{
