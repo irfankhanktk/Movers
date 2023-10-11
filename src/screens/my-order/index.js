@@ -6,7 +6,7 @@ import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import moment from 'moment';
 import React, {useEffect} from 'react';
-import {Alert, FlatList, Image, View} from 'react-native';
+import {Alert, FlatList, Image, RefreshControl, View} from 'react-native';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
@@ -30,6 +30,7 @@ const MyOrderScreen = props => {
   const [loading, setLoading] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState('');
   const [orderData, setOrderData] = React.useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
   const isFocus = useIsFocused();
 
   React.useEffect(() => {
@@ -51,6 +52,12 @@ const MyOrderScreen = props => {
     }
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    getList()
+      .then(() => setRefreshing(false))
+      .catch(() => setRefreshing(false));
+  };
   const readNotifications = async () => {
     try {
     } catch (error) {
@@ -227,6 +234,13 @@ const MyOrderScreen = props => {
                 : orderData?.filter(item => item?.status === selectedOrder)
             }
             // data={orderData}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={['#ff0000', '#00ff00', '#0000ff']}
+              />
+            }
             renderItem={renderAppointmentItem}
             ItemSeparatorComponent={itemSeparatorComponent()}
             keyExtractor={(_, index) => index?.toString()}
