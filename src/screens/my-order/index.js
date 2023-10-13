@@ -22,6 +22,8 @@ import {
 } from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
 import {useIsFocused} from '@react-navigation/native';
+import {onCreateConveration} from 'services/api/chat-api-actions';
+import {navigate} from 'navigation/navigation-ref';
 
 const MyOrderScreen = props => {
   const dispatch = useAppDispatch();
@@ -31,6 +33,7 @@ const MyOrderScreen = props => {
   const [selectedOrder, setSelectedOrder] = React.useState('');
   const [orderData, setOrderData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [chatLoading, setChatLoading] = React.useState(false);
   const isFocus = useIsFocused();
 
   React.useEffect(() => {
@@ -38,6 +41,24 @@ const MyOrderScreen = props => {
       getList();
     }
   }, [isFocus]);
+  const onMessagePress = async user_id => {
+    try {
+      setChatLoading(true);
+      const res = await onCreateConveration({
+        receiver_id: user_id,
+      });
+      console.log('create message res check karna===>', res);
+      navigate('InboxScreen', {
+        id: res?.id,
+        title: res?.title,
+      });
+    } catch (error) {
+      console.log('Error in create conversion====>', error);
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setChatLoading(false);
+    }
+  };
   const getList = async () => {
     try {
       setLoading(true);
@@ -137,6 +158,8 @@ const MyOrderScreen = props => {
           id: item?.id,
         })
       }
+      onPressChat={() => onMessagePress(item?.user_id)}
+      chatLoading={chatLoading}
       acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
       disabledAccept={item?.status === 'accepted'}
       // onRefreshList={getList}

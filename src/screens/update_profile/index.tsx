@@ -15,7 +15,12 @@ import PrimaryInput, {
 import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollview';
 import OtpModalRenewPassword from 'components/molecules/modals/otp-modal-signup-renewpassword.js.js';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import {getCountryCode, onSignup} from 'services/api/auth-api-actions';
+import {
+  getCountryCode,
+  onSignup,
+  onUpdateProfile,
+  updateProfile,
+} from 'services/api/auth-api-actions';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import {UTILS} from 'utils';
@@ -33,6 +38,7 @@ import CountryCodemOdal from 'components/molecules/modals/country-code-modal';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {setCountries} from 'store/reducers/user-reducer';
 import {DatePicker} from 'components/atoms/date-picker';
+import {useSSR} from 'react-i18next';
 Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
@@ -47,31 +53,31 @@ const UpdateProfileScreen = (props: props) => {
   const {t} = i18n;
   const {user} = useAppSelector(s => s);
   const userInfo = user?.userInfo;
-  console.log('userinfo', userInfo);
+  // console.log('userinfo', userInfo);
   const {location, countries} = user;
-  console.log('location=>>>', location);
+  // console.log('location=>>>', location);
   const dispatch = useAppDispatch();
   const initialValues = {
-    ...userInfo,
+    ...(userInfo || {}),
   };
   const [loading, setLoading] = React.useState(false);
 
-  const handleFormSubmit = async values => {
-    try {
-      setLoading(true);
-      const res = await onSignup({
-        ...values,
+  // const handleFormSubmit = async values => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await onSignup({
+  //       ...values,
 
-        fcm_token: '123',
-      });
+  //       fcm_token: '123',
+  //     });
 
-      console.log(res);
-    } catch (error) {
-      Alert.alert('Error', UTILS.returnError(error));
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     console.log(res);
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   React.useEffect(() => {
     getCountryCodeDetails();
     // let copy = [...countries];
@@ -91,6 +97,40 @@ const UpdateProfileScreen = (props: props) => {
       // setLoading(false);
     }
   };
+  const handleFormSubmit = async values => {
+    // Create a copy of values without the avatar property
+    const updatedValues = {...values};
+    delete updatedValues.avatar;
+
+    dispatch(
+      onUpdateProfile(
+        {
+          ...updatedValues,
+          country_code: countries?.find(x => x?.selected)?.code || 'PK',
+          id: userInfo?.id,
+          fcm_token: '123456',
+          type: 'Driver',
+        },
+        setLoading,
+      ),
+    );
+  };
+  // const handleFormSubmit = async values => {
+  //   const data = {...values};
+  //   delete data?.avatar;
+  //   dispatch(
+  //     onUpdateProfile(
+  //       {
+  //         data,
+  //         country_code: countries?.find(x => x?.selected)?.code || 'PK',
+  //         id: userInfo?.id,
+  //         fcm_token: '123456',
+  //         type: 'Driver',
+  //       },
+  //       setLoading,
+  //     ),
+  //   );
+  // };
   return (
     <View style={styles.container}>
       <Image source={IMG.LogoBackground} style={styles.logobackground} />
@@ -128,7 +168,7 @@ const UpdateProfileScreen = (props: props) => {
                 isValid,
               }) => (
                 <>
-                  {console.log(errors, isValid, touched)}
+                  {console.log(values, errors, isValid, touched)}
                   <PrimaryInput
                     error={touched?.first_name ? t(errors.first_name) : ''}
                     placeholder={t('first_name')}
@@ -256,7 +296,7 @@ const UpdateProfileScreen = (props: props) => {
                       <Medium
                         label={countries?.find(x => x?.selected)?.code || 'PK'}
                       />
-
+                      {console.log(countries?.find(x => x?.selected)?.code)}
                       <TouchableOpacity
                         onPress={() => setCountryCodeModal(true)}>
                         <AntDesign
@@ -345,7 +385,7 @@ const UpdateProfileScreen = (props: props) => {
                       borderRadius: mvs(10),
                     }}
                     loading={loading}
-                    // onPress={handleSubmit}
+                    onPress={handleSubmit}
                     title={t('update_profile')}
                   />
                 </>

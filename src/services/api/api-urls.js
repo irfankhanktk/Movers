@@ -14,7 +14,8 @@ export const URLS = {
     // change_password: 'doctor/changePassword',
     // otp_verify: 'doctor/otpVerify',
     // forget_password: 'doctor/forgetPassword',
-    // update_profile: 'doctor/updateProfile',
+    uploadImage: 'updateImage',
+    update_profile: 'user/2',
   },
   orderlist: {
     getorder: 'DriverOrderList',
@@ -34,7 +35,13 @@ export const URLS = {
     update_document: 'driverUpdate',
     get_document: 'getDriverDetails',
   },
-
+  chat: {
+    get_message: 'chat/messages',
+    get_latest_message: 'chat/get-new-messages',
+    get_conservation: 'chat/conversations',
+    send_message: 'chat/insert-message',
+    create_conservation: 'chat/create-conversation',
+  },
   all_hospitals: 'doctor/allHospital',
 
   notification: {

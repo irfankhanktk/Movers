@@ -185,5 +185,8 @@
   "insurance_expiry_date":"Insurance Expiry Date",
   "accepted":"Accepted",
   "start":"Start",
-  "delivery_date":"Delivery Date"
+  "delivery_date":"Delivery Date",
+  "chat_now":"Chat Now",
+  "price":"Price",
+  
 }

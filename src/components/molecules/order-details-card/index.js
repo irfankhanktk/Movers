@@ -134,6 +134,16 @@ const OrderDetailsCard = ({
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
+      <LabelValue
+        containerStyle={{
+          // paddingHorizontal: mvs(10),
+          paddingVertical: mvs(8),
+        }}
+        label={t('price')}
+        value={item?.price}
+        labelStyle={{flex: 1}}
+        valueStyle={{flex: 1}}
+      />
     </View>
     // </View>
   );

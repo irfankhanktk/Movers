@@ -118,7 +118,7 @@ const HomeTab = props => {
           }}>
           <Medium
             label={`Hi, ${
-              userInfo?.name +
+              userInfo?.first_name +
               ' ' +
               userInfo?.middle_name +
               ' ' +

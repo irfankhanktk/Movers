@@ -40,6 +40,95 @@ export const onLogin = (
     }
   };
 };
+// export const onUpdateProfile = (
+//   values: any,
+//   setLoading: (bool: boolean) => void,
+//   props: any,
+// ) => {
+//   return async (dispatch: AppDispatch, getState: () => RootState) => {
+//     try {
+//       setLoading(true);
+//       delete values.roles;
+//       delete values.role;
+//       const res = await putData(URLS.auth.update_profile, values);
+//       console.log('res of onUpdateProfile=>', res);
+
+//       UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.user));
+//       dispatch(setUserInfo(res?.user));
+//       Alert.alert('Success', 'Saved Changes Successfully');
+//     } catch (error: any) {
+//       console.log('error in onUpdateProfile', UTILS.returnError(error));
+//       Alert.alert('', UTILS.returnError(error));
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+// };
+// export const updateProfile = (
+//   data: any,
+//   setLoading: (bool: boolean) => void,
+// ) => {
+//   return async (dispatch: AppDispatch, getState: () => RootState) => {
+//     try {
+//       setLoading(true);
+//       const res = await putData(URLS.auth.update_profile, data);
+//       console.log('res::::', res?.user);
+//       // return;
+//       UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.user));
+//       dispatch(setUserInfo(res?.user || []));
+//     } catch (error: any) {
+//       console.log('error in updateProfile', UTILS.returnError(error));
+//       Alert.alert('', UTILS.returnError(error));
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+// };
+export const onUpdateProfile = (
+  values: any,
+  setLoading: (bool: boolean) => void,
+  props: any,
+) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      setLoading(true);
+      // delete values.roles;
+      // delete values.role;
+      const res = await putData(URLS.auth.update_profile, values);
+      console.log('res of onUpdateProfile=>', res?.user);
+
+      UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.user));
+      dispatch(setUserInfo(res?.user));
+      Alert.alert('Success', 'Saved Changes Successfully');
+    } catch (error: any) {
+      console.log('error in onUpdateProfile', UTILS.returnError(error));
+      Alert.alert('', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+// export const postFileData = (data: any) =>
+//   postFormData(`${URLS.auth.uploadImage}`, data);
+
+export const uploadImage = (data: any, setLoading: (bool: boolean) => void) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      setLoading(true);
+      const res = await postFormData(URLS.auth.uploadImage, data);
+      console.log('ressss', res?.data?.user);
+      // return;
+
+      UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.data?.user));
+      dispatch(setUserInfo(res?.data?.user || []));
+    } catch (error: any) {
+      console.log('error in updateProfile', UTILS.returnError(error));
+      Alert.alert('', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+};
 export const onLogoutPress = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {

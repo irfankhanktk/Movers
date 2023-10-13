@@ -15,6 +15,7 @@ export {default as GoogleIcon} from './google.svg';
 export {default as FacBookIcon} from './facebook.svg';
 export {default as HoemSVG} from './homearrow.svg';
 export {default as FileSVG} from './file.svg';
+export {default as SendIcon} from './message.svg';
 
 // Lottie Files
 export {default as LoginAnimation} from './Login.json';

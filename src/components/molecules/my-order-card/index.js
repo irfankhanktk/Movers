@@ -16,7 +16,7 @@ import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
 import {colors} from '../../../config/colors';
 import {mvs} from '../../../config/metrices';
-import {SpecialistLocation} from 'assets/icons';
+import {SendIcon, SpecialistLocation} from 'assets/icons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ColorSpace} from 'react-native-reanimated';
 import moment from 'moment';
@@ -34,6 +34,7 @@ const MyOrderCard = ({
   onPressReject = () => {},
   onPressDetails = () => {},
   onPressCart = () => {},
+  onPressChat = () => {},
   disabledAccept,
 }) => {
   const {t} = i18n;
@@ -68,21 +69,58 @@ const MyOrderCard = ({
           flex: 1,
           paddingVertical: mvs(5),
         }}>
-        <Medium
-          label={
-            item?.pickup_date
-              ? moment(item.pickup_date).format('DD-MM-YYYY')
-              : 'N/A'
-          }
-          color={colors.bluecolor}
-          fontSize={mvs(14)}
+        <Row
           style={{
             borderBottomWidth: mvs(1),
             borderBottomColor: colors.border,
-            marginLeft: mvs(10),
-            paddingBottom: mvs(5),
-          }}
-        />
+            marginHorizontal: mvs(10),
+            marginVertical: mvs(10),
+          }}>
+          <Medium
+            label={item?.service?.title}
+            // label={
+            //   item?.pickup_date
+            //     ? moment(item.pickup_date).format('DD-MM-YYYY')
+            //     : 'N/A'
+            // }
+            color={colors.bluecolor}
+            fontSize={mvs(14)}
+            style={{
+              width: mvs(130),
+              // marginLeft: mvs(10),
+              // paddingBottom: mvs(5),
+            }}
+            numberOfLines={2}
+          />
+          {item?.status === 'accepted' && (
+            <TouchableOpacity onPress={onPressChat}>
+              <Row
+                style={{
+                  width: mvs(100),
+                  height: mvs(40),
+                  backgroundColor: colors.primary,
+                  borderColor: colors.lightGray,
+                  marginBottom: mvs(10),
+                  borderRadius: mvs(5),
+                  alignSelf: 'center',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <SendIcon
+                  // width={mvs(15)}
+                  // height={mvs(20)}
+                  style={{marginLeft: mvs(5)}}
+                />
+                <Regular
+                  label={t('chat_now')}
+                  fontSize={mvs(12)}
+                  color={colors.white}
+                  style={{marginRight: mvs(5)}}
+                />
+              </Row>
+            </TouchableOpacity>
+          )}
+        </Row>
 
         <Row
           style={{
@@ -106,16 +144,17 @@ const MyOrderCard = ({
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
           <Medium
             style={{width: mvs(110)}}
-            label={t('delivery_time')}
+            label={t('phone')}
             fontSize={mvs(12)}
             color={colors.black}
           />
           <Medium
-            label={
-              item?.pickup_date
-                ? moment(item.pickup_date).format('DD-MM-YYYY')
-                : 'N/A'
-            }
+            label={item?.phone || 'N/A'}
+            // label={
+            //   item?.pickup_date
+            //     ? moment(item.pickup_date).format('DD-MM-YYYY')
+            //     : 'N/A'
+            // }
             numberOfLines={1}
             fontSize={mvs(12)}
             color={colors.grey}
@@ -138,13 +177,13 @@ const MyOrderCard = ({
         </Row>
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
           <Medium
-            label={t('service_type')}
+            label={t('price')}
             fontSize={mvs(12)}
             color={colors.black}
             style={{width: mvs(110)}}
           />
           <Medium
-            label={`${item?.service?.title || 'N/A'}`}
+            label={`${item?.price || 'N/A'}`}
             fontSize={mvs(12)}
             color={colors.grey}
             style={{flex: 1}}

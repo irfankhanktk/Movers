@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     marginTop: mvs(20),
   },
   backGroundImage: {
-    width: mvs(20),
-    height: mvs(18),
+    width: mvs(25),
+    height: mvs(20),
     borderWidth: 1,
     // marginTop: mvs(10),
   },

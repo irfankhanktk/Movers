@@ -21,7 +21,12 @@ import RootStackParamList from '../../types/navigation-types/root-stack';
 import styles from './styles';
 import * as IMG from 'assets/images';
 import {Loader} from 'components/atoms/loader';
-import {onLogoutPress} from 'services/api/auth-api-actions';
+import {
+  onLogoutPress,
+  onUpdateProfile,
+  postFileData,
+  uploadImage,
+} from 'services/api/auth-api-actions';
 import {t} from 'i18next';
 
 type props = CompositeScreenProps<
@@ -36,16 +41,17 @@ const UserTab = (props: props) => {
   const [saveFile, setSaveFile] = React.useState(null);
   const [fileLoading, setFileLoading] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-
   // const ImageUpload = async () => {
   //   try {
   //     const img = await UTILS._returnImageGallery();
-  //     const file = await postFileData({file: img, type: 'image'});
+  //     const file = await postFileData({avatar: img});
+  //     console.log('res', file);
   //     const data = {...userInfo};
-  //     // delete data.roles;
+  //     delete data.roles;
+  //     delete data.role;
   //     dispatch(
   //       onUpdateProfile(
-  //         {...data, avatar_id: file?.data?.data?.id},
+  //         {...data, avatar: file?.data?.data?.id},
   //         setLoading,
   //         props,
   //       ),
@@ -54,6 +60,54 @@ const UserTab = (props: props) => {
   //     Alert.alert('Error', UTILS?.returnError(error));
   //   }
   // };
+  const onPressAttachment = async () => {
+    try {
+      setFileLoading(true);
+      const res = await UTILS._returnImageGallery();
+      console.log(res);
+      if (res) {
+        const selectedFile = res;
+        setSaveFile({
+          uri: selectedFile.uri,
+          name: selectedFile.name,
+          type: selectedFile?.type,
+        });
+
+        console.log('Selected Image:', selectedFile.name);
+        // postImage();
+      } else {
+        // Handle the case where no image was selected.
+        console.log('No image selected.');
+      }
+    } catch (error) {
+      console.log('error=>>', error);
+    } finally {
+      setFileLoading(false);
+    }
+  };
+  // const postImage = async () => {
+  //   const res = await UTILS._returnImageGallery();
+  //   const result = await uploadImage({avatar: res});
+  // };
+  const openGallery = async () => {
+    try {
+      const res = await UTILS._returnImageGallery(false, true);
+      // console.log('res---->>>>', res?.data);
+      dispatch(
+        uploadImage(
+          {
+            filename: 'crisp.jpg',
+            avatar: res,
+          },
+          () => {},
+        ),
+      );
+      // setImage(res);
+    } catch (error) {
+      console.log('upload image error', error);
+      Alert.alert('Error', UTILS?.returnError(error));
+    }
+  };
 
   const LogoutAccount = async () => {
     Alert.alert('Logout!', 'Are you sure you want to Logout your account?', [
@@ -73,26 +127,26 @@ const UserTab = (props: props) => {
     ]);
   };
 
-  const onPressAttachment = async () => {
-    try {
-      setFileLoading(true);
-      const res = await UTILS._returnImageGallery();
+  // const onPressAttachment = async () => {
+  //   try {
+  //     setFileLoading(true);
+  //     const res = await UTILS._returnImageGallery();
 
-      setSaveFile(res);
-      // const response = await postFormData({
-      //   file: {
-      //     ...res[0],
-      //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
-      //   },
-      // });
-      //value array is maintained to be upload to server
-      // setFiles([...files, response?.data?.data || {}]);
-    } catch (error) {
-      console.log('error=>>', error);
-    } finally {
-      setFileLoading(false);
-    }
-  };
+  //     setSaveFile(res);
+  //     // const response = await postFormData({
+  //     //   file: {
+  //     //     ...res[0],
+  //     //     uri: Platform.OS === 'ios' ? res[0]?.uri : res[0]?.fileCopyUri,
+  //     //   },
+  //     // });
+  //     //value array is maintained to be upload to server
+  //     // setFiles([...files, response?.data?.data || {}]);
+  //   } catch (error) {
+  //     console.log('error=>>', error);
+  //   } finally {
+  //     setFileLoading(false);
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.body}>
@@ -101,29 +155,34 @@ const UserTab = (props: props) => {
             <Loader color={colors.white} />
           ) : (
             <Image
-              source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}
+              source={userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.User_img}
+              // source={{uri: saveFile?.uri}}
+              // source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}
               // source={IMG.Drawerman}
               style={styles.imgUpload}
               resizeMode="cover"
             />
           )}
-          {/* {userInfo?.id && ( */}
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'white',
-              borderRadius: mvs(10),
-              position: 'absolute',
-              right: mvs(-16),
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => onPressAttachment()}>
-            <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
-          </TouchableOpacity>
-          {/* )} */}
+          {userInfo?.id && (
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'white',
+                borderRadius: mvs(10),
+                position: 'absolute',
+                right: mvs(-16),
+                alignSelf: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={() => openGallery()}>
+              <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
+            </TouchableOpacity>
+          )}
         </View>
-        <Medium label={userInfo?.name || t('guest_mode')} style={styles.name} />
+        <Medium
+          label={userInfo?.first_name || t('guest_mode')}
+          style={styles.name}
+        />
         <Regular
           label={`${userInfo?.email || 'guest@gmail.com'}`}
           style={styles.email}
