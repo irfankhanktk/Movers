@@ -11,9 +11,10 @@ const styles = StyleSheet.create({
     marginTop: mvs(20),
   },
   backGroundImage: {
-    width: mvs(25),
-    height: mvs(20),
+    width: mvs(55),
+    height: mvs(55),
     borderWidth: 1,
+    resizeMode: 'cover',
     // marginTop: mvs(10),
   },
   // innerImage: {width: '100%', height: '100%', borderRadius: mvs(10)},

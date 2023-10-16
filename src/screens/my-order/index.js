@@ -49,8 +49,11 @@ const MyOrderScreen = props => {
       });
       console.log('create message res check karna===>', res);
       navigate('InboxScreen', {
-        id: res?.id,
+        id: res?.conversation_id,
         title: res?.title,
+        title: res?.receiver_name,
+        email: res?.receiver_email,
+        image: res?.receiver_image,
       });
     } catch (error) {
       console.log('Error in create conversion====>', error);
@@ -160,7 +163,8 @@ const MyOrderScreen = props => {
       }
       onPressChat={() => onMessagePress(item?.user_id)}
       chatLoading={chatLoading}
-      acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
+      // acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
+      acceptTitle={item?.status === 'free' ? t('accept') : t('accepted')}
       disabledAccept={item?.status === 'accepted'}
       // onRefreshList={getList}
       onPressAccept={() => onPressAccept(item?.id)} // To accept the order

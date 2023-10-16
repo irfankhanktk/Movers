@@ -91,9 +91,9 @@ export const SERVICE_LIST = [
     screenName: 'HistoryScreen',
   },
   {
-    icon: IMG.HomeeraningTool,
-    title: 'Total Earning',
-    screenName: 'HistoryScreen',
+    icon: IMG.homeProfile,
+    title: 'Profile',
+    screenName: 'UserTab',
   },
 ];
 export const MANAGE_CAR_LIST = [

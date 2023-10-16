@@ -188,5 +188,7 @@
   "delivery_date":"Delivery Date",
   "chat_now":"Chat Now",
   "price":"Price",
+  "get_direction":"Get Directions",
+  "chat":"Chat"
   
 }

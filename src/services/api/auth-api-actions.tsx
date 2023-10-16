@@ -321,6 +321,23 @@ export const getOrderStatusChange = async (id: string, status: any) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getOrderDetailsStatusChange = async (status: any, id: string) => {
+  // console.log(status, id);
+  // return;
+
+  try {
+    console.log(status);
+    // return;
+    const res = await getData(
+      `${URLS.orderlist.StatusChangeOrder}?status=${status}&service_id=${id}`,
+    );
+    console.log('res of status=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 
 export const getDirection = (latitude: any, longitude: any) =>
   postData(

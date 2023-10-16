@@ -41,13 +41,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.acceptcolor,
     // marginTop: mvs(5),
     borderRadius: mvs(10),
-    width: '100%',
+    width: '35%',
   },
   rejectbutton: {
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white,
+    // marginTop: mvs(20),
+    // borderRadius: mvs(10),
+    // width: '25%',
+  },
+  phonebutton: {
+    backgroundColor: colors.grey,
     // marginTop: mvs(20),
     borderRadius: mvs(10),
-    width: '45%',
+    width: '25%',
   },
 });
 export default styles;

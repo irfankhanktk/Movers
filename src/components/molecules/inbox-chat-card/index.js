@@ -18,7 +18,7 @@ const InboxChatCard = ({item, style, onPress, loading}) => {
           {
             borderBottomRightRadius: me ? mvs(0) : mvs(23),
             borderBottomLeftRadius: me ? mvs(23) : mvs(0),
-            opacity: me ? 0.5 : 1,
+            opacity: me ? 0.9 : 1,
           },
           styles.innerContainer,
         ]}>
@@ -26,11 +26,9 @@ const InboxChatCard = ({item, style, onPress, loading}) => {
           color={colors.white}
           fontSize={mvs(12)}
           numberOfLines={5}
-          label={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-          }
+          label={item?.message || ''}
         />
-        <Regular style={styles.timeText} label={'6 min ago'} />
+        <Regular style={styles.timeText} label={item?.time} />
       </View>
     </View>
   );

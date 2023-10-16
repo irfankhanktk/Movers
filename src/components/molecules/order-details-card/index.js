@@ -144,6 +144,16 @@ const OrderDetailsCard = ({
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
+      <LabelValue
+        containerStyle={{
+          // paddingHorizontal: mvs(10),
+          paddingVertical: mvs(8),
+        }}
+        label={t('phone')}
+        value={item?.phone || 'N/A'}
+        labelStyle={{flex: 1}}
+        valueStyle={{flex: 1}}
+      />
     </View>
     // </View>
   );

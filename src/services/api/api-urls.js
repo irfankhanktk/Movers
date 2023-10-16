@@ -21,6 +21,7 @@ export const URLS = {
     getorder: 'DriverOrderList',
     getorderdetails: 'OrderDetails',
     orderStatus: 'DriverOrderStatus',
+    StatusChangeOrder: 'orderStatus',
   },
   vehcile: {
     create_vehilce: 'vehicle/create',
@@ -36,8 +37,8 @@ export const URLS = {
     get_document: 'getDriverDetails',
   },
   chat: {
-    get_message: 'chat/messages',
-    get_latest_message: 'chat/get-new-messages',
+    get_message: 'chat/messages/',
+    get_latest_message: 'chat/get-new-messages/',
     get_conservation: 'chat/conversations',
     send_message: 'chat/insert-message',
     create_conservation: 'chat/create-conversation',

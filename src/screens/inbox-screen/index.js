@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   I18nManager,
   Image,
   ImageBackground,
@@ -21,42 +22,94 @@ import {MessageInput} from 'components/atoms/inputs';
 import Feather from 'react-native-vector-icons/Feather';
 
 import {mvs} from 'config/metrices';
-import {useAppDispatch} from 'hooks/use-store';
+import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import {goBack} from 'navigation/navigation-ref';
 import Medium from 'typography/medium-text';
 import InboxChatCard from 'components/molecules/inbox-chat-card';
+import {getChatMessages, onSendMessage} from 'services/api/chat-api-actions';
+import {UTILS} from 'utils';
+import {Loader} from 'components/atoms/loader';
 const InboxScreen = props => {
+  const {info, id, title, email, image} = props?.route?.params || {};
+  // const {id} = props?.route?.params || {};
+  console.log('info', id, info, title, email, image);
   const dispatch = useAppDispatch();
+  const user = useAppSelector(s => s?.user);
+  const userInfo = user?.userInfo;
   const {t} = i18n;
-  const featuredCategories = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-      me: true,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 3,
-      me: true,
-    },
-    {
-      id: 3,
-      me: false,
-    },
-    {
-      id: 3,
-      me: true,
-    },
-    {
-      id: 3,
-      me: false,
-    },
-  ];
-  const featuredProduct = ({item}) => <InboxChatCard item={item} />;
+  const [messages, setMessages] = React.useState([]);
+  const [message, setMessage] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
+  // const featuredCategories = [
+  //   {
+  //     id: 1,
+  //   },
+  //   {
+  //     id: 2,
+  //     me: true,
+  //   },
+  //   {
+  //     id: 3,
+  //   },
+  //   {
+  //     id: 3,
+  //     me: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     me: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     me: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     me: false,
+  //   },
+  // ];
+  const getMessages = async () => {
+    try {
+      const res = await getChatMessages(info?.id || id);
+      setMessages(res?.data || []);
+      setLoading(false);
+    } catch (error) {
+      console.log('error', error);
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+  React.useEffect(() => {
+    //Implementing the setInterval method
+    const interval = setInterval(() => {
+      getMessages();
+    }, 15000);
+
+    //Clearing the interval
+    return () => clearInterval(interval);
+  }, []);
+
+  const sendMessage = async () => {
+    try {
+      if (!message?.trim()) return;
+      await onSendMessage({
+        conversation_id: info?.id,
+        message: message,
+      });
+      await getMessages();
+      setMessage('');
+      // setMessages(res?.data || []);
+    } catch (error) {
+      console.log('error', error);
+      Alert.alert('Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+  const featuredProduct = ({item}) => (
+    <InboxChatCard item={{...item, me: userInfo?.id === item?.user_id}} />
+  );
   return (
     <View style={styles.container}>
       <View
@@ -78,32 +131,35 @@ const InboxScreen = props => {
           <View style={styles.imageContainer}>
             <Image
               borderRadius={mvs(10)}
-              source={IMG.messagelogo}
+              source={
+                info?.receiver_image
+                  ? {uri: info?.receiver_image}
+                  : {uri: image}
+              }
+              // source={IMG.messagelogo}
               style={styles.backGroundImage}
-            />
-            <Medium
-              label={t('get_movers')}
-              fontSize={mvs(7)}
-              color={colors.primary}
-              style={{marginTop: mvs(5)}}
             />
           </View>
           <View style={{paddingHorizontal: mvs(10), flex: 1}}>
-            <Bold label={'Mitsubishi'} />
-            <Regular numberOfLines={1} label={'Mitsubishi@email.com'} />
+            <Bold label={info?.receiver_name || title} />
+            <Regular numberOfLines={1} label={info?.receiver_email || email} />
           </View>
         </Row>
       </View>
-      <CustomFlatList
-        inverted
-        showsVerticalScrollIndicator={false}
-        data={featuredCategories}
-        renderItem={featuredProduct}
-        contentContainerStyle={{
-          paddingBottom: mvs(20),
-          paddingHorizontal: mvs(20),
-        }}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <CustomFlatList
+          inverted
+          showsVerticalScrollIndicator={false}
+          data={messages || []}
+          renderItem={featuredProduct}
+          contentContainerStyle={{
+            paddingBottom: mvs(20),
+            paddingHorizontal: mvs(20),
+          }}
+        />
+      )}
 
       <Row
         style={{
@@ -111,8 +167,8 @@ const InboxScreen = props => {
           alignItems: 'center',
           paddingBottom: mvs(20),
         }}>
-        <MessageInput />
-        <TouchableOpacity style={styles.sendIcon}>
+        <MessageInput value={message} onChangeText={setMessage} />
+        <TouchableOpacity style={styles.sendIcon} onPress={sendMessage}>
           <Feather name={'send'} size={25} color={colors.white} />
         </TouchableOpacity>
       </Row>

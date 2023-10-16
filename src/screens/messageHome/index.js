@@ -26,10 +26,17 @@ const MessageHomeScreen = props => {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     if (isFocus) dispatch(getConversationsList(setLoading));
-  }, []);
+  }, [isFocus]);
 
   const featuredProduct = ({item}) => (
-    <ChatCard item={item} onPress={() => navigate('InboxScreen')} />
+    <ChatCard
+      item={item}
+      onPress={() =>
+        navigate('InboxScreen', {
+          info: item,
+        })
+      }
+    />
   );
   return (
     <View style={styles.container}>

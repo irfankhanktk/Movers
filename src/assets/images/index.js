@@ -60,3 +60,4 @@ export {default as messagelogo} from './messagelogo.png';
 export {default as message} from './message.png';
 export {default as notificationIcon} from './notification-new.png';
 export {default as Bike} from './bike2.png';
+export {default as homeProfile} from './HOMEPROFILE.png';
