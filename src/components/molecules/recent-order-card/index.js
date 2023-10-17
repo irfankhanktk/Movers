@@ -60,14 +60,15 @@ const RecentOrderCard = ({
           // backgroundColor: 'red',
         }}>
         <Medium
-          label={`${t('Odrer')}: #${item?.Order_no} `}
+          label={item?.service?.title || 'N/A'}
+          // label={`${t('Odrer')}: #${item?.id} `}
           fontSize={mvs(14)}
           color={colors.bluecolor}
         />
         <PrimaryButton
-          title={item?.status}
+          title={t('completed')}
           containerStyle={{
-            width: mvs(70),
+            width: mvs(90),
             height: mvs(30),
             backgroundColor: colors.acceptcolor,
 
@@ -101,7 +102,7 @@ const RecentOrderCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('Name')}
-        value={item?.name}
+        value={item?.user_details?.name || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -111,7 +112,7 @@ const RecentOrderCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('delivery_time')}
-        value={item?.delivery_time}
+        value={item?.pickup_date || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -121,7 +122,7 @@ const RecentOrderCard = ({
           paddingVertical: mvs(8),
         }}
         label={t('pickup_location')}
-        value={item?.pickup_location}
+        value={item?.pickup_address}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
@@ -130,8 +131,8 @@ const RecentOrderCard = ({
           paddingHorizontal: mvs(4),
           paddingVertical: mvs(8),
         }}
-        label={t('service_type')}
-        value={item?.service_type}
+        label={t('Order')}
+        value={`#${item?.id} ` || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />

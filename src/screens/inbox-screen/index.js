@@ -94,7 +94,7 @@ const InboxScreen = props => {
     try {
       if (!message?.trim()) return;
       await onSendMessage({
-        conversation_id: info?.id,
+        conversation_id: info?.id || id,
         message: message,
       });
       await getMessages();

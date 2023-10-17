@@ -50,7 +50,7 @@ const MyOrderScreen = props => {
       console.log('create message res check karna===>', res);
       navigate('InboxScreen', {
         id: res?.conversation_id,
-        title: res?.title,
+        // title: res?.title,
         title: res?.receiver_name,
         email: res?.receiver_email,
         image: res?.receiver_image,
@@ -164,8 +164,12 @@ const MyOrderScreen = props => {
       onPressChat={() => onMessagePress(item?.user_id)}
       chatLoading={chatLoading}
       // acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
-      acceptTitle={item?.status === 'free' ? t('accept') : t('accepted')}
-      disabledAccept={item?.status === 'accepted'}
+      acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
+      disabledAccept={
+        item?.status === 'accepted' ||
+        item?.status === 'paid' ||
+        item?.status === 'delivered'
+      }
       // onRefreshList={getList}
       onPressAccept={() => onPressAccept(item?.id)} // To accept the order
       onPressReject={() => onPressReject(item?.id)} // To reject the order
@@ -230,20 +234,20 @@ const MyOrderScreen = props => {
               width: mvs(88),
               height: mvs(39),
               backgroundColor:
-                selectedOrder === 'completed' ? colors.primary : colors.white,
+                selectedOrder === 'delivered' ? colors.primary : colors.white,
               borderColor: colors.lightGray,
               borderWidth: 1,
               ...colors.shadow,
             }}
             textStyle={{
               color:
-                selectedOrder === 'completed' ? colors.white : colors.primary,
+                selectedOrder === 'delivered' ? colors.white : colors.primary,
             }}
             onPress={() => {
-              if (selectedOrder === 'completed') {
+              if (selectedOrder === 'delivered') {
                 setSelectedOrder('');
               } else {
-                setSelectedOrder('completed');
+                setSelectedOrder('delivered');
               }
             }}
           />

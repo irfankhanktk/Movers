@@ -189,6 +189,7 @@
   "chat_now":"Chat Now",
   "price":"Price",
   "get_direction":"Get Directions",
-  "chat":"Chat"
+  "chat":"Chat",
+  "call":"Call"
   
 }

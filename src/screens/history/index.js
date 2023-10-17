@@ -6,7 +6,13 @@ import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import moment from 'moment';
 import React, {useEffect} from 'react';
-import {FlatList, Image, View, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  Image,
+  View,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
@@ -18,12 +24,17 @@ import MyOrderCard from 'components/molecules/my-order-card';
 import {ORDER_LIST, RECENT_ORDER_LIST} from 'config/constants';
 import * as IMG from 'assets/images';
 import RecentOrderCard from 'components/molecules/recent-order-card';
+import {getOrderHistory} from 'services/api/auth-api-actions';
+import {useIsFocused} from '@react-navigation/native';
 const HistoryScreen = props => {
   const dispatch = useAppDispatch();
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
+  const [orderData, setOrderData] = React.useState([]);
   const [selectedOrder, setSelectedOrder] = React.useState('');
+  const [refreshing, setRefreshing] = React.useState(false);
+  const isFocus = useIsFocused();
   const readNotifications = async () => {
     try {
     } catch (error) {
@@ -31,7 +42,30 @@ const HistoryScreen = props => {
     }
   };
 
-  useEffect(() => {}, []);
+  React.useEffect(() => {
+    if (isFocus) {
+      getList();
+    }
+  }, [isFocus]);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getOrderHistory();
+      setOrderData(res);
+
+      console.log(res);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const onRefresh = () => {
+    setRefreshing(true);
+    getList()
+      .then(() => setRefreshing(false))
+      .catch(() => setRefreshing(false));
+  };
   const renderAppointmentItem = ({item, index}) => (
     <RecentOrderCard
       item={item}
@@ -60,7 +94,7 @@ const HistoryScreen = props => {
                 style={{paddingHorizontal: mvs(14), marginTop: mvs(10)}}
               />
               <Regular
-                label={'$2500000'}
+                label={orderData?.total_earing}
                 color={colors.white}
                 fontSize={mvs(12)}
                 style={{paddingHorizontal: mvs(14)}}
@@ -90,13 +124,13 @@ const HistoryScreen = props => {
                 style={{paddingHorizontal: mvs(14), marginTop: mvs(10)}}
               />
               <Regular
-                label={'100'}
+                label={orderData?.total_orders_count}
                 color={colors.white}
-                fontSize={mvs(12)}
+                fontSize={mvs(16)}
                 style={{paddingHorizontal: mvs(14)}}
               />
 
-              <Regular
+              {/* <Regular
                 label={t('latest_delivery')}
                 color={colors.white}
                 fontSize={mvs(12)}
@@ -107,7 +141,7 @@ const HistoryScreen = props => {
                 color={colors.white}
                 fontSize={mvs(12)}
                 style={{paddingHorizontal: mvs(14)}}
-              />
+              /> */}
             </View>
           </TouchableOpacity>
         </Row>
@@ -123,9 +157,16 @@ const HistoryScreen = props => {
             // emptyList={<EmptyList label={t('no_notification')} />}
             contentContainerStyle={styles.contentContainerStyleFlatlist}
             showsVerticalScrollIndicator={false}
-            data={RECENT_ORDER_LIST}
+            data={orderData?.total_orders || []}
             renderItem={renderAppointmentItem}
             ItemSeparatorComponent={itemSeparatorComponent()}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={['#ff0000', '#00ff00', '#0000ff']}
+              />
+            }
             keyExtractor={(_, index) => index?.toString()}
           />
         )}

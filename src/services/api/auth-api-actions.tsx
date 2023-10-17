@@ -256,6 +256,16 @@ export const getOrderListList = async (slug: string) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getOrderHistory = async (slug: string) => {
+  try {
+    const res = await getData(URLS.orderlist.orderHistory);
+    console.log('res of myordershistory=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 export const getOrderDetails = async (id: any) => {
   try {
     const res = await getData(

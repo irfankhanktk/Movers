@@ -22,6 +22,7 @@ export const URLS = {
     getorderdetails: 'OrderDetails',
     orderStatus: 'DriverOrderStatus',
     StatusChangeOrder: 'orderStatus',
+    orderHistory: 'DriverHistory',
   },
   vehcile: {
     create_vehilce: 'vehicle/create',

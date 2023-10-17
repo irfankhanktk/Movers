@@ -264,7 +264,7 @@ export const MessageInput = (props: props) => {
           style={[styles.textInput, style]}
         />
         <TouchableOpacity style={styles.PasswordIcon} onPress={onPress}>
-          <Entypo size={20} name={'attachment'} color={colors.attachmentgray} />
+          {/* <Entypo size={20} name={'attachment'} color={colors.attachmentgray} /> */}
         </TouchableOpacity>
       </Row>
     </>

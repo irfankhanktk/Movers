@@ -203,20 +203,20 @@ const OrderDetailsScreen = props => {
   const onPressReject = () => {
     // Display an alert to confirm the acceptance
     Alert.alert(
-      'Dleivered',
-      'Are you sur your order has been dlivered?',
+      'Complete',
+      'Are you sure you want to complete this order?',
       [
         {
           text: 'Cancel',
           style: 'cancel',
         },
         {
-          text: 'Delivered',
+          text: 'Completed',
           onPress: () => {
             // If the user confirms the acceptance, call the ChangeStatus function
             ChangeStatus('delivered', id);
             // Then, refresh the list
-            Alert.alert('Order has been deleverd');
+            Alert.alert('Order has been Completed');
             getList();
           },
         },
@@ -482,12 +482,20 @@ const OrderDetailsScreen = props => {
                 orderData?.driver_status === 'delivered') && (
                 <PrimaryButton
                   containerStyle={styles.acceptbutton}
+                  // title={
+                  //   orderData?.driver_status === 'delivered' ||
+                  //   orderData?.driver_status === 'start'
+                  //     ? 'Delivered'
+                  //     : 'Start'
+                  // }
                   title={
-                    orderData?.driver_status === 'delivered' ||
-                    orderData?.driver_status === 'start'
-                      ? 'Delivered'
+                    orderData?.driver_status === 'delivered'
+                      ? 'Completed'
+                      : orderData?.driver_status === 'start'
+                      ? 'Complete'
                       : 'Start'
                   }
+                  disabled={orderData?.driver_status === 'delivered'}
                   onPress={
                     orderData?.driver_status === 'delivered' ||
                     orderData?.driver_status === 'start'
@@ -496,7 +504,7 @@ const OrderDetailsScreen = props => {
                   }
                 />
               )}
-            {orderData?.status === 'accepted' && (
+            {['paid', 'accepted', 'delivered'].includes(orderData?.status) && (
               <TouchableOpacity
                 style={{
                   backgroundColor: colors.white,
@@ -507,30 +515,13 @@ const OrderDetailsScreen = props => {
                   paddingVertical: mvs(5),
                   borderRadius: mvs(6),
                 }}
-                onPress={() => onMessagePress(orderData?.user_id)}
-                // onPress={() => {
-                //   const newStatus =
-                //     buttonTitle === 'delivered' ? 'delivered' : 'start';
-                //   ChangeStatus(newStatus, orderData.id);
-                // }}
-              >
+                onPress={() => onMessagePress(orderData?.user_id)}>
                 <Row style={{alignItems: 'center'}}>
                   <Ionicons
                     name="chatbox-ellipses-outline"
                     color={colors.primary}
                     size={mvs(20)}
                   />
-                  {/* <PrimaryButton
-                  containerStyle={styles.rejectbutton}
-                  textStyle={{color: colors.primary}}
-                  // loading={loading}
-                  title={t('chat_now')}
-                  onPress={() => {`
-                    onMessagePress(orderData?.user_id);
-                    // Handle the action when the "Start" button is pressed
-                    // You can add your logic here
-                  }}
-                /> */}
                   <Medium
                     label={t('chat')}
                     color={colors.primary}
@@ -550,7 +541,7 @@ const OrderDetailsScreen = props => {
               />
               // </Row>
             )} */}
-            {orderData?.status === 'accepted' && (
+            {['paid', 'accepted', 'delivered'].includes(orderData?.status) && (
               <TouchableOpacity
                 style={{
                   backgroundColor: colors.grey,
@@ -580,7 +571,7 @@ const OrderDetailsScreen = props => {
                   }}
                 /> */}
                   <Medium
-                    label={t('phone')}
+                    label={t('call')}
                     color={colors.white}
                     fontSize={mvs(16)}
                     style={{marginLeft: mvs(6)}}

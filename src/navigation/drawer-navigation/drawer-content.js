@@ -40,7 +40,10 @@ const CustomDrawerContent = props => {
       <View style={styles.header}>
         {/* <Image source={IMG.DrawerLogo} style={styles.drawerlogo} /> */}
         <View style={styles.drawerheader}>
-          <Image source={IMG.Drawerman} style={styles.drawerman} />
+          <Image
+            source={userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.Drawerman}
+            style={styles.drawerman}
+          />
         </View>
 
         <Medium
@@ -49,12 +52,12 @@ const CustomDrawerContent = props => {
           color={colors.black}
           style={{marginTop: mvs(6)}}
         />
-        <Medium
+        {/* <Medium
           label={`${userInfo?.email || 'guest@gmail.com'}`}
           fontSize={mvs(14)}
           color={colors.black}
           style={{marginTop: mvs(6)}}
-        />
+        /> */}
       </View>
       <ScrollView style={styles.scrololstyle}>
         <DrawerHomeCard
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   header: {
-    height: mvs(260),
+    height: mvs(230),
     width: width - 60,
     alignSelf: 'center',
     justifyContent: 'center',
