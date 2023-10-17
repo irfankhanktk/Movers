@@ -108,7 +108,7 @@ const UploadDocumentsScreen = props => {
                   fontSize={mvs(16)}
                   style={{marginTop: mvs(10), marginBottom: mvs(5)}}
                 />
-                <Regular
+                {/* <Regular
                   label={t(
                     'we_need_to_see_your_clearly_printed_on_an_official_document',
                   )}
@@ -137,7 +137,7 @@ const UploadDocumentsScreen = props => {
                       />
                     </Row>
                   )}
-                </TouchableOpacity>
+                </TouchableOpacity> */}
               </View>
               <View style={{paddingVertical: mvs(10)}}>
                 <UploadDocumentTile
