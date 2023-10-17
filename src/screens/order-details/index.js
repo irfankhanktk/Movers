@@ -58,12 +58,22 @@ const OrderDetailsScreen = props => {
   const [chatLoading, setChatLoading] = React.useState(false);
   const [total, setTotal] = React.useState({});
 
-  const [orderStatus, setOrderStatus] = React.useState(
-    orderData?.driver_status === null
-      ? 'start'
-      : orderData?.driver_status || 'start',
-  );
-  console.log('orderStatus', orderStatus);
+  // const [orderStatus, setOrderStatus] = React.useState(
+  //   orderData?.driver_status === null
+  //     ? 'start'
+  //     : orderData?.driver_status || 'start',
+  // );
+  // const [orderStatus, setOrderStatus] = React.useState(() => {
+  //   if (orderData?.driver_status === null) {
+  //     return 'start';
+  //   } else if (orderData?.driver_status === 'delivered') {
+  //     return 'delivered';
+  //   } else {
+  //     return 'start';
+  //   }
+  // });
+
+  // console.log('orderStatus', orderStatus);
 
   // React.useEffect(() => {
   //   setOrderStatus(orderData?.driver_status || 'start');
@@ -127,22 +137,38 @@ const OrderDetailsScreen = props => {
   //     Alert.alert('Error', UTILS.returnError(error));
   //   }
   // };
+
+  // const ChangeStatus = async (status, id) => {
+  //   try {
+  //     const res = await getOrderDetailsStatusChange(status, id);
+
+  //     // Update the button title based on the new status
+  //     const newTitle =
+  //       status === 'start'
+  //         ? 'Start'
+  //         : status === 'delivered'
+  //         ? 'Delivered'
+  //         : 'Delivered';
+
+  //     // Update the orderStatus state
+  //     setOrderStatus(status);
+  //     getList();
+
+  //     console.log('New status:', status);
+  //     console.log('resp==========>', res);
+  //   } catch (error) {
+  //     console.log('Error:', UTILS.returnError(error));
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   }
+  // };
   const ChangeStatus = async (status, id) => {
+    console.log('id', status, id);
+    // return;
     try {
+      // const status = isRejected ? 0 : 1;
+
       const res = await getOrderDetailsStatusChange(status, id);
 
-      // Update the button title based on the new status
-      const newTitle =
-        status === 'start'
-          ? 'Start'
-          : status === 'delivered'
-          ? 'Delivered'
-          : 'Delivered';
-
-      // Update the orderStatus state
-      setOrderStatus(status);
-
-      console.log('New status:', status);
       console.log('resp==========>', res);
     } catch (error) {
       console.log('Error:', UTILS.returnError(error));
@@ -150,6 +176,54 @@ const OrderDetailsScreen = props => {
     }
   };
 
+  const onPressAccept = () => {
+    // Display an alert to confirm the acceptance
+    Alert.alert(
+      'Start',
+      'Do you want to Start this order?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Start',
+          onPress: () => {
+            // If the user confirms the acceptance, call the ChangeStatus function
+            ChangeStatus('start', id);
+            // Then, refresh the list
+            Alert.alert('Order has been Started');
+            getList();
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+  const onPressReject = () => {
+    // Display an alert to confirm the acceptance
+    Alert.alert(
+      'Dleivered',
+      'Are you sur your order has been dlivered?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delivered',
+          onPress: () => {
+            // If the user confirms the acceptance, call the ChangeStatus function
+            ChangeStatus('delivered', id);
+            // Then, refresh the list
+            Alert.alert('Order has been deleverd');
+            getList();
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
   const getList = async () => {
     try {
       setLoading(true);
@@ -335,33 +409,93 @@ const OrderDetailsScreen = props => {
               marginBottom: mvs(20),
               paddingTop: mvs(16),
             }}>
-            {orderData?.status === 'accepted' && (
+            {/* {orderData?.status === 'accepted' && (
               <PrimaryButton
                 containerStyle={styles.acceptbutton}
+                // title={
+                //   orderStatus === null || orderStatus === ''
+                //     ? 'Start'
+                //     : orderStatus === 'start'
+                //     ? 'Delivered'
+                //     : orderStatus === 'delivered'
+                //     ? 'Delivered'
+                //     : 'Unknown'
+                // }
                 title={
-                  orderStatus === null || orderStatus === ''
-                    ? 'Start'
-                    : orderStatus === 'start'
-                    ? 'Delivered'
-                    : orderStatus === 'delivered'
-                    ? 'Delivered'
-                    : 'Unknown'
+                  orderData?.driver_status === null
+                    ? 'start'
+                    : orderData?.driver_status === 'delivered'
+                    ? 'delivered'
+                    : 'start'
                 }
+                // title={orderStatus === 'start' ? 'Delivered' : 'Start'}
+                // onPress={() => {
+                //   // Calculate the new status based on the current status
+                //   const newStatus =
+                //     orderStatus === null || orderStatus === ''
+                //       ? 'start'
+                //       : orderStatus === 'start'
+                //       ? 'delivered'
+                //       : orderStatus === 'delivered'
+                //       ? 'delivered'
+                //       : 'unknown';
+                //   // Call the ChangeStatus function with the new status and the id
+                //   ChangeStatus(newStatus, id);
+                // }}
+                // onPress={() => {
+                //   // Calculate the new status based on the current status
+                //   const newStatus =
+                //     orderStatus === 'start' ? 'delivered' : 'start';
+                //   // Call the ChangeStatus function with the new status and the id
+                //   ChangeStatus(newStatus, id);
+                // }}
                 onPress={() => {
-                  // Calculate the new status based on the current status
-                  const newStatus =
-                    orderStatus === null || orderStatus === ''
-                      ? 'start'
-                      : orderStatus === 'start'
-                      ? 'delivered'
-                      : orderStatus === 'delivered'
-                      ? 'delivered'
-                      : 'unknown';
-                  // Call the ChangeStatus function with the new status and the id
-                  ChangeStatus(newStatus, id);
+                  if (orderStatus === 'start') {
+                    // Call the ChangeStatus function to change status to 'delivered'
+                    ChangeStatus('delivered', id);
+                  } else if (orderStatus === 'delivered') {
+                    // No need to change status, just call the ChangeStatus function
+                    ChangeStatus('delivered', id);
+                  }
                 }}
               />
-            )}
+            )} */}
+            {/* {
+              orderData?.driver_status === null ? (
+                <PrimaryButton
+                  containerStyle={styles.acceptbutton}
+                  title={'start'}
+                  onPress={() => onPressAccept(id)}
+                />
+              ) : orderData?.driver_status === 'start' ||
+                orderData?.driver_status === 'delivered' ? (
+                <PrimaryButton
+                  containerStyle={styles.acceptbutton}
+                  title={'delivered'}
+                  onPress={() => onPressReject(id)}
+                />
+              ) : null // Agar koi aur condition nahi milti to null return karein
+            } */}
+            {orderData?.status !== 'free' &&
+              (orderData?.driver_status === null ||
+                orderData?.driver_status === 'start' ||
+                orderData?.driver_status === 'delivered') && (
+                <PrimaryButton
+                  containerStyle={styles.acceptbutton}
+                  title={
+                    orderData?.driver_status === 'delivered' ||
+                    orderData?.driver_status === 'start'
+                      ? 'Delivered'
+                      : 'Start'
+                  }
+                  onPress={
+                    orderData?.driver_status === 'delivered' ||
+                    orderData?.driver_status === 'start'
+                      ? () => onPressReject(id)
+                      : () => onPressAccept(id)
+                  }
+                />
+              )}
             {orderData?.status === 'accepted' && (
               <TouchableOpacity
                 style={{
