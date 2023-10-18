@@ -7,6 +7,7 @@ import {Alert} from 'react-native';
 import {
   resetUser,
   setCountries,
+  setNotifications,
   setUserInfo,
   setVehcileTypes,
 } from './../../store/reducers/user-reducer';
@@ -353,3 +354,25 @@ export const getDirection = (latitude: any, longitude: any) =>
   postData(
     `${URLS.auth.driver_location}?driver_lat=${latitude}&driver_long=${longitude}`,
   );
+
+export const getNotifications = (values: any) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const res = await getData(URLS.notification.getNotification, values);
+      dispatch(setNotifications(res?.notifications || []));
+    } catch (error: any) {
+      console.log('error in notification', UTILS.returnError(error));
+      Alert.alert('', UTILS.returnError(error));
+    }
+  };
+};
+export const onReadNotifications = async (values: any) => {
+  try {
+    const res = await postData(URLS.notification.read_notification, values);
+    return res;
+  } catch (error: any) {
+    console.log('error in readNotifications', UTILS.returnError(error));
+    Alert.alert('', UTILS.returnError(error));
+    throw UTILS.returnError(error);
+  }
+};

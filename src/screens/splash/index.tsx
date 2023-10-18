@@ -30,7 +30,7 @@ const Splash = (props: props) => {
   React.useEffect(() => {
     (async () => {
       try {
-        let screen: any = 'Onboarding';
+        let screen: any = 'Login';
         UTILS.get_current_location(
           position => {
             dispatch(

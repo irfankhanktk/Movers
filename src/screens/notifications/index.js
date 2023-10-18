@@ -15,10 +15,12 @@ import {EmptyList} from 'components/atoms/empty-list';
 import CustomFlatList from 'components/atoms/custom-flatlist';
 import {NOTIFICATION_LIST} from 'config/constants';
 import * as IMG from 'assets/images';
+import {onReadNotifications} from 'services/api/auth-api-actions';
 
 const Notifications = props => {
   const dispatch = useAppDispatch();
   const {userInfo, notifications} = useAppSelector(s => s.user);
+  console.log('skks', notifications);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
   // const readNotifications = async () => {
@@ -31,12 +33,31 @@ const Notifications = props => {
 
   // useEffect(() => {
   // }, []);
+  const readNotifications = async () => {
+    try {
+      const unreadNoti = notifications
+        ?.filter(x => !x?.is_read)
+        ?.map(x => x?.id);
+
+      if (!unreadNoti?.length) return;
+      await onReadNotifications({
+        // user_id: userInfo?.id,
+        notification_id: unreadNoti,
+      });
+    } catch (error) {
+      console.log('error=>', error);
+    }
+  };
+
+  React.useEffect(() => {
+    readNotifications();
+  }, []);
   const renderAppointmentItem = ({item, index}) => (
     <View
       key={index}
       style={[
         styles.rendercontainer,
-        // { backgroundColor: item?.is_read ? colors.white : colors?.blueHalf },
+        {backgroundColor: item?.is_read ? colors.white : colors?.blueHalf},
       ]}>
       <View
         style={{
@@ -51,13 +72,13 @@ const Notifications = props => {
       <Row style={{justifyContent: 'flex-start'}}>
         <View style={styles.titleandtextview}>
           <Row>
-            <Medium label={item.title} color={colors.black} />
+            <Medium label={item?.title} color={colors.black} />
           </Row>
-          <Regular label={item?.desc} numberOfLines={3} />
+          <Regular label={item?.text} numberOfLines={3} />
         </View>
       </Row>
       <Regular
-        label={moment(item.created_at).format('DD MMM, YYYY  hh:mm a')}
+        label={moment(item?.created_at).format('DD MMM, YYYY  hh:mm a')}
         style={{alignSelf: 'flex-end'}}
         fontSize={mvs(12)}
         color={colors.primary}
@@ -77,7 +98,7 @@ const Notifications = props => {
           // emptyList={<EmptyList label={t('no_notification')} />}
           contentContainerStyle={styles.contentContainerStyle}
           showsVerticalScrollIndicator={false}
-          data={NOTIFICATION_LIST}
+          data={notifications}
           renderItem={renderAppointmentItem}
           ItemSeparatorComponent={itemSeparatorComponent()}
           keyExtractor={(_, index) => index?.toString()}

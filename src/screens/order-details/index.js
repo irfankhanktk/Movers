@@ -477,6 +477,7 @@ const OrderDetailsScreen = props => {
               ) : null // Agar koi aur condition nahi milti to null return karein
             } */}
             {orderData?.status !== 'free' &&
+              orderData?.status !== 'paid' &&
               (orderData?.driver_status === null ||
                 orderData?.driver_status === 'start' ||
                 orderData?.driver_status === 'delivered') && (
@@ -504,7 +505,7 @@ const OrderDetailsScreen = props => {
                   }
                 />
               )}
-            {['paid', 'accepted', 'delivered'].includes(orderData?.status) && (
+            {['start', 'accepted', 'delivered'].includes(orderData?.status) && (
               <TouchableOpacity
                 style={{
                   backgroundColor: colors.white,
@@ -541,7 +542,7 @@ const OrderDetailsScreen = props => {
               />
               // </Row>
             )} */}
-            {['paid', 'accepted', 'delivered'].includes(orderData?.status) && (
+            {['start', 'accepted', 'delivered'].includes(orderData?.status) && (
               <TouchableOpacity
                 style={{
                   backgroundColor: colors.grey,

@@ -164,11 +164,27 @@ const MyOrderScreen = props => {
       onPressChat={() => onMessagePress(item?.user_id)}
       chatLoading={chatLoading}
       // acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
-      acceptTitle={item?.status === 'free' ? t('accept') : item?.status}
+      // acceptTitle={
+      //   item?.status === 'free' || item?.status === 'paid'
+      //     ? t('accept')
+      //     : item?.status
+      // }
+      acceptTitle={
+        (acceptTitle =
+          item?.status === 'free' || item?.status === 'paid'
+            ? t('accept')
+            : item?.status === 'start'
+            ? 'Started'
+            : item?.status === 'accepted'
+            ? 'Accepted'
+            : item?.status === 'delivered'
+            ? 'Completed'
+            : item?.status)
+      }
       disabledAccept={
         item?.status === 'accepted' ||
-        item?.status === 'paid' ||
-        item?.status === 'delivered'
+        item?.status === 'delivered' ||
+        item?.status === 'start'
       }
       // onRefreshList={getList}
       onPressAccept={() => onPressAccept(item?.id)} // To accept the order
@@ -207,24 +223,24 @@ const MyOrderScreen = props => {
             }}
           />
           <PrimaryButton
-            title={t('paid')}
+            title={t('start')}
             containerStyle={{
               width: mvs(88),
               height: mvs(39),
               backgroundColor:
-                selectedOrder === 'paid' ? colors.primary : colors.white,
+                selectedOrder === 'start' ? colors.primary : colors.white,
               borderColor: colors.lightGray,
               borderWidth: 1,
               ...colors.shadow,
             }}
             textStyle={{
-              color: selectedOrder === 'paid' ? colors.white : colors.primary,
+              color: selectedOrder === 'start' ? colors.white : colors.primary,
             }}
             onPress={() => {
-              if (selectedOrder === 'paid') {
+              if (selectedOrder === 'start') {
                 setSelectedOrder('');
               } else {
-                setSelectedOrder('paid');
+                setSelectedOrder('start');
               }
             }}
           />

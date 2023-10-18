@@ -38,7 +38,7 @@ const LoginScreen = props => {
   const initialValues = {
     email: '',
     password: '',
-    fcm_token: '123456',
+    // fcm_token: '123456',
     type: 'Driver',
   };
   const [loading, setLoading] = React.useState(false);
@@ -50,36 +50,53 @@ const LoginScreen = props => {
   //     validationSchema: signinFormValidation,
   //     onSubmit: () => {},
   //   });
+  async function checkApplicationPermission() {
+    const authorizationStatus = await messaging().requestPermission();
+
+    if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+      console.log('User has notification permissions enabled.');
+      return true;
+    } else if (
+      authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL
+    ) {
+      console.log('User has provisional notification permissions.');
+      return true;
+    } else {
+      console.log('User has notification permissions disabled');
+      return false;
+    }
+  }
+
   const handleFormSubmit = async values => {
     try {
-      setLoading(true);
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          dispatch(onLogin({...values, token: fcmToken}, setLoading));
-          // resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
+      await checkApplicationPermission();
+      let fcmToken = '123456';
+      try {
+        setLoading(true);
+        fcmToken = await messaging().getToken();
+      } catch (error) {
+        console.log('fcm token error', error);
+      }
+      dispatch(onLogin({...values, fcm_token: fcmToken}, setLoading));
     } catch (error) {
       console.log('error=>', error);
       setLoading(false);
     }
+
+    //   messaging()
+    //     .getToken()
+    //     .then(fcmToken => {
+    //       console.log('fcmToken=>', fcmToken);
+    //       dispatch(onLogin({...values, fcm_token: fcmToken}, setLoading));
+    //       // resetStack('Drawer');
+    //     })
+    //     .catch(error => console.log(error));
+    // } catch (error) {
+    //   console.log('error=>', error);
+
+    // }
   };
-  // const onSubmit = async () => {
-  //   try {
-  //     messaging()
-  //       .getToken()
-  //       .then(fcmToken => {
-  //         console.log('fcmToken=>', fcmToken);
-  //         // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-  //         resetStack('Drawer');
-  //       })
-  //       .catch(error => console.log(error));
-  //   } catch (error) {
-  //     console.log('error=>', error);
-  //   }
-  // };
+
   return (
     <View style={styles.container}>
       <Image source={IMG.LogoBackground} style={styles.imagebackground} />

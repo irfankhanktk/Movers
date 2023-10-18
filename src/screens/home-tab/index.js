@@ -23,16 +23,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
 import {navigate} from 'navigation/navigation-ref';
-import {getDirection} from 'services/api/auth-api-actions';
+import {getDirection, getNotifications} from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
 import {setLocation} from 'store/reducers/user-reducer';
+import {useIsFocused} from '@react-navigation/native';
+import Regular from 'typography/regular-text';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
-  const userInfo = user?.userInfo;
+  const isFcous = useIsFocused();
+  // const userInfo = user?.userInfo;
   console.log('user', user);
   const language = user?.language;
   const dispatch = useAppDispatch();
   const {t} = i18n;
+  const {userInfo, unreadNotification, location} = user;
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState();
   const [latitude, setLatitude] = React.useState();
@@ -80,6 +84,17 @@ const HomeTab = props => {
     }
   };
 
+  const loadNotifications = async () => {
+    try {
+      if (!userInfo?.id) return;
+      dispatch(getNotifications());
+    } catch (error) {
+      console.log('error=>', error);
+    }
+  };
+  React.useEffect(() => {
+    if (isFcous) loadNotifications();
+  }, [isFcous]);
   React.useEffect(() => {
     fetchDirection(setLoading);
     const intervalId = setInterval(() => {
@@ -134,6 +149,15 @@ const HomeTab = props => {
               size={mvs(25)}
             />
           </TouchableOpacity>
+          {/* {unreadNotification ? ( */}
+          {/* <View style={styles.notificationbadge}>
+            <Regular
+              label={unreadNotification}
+              fontSize={mvs(10)}
+              style={{lineHeight: mvs(14), color: colors.white}}
+            />
+          </View> */}
+          {/* ) : null} */}
         </Row>
         <HomeSwiper />
         <View style={styles.body}>

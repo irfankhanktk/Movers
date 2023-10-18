@@ -1,36 +1,45 @@
 {
   "project_info": {
-    "project_number": "175596648766",
-    "project_id": "luggage-movers",
-    "storage_bucket": "luggage-movers.appspot.com"
+    "project_number": "1057985438576",
+    "project_id": "luggage-customer",
+    "storage_bucket": "luggage-customer.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:175596648766:android:0d611b0fb082491068d46f",
+        "mobilesdk_app_id": "1:1057985438576:android:8d6abcb1b2c129d2daa5b5",
         "android_client_info": {
-          "package_name": "com.luggagemovers"
+          "package_name": "com.luggage.customer"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "175596648766-fb1s6grc6kcoip5nlp0gnifoviuepm02.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAQtBE7y25qxpmNIE1XsKaYVL_ZVTCRSeM"
+          "current_key": "AIzaSyBA1DHPM_JT_qk_f6WEgPFlrBvW-8TchBE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "175596648766-fb1s6grc6kcoip5nlp0gnifoviuepm02.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057985438576:android:91864ef3c5b969f3daa5b5",
+        "android_client_info": {
+          "package_name": "com.luggagemovers"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA1DHPM_JT_qk_f6WEgPFlrBvW-8TchBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

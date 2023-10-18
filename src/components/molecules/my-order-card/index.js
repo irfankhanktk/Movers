@@ -93,7 +93,7 @@ const MyOrderCard = ({
             }}
             numberOfLines={2}
           />
-          {['paid', 'accepted', 'delivered'].includes(item?.status) && (
+          {['start', 'accepted', 'delivered'].includes(item?.status) && (
             <TouchableOpacity onPress={onPressChat}>
               <Row
                 style={{
@@ -212,13 +212,14 @@ const MyOrderCard = ({
             title={acceptTitle}
             // title={t('accept')}
             containerStyle={{
-              width: mvs(80),
+              width: mvs(90),
               height: mvs(30),
               backgroundColor: colors.acceptcolor,
               borderColor: colors.lightGray,
             }}
             textStyle={{
               color: colors.white,
+              fontSize: mvs(12),
             }}
             onPress={onPressAccept}
             disabled={disabledAccept}
@@ -226,7 +227,7 @@ const MyOrderCard = ({
             // onPress={handleAccept}
           />
           {item?.status === 'accepted' ||
-          item?.status === 'paid' ||
+          item?.status === 'start' ||
           item?.status === 'delivered' ? null : ( // Do not render the "Reject" button when status is "accepted"
             <PrimaryButton
               title={t('reject')}

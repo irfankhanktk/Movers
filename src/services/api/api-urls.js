@@ -24,6 +24,10 @@ export const URLS = {
     StatusChangeOrder: 'orderStatus',
     orderHistory: 'DriverHistory',
   },
+  notification: {
+    getNotification: 'driverNotification',
+    read_notification: 'notificationRead?',
+  },
   vehcile: {
     create_vehilce: 'vehicle/create',
     store_vehicle: 'vehicle',
@@ -45,9 +49,4 @@ export const URLS = {
     create_conservation: 'chat/create-conversation',
   },
   all_hospitals: 'doctor/allHospital',
-
-  notification: {
-    get_notification: 'doctor/getNotification',
-    read_notification: 'doctor/readNotification',
-  },
 };
