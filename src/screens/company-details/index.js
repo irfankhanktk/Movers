@@ -59,7 +59,7 @@ const CompanyDetailsScreen = props => {
     legal_identity: '',
     company_reg: '',
     vat_reg: '',
-    ...(props?.route?.params?.documentList || {}),
+    // ...(props?.route?.params?.documentList || {}),
   };
   const [loading, setLoading] = React.useState(false);
 
@@ -79,22 +79,22 @@ const CompanyDetailsScreen = props => {
       setLoading(false);
     }
   };
-  // React.useEffect(() => {
-  //   getList();
-  // }, []);
-  // const getList = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await getDriverDocument();
-  //     setDocumentList(res?.driverDetails);
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
 
-  //     console.log(res?.driverDetails);
-  //   } catch (error) {
-  //     setLoading(false);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      console.log(res?.driverDetails);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <View style={styles.container}>
       <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
@@ -146,8 +146,7 @@ const CompanyDetailsScreen = props => {
                       onChangeText={handleChange('legal_identity')}
                       onBlur={handleBlur('legal_identity')}
                       value={
-                        values.legal_identity
-                        // || documentList?.legal_identity
+                        values.legal_identity || documentList?.legal_identity
                       }
                     />
                     <PrimaryInput
@@ -156,10 +155,7 @@ const CompanyDetailsScreen = props => {
                       placeholder={t('compnay_registration')}
                       onChangeText={handleChange('company_reg')}
                       onBlur={handleBlur('company_reg')}
-                      value={
-                        values.company_reg
-                        //  || documentList?.company_reg
-                      }
+                      value={values.company_reg || documentList?.company_reg}
                     />
                     <PrimaryInput
                       keyboardType={'email-address'}
@@ -167,11 +163,7 @@ const CompanyDetailsScreen = props => {
                       placeholder={t('vat_registration')}
                       onChangeText={handleChange('vat_reg')}
                       onBlur={handleBlur('vat_reg')}
-                      value={
-                        values.vat_reg
-
-                        // || documentList?.vat_reg
-                      }
+                      value={values.vat_reg || documentList?.vat_reg}
                     />
                   </KeyboardAvoidScrollview>
                 </View>

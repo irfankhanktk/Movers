@@ -143,9 +143,13 @@ const UploadDocumentsScreen = props => {
                 <UploadDocumentTile
                   label={t('company_details')}
                   onPress={() =>
-                    navigate('CompanyDetailsScreen', {
-                      documentList: documentList,
-                    })
+                    navigate(
+                      'CompanyDetailsScreen',
+                      // ,
+                      // {
+                      //   documentList: documentList,
+                      // }
+                    )
                   }
                 />
                 <UploadDocumentTile
@@ -184,17 +188,23 @@ const UploadDocumentsScreen = props => {
                 <UploadDocumentTile
                   label={t('goods_in_transit')}
                   onPress={() =>
-                    navigate('GoodsInTransitScreen', {
-                      documentList: documentList,
-                    })
+                    navigate(
+                      'GoodsInTransitScreen',
+                      // , {
+                      //   documentList: documentList,
+                      // }
+                    )
                   }
                 />
                 <UploadDocumentTile
                   label={t('bank_details')}
                   onPress={() =>
-                    navigate('BankDetailsScreen', {
-                      documentList: documentList,
-                    })
+                    navigate(
+                      'BankDetailsScreen',
+                      // , {
+                      //   documentList: documentList,
+                      // }
+                    )
                   }
                 />
                 {/* <UploadDocumentTile

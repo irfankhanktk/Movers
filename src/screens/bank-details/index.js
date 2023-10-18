@@ -54,14 +54,14 @@ const BankDetailsScreen = props => {
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [value, setValue] = React.useState('');
-  // const [documentList, setDocumentList] = React.useState('');
-  const {documentList} = props?.route?.params;
+  const [documentList, setDocumentList] = React.useState('');
+  // const {documentList} = props?.route?.params;
   const initialValues = {
     bank_name: '',
     account_title: '',
     sort_code: '',
     account_number: '',
-    ...(documentList || {}),
+    // ...(documentList || {}),
   };
   const [loading, setLoading] = React.useState(false);
   const handleFormSubmit = async values => {
@@ -70,7 +70,7 @@ const BankDetailsScreen = props => {
       // return;
       setLoading(true);
       const res = await onPostDriverDocument(values);
-      Alert.alert(res?.message);
+      Alert.alert(res?.data?.message);
       goBack();
 
       console.log(res);
@@ -80,22 +80,22 @@ const BankDetailsScreen = props => {
       setLoading(false);
     }
   };
-  // React.useEffect(() => {
-  //   getList();
-  // }, []);
-  // const getList = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await getDriverDocument();
-  //     setDocumentList(res?.driverDetails);
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getDriverDocument();
+      setDocumentList(res?.driverDetails);
 
-  //     console.log(res?.driverDetails);
-  //   } catch (error) {
-  //     setLoading(false);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      console.log(res?.driverDetails);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -146,11 +146,7 @@ const BankDetailsScreen = props => {
                         placeholder={t('bank_name')}
                         onChangeText={handleChange('bank_name')}
                         onBlur={handleBlur('bank_name')}
-                        value={
-                          values.bank_name
-
-                          // || documentList?.bank_name
-                        }
+                        value={values.bank_name || documentList?.bank_name}
                       />
                       <PrimaryInput
                         keyboardType={'email-address'}
@@ -161,8 +157,7 @@ const BankDetailsScreen = props => {
                         onChangeText={handleChange('account_title')}
                         onBlur={handleBlur('account_title')}
                         value={
-                          values.account_title
-                          // || documentList?.account_title
+                          values.account_title || documentList?.account_title
                         }
                       />
                       <PrimaryInput
@@ -187,8 +182,7 @@ const BankDetailsScreen = props => {
                         onChangeText={handleChange('account_number')}
                         onBlur={handleBlur('account_number')}
                         value={
-                          values.account_number
-                          // || documentList?.account_number
+                          values.account_number || documentList?.account_number
                         }
                       />
                     </KeyboardAvoidScrollview>
