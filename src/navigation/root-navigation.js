@@ -48,6 +48,7 @@ import ManageVehicleDocumentScreen from 'screens/manage-vehicle-document';
 import InboxScreen from 'screens/inbox-screen';
 import MessageHomeScreen from 'screens/messageHome';
 import UpdateProfileScreen from 'screens/update_profile';
+import UserTab from 'screens/user-tab';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,7 @@ export const RootNavigator = () => {
         screenOptions={horizontalAnimation}>
         <Stack.Group>
           <Stack.Screen name="Splash" component={Splash} />
+          <Stack.Screen name="UserTab" component={UserTab} />
           <Stack.Screen name="Onboarding" component={Onboarding} />
           <Stack.Screen name="Me" component={Me} />
           <Stack.Screen name="Login" component={LoginScreen} />
