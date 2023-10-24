@@ -257,6 +257,26 @@ export const getOrderListList = async (slug: string) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getDriverTerm = async (slug: string) => {
+  try {
+    const res = await getData(URLS.auth.driverTerms);
+    console.log('res of drievrterms=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+export const getPrivacyPolicy = async (slug: string) => {
+  try {
+    const res = await getData(URLS.auth.privacypolicy);
+    console.log('res of privacypolicy=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 export const getOrderHistory = async (slug: string) => {
   try {
     const res = await getData(URLS.orderlist.orderHistory);

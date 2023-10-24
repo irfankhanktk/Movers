@@ -33,42 +33,39 @@ import {
   GoogleIcon,
   LoginAnimation,
 } from 'assets/icons';
+// import HtmlView from '../../components/atoms/render-html/index';
+import HtmlView from '../../components/atoms/render-html';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
 import Regular from 'typography/regular-text';
+import {getDriverTerm} from 'services/api/auth-api-actions';
+import {Loader} from 'components/atoms/loader';
 const TermsandConditionsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
-  const [value, setValue] = React.useState('');
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+  const [term, setTerm] = React.useState({});
+
   const [loading, setLoading] = React.useState(false);
-  const {values, errors, touched, setFieldValue, setFieldTouched, isValid} =
-    useFormik({
-      initialValues: initialValues,
-      validateOnBlur: true,
-      validateOnChange: true,
-      validationSchema: signinFormValidation,
-      onSubmit: () => {},
-    });
-  const onSubmit = async () => {
+
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
     try {
-      messaging()
-        .getToken()
-        .then(fcmToken => {
-          console.log('fcmToken=>', fcmToken);
-          // dispatch(onLogin({ ...values, token: fcmToken }, setLoading, props));
-          resetStack('Drawer');
-        })
-        .catch(error => console.log(error));
+      setLoading(true);
+      const res = await getDriverTerm();
+      setTerm(res);
+
+      console.log(res);
     } catch (error) {
-      console.log('error=>', error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <View style={styles.container}>
       {/* <View style={styles.container}> */}
@@ -90,21 +87,24 @@ const TermsandConditionsScreen = props => {
       </View>
 
       <View style={styles.contentContainerStyle}>
-        <View style={styles.contentContainerStyleNew}>
-          <KeyboardAvoidScrollview
-            contentContainerStyle={{
-              paddingHorizontal: mvs(0),
-              flexGrow: 0,
-              paddingBottom: mvs(50),
-            }}>
-            <Bold
-              label={t('terms_&_conditions')}
-              color={colors.red}
-              fontSize={mvs(16)}
-              style={{alignSelf: 'center', marginBottom: mvs(10)}}
-            />
+        {loading ? (
+          <Loader />
+        ) : (
+          <View style={styles.contentContainerStyleNew}>
+            <KeyboardAvoidScrollview
+              contentContainerStyle={{
+                paddingHorizontal: mvs(0),
+                flexGrow: 0,
+                paddingBottom: mvs(50),
+              }}>
+              <Bold
+                label={t('terms_&_conditions')}
+                color={colors.red}
+                fontSize={mvs(16)}
+                style={{alignSelf: 'center', marginBottom: mvs(10)}}
+              />
 
-            <Regular
+              {/* <Regular
               label={
                 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'
               }
@@ -112,9 +112,10 @@ const TermsandConditionsScreen = props => {
               color={colors.black}
               style={{textAlign: 'justify'}}
               numberOfLines={60}
-            />
-          </KeyboardAvoidScrollview>
-          <PrimaryButton
+            /> */}
+              <HtmlView html={term} />
+            </KeyboardAvoidScrollview>
+            {/* <PrimaryButton
             containerStyle={{
               borderRadius: mvs(10),
               marginTop: mvs(10),
@@ -122,8 +123,9 @@ const TermsandConditionsScreen = props => {
             loading={loading}
             // onPress={() => navigate('ResetPasswordScreen')}
             title={t('back')}
-          />
-        </View>
+          /> */}
+          </View>
+        )}
       </View>
     </View>
   );

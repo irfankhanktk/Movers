@@ -16,6 +16,8 @@ export const URLS = {
     // forget_password: 'doctor/forgetPassword',
     uploadImage: 'updateImage',
     update_profile: 'user/2',
+    driverTerms: 'getDriverTerms',
+    privacypolicy: 'getDriverPrivacy',
   },
   orderlist: {
     getorder: 'DriverOrderList',
