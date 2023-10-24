@@ -5,7 +5,7 @@ import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const RatingStar = ({
   size = mvs(16),
-  fill = colors.primary,
+  fill = colors.yellow,
   stroke = colors.border,
   rate = 4,
   width = '100%',

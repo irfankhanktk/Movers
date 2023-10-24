@@ -5,6 +5,8 @@ import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import moment from 'moment';
+import * as IMG from 'assets/images';
+
 import React, {useEffect} from 'react';
 import {
   Alert,
@@ -45,6 +47,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import {UTILS} from 'utils';
 import {onCreateConveration} from 'services/api/chat-api-actions';
 import {navigate} from 'navigation/navigation-ref';
+import RatingStar from 'components/molecules/rating-star';
 const OrderDetailsScreen = props => {
   const {id} = props?.route?.params;
   console.log(id);
@@ -398,10 +401,45 @@ const OrderDetailsScreen = props => {
                   keyExtractor={(_, index) => index?.toString()}
                 />
               </View>
+              {orderData?.driver_status === 'delivered' && (
+                <Row
+                  style={{
+                    backgroundColor: colors.white,
+                    // width: mvs(200),
+                    marginHorizontal: mvs(20),
+                    padding: mvs(10),
+                    borderRadius: mvs(10),
+                    justifyContent: 'flex-start',
+                    gap: mvs(20),
+                  }}>
+                  <Image
+                    source={IMG.Drawerman}
+                    style={{
+                      height: mvs(40),
+                      width: mvs(40),
+                      borderRadius: mvs(15),
+                    }}
+                  />
+                  <View style={{width: mvs(100)}}>
+                    {/* <Medium label={orderData?.review?.title} /> */}
+                    <Medium
+                      label={orderData?.name || 'N/A'}
+                      fontSize={mvs(14)}
+                    />
+                    <RatingStar rate={orderData?.review?.review || 'N/A'} />
+                    <Regular
+                      fontSize={mvs(12)}
+                      label={orderData?.review?.description || 'N/A'}
+                      style={{marginTop: mvs(6)}}
+                    />
+                  </View>
+                </Row>
+              )}
             </ScrollView>
           ) : (
             <Medium label={t('no_order_data')} /> // Render an empty state when orderData is not available yet
           )}
+
           <Row
             style={{
               paddingHorizontal: mvs(20),
