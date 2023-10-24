@@ -401,40 +401,41 @@ const OrderDetailsScreen = props => {
                   keyExtractor={(_, index) => index?.toString()}
                 />
               </View>
-              {orderData?.driver_status === 'delivered' && (
-                <Row
-                  style={{
-                    backgroundColor: colors.white,
-                    // width: mvs(200),
-                    marginHorizontal: mvs(20),
-                    padding: mvs(10),
-                    borderRadius: mvs(10),
-                    justifyContent: 'flex-start',
-                    gap: mvs(20),
-                  }}>
-                  <Image
-                    source={IMG.Drawerman}
+              {orderData?.driver_status === 'delivered' &&
+                orderData?.review && (
+                  <Row
                     style={{
-                      height: mvs(40),
-                      width: mvs(40),
-                      borderRadius: mvs(15),
-                    }}
-                  />
-                  <View style={{width: mvs(100)}}>
-                    {/* <Medium label={orderData?.review?.title} /> */}
-                    <Medium
-                      label={orderData?.name || 'N/A'}
-                      fontSize={mvs(14)}
+                      backgroundColor: colors.white,
+                      // width: mvs(200),
+                      marginHorizontal: mvs(20),
+                      padding: mvs(10),
+                      borderRadius: mvs(10),
+                      justifyContent: 'flex-start',
+                      gap: mvs(20),
+                    }}>
+                    <Image
+                      source={IMG.Drawerman}
+                      style={{
+                        height: mvs(40),
+                        width: mvs(40),
+                        borderRadius: mvs(15),
+                      }}
                     />
-                    <RatingStar rate={orderData?.review?.review || 'N/A'} />
-                    <Regular
-                      fontSize={mvs(12)}
-                      label={orderData?.review?.description || 'N/A'}
-                      style={{marginTop: mvs(6)}}
-                    />
-                  </View>
-                </Row>
-              )}
+                    <View style={{width: mvs(100)}}>
+                      {/* <Medium label={orderData?.review?.title} /> */}
+                      <Medium
+                        label={orderData?.name || 'N/A'}
+                        fontSize={mvs(14)}
+                      />
+                      <RatingStar rate={orderData?.review?.review || 'N/A'} />
+                      <Regular
+                        fontSize={mvs(12)}
+                        label={orderData?.review?.description || 'N/A'}
+                        style={{marginTop: mvs(6)}}
+                      />
+                    </View>
+                  </Row>
+                )}
             </ScrollView>
           ) : (
             <Medium label={t('no_order_data')} /> // Render an empty state when orderData is not available yet

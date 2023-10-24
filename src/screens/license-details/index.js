@@ -54,13 +54,18 @@ const LicenseDetailsScreen = props => {
       //   Alert.alert('Photo is required');
       //   return; // Return early if validation fails
       // }
-
+      if (!saveFile || !saveFile.uri) {
+        // Check if license_photo is empty
+        Alert.alert('Photo is required');
+        return; // Return early if validation fails
+      }
       setLoading(true);
       values.license_photo = saveFile ? saveFile.uri : '';
       const res = await onPostDriverDocument({
         ...values,
         license_photo: saveFile,
       });
+
       Alert.alert(res?.data?.message);
       // goBack();
 

@@ -146,16 +146,16 @@ export const LicenseDetailsValidation = yup.object().shape({
   license_expiry_date: yup.string().required('req_vat_license_expiry_date'),
   // license_photo: yup
   //   .mixed()
-  //   .test('fileFormat', 'Invalid file format', value => {
-  //     if (!value || !value.uri) return true; // Allow empty file or invalid value
-  //     const allowedExtensions = ['.jpg', '.jpeg', '.png'];
-  //     const fileExtension = (value.uri.split('.').pop() || '').toLowerCase();
-  //     return allowedExtensions.includes(`.${fileExtension}`);
+  //   .test('required', 'License Photo is required', value => {
+  //     if (!value) {
+  //       return false; // Empty field is not allowed
+  //     }
+  //     return true; // Valid if a file is selected
   //   }),
   // license_photo: yup
   //   .mixed()
   //   .test('required', 'License Photo is required', value => {
-  //     return value && value !== ''; // Check if the value is not an empty string
+  //     return value && Object.keys(value).length > 0; // Check if a file object is present
   //   }),
 });
 // export const LicenseDetailsValidation = values => {
