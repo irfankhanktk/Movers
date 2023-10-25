@@ -19,9 +19,7 @@ const ChatCard = ({item, style, onPress, loading}) => {
           <Image
             borderRadius={mvs(10)}
             source={
-              item?.receiver_image
-                ? {uri: item?.receiver_image}
-                : IMG.messagelogo
+              item?.receiver_image ? {uri: item?.receiver_image} : IMG.Drawerman
             }
             style={styles.backGroundImage}
           />

@@ -67,7 +67,7 @@ const ForgotPasswordScreen = props => {
       navigate('ResetPasswordScreen', {
         ...values,
       });
-      // setOtpModalVisible(true);
+      setOtpModalVisible(true);
     } catch (error) {
       console.log('error=>', error);
       setLoading(false);

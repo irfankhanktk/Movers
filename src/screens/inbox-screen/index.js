@@ -133,8 +133,10 @@ const InboxScreen = props => {
               borderRadius={mvs(10)}
               source={
                 info?.receiver_image
-                  ? {uri: info?.receiver_image}
-                  : {uri: image}
+                  ? {uri: info.receiver_image}
+                  : image
+                  ? {uri: image}
+                  : IMG.Drawerman
               }
               // source={IMG.messagelogo}
               style={styles.backGroundImage}

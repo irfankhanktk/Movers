@@ -46,7 +46,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import {UTILS} from 'utils';
 import {onCreateConveration} from 'services/api/chat-api-actions';
-import {navigate} from 'navigation/navigation-ref';
+import {goBack, navigate} from 'navigation/navigation-ref';
 import RatingStar from 'components/molecules/rating-star';
 const OrderDetailsScreen = props => {
   const {id} = props?.route?.params;
@@ -195,8 +195,9 @@ const OrderDetailsScreen = props => {
             // If the user confirms the acceptance, call the ChangeStatus function
             ChangeStatus('start', id);
             // Then, refresh the list
-            Alert.alert('Order has been Started');
             getList();
+            Alert.alert('Order has been Started');
+            goback();
           },
         },
       ],
@@ -219,8 +220,9 @@ const OrderDetailsScreen = props => {
             // If the user confirms the acceptance, call the ChangeStatus function
             ChangeStatus('delivered', id);
             // Then, refresh the list
-            Alert.alert('Order has been Completed');
             getList();
+            Alert.alert('Order has been Completed');
+            goBack();
           },
         },
       ],
@@ -421,15 +423,18 @@ const OrderDetailsScreen = props => {
                         borderRadius: mvs(15),
                       }}
                     />
-                    <View style={{width: mvs(100)}}>
+                    <View style={{flex: 1}}>
                       {/* <Medium label={orderData?.review?.title} /> */}
                       <Medium
                         label={orderData?.name || 'N/A'}
                         fontSize={mvs(14)}
                       />
-                      <RatingStar rate={orderData?.review?.review || 'N/A'} />
+                      <View style={{width: mvs(100)}}>
+                        <RatingStar rate={orderData?.review?.review || 'N/A'} />
+                      </View>
                       <Regular
                         fontSize={mvs(12)}
+                        numberOfLines={10}
                         label={orderData?.review?.description || 'N/A'}
                         style={{marginTop: mvs(6)}}
                       />

@@ -28,7 +28,7 @@ export const signupFormValidation = yup.object().shape({
     .typeError('invalid_phone')
     .positive('invalid_phone')
     .integer('invalid_phone')
-    .min(8, 'invalid_phone')
+    .min(10, 'invalid_phone')
     .required('Phone is required'),
   password: yup.string().required('req_pass').min(8, 'weak_pass'),
   confirm_password: yup

@@ -46,6 +46,7 @@ import {
   onSignup,
   onStoreVehicle,
 } from 'services/api/auth-api-actions';
+import {UTILS} from 'utils';
 const AddVehicleScreen = props => {
   const {user} = useAppSelector(s => s);
   const dispatch = useAppDispatch();

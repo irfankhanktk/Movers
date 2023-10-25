@@ -88,7 +88,7 @@ const MOTDetailsScreen = props => {
         mot_photo: saveFile,
       });
       Alert.alert(res?.data?.message);
-      // goBack();
+      goBack();
 
       console.log(res?.data);
     } catch (error) {

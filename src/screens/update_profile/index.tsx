@@ -108,7 +108,7 @@ const UpdateProfileScreen = (props: props) => {
           ...updatedValues,
           country_code: countries?.find(x => x?.selected)?.code || 'PK',
           id: userInfo?.id,
-          fcm_token: '123456',
+          fcm_token: userInfo?.fcm_token,
           type: 'Driver',
         },
         setLoading,

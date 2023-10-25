@@ -27,6 +27,7 @@ import {pickDocument, UTILS} from 'utils';
 import DocumentPicker from 'react-native-document-picker';
 import Regular from 'typography/regular-text';
 import {Loader} from 'components/atoms/loader';
+import {goBack} from 'navigation/navigation-ref';
 const LicenseDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -67,7 +68,7 @@ const LicenseDetailsScreen = props => {
       });
 
       Alert.alert(res?.data?.message);
-      // goBack();
+      goBack();
 
       console.log(res?.data);
     } catch (error) {
