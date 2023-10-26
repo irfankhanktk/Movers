@@ -267,6 +267,16 @@ export const getDriverTerm = async (slug: string) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getContactUs = async (slug: string) => {
+  try {
+    const res = await getData(URLS.auth.contactUs);
+    console.log('res of contactUs=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 export const getPrivacyPolicy = async (slug: string) => {
   try {
     const res = await getData(URLS.auth.privacypolicy);
@@ -344,6 +354,24 @@ export const getOrderStatusChange = async (id: string, status: any) => {
     // return;
     const res = await getData(
       `${URLS.orderlist.orderStatus}?service_id=${id}&status=${status}`,
+    );
+    console.log('res of status=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+export const getOrderStatusChange2 = async (
+  id: string,
+  status: any,
+  reason: string,
+) => {
+  try {
+    console.log(status);
+    // return;
+    const res = await getData(
+      `${URLS.orderlist.orderStatus}?service_id=${id}&status=${status}&reason=${reason}`,
     );
     console.log('res of status=>', res);
     return res;

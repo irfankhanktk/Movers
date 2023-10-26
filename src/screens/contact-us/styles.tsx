@@ -8,19 +8,40 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   contentContainerStyle: {
-    // flexGrow: 1,
     flex: 1,
-    paddingVertical: mvs(30),
+    paddingVertical: mvs(10),
     paddingHorizontal: mvs(20),
     // paddingBottom: mvs(100),
   },
   contentContainerStyleFlatlist: {
     paddingVertical: mvs(10),
+    flexGrow: 1,
     // paddingHorizontal: mvs(20),
-    paddingBottom: mvs(120),
+    paddingBottom: mvs(100),
   },
   columnWrapperStyle: {
     justifyContent: 'space-between',
+  },
+  contentContainerStyleNew: {
+    // marginVertical: mvs(10),
+    marginBottom: mvs(40),
+    paddingVertical: mvs(8),
+    width: '100%',
+    height: mvs(176),
+    // borderColor: colors.primary,
+    backgroundColor: colors.primary,
+    // justifyContent: 'space-between',
+    // borderWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+    borderRadius: mvs(30),
   },
   rendercontainer: {
     padding: mvs(10),
@@ -38,33 +59,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: mvs(5),
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  modalContent: {
-    width: '80%', // Adjust the width as needed
-    backgroundColor: 'white',
-    padding: mvs(20),
-    height: mvs(300),
-    borderRadius: mvs(10),
-  },
-  textInput: {
-    marginTop: mvs(30),
-    borderWidth: mvs(1),
-    borderColor: colors.black,
-    padding: mvs(10),
-    marginBottom: mvs(10),
-    borderRadius: mvs(10),
-    height: mvs(130),
-  },
-  cross: {
-    padding: mvs(14),
-    alignSelf: 'flex-end',
-    position: 'absolute',
-    top: mvs(-5),
+  plusbutton: {
+    backgroundColor: colors.black,
+    marginBottom: mvs(40),
   },
 });
 export default styles;

@@ -18,6 +18,7 @@ export const URLS = {
     update_profile: 'user/2',
     driverTerms: 'getDriverTerms',
     privacypolicy: 'getDriverPrivacy',
+    contactUs: 'contactUsInfo',
   },
   orderlist: {
     getorder: 'DriverOrderList',

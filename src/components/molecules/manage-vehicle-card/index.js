@@ -66,7 +66,7 @@ const MangeVehcileCard = ({
           <Medium
             label={t('vehicle_type')}
             color={colors.white}
-            style={{width: mvs(150)}}
+            style={{width: mvs(170)}}
             fontSize={mvs(16)}
           />
           <Medium
@@ -80,7 +80,7 @@ const MangeVehcileCard = ({
           <Regular
             label={t('vehicle_model')}
             color={colors.white}
-            style={{width: mvs(150)}}
+            style={{width: mvs(170)}}
             fontSize={mvs(12)}
           />
           <Regular
@@ -95,7 +95,7 @@ const MangeVehcileCard = ({
             label={t('vehicle_year')}
             color={colors.white}
             fontSize={mvs(12)}
-            style={{width: mvs(150)}}
+            style={{width: mvs(170)}}
           />
           <Regular
             label={item?.vehicle_year}
@@ -108,7 +108,7 @@ const MangeVehcileCard = ({
           <Regular
             label={t('vehicle_make')}
             color={colors.white}
-            style={{width: mvs(150)}}
+            style={{width: mvs(170)}}
             fontSize={mvs(12)}
           />
           <Regular
@@ -123,7 +123,7 @@ const MangeVehcileCard = ({
           <Regular
             label={t('vehicle_load_capacity')}
             color={colors.white}
-            style={{width: mvs(150)}}
+            style={{width: mvs(170)}}
             fontSize={mvs(12)}
           />
           <Regular
@@ -138,12 +138,27 @@ const MangeVehcileCard = ({
           <Regular
             label={t('created_at')}
             color={colors.white}
-            style={{width: mvs(150)}}
+            style={{width: mvs(170)}}
             fontSize={mvs(12)}
           />
           <Regular
             // moment().format(DATE_FORMAT.yyyy_mm_dd)
             label={moment(item?.created_at).format('DD MMM, YYYY  hh:mm a')}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
+            label={t('no_of_order')}
+            color={colors.white}
+            style={{width: mvs(170)}}
+            fontSize={mvs(12)}
+          />
+          <Regular
+            // moment().format(DATE_FORMAT.yyyy_mm_dd)
+            label={'12'}
             color={colors.white}
             style={{flex: 1}}
             fontSize={mvs(12)}

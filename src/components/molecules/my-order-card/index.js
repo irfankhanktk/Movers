@@ -5,7 +5,9 @@ import React from 'react';
 import {
   Image,
   ImageBackground,
+  Modal,
   StyleSheet,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -20,7 +22,7 @@ import {SendIcon, SpecialistLocation} from 'assets/icons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {ColorSpace} from 'react-native-reanimated';
 import moment from 'moment';
-
+import {CheckmarkAnimation, CrossModal, OTPAnimation} from 'assets/icons';
 const MyOrderCard = ({
   item,
   backgroundColor,
@@ -40,6 +42,8 @@ const MyOrderCard = ({
   // console.log(';iteem user id', item);
   const {t} = i18n;
   const [isAccepted, setIsAccepted] = React.useState(false);
+  // const [isRejectInputVisible, setIsRejectInputVisible] = React.useState(false);
+  // const [rejectReason, setRejectReason] = React.useState('');
   const handleAccept = () => {
     setIsAccepted(true);
     onPressAccept(item?.id, 1);
@@ -241,6 +245,7 @@ const MyOrderCard = ({
                 color: colors.white,
               }}
               onPress={onPressReject}
+              // onPress={() => setIsRejectInputVisible(true)}
             />
           )}
           {/* </> */}
@@ -262,6 +267,38 @@ const MyOrderCard = ({
           />
         </Row>
       </View>
+      {/* {isRejectInputVisible && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isRejectInputVisible}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                onPress={() => setIsRejectInputVisible(false)}
+                style={styles.cross}>
+                <CrossModal height={mvs(30)} width={mvs(30)} />
+              </TouchableOpacity>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Enter rejection reason"
+                value={rejectReason}
+                onChangeText={text => setRejectReason(text)}
+                multiline={true} // Allow multiline input
+                numberOfLines={6} // Set the number of lines you want to display
+                textAlignVertical="top"
+              />
+              <PrimaryButton
+                title="Confirm Reject"
+                onPress={() => {
+                  onPressReject(item?.id, 0, rejectReason); // Pass the reason to onPressReject
+                  setIsRejectInputVisible(false); // Close the modal
+                }}
+              />
+            </View>
+          </View>
+        </Modal>
+      )} */}
     </Row>
   );
 };
@@ -327,5 +364,33 @@ const styles = StyleSheet.create({
     width: mvs(30),
     borderRadius: mvs(15),
     backgroundColor: colors.red,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%', // Adjust the width as needed
+    backgroundColor: 'white',
+    padding: mvs(20),
+    height: mvs(300),
+    borderRadius: mvs(10),
+  },
+  textInput: {
+    marginTop: mvs(30),
+    borderWidth: mvs(1),
+    borderColor: colors.black,
+    padding: mvs(10),
+    marginBottom: mvs(10),
+    borderRadius: mvs(10),
+    height: mvs(130),
+  },
+  cross: {
+    padding: mvs(14),
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    top: mvs(-5),
   },
 });

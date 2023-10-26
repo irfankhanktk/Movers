@@ -136,6 +136,16 @@ const RecentOrderCard = ({
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />
+      <LabelValue
+        containerStyle={{
+          paddingHorizontal: mvs(4),
+          paddingVertical: mvs(8),
+        }}
+        label={t('price')}
+        value={`USD ${item?.driver_price} ` || 'N/A'}
+        labelStyle={{flex: 1}}
+        valueStyle={{flex: 1}}
+      />
     </View>
     // </View>
   );

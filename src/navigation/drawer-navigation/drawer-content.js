@@ -87,16 +87,17 @@ const CustomDrawerContent = props => {
           label1={t('history')}
           containerStyle={styles.helpStyle}
         />
-        {/* <DrawerHomeCard
-          onPress={() => navigate('HistoryScreen')}
-          icon1={IMG.settings}
-          label1={t('setting')}
-          containerStyle={styles.helpStyle}
-        /> */}
+
         <DrawerHomeCard
           onPress={() => navigate('MessageHomeScreen')}
           icon1={IMG.message}
           label1={t('chat_screen')}
+          containerStyle={styles.helpStyle}
+        />
+        <DrawerHomeCard
+          onPress={() => navigate('ShoppingScreen')}
+          icon1={IMG.contactUs}
+          label1={t('Contact Us')}
           containerStyle={styles.helpStyle}
         />
       </ScrollView>

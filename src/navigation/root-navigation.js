@@ -7,7 +7,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import AboutUsScreen from 'screens/categories';
 import AdviceFromUsScreen from 'screens/advice-from-us';
 import BlogScreen from 'screens/cart';
-import ContactUsScreen from 'screens/shopping';
+// import ContactUsScreen from 'screens/shopping';
+import ShoppingScreen from 'screens/shopping';
 import DriveWithUsScreen from 'screens/drive-with-us';
 import DriverLoginScreen from 'screens/driver-login';
 import DriverSignup from 'screens/driver-signup';
@@ -28,7 +29,7 @@ import WhereToMoveScreen from 'screens/where-to-move';
 import {horizontalAnimation} from '../utils';
 import DrawerNavigation from './drawer-navigation/drawer-navigation';
 import CategoriesScreen from 'screens/categories';
-import ShoppingScreen from 'screens/shopping';
+
 import CartScreen from 'screens/cart';
 import MyOrderScreen from 'screens/my-order';
 import OrderDetailsScreen from 'screens/order-details';
@@ -48,6 +49,7 @@ import ManageVehicleDocumentScreen from 'screens/manage-vehicle-document';
 import InboxScreen from 'screens/inbox-screen';
 import MessageHomeScreen from 'screens/messageHome';
 import UpdateProfileScreen from 'screens/update_profile';
+import ContactUsScreen from 'screens/contact-us';
 import UserTab from 'screens/user-tab';
 
 const Stack = createNativeStackNavigator();
@@ -68,6 +70,7 @@ export const RootNavigator = () => {
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="UserTab" component={UserTab} />
           <Stack.Screen name="Onboarding" component={Onboarding} />
+          <Stack.Screen name="ContactUsScreen" component={ContactUsScreen} />
           <Stack.Screen name="Me" component={Me} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={Signup} />

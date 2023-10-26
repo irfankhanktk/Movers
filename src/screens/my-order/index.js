@@ -6,7 +6,16 @@ import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import moment from 'moment';
 import React, {useEffect} from 'react';
-import {Alert, FlatList, Image, RefreshControl, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  Image,
+  Modal,
+  RefreshControl,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
@@ -19,11 +28,13 @@ import {ORDER_LIST} from 'config/constants';
 import {
   getOrderListList,
   getOrderStatusChange,
+  getOrderStatusChange2,
 } from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
 import {useIsFocused} from '@react-navigation/native';
 import {onCreateConveration} from 'services/api/chat-api-actions';
 import {navigate} from 'navigation/navigation-ref';
+import {CheckmarkAnimation, CrossModal, OTPAnimation} from 'assets/icons';
 
 const MyOrderScreen = props => {
   const dispatch = useAppDispatch();
@@ -34,6 +45,9 @@ const MyOrderScreen = props => {
   const [orderData, setOrderData] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [chatLoading, setChatLoading] = React.useState(false);
+  const [id, setId] = React.useState();
+  const [isRejectInputVisible, setIsRejectInputVisible] = React.useState(false);
+  const [reason, setReason] = React.useState('');
   const isFocus = useIsFocused();
 
   React.useEffect(() => {
@@ -128,8 +142,9 @@ const MyOrderScreen = props => {
           text: 'Reject',
           onPress: () => {
             // If the user confirms the rejection, call the ChangeStatus function
-            ChangeStatus(itemId, 0);
+            ChangeStatus2(itemId, 0, reason);
             Alert.alert('Order has been Rejected');
+            setReason('');
             // Then, refresh the list
             getList();
           },
@@ -152,14 +167,32 @@ const MyOrderScreen = props => {
       Alert.alert('Error', UTILS.returnError(error));
     }
   };
+  const ChangeStatus2 = async (id, status, reason) => {
+    console.log('id', id, status, reason);
+    // return;
+    try {
+      // const status = isRejected ? 0 : 1;
+
+      const res = await getOrderStatusChange2(id, status, reason);
+
+      console.log('resp==========>', res);
+    } catch (error) {
+      console.log('Error:', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
   useEffect(() => {}, []);
   const renderAppointmentItem = ({item, index}) => (
     <MyOrderCard
       item={item}
       onPressDetails={() =>
-        props?.navigation?.navigate('OrderDetailsScreen', {
-          id: item?.id,
-        })
+        props?.navigation?.navigate(
+          'OrderDetailsScreen',
+          {
+            id: item?.id,
+          },
+          console.log('sl', id),
+        )
       }
       onPressChat={() => onMessagePress(item?.user_id)}
       chatLoading={chatLoading}
@@ -187,10 +220,16 @@ const MyOrderScreen = props => {
         item?.status === 'start'
       }
       // onRefreshList={getList}
-      onPressAccept={() => onPressAccept(item?.id)} // To accept the order
-      onPressReject={() => onPressReject(item?.id)} // To reject the order
+      onPressAccept={() => onPressAccept(item?.id)}
+      // To accept the order
+      onPressReject={() => {
+        setIsRejectInputVisible(true), setId(item?.id);
+      }}
+      // To reject the order
+      // onPressReject={() => onPressReject(item?.id)} // To reject the order
     />
   );
+  console.log('id', orderData?.id);
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
@@ -294,6 +333,39 @@ const MyOrderScreen = props => {
           />
         )}
       </View>
+      {isRejectInputVisible && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isRejectInputVisible}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <TouchableOpacity
+                onPress={() => setIsRejectInputVisible(false)}
+                style={styles.cross}>
+                <CrossModal height={mvs(30)} width={mvs(30)} />
+              </TouchableOpacity>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Enter rejection reason"
+                value={reason}
+                onChangeText={text => setReason(text)}
+                multiline={true} // Allow multiline input
+                numberOfLines={6} // Set the number of lines you want to display
+                textAlignVertical="top"
+              />
+              <PrimaryButton
+                title="Confirm Reject"
+                onPress={() => {
+                  onPressReject(id); // Pass the reason to onPressReject
+                  setIsRejectInputVisible(false); // Close the modal
+                }}
+              />
+            </View>
+          </View>
+        </Modal>
+      )}
+      {console.log('orderData?.id', orderData?.id)}
       {/* <PlusButton /> */}
     </View>
   );

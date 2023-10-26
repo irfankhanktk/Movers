@@ -190,6 +190,9 @@
   "price":"Price",
   "get_direction":"Get Directions",
   "chat":"Chat",
-  "call":"Call"
+  "call":"Call",
+  "no_of_order":"No of Order",
+  "reach_out_at":"React Out At",
+  "contact_us":"Contact Us"
   
 }
