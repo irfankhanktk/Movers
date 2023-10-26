@@ -195,9 +195,10 @@ const OrderDetailsScreen = props => {
             // If the user confirms the acceptance, call the ChangeStatus function
             ChangeStatus('start', id);
             // Then, refresh the list
-            getList();
+
             Alert.alert('Order has been Started');
-            goback();
+            getList();
+            goBack();
           },
         },
       ],
@@ -220,8 +221,9 @@ const OrderDetailsScreen = props => {
             // If the user confirms the acceptance, call the ChangeStatus function
             ChangeStatus('delivered', id);
             // Then, refresh the list
-            getList();
+
             Alert.alert('Order has been Completed');
+            getList();
             goBack();
           },
         },
