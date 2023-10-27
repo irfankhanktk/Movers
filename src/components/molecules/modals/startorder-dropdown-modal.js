@@ -8,7 +8,7 @@ import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Medium from 'typography/medium-text';
 
-const DropdownModal = ({
+const StartOrderDropdownModal = ({
   style = {},
   value,
   visible = false,
@@ -42,14 +42,16 @@ const DropdownModal = ({
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => onChangeText(item?.id, onClose())}
+                onPress={() =>
+                  onChangeText(item?.id, item?.vehicle_number, item, onClose())
+                }
                 style={styles.button}>
                 <Medium
                   label={
-                    item?.title ||
-                    item?.name ||
-                    item?.type ||
-                    item?.id ||
+                    // item?.title ||
+                    // item?.name ||
+                    // item?.type ||
+                    // item?.id ||
                     item?.vehicle_type
                   }
                   style={{fontSize: mvs(16)}}
@@ -70,7 +72,7 @@ const DropdownModal = ({
     </ModalWrapper>
   );
 };
-export default DropdownModal;
+export default StartOrderDropdownModal;
 const styles = StyleSheet.create({
   contentContainerStyle: {
     width: '100%',

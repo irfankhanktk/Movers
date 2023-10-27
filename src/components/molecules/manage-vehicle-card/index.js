@@ -92,6 +92,20 @@ const MangeVehcileCard = ({
         </Row>
         <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
           <Regular
+            label={t('vehicle_number')}
+            color={colors.white}
+            style={{width: mvs(170)}}
+            fontSize={mvs(12)}
+          />
+          <Regular
+            label={item?.vehicle_number}
+            color={colors.white}
+            style={{flex: 1}}
+            fontSize={mvs(12)}
+          />
+        </Row>
+        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+          <Regular
             label={t('vehicle_year')}
             color={colors.white}
             fontSize={mvs(12)}
@@ -171,7 +185,7 @@ const MangeVehcileCard = ({
           alignSelf: 'center',
           // top: mvs(40),
           right: mvs(10),
-          bottom: mvs(-65),
+          bottom: mvs(-75),
         }}>
         <Image
           // source={item?.icon}
@@ -213,7 +227,7 @@ const styles = StyleSheet.create({
     marginBottom: mvs(40),
     paddingVertical: mvs(8),
     width: '100%',
-    height: mvs(246),
+    height: mvs(270),
     // borderColor: colors.primary,
     backgroundColor: colors.primary,
     // justifyContent: 'space-between',

@@ -39,7 +39,11 @@ import {
   getDistance,
   getOrderDetails,
   getOrderDetailsStatusChange,
+  getOrderDetailsStatusChange2,
   getOrderStatusChange,
+  getVehcileList,
+  getVehcileListOrder,
+  onCreateVehicle,
 } from 'services/api/auth-api-actions';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -48,10 +52,13 @@ import {UTILS} from 'utils';
 import {onCreateConveration} from 'services/api/chat-api-actions';
 import {goBack, navigate} from 'navigation/navigation-ref';
 import RatingStar from 'components/molecules/rating-star';
+import {InputWithIcon, InputWithIcon2} from 'components/atoms/inputs';
 const OrderDetailsScreen = props => {
   const {id} = props?.route?.params;
   console.log(id);
   const dispatch = useAppDispatch();
+  const {user} = useAppSelector(s => s);
+  const {vehicle_types} = user;
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
@@ -60,33 +67,27 @@ const OrderDetailsScreen = props => {
   const [orderData, setOrderData] = React.useState({});
   const [chatLoading, setChatLoading] = React.useState(false);
   const [total, setTotal] = React.useState({});
+  const [vehicle_id, setVehicle_id] = React.useState('');
+  const [vehicle_number, setVehicle_number] = React.useState('');
+  const [vehcileLists, setVehicleLists] = React.useState([]);
 
-  // const [orderStatus, setOrderStatus] = React.useState(
-  //   orderData?.driver_status === null
-  //     ? 'start'
-  //     : orderData?.driver_status || 'start',
-  // );
-  // const [orderStatus, setOrderStatus] = React.useState(() => {
-  //   if (orderData?.driver_status === null) {
-  //     return 'start';
-  //   } else if (orderData?.driver_status === 'delivered') {
-  //     return 'delivered';
-  //   } else {
-  //     return 'start';
-  //   }
-  // });
-
-  // console.log('orderStatus', orderStatus);
-
-  // React.useEffect(() => {
-  //   setOrderStatus(orderData?.driver_status || 'start');
-  // }, [orderData.driver_status]);
-  const readNotifications = async () => {
+  React.useEffect(() => {
+    getListVehcile();
+  }, []);
+  const getListVehcile = async () => {
     try {
+      setLoading(true);
+      const res = await getVehcileListOrder();
+      setVehicleLists(res?.vehicles);
+
+      console.log('screen1', res?.vehicles);
     } catch (error) {
-      console.log('error=>', error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
+
   const onMessagePress = async user_id => {
     try {
       setChatLoading(true);
@@ -108,62 +109,6 @@ const OrderDetailsScreen = props => {
     }
   };
 
-  // const ChangeStatus = async (status, id) => {
-  //   try {
-  //     // Assuming you have an API call to update the status and receive the new status.
-  //     // You can adapt this part according to your API implementation.
-  //     let newStatus;
-
-  //     if (status === 'start') {
-  //       newStatus = 'delivered';
-  //     } else if (status === 'delivered') {
-  //       newStatus = 'delivered'; // Change to 'completed' when 'delivered'
-  //     }
-
-  //     const res = await getOrderDetailsStatusChange(newStatus, id);
-
-  //     // Update the button title based on the new status
-  //     const newTitle =
-  //       newStatus === 'start'
-  //         ? 'Start'
-  //         : newStatus === 'delivered'
-  //         ? 'Delivered'
-  //         : 'Delivered';
-
-  //     // Update the orderStatus state
-  //     setOrderStatus(newStatus);
-
-  //     console.log('New status:', newStatus);
-  //     console.log('resp==========>', res);
-  //   } catch (error) {
-  //     console.log('Error:', UTILS.returnError(error));
-  //     Alert.alert('Error', UTILS.returnError(error));
-  //   }
-  // };
-
-  // const ChangeStatus = async (status, id) => {
-  //   try {
-  //     const res = await getOrderDetailsStatusChange(status, id);
-
-  //     // Update the button title based on the new status
-  //     const newTitle =
-  //       status === 'start'
-  //         ? 'Start'
-  //         : status === 'delivered'
-  //         ? 'Delivered'
-  //         : 'Delivered';
-
-  //     // Update the orderStatus state
-  //     setOrderStatus(status);
-  //     getList();
-
-  //     console.log('New status:', status);
-  //     console.log('resp==========>', res);
-  //   } catch (error) {
-  //     console.log('Error:', UTILS.returnError(error));
-  //     Alert.alert('Error', UTILS.returnError(error));
-  //   }
-  // };
   const ChangeStatus = async (status, id) => {
     console.log('id', status, id);
     // return;
@@ -171,6 +116,25 @@ const OrderDetailsScreen = props => {
       // const status = isRejected ? 0 : 1;
 
       const res = await getOrderDetailsStatusChange(status, id);
+
+      console.log('resp==========>', res);
+    } catch (error) {
+      console.log('Error:', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
+  const ChangeStatus2 = async (status, id, vehicle_id, vehicle_number) => {
+    console.log('id', status, id, vehicle_id, vehicle_number);
+    // return;
+    try {
+      // const status = isRejected ? 0 : 1;
+
+      const res = await getOrderDetailsStatusChange2(
+        status,
+        id,
+        vehicle_id,
+        vehicle_number,
+      );
 
       console.log('resp==========>', res);
     } catch (error) {
@@ -193,7 +157,7 @@ const OrderDetailsScreen = props => {
           text: 'Start',
           onPress: () => {
             // If the user confirms the acceptance, call the ChangeStatus function
-            ChangeStatus('start', id);
+            ChangeStatus2('start', id, vehicle_id, vehicle_number);
             // Then, refresh the list
 
             Alert.alert('Order has been Started');
@@ -303,27 +267,7 @@ const OrderDetailsScreen = props => {
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
-  // const origin = {latitude: 37.78825, longitude: -122.4324};
-  // const destination = {latitude: 37.7749, longitude: -122.4194};
 
-  // const getTimeDistance = async () => {
-  //   try {
-  //     const res = await getDistance(
-  //       origin?.latitude,
-  //       destination?.latitude,
-  //       origin?.longitude,
-  //       destination?.longitude,
-  //     );
-  //     setTotalDistance(res);
-  //   } catch (error) {
-  //     console.log('Error in getdiustance====>', error);
-  //     Alert.alert('Error', UTILS.returnError(error));
-  //   } finally {
-  //   }
-  // };
-  // useEffect(() => {
-  //   getTimeDistance();
-  // }, [total]);
   return (
     <View style={styles.container}>
       <Header1x2x title={t('order_details')} />
@@ -443,6 +387,19 @@ const OrderDetailsScreen = props => {
                     </View>
                   </Row>
                 )}
+
+              {orderData?.driver_status !== 'start' &&
+                orderData?.driver_status !== 'delivered' && (
+                  <View style={{marginHorizontal: mvs(20)}}>
+                    <InputWithIcon2
+                      placeholder={t('select_vehicle_type')}
+                      onChangeText={selectedId => setVehicle_id(selectedId)}
+                      value={vehicle_id}
+                      id={vehicle_id}
+                      items={vehcileLists}
+                    />
+                  </View>
+                )}
             </ScrollView>
           ) : (
             <Medium label={t('no_order_data')} /> // Render an empty state when orderData is not available yet
@@ -455,73 +412,6 @@ const OrderDetailsScreen = props => {
               marginBottom: mvs(20),
               paddingTop: mvs(16),
             }}>
-            {/* {orderData?.status === 'accepted' && (
-              <PrimaryButton
-                containerStyle={styles.acceptbutton}
-                // title={
-                //   orderStatus === null || orderStatus === ''
-                //     ? 'Start'
-                //     : orderStatus === 'start'
-                //     ? 'Delivered'
-                //     : orderStatus === 'delivered'
-                //     ? 'Delivered'
-                //     : 'Unknown'
-                // }
-                title={
-                  orderData?.driver_status === null
-                    ? 'start'
-                    : orderData?.driver_status === 'delivered'
-                    ? 'delivered'
-                    : 'start'
-                }
-                // title={orderStatus === 'start' ? 'Delivered' : 'Start'}
-                // onPress={() => {
-                //   // Calculate the new status based on the current status
-                //   const newStatus =
-                //     orderStatus === null || orderStatus === ''
-                //       ? 'start'
-                //       : orderStatus === 'start'
-                //       ? 'delivered'
-                //       : orderStatus === 'delivered'
-                //       ? 'delivered'
-                //       : 'unknown';
-                //   // Call the ChangeStatus function with the new status and the id
-                //   ChangeStatus(newStatus, id);
-                // }}
-                // onPress={() => {
-                //   // Calculate the new status based on the current status
-                //   const newStatus =
-                //     orderStatus === 'start' ? 'delivered' : 'start';
-                //   // Call the ChangeStatus function with the new status and the id
-                //   ChangeStatus(newStatus, id);
-                // }}
-                onPress={() => {
-                  if (orderStatus === 'start') {
-                    // Call the ChangeStatus function to change status to 'delivered'
-                    ChangeStatus('delivered', id);
-                  } else if (orderStatus === 'delivered') {
-                    // No need to change status, just call the ChangeStatus function
-                    ChangeStatus('delivered', id);
-                  }
-                }}
-              />
-            )} */}
-            {/* {
-              orderData?.driver_status === null ? (
-                <PrimaryButton
-                  containerStyle={styles.acceptbutton}
-                  title={'start'}
-                  onPress={() => onPressAccept(id)}
-                />
-              ) : orderData?.driver_status === 'start' ||
-                orderData?.driver_status === 'delivered' ? (
-                <PrimaryButton
-                  containerStyle={styles.acceptbutton}
-                  title={'delivered'}
-                  onPress={() => onPressReject(id)}
-                />
-              ) : null // Agar koi aur condition nahi milti to null return karein
-            } */}
             {orderData?.status !== 'free' &&
               orderData?.status !== 'paid' &&
               (orderData?.driver_status === null ||
@@ -547,7 +437,7 @@ const OrderDetailsScreen = props => {
                     orderData?.driver_status === 'delivered' ||
                     orderData?.driver_status === 'start'
                       ? () => onPressReject(id)
-                      : () => onPressAccept(id)
+                      : () => onPressAccept(id, vehicle_id, vehicle_number)
                   }
                 />
               )}

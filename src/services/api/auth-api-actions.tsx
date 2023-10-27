@@ -247,6 +247,16 @@ export const getVehcileList = async (slug: string) => {
     Alert.alert('Error', UTILS.returnError(error));
   }
 };
+export const getVehcileListOrder = async (slug: string) => {
+  try {
+    const res = await getData(URLS.vehcile.vehicle_list_order);
+    console.log('res of vehcilellist=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
 export const getOrderListList = async (slug: string) => {
   try {
     const res = await getData(URLS.orderlist?.getorder);
@@ -389,6 +399,28 @@ export const getOrderDetailsStatusChange = async (status: any, id: string) => {
     // return;
     const res = await getData(
       `${URLS.orderlist.StatusChangeOrder}?status=${status}&service_id=${id}`,
+    );
+    console.log('res of status=>', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+export const getOrderDetailsStatusChange2 = async (
+  status: any,
+  id: string,
+  vehicle_id: string,
+  vehicle_number: string,
+) => {
+  // console.log(status, id);
+  // return;
+
+  try {
+    console.log(status);
+    // return;
+    const res = await getData(
+      `${URLS.orderlist.StatusChangeOrder}?status=${status}&service_id=${id}&vehicle_id=${vehicle_id}&vehicle_number=${vehicle_number}`,
     );
     console.log('res of status=>', res);
     return res;

@@ -29,6 +29,7 @@ import DropdownModal from 'components/molecules/modals/dropdown-modal';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {t} from 'i18next';
 import {menue} from 'assets/images';
+import StartOrderDropdownModal from 'components/molecules/modals/startorder-dropdown-modal';
 type props = {
   isRequired?: boolean;
   onChangeText: (text: string) => void;
@@ -320,7 +321,56 @@ export const InputWithIcon = (props: props) => {
     </>
   );
 };
-
+export const InputWithIcon2 = (props: props) => {
+  const [visible, setVisible] = React.useState(false);
+  const {
+    items = [],
+    onChangeText,
+    onBlur = () => {},
+    value,
+    style,
+    containerStyle,
+    id,
+    placeholder,
+    editable,
+    error,
+    label,
+    isRequired = false,
+  } = props;
+  const [selectedVehicleType, setSelectedVehicleType] = React.useState(value);
+  return (
+    <>
+      {label && (
+        <Regular label={label} style={styles.labelStyle}>
+          {isRequired ? <Regular color={colors.red} label={' *'} /> : null}
+        </Regular>
+      )}
+      <TouchableOpacity
+        disabled={editable}
+        onPress={() => {
+          setVisible(true);
+          onBlur();
+        }}
+        style={[styles.dropDownContainer, containerStyle]}>
+        <Medium label={selectedVehicleType || placeholder} />
+        <Feather size={25} name={'chevron-down'} color={colors.black} />
+      </TouchableOpacity>
+      <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />
+      <StartOrderDropdownModal
+        onClose={() => setVisible(false)}
+        onChangeText={selectedId => {
+          const selectedType =
+            items.find(x => x.id === selectedId)?.vehicle_type || placeholder;
+          setSelectedVehicleType(selectedType);
+          onChangeText(selectedId);
+        }}
+        value={id}
+        visible={visible}
+        items={items || []} // Provide a default empty array
+      />
+    </>
+  );
+};
 export const PrimaryPhoneInput = (props: props) => {
   const phoneRef = useRef<PhoneInput>(null);
   const {

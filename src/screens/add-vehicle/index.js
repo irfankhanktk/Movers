@@ -60,6 +60,7 @@ const AddVehicleScreen = props => {
     vehicle_model: '',
     vehicle_year: '',
     vehicle_load_capacity: '',
+    vehicle_number: '',
     ...props?.route?.params?.vehicle,
   };
   const [loading, setLoading] = React.useState(false);
@@ -170,6 +171,17 @@ const AddVehicleScreen = props => {
                           onChangeText={handleChange('vehicle_year')}
                           onBlur={handleBlur('vehicle_year', true)}
                           value={values.vehicle_year}
+                        />
+                        <PrimaryInput
+                          error={
+                            touched?.vehicle_number
+                              ? t(errors.vehicle_number)
+                              : ''
+                          }
+                          placeholder={t('vehicle_number')}
+                          onChangeText={handleChange('vehicle_number')}
+                          onBlur={handleBlur('vehicle_number', true)}
+                          value={values.vehicle_number}
                         />
                         <PrimaryInput
                           keyboardType={'number-pad'}
