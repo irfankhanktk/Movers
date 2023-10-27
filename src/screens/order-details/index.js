@@ -72,6 +72,7 @@ const OrderDetailsScreen = props => {
   const [vehcileLists, setVehicleLists] = React.useState([]);
 
   React.useEffect(() => {
+    getList();
     getListVehcile();
   }, []);
   const getListVehcile = async () => {
@@ -208,9 +209,7 @@ const OrderDetailsScreen = props => {
       setLoading(false);
     }
   };
-  React.useEffect(() => {
-    getList();
-  }, []);
+
   const origin = {
     latitude: orderData?.pickup_lat * 1 || 37.78825,
     longitude: orderData?.pickup_long * 1 || -122.4324,
@@ -280,8 +279,8 @@ const OrderDetailsScreen = props => {
               <View style={{height: mvs(250)}}>
                 <CustomMap
                   initialRegion={{
-                    latitude: origin.latitude,
-                    longitude: origin.longitude,
+                    latitude: origin?.latitude,
+                    longitude: origin?.longitude,
                     latitudeDelta: 0.05,
                     longitudeDelta: 0.05,
                   }}>
@@ -391,6 +390,11 @@ const OrderDetailsScreen = props => {
               {orderData?.driver_status !== 'start' &&
                 orderData?.driver_status !== 'delivered' && (
                   <View style={{marginHorizontal: mvs(20)}}>
+                    <Medium
+                      label={'Please Select Vechile before start order'}
+                      color={colors.white}
+                      fontSize={mvs(12)}
+                    />
                     <InputWithIcon2
                       placeholder={t('select_vehicle_type')}
                       onChangeText={selectedId => setVehicle_id(selectedId)}
