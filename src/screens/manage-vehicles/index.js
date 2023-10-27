@@ -46,9 +46,9 @@ const ManageVehicleScreen = props => {
     try {
       setLoading(true);
       const res = await getVehcileList();
-      setVehicleLists(res);
+      setVehicleLists(res?.vehicles);
 
-      console.log(res);
+      console.log(res?.vehicles);
     } catch (error) {
       setLoading(false);
     } finally {

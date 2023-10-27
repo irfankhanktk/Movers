@@ -165,14 +165,14 @@ const MangeVehcileCard = ({
         </Row>
         <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
           <Regular
-            label={t('no_of_order')}
+            label={t('order_count')}
             color={colors.white}
             style={{width: mvs(170)}}
             fontSize={mvs(12)}
           />
           <Regular
             // moment().format(DATE_FORMAT.yyyy_mm_dd)
-            label={'12'}
+            label={item?.order_count}
             color={colors.white}
             style={{flex: 1}}
             fontSize={mvs(12)}

@@ -34,7 +34,7 @@ export const URLS = {
   vehcile: {
     create_vehilce: 'vehicle/create',
     store_vehicle: 'vehicle',
-    vehicle_list: 'vehicle',
+    vehicle_list: 'vehicleList',
     vehicle_list_order: 'vehicleList',
     update_vehicle: 'vehicle/',
   },

@@ -194,6 +194,7 @@
   "no_of_order":"No of Order",
   "reach_out_at":"React Out At",
   "contact_us":"Contact Us",
-  "vehicle_number":"Vehicle Number"
+  "vehicle_number":"Vehicle Number",
+  "order_count":"Order Count"
   
 }
