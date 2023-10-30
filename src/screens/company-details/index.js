@@ -56,9 +56,9 @@ const CompanyDetailsScreen = props => {
   const [value, setValue] = React.useState('');
   const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
-    legal_identity: '',
-    company_reg: '',
-    vat_reg: '',
+    legal_identity: documentList?.legal_identity || '',
+    company_reg: documentList?.company_reg || '',
+    vat_reg: documentList?.vat_reg || '',
     // ...(props?.route?.params?.documentList || {}),
   };
   const [loading, setLoading] = React.useState(false);
@@ -66,6 +66,18 @@ const CompanyDetailsScreen = props => {
   const handleFormSubmit = async values => {
     try {
       console.log('values', values);
+      if (!values.legal_identity) {
+        Alert.alert('Legal Identity is required');
+        return; // Return early if validation fails
+      }
+      if (!values.company_reg) {
+        Alert.alert('Company Registration number is required');
+        return; // Return early if validation fails
+      }
+      if (!values.vat_reg) {
+        Alert.alert('VAT Registration number is required');
+        return; // Return early if validation fails
+      }
       // return;
       setLoading(true);
       const res = await onPostDriverDocument(values);
@@ -79,6 +91,22 @@ const CompanyDetailsScreen = props => {
       setLoading(false);
     }
   };
+  // const handleFormSubmit = async values => {
+  //   try {
+  //     console.log('values', values);
+  //     // return;
+  //     setLoading(true);
+  //     const res = await onPostDriverDocument(values);
+  //     Alert.alert(res?.data?.message);
+  //     goBack();
+
+  //     console.log(res);
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   React.useEffect(() => {
     getList();
   }, []);
@@ -107,80 +135,91 @@ const CompanyDetailsScreen = props => {
           style={{width: mvs(200), height: mvs(200)}}
         />
       </View>
-      {/* {loading ? (
+      {loading ? (
         <Loader />
-      ) : ( */}
-      <View style={styles.contentContainerStyle}>
-        <>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={CompanyDetailsValidation}
-            onSubmit={handleFormSubmit}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              setFieldValue,
-              touched,
-              values,
-              errors,
-            }) => (
-              <>
-                {console.log('errror2', errors)}
-                <View style={styles.contentContainerStyleNew}>
-                  <KeyboardAvoidScrollview
-                    contentContainerStyle={styles.keyboardcontenview}>
-                    <Bold
-                      label={t('company_details')}
-                      color={colors.bluecolor}
-                      fontSize={mvs(16)}
-                      style={styles.boldtext}
-                    />
+      ) : (
+        <View style={styles.contentContainerStyle}>
+          <>
+            <Formik
+              initialValues={initialValues}
+              // validationSchema={CompanyDetailsValidation}
+              onSubmit={handleFormSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                setFieldValue,
+                touched,
+                values,
+                errors,
+              }) => (
+                <>
+                  {console.log('errror2', errors)}
+                  <View style={styles.contentContainerStyleNew}>
+                    <KeyboardAvoidScrollview
+                      contentContainerStyle={styles.keyboardcontenview}>
+                      <Bold
+                        label={t('company_details')}
+                        color={colors.bluecolor}
+                        fontSize={mvs(16)}
+                        style={styles.boldtext}
+                      />
 
-                    <PrimaryInput
-                      keyboardType={'email-address'}
-                      error={
-                        touched?.legal_identity ? t(errors.legal_identity) : ''
-                      }
-                      placeholder={t('legal_identity')}
-                      onChangeText={handleChange('legal_identity')}
-                      onBlur={handleBlur('legal_identity')}
-                      value={
-                        values.legal_identity || documentList?.legal_identity
-                      }
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={
+                          touched?.legal_identity
+                            ? t(errors.legal_identity)
+                            : ''
+                        }
+                        placeholder={t('legal_identity')}
+                        onChangeText={handleChange('legal_identity')}
+                        onBlur={handleBlur('legal_identity')}
+                        value={
+                          values.legal_identity
+                          //  || documentList?.legal_identity
+                        }
+                      />
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={
+                          touched?.company_reg ? t(errors.company_reg) : ''
+                        }
+                        placeholder={t('compnay_registration')}
+                        onChangeText={handleChange('company_reg')}
+                        onBlur={handleBlur('company_reg')}
+                        value={
+                          values.company_reg
+                          // || documentList?.company_reg
+                        }
+                      />
+                      <PrimaryInput
+                        keyboardType={'email-address'}
+                        error={touched?.vat_reg ? t(errors.vat_reg) : ''}
+                        placeholder={t('vat_registration')}
+                        onChangeText={handleChange('vat_reg')}
+                        onBlur={handleBlur('vat_reg')}
+                        value={
+                          values.vat_reg
+                          //  || documentList?.vat_reg
+                        }
+                      />
+                    </KeyboardAvoidScrollview>
+                  </View>
+                  <View style={{paddingHorizontal: mvs(20)}}>
+                    <PrimaryButton
+                      containerStyle={styles.registernowbutton}
+                      loading={loading}
+                      onPress={handleSubmit}
+                      title={t('register_now')}
                     />
-                    <PrimaryInput
-                      keyboardType={'email-address'}
-                      error={touched?.company_reg ? t(errors.company_reg) : ''}
-                      placeholder={t('compnay_registration')}
-                      onChangeText={handleChange('company_reg')}
-                      onBlur={handleBlur('company_reg')}
-                      value={values.company_reg || documentList?.company_reg}
-                    />
-                    <PrimaryInput
-                      keyboardType={'email-address'}
-                      error={touched?.vat_reg ? t(errors.vat_reg) : ''}
-                      placeholder={t('vat_registration')}
-                      onChangeText={handleChange('vat_reg')}
-                      onBlur={handleBlur('vat_reg')}
-                      value={values.vat_reg || documentList?.vat_reg}
-                    />
-                  </KeyboardAvoidScrollview>
-                </View>
-                <View style={{paddingHorizontal: mvs(20)}}>
-                  <PrimaryButton
-                    containerStyle={styles.registernowbutton}
-                    loading={loading}
-                    onPress={handleSubmit}
-                    title={t('register_now')}
-                  />
-                </View>
-              </>
-            )}
-          </Formik>
-        </>
-      </View>
-      {/* )} */}
+                  </View>
+                </>
+              )}
+            </Formik>
+          </>
+        </View>
+      )}
     </View>
   );
 };

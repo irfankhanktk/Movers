@@ -57,10 +57,10 @@ const BankDetailsScreen = props => {
   const [documentList, setDocumentList] = React.useState('');
   // const {documentList} = props?.route?.params;
   const initialValues = {
-    bank_name: '',
-    account_title: '',
-    sort_code: '',
-    account_number: '',
+    bank_name: documentList?.bank_name || '',
+    account_title: documentList?.account_title || '',
+    sort_code: documentList?.sort_code || '',
+    account_number: documentList?.account_number || '',
     // ...(documentList || {}),
   };
   const [loading, setLoading] = React.useState(false);
@@ -68,6 +68,22 @@ const BankDetailsScreen = props => {
     try {
       console.log('values', values);
       // return;
+      if (!values.bank_name) {
+        Alert.alert('Bank Name is required');
+        return; // Return early if validation fails
+      }
+      if (!values.account_title) {
+        Alert.alert('Account Title is required');
+        return; // Return early if validation fails
+      }
+      if (!values.sort_code) {
+        Alert.alert('Sort Code is required');
+        return; // Return early if validation fails
+      }
+      if (!values.account_number) {
+        Alert.alert('Account Number is required');
+        return; // Return early if validation fails
+      }
       setLoading(true);
       const res = await onPostDriverDocument(values);
       Alert.alert(res?.data?.message);
@@ -80,6 +96,22 @@ const BankDetailsScreen = props => {
       setLoading(false);
     }
   };
+  // const handleFormSubmit = async values => {
+  //   try {
+  //     console.log('values', values);
+  //     // return;
+  //     setLoading(true);
+  //     const res = await onPostDriverDocument(values);
+  //     Alert.alert(res?.data?.message);
+  //     goBack();
+
+  //     console.log(res);
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   React.useEffect(() => {
     getList();
   }, []);
@@ -109,98 +141,105 @@ const BankDetailsScreen = props => {
             style={{width: mvs(200), height: mvs(200)}}
           />
         </View>
-        {/* {loading ? (
+        {loading ? (
           <Loader />
-        ) : ( */}
-        <View style={styles.contentContainerStyle}>
-          <>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={BankDetailsValidation}
-              onSubmit={handleFormSubmit}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                setFieldValue,
-                setFieldTouched,
-                touched,
-                values,
-                errors,
-              }) => (
-                <>
-                  {console.log('errror2', errors)}
-                  <View style={styles.contentContainerStyleNew}>
-                    <KeyboardAvoidScrollview
-                      contentContainerStyle={styles.keyboardcontainer}>
-                      <Bold
-                        label={t('bank_details')}
-                        color={colors.bluecolor}
-                        fontSize={mvs(16)}
-                        style={styles.boldtext}
-                      />
+        ) : (
+          <View style={styles.contentContainerStyle}>
+            <>
+              <Formik
+                initialValues={initialValues}
+                // validationSchema={BankDetailsValidation}
+                onSubmit={handleFormSubmit}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  setFieldValue,
+                  setFieldTouched,
+                  touched,
+                  values,
+                  errors,
+                }) => (
+                  <>
+                    {console.log('errror2', errors)}
+                    <View style={styles.contentContainerStyleNew}>
+                      <KeyboardAvoidScrollview
+                        contentContainerStyle={styles.keyboardcontainer}>
+                        <Bold
+                          label={t('bank_details')}
+                          color={colors.bluecolor}
+                          fontSize={mvs(16)}
+                          style={styles.boldtext}
+                        />
 
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={touched?.bank_name ? t(errors.bank_name) : ''}
-                        placeholder={t('bank_name')}
-                        onChangeText={handleChange('bank_name')}
-                        onBlur={handleBlur('bank_name')}
-                        value={values.bank_name || documentList?.bank_name}
+                        <PrimaryInput
+                          keyboardType={'email-address'}
+                          error={touched?.bank_name ? t(errors.bank_name) : ''}
+                          placeholder={t('bank_name')}
+                          onChangeText={handleChange('bank_name')}
+                          onBlur={handleBlur('bank_name')}
+                          value={
+                            values.bank_name
+                            // || documentList?.bank_name
+                          }
+                        />
+                        <PrimaryInput
+                          keyboardType={'email-address'}
+                          error={
+                            touched?.account_title
+                              ? t(errors.account_title)
+                              : ''
+                          }
+                          placeholder={t('account_title')}
+                          onChangeText={handleChange('account_title')}
+                          onBlur={handleBlur('account_title')}
+                          value={
+                            values.account_title
+                            // || documentList?.account_title
+                          }
+                        />
+                        <PrimaryInput
+                          keyboardType={'email-address'}
+                          error={touched?.sort_code ? t(errors.sort_code) : ''}
+                          placeholder={t('sort_code')}
+                          onChangeText={handleChange('sort_code')}
+                          onBlur={handleBlur('sort_code')}
+                          value={
+                            values.sort_code
+                            //  || documentList?.sort_code
+                          }
+                        />
+                        <PrimaryInput
+                          keyboardType={'email-address'}
+                          error={
+                            touched?.account_number
+                              ? t(errors.account_number)
+                              : ''
+                          }
+                          placeholder={t('account_number')}
+                          onChangeText={handleChange('account_number')}
+                          onBlur={handleBlur('account_number')}
+                          value={
+                            values.account_number
+                            // || documentList?.account_number
+                          }
+                        />
+                      </KeyboardAvoidScrollview>
+                    </View>
+                    <View style={{paddingHorizontal: mvs(20)}}>
+                      <PrimaryButton
+                        containerStyle={styles.registerbutton}
+                        loading={loading}
+                        onPress={handleSubmit}
+                        title={t('register_now')}
                       />
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={
-                          touched?.account_title ? t(errors.account_title) : ''
-                        }
-                        placeholder={t('account_title')}
-                        onChangeText={handleChange('account_title')}
-                        onBlur={handleBlur('account_title')}
-                        value={
-                          values.account_title || documentList?.account_title
-                        }
-                      />
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={touched?.sort_code ? t(errors.sort_code) : ''}
-                        placeholder={t('sort_code')}
-                        onChangeText={handleChange('sort_code')}
-                        onBlur={handleBlur('sort_code')}
-                        value={
-                          values.sort_code
-                          //  || documentList?.sort_code
-                        }
-                      />
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={
-                          touched?.account_number
-                            ? t(errors.account_number)
-                            : ''
-                        }
-                        placeholder={t('account_number')}
-                        onChangeText={handleChange('account_number')}
-                        onBlur={handleBlur('account_number')}
-                        value={
-                          values.account_number || documentList?.account_number
-                        }
-                      />
-                    </KeyboardAvoidScrollview>
-                  </View>
-                  <View style={{paddingHorizontal: mvs(20)}}>
-                    <PrimaryButton
-                      containerStyle={styles.registerbutton}
-                      loading={loading}
-                      onPress={handleSubmit}
-                      title={t('register_now')}
-                    />
-                  </View>
-                </>
-              )}
-            </Formik>
-          </>
-        </View>
-        {/* )} */}
+                    </View>
+                  </>
+                )}
+              </Formik>
+            </>
+          </View>
+        )}
       </ScrollView>
     </View>
   );

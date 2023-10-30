@@ -67,8 +67,8 @@ const MOTDetailsScreen = props => {
   const [value, setValue] = React.useState('');
   const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
-    mot_issued_date: '',
-    mot_expiry_date: '',
+    mot_issued_date: documentList?.mot_issued_date || '',
+    mot_expiry_date: documentList?.mot_expiry_date || '',
     mot_photo: '' || documentList?.mot_photo,
   };
   const [loading, setLoading] = React.useState(false);
@@ -79,6 +79,28 @@ const MOTDetailsScreen = props => {
       if (!saveFile || !saveFile.uri) {
         // Check if license_photo is empty
         Alert.alert('Photo is required');
+        return; // Return early if validation fails
+      }
+      function isValidDateFormat(dateString) {
+        // Define two regular expressions for the date format parts
+        const dateRegex1 = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
+        const dateRegex2 = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/; // YYYY-MM-DD HH:mm:ss format
+
+        return dateRegex1.test(dateString) || dateRegex2.test(dateString);
+      }
+      if (!values.mot_issued_date) {
+        Alert.alert('MOT issue date is required');
+        return; // Return early if validation fails
+      } else if (!isValidDateFormat(values.mot_issued_date)) {
+        Alert.alert('Invalid date format for MOT issue date');
+        return; // Return early if validation fails
+      }
+
+      if (!values.mot_expiry_date) {
+        Alert.alert('MOT expiry date is required');
+        return; // Return early if validation fails
+      } else if (!isValidDateFormat(values.mot_expiry_date)) {
+        Alert.alert('Invalid date format for MOT expiry date');
         return; // Return early if validation fails
       }
       setLoading(true);
@@ -97,6 +119,30 @@ const MOTDetailsScreen = props => {
       setLoading(false);
     }
   };
+  // const handleFormSubmit = async values => {
+  //   try {
+  //     console.log('values', values);
+  //     if (!saveFile || !saveFile.uri) {
+  //       // Check if license_photo is empty
+  //       Alert.alert('Photo is required');
+  //       return; // Return early if validation fails
+  //     }
+  //     setLoading(true);
+  //     values.mot_photo = saveFile ? saveFile.uri : '';
+  //     const res = await onPostDriverDocument({
+  //       ...values,
+  //       mot_photo: saveFile,
+  //     });
+  //     Alert.alert(res?.data?.message);
+  //     goBack();
+
+  //     console.log(res?.data);
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   React.useEffect(() => {
     getList();
   }, []);
@@ -159,7 +205,7 @@ const MOTDetailsScreen = props => {
             <>
               <Formik
                 initialValues={initialValues}
-                validationSchema={MOTDetailsValidation}
+                // validationSchema={MOTDetailsValidation}
                 onSubmit={handleFormSubmit}>
                 {({
                   handleChange,
@@ -233,8 +279,9 @@ const MOTDetailsScreen = props => {
                                 onChangeText={handleChange('mot_issued_date')}
                                 onBlur={handleBlur('mot_issued_date', true)}
                                 value={
-                                  values.mot_issued_date ||
-                                  documentList?.mot_issued_date
+                                  values.mot_issued_date
+                                  //  ||
+                                  // documentList?.mot_issued_date
                                 }
                               />
                             </DatePicker>
@@ -258,8 +305,9 @@ const MOTDetailsScreen = props => {
                                 onChangeText={handleChange('mot_expiry_date')}
                                 onBlur={handleBlur('mot_expiry_date', true)}
                                 value={
-                                  values.mot_expiry_date ||
-                                  documentList?.mot_expiry_date
+                                  values.mot_expiry_date
+                                  // ||
+                                  // documentList?.mot_expiry_date
                                 }
                               />
                             </DatePicker>
