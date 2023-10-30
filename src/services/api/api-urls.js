@@ -11,6 +11,7 @@ export const URLS = {
     forgot_password: 'sendOtp',
     update_password: 'UpdatePassword',
     driver_location: 'updateDriverLocation',
+    get_home_banner: 'bannerList',
     // change_password: 'doctor/changePassword',
     // otp_verify: 'doctor/otpVerify',
     // forget_password: 'doctor/forgetPassword',

@@ -41,6 +41,17 @@ export const onLogin = (
     }
   };
 };
+export const getHomeBanner = async (slug: string) => {
+  try {
+    const res = await getData(URLS.auth.get_home_banner);
+    console.log('res banner', res);
+    return res;
+  } catch (error) {
+    console.log('error', UTILS.returnError(error));
+    Alert.alert('Error', UTILS.returnError(error));
+  }
+};
+
 // export const onUpdateProfile = (
 //   values: any,
 //   setLoading: (bool: boolean) => void,

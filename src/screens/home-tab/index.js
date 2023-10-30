@@ -23,11 +23,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from 'config/colors';
 import {Row} from 'components/atoms/row';
 import {navigate} from 'navigation/navigation-ref';
-import {getDirection, getNotifications} from 'services/api/auth-api-actions';
+import {
+  getDirection,
+  getHomeBanner,
+  getNotifications,
+} from 'services/api/auth-api-actions';
 import {UTILS} from 'utils';
 import {setLocation} from 'store/reducers/user-reducer';
 import {useIsFocused} from '@react-navigation/native';
 import Regular from 'typography/regular-text';
+import {Loader} from 'components/atoms/loader';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const isFcous = useIsFocused();
@@ -41,6 +46,7 @@ const HomeTab = props => {
   const [data, setData] = React.useState();
   const [latitude, setLatitude] = React.useState();
   const [longitude, setLongitude] = React.useState();
+  const [homeBanner, setHomeBanner] = React.useState([]);
   React.useEffect(() => {
     UTILS.get_current_location(
       position => {
@@ -79,6 +85,22 @@ const HomeTab = props => {
     } catch (error) {
       console.log('Error in direction====>', error);
       Alert.alert('get Directioin Error', UTILS.returnError(error));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getList();
+  }, []);
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const banner = await getHomeBanner();
+      setHomeBanner(banner?.data || []);
+      console.log('banner==>', banner?.data);
+    } catch (error) {
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -159,23 +181,29 @@ const HomeTab = props => {
           </View> */}
           {/* ) : null} */}
         </Row>
-        <HomeSwiper />
-        <View style={styles.body}>
-          <CustomFlatList
-            ListHeaderComponent={
-              <View style={{marginBottom: mvs(10)}}>
-                <Bold label={t('quick_tools')} style={styles.heading} />
-              </View>
-            }
-            numColumns={2}
-            contentContainerStyle={styles.contentContainerStyle}
-            showsVerticalScrollIndicator={false}
-            data={SERVICE_LIST}
-            renderItem={renderServiceList}
-            columnWrapperStyle={{justifyContent: 'space-between'}}
-            ItemSeparatorComponent={itemSeparatorComponent()}
-          />
-        </View>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <HomeSwiper item={homeBanner} />
+            <View style={styles.body}>
+              <CustomFlatList
+                ListHeaderComponent={
+                  <View style={{marginBottom: mvs(10)}}>
+                    <Bold label={t('quick_tools')} style={styles.heading} />
+                  </View>
+                }
+                numColumns={2}
+                contentContainerStyle={styles.contentContainerStyle}
+                showsVerticalScrollIndicator={false}
+                data={SERVICE_LIST}
+                renderItem={renderServiceList}
+                columnWrapperStyle={{justifyContent: 'space-between'}}
+                ItemSeparatorComponent={itemSeparatorComponent()}
+              />
+            </View>
+          </>
+        )}
       </ImageBackground>
     </View>
   );
