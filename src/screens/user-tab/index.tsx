@@ -99,7 +99,8 @@ const UserTab = (props: props) => {
             filename: 'crisp.jpg',
             avatar: res,
           },
-          () => {},
+          setLoading,
+          // () => {},
         ),
       );
       // setImage(res);
