@@ -30,7 +30,7 @@ export const URLS = {
   },
   notification: {
     getNotification: 'driverNotification',
-    read_notification: 'notificationRead?',
+    read_notification: 'notificationRead',
   },
   vehcile: {
     create_vehilce: 'vehicle/create',

@@ -457,13 +457,25 @@ export const getNotifications = (values: any) => {
     }
   };
 };
-export const onReadNotifications = async (values: any) => {
+// export const onReadNotifications = async (values: any) => {
+//   try {
+//     const res = await getData(URLS.notification.read_notification, values);
+//     return res;
+//   } catch (error: any) {
+//     console.log('error in readNotifications', UTILS.returnError(error));
+//     Alert.alert('', UTILS.returnError(error));
+//     throw UTILS.returnError(error);
+//   }
+// };
+
+export const onReadNotification = async (notification_id: any) => {
   try {
-    const res = await postData(URLS.notification.read_notification, values);
+    const res = await getData(
+      `${URLS.notification.read_notification}?notification_id=${notification_id} `,
+    );
     return res;
-  } catch (error: any) {
-    console.log('error in readNotifications', UTILS.returnError(error));
+  } catch (error) {
+    console.log('error in read notification', UTILS.returnError(error));
     Alert.alert('', UTILS.returnError(error));
-    throw UTILS.returnError(error);
   }
 };

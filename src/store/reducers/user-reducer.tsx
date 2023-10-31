@@ -42,7 +42,7 @@ export const userSlice = createSlice({
     setNotifications: (state, action) => {
       state.notifications = action.payload;
       state.unreadNotification = action.payload?.filter(
-        (x: any) => !x?.is_read,
+        (x: any) => x?.is_read === '0',
       )?.length;
     },
     setCountries: (state, action) => {

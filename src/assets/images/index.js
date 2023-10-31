@@ -62,3 +62,4 @@ export {default as notificationIcon} from './notification-new.png';
 export {default as Bike} from './bike2.png';
 export {default as homeProfile} from './HOMEPROFILE.png';
 export {default as contactUs} from './contact-us.png';
+export {default as twitter} from './twitter.png';

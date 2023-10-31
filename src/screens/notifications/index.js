@@ -6,7 +6,7 @@ import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
 import moment from 'moment';
 import React, {useEffect} from 'react';
-import {FlatList, Image, View} from 'react-native';
+import {Alert, FlatList, Image, View} from 'react-native';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
@@ -15,7 +15,8 @@ import {EmptyList} from 'components/atoms/empty-list';
 import CustomFlatList from 'components/atoms/custom-flatlist';
 import {NOTIFICATION_LIST} from 'config/constants';
 import * as IMG from 'assets/images';
-import {onReadNotifications} from 'services/api/auth-api-actions';
+import {onReadNotification} from 'services/api/auth-api-actions';
+import {UTILS} from 'utils';
 
 const Notifications = props => {
   const dispatch = useAppDispatch();
@@ -36,16 +37,14 @@ const Notifications = props => {
   const readNotifications = async () => {
     try {
       const unreadNoti = notifications
-        ?.filter(x => !x?.is_read)
+        ?.filter(x => x?.is_read === '0')
         ?.map(x => x?.id);
-
+      console.log('unreadNoti==>', unreadNoti);
       if (!unreadNoti?.length) return;
-      await onReadNotifications({
-        // user_id: userInfo?.id,
-        notification_id: unreadNoti,
-      });
+      await onReadNotification(unreadNoti);
     } catch (error) {
-      console.log('error=>', error);
+      console.log('error in read notification', UTILS.returnError(error));
+      Alert.alert('error', UTILS.returnError(error));
     }
   };
 
@@ -57,7 +56,10 @@ const Notifications = props => {
       key={index}
       style={[
         styles.rendercontainer,
-        {backgroundColor: item?.is_read ? colors.white : colors?.blueHalf},
+        {
+          backgroundColor:
+            item?.is_read === '1' ? colors.white : colors?.blueHalf,
+        },
       ]}>
       <View
         style={{

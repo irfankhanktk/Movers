@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'flex-end',
     top: mvs(-2),
-    right: mvs(15),
+    right: mvs(12),
     // padding: mvs(3),
     alignItems: 'center',
     justifyContent: 'center',
-    height: mvs(15),
-    width: mvs(15),
-    borderRadius: mvs(7.5),
+    height: mvs(17),
+    width: mvs(20),
+    borderRadius: mvs(10),
   },
 });
 export default styles;

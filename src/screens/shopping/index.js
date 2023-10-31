@@ -22,6 +22,7 @@ import HtmlView from '../../components/atoms/render-html';
 import {Marker} from 'react-native-maps';
 import MapDirections from 'components/atoms/map-directions';
 import {Loader} from 'components/atoms/loader';
+import * as IMG from 'assets/images';
 const ShoppingScreen = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -164,16 +165,28 @@ const ShoppingScreen = props => {
                     //   UTILS.openFacebookLink(orderData?.contact_facebook)
                     // }
                     name="facebook"
-                    color={colors.primary}
+                    color="#3b5998"
+                    // color={colors.bluecolor}
                     size={mvs(26)}
                   />
-                  <MaterialCommunityIcons
+                  {/* <MaterialCommunityIcons
                     onPress={() => Linking?.openURL(orderData?.contact_x)}
                     // onPress={() => UTILS.openTwitterLink(orderData?.contact_x)}
                     name="twitter"
                     color={colors.primary}
                     size={mvs(26)}
-                  />
+                  /> */}
+                  <TouchableOpacity
+                    onPress={() => Linking?.openURL(orderData?.contact_x)}>
+                    <Image
+                      source={IMG.twitter}
+                      resizeMode="cover"
+                      style={{
+                        width: mvs(24),
+                        height: mvs(24),
+                      }}
+                    />
+                  </TouchableOpacity>
                   <MaterialCommunityIcons
                     onPress={() =>
                       Linking?.openURL(orderData?.contact_instagram)
@@ -193,7 +206,8 @@ const ShoppingScreen = props => {
                     //   UTILS.openLinkedInLink(orderData?.contact_linkedin)
                     // }
                     name="linkedin"
-                    color={colors.primary}
+                    color="#0072b1"
+                    // color={colors.bluecolor}
                     size={mvs(26)}
                   />
                 </Row>

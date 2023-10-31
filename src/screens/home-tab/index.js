@@ -171,15 +171,15 @@ const HomeTab = props => {
               size={mvs(25)}
             />
           </TouchableOpacity>
-          {/* {unreadNotification ? ( */}
-          {/* <View style={styles.notificationbadge}>
-            <Regular
-              label={unreadNotification}
-              fontSize={mvs(10)}
-              style={{lineHeight: mvs(14), color: colors.white}}
-            />
-          </View> */}
-          {/* ) : null} */}
+          {unreadNotification ? (
+            <View style={styles.notificationbadge}>
+              <Regular
+                label={unreadNotification}
+                fontSize={mvs(10)}
+                style={{lineHeight: mvs(14), color: colors.white}}
+              />
+            </View>
+          ) : null}
         </Row>
         {loading ? (
           <Loader />
