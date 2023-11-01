@@ -179,7 +179,7 @@ const PrimaryInput = (props: props) => {
             onPress={() => setSecure(!secure)}>
             <Feather
               size={25}
-              name={secure ? 'eye' : 'eye-off'}
+              name={secure ? 'eye-off' : 'eye'}
               color={colors.black}
             />
           </TouchableOpacity>

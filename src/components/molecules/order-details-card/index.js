@@ -70,7 +70,7 @@ const OrderDetailsCard = ({
           borderBottomWidth: mvs(1),
           borderBottomColor: colors.white,
         }}
-        label={`${t('Odrer')}: #${item?.id} `}
+        label={`${t('Order')}: #${item?.id} `}
         // value={moment(item?.pickup_date).format('DD-MM-YYYY')}
         value={`${t('delivery_date')}: ${
           item?.pickup_date

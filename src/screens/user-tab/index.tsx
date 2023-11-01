@@ -205,7 +205,7 @@ const UserTab = (props: props) => {
               <Regular style={styles.itemText1} label={`${t('my_order')}`} />
             </TouchableOpacity>
             {/* )} */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.itemtabs}
               onPress={() => props?.navigation?.navigate('LanguageScreen')}>
               <FontAwesome5
@@ -217,7 +217,7 @@ const UserTab = (props: props) => {
                 style={styles.itemText1}
                 label={`${t('choose_language')}`}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* {userInfo && ( */}
             <TouchableOpacity
               style={styles.itemtabs}

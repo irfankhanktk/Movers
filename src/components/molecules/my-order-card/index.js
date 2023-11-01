@@ -58,7 +58,7 @@ const MyOrderCard = ({
     <Row onPress={onPress} style={styles.contentContainerStyleNew}>
       <View style={{alignSelf: 'center', padding: mvs(10)}}>
         <Medium
-          label={`${t('Odrer')} `}
+          label={`${t('Order')} `}
           fontSize={mvs(16)}
           color={colors.white}
         />

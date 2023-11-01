@@ -23,12 +23,19 @@ export const signupFormValidation = yup.object().shape({
   first_name: yup.string().required('req_first_name'),
   middle_name: yup.string().required('req_middle_name'),
   email: yup.string().email('invalid_email').required('req_email'),
+  // phone: yup
+  //   .number()
+  //   .typeError('invalid_phone')
+  //   .positive('invalid_phone')
+  //   .integer('invalid_phone')
+  //   .min(10, 'invalid_phone')
+  //   .required('Phone is required'),
   phone: yup
-    .number()
-    .typeError('invalid_phone')
-    .positive('invalid_phone')
-    .integer('invalid_phone')
-    .min(10, 'invalid_phone')
+    .string()
+    .test('is-ten-digits', 'Phone must be exactly 10 digits', value => {
+      if (!value) return true; // Allow empty values
+      return value.length === 10 && !isNaN(value); // Check for 10 digits and numeric characters
+    })
     .required('Phone is required'),
   password: yup.string().required('req_pass').min(8, 'weak_pass'),
   confirm_password: yup
@@ -47,9 +54,28 @@ export const signupFormValidation = yup.object().shape({
 });
 
 export const signupDetailsFormValidation = yup.object().shape({
-  // first_name: yup.string().required('req_first_name'),
-  // middle_name: yup.string().required('req_middle_name'),
-  // email: yup.string().email('invalid_email').required('req_email'),
+  house_name: yup.string().required('req_house_name'),
+  first_line_of_address: yup.string().required('req_first_line_of_address'),
+  postal_code: yup.string().required('req_postal_code'),
+  city: yup.string().required('req_city'),
+  // cnic: yup.number().required('req_cnic').min(13, 'invalid_cnic'),
+  cnic: yup
+    .string()
+    .test(
+      'is-valid-cnic',
+      'Invalid CNIC format (e.g., 12345-1234567-1)',
+      value => {
+        if (!value) return true; // Allow empty values
+        return /^[0-9]{5}-[0-9]{7}-[0-9]$/.test(value);
+      },
+    )
+    .required('req_cnic'),
+  dob: yup.string().required('req_dob'),
+});
+export const UpdateProfileFormValidation = yup.object().shape({
+  first_name: yup.string().required('req_first_name'),
+  middle_name: yup.string().required('req_middle_name'),
+  email: yup.string().email('invalid_email').required('req_email'),
   // phone: yup
   //   .number()
   //   .typeError('invalid_phone')
@@ -57,31 +83,12 @@ export const signupDetailsFormValidation = yup.object().shape({
   //   .integer('invalid_phone')
   //   .min(8, 'invalid_phone')
   //   .required('Phone is required'),
-  // password: yup.string().required('req_pass').min(8, 'weak_pass'),
-  // confirm_password: yup
-  //   .string()
-  //   .required('req_pass')
-  //   .oneOf([yup.ref('password')], 'miss_match_pass'),
-  // surname: yup.string().required('req_surname'),
-  // gender: yup.string().required('req_gender'),
-  // country_code: yup.string().required('req_country_code'),
-  house_name: yup.string().required('req_house_name'),
-  first_line_of_address: yup.string().required('req_first_line_of_address'),
-  postal_code: yup.string().required('req_postal_code'),
-  city: yup.string().required('req_city'),
-  cnic: yup.number().required('req_cnic').min(13, 'invalid_cnic'),
-  dob: yup.string().required('req_dob'),
-});
-export const UpdateProfileFormValidation = yup.object().shape({
-  first_name: yup.string().required('req_first_name'),
-  middle_name: yup.string().required('req_middle_name'),
-  email: yup.string().email('invalid_email').required('req_email'),
   phone: yup
-    .number()
-    .typeError('invalid_phone')
-    .positive('invalid_phone')
-    .integer('invalid_phone')
-    .min(8, 'invalid_phone')
+    .string()
+    .test('is-ten-digits', 'Phone must be exactly 10 digits', value => {
+      if (!value) return true; // Allow empty values
+      return value.length === 10 && !isNaN(value); // Check for 10 digits and numeric characters
+    })
     .required('Phone is required'),
 
   surname: yup.string().required('req_surname'),

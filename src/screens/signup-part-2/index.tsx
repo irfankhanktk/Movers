@@ -158,7 +158,8 @@ const SignupNext = (props: props) => {
                   <View style={{marginTop: mvs(20)}}>
                     <PrimaryInput
                       error={touched?.cnic ? t(errors.cnic) : ''}
-                      placeholder={t('cnic')}
+                      // placeholder={t('cnic')}
+                      placeholder={'cnic or 12345-1234567-1'}
                       onChangeText={handleChange('cnic')}
                       onBlur={handleBlur('cnic')}
                       value={values.cnic}

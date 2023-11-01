@@ -67,6 +67,53 @@ const ShoppingScreen = props => {
     longitude: orderData?.longitude * 1 || -122.4324,
     // longitude: -122.4324,
   };
+  const openPhoneDialer = phoneNumber => {
+    // Verify that the phoneNumber is not empty
+    if (!phoneNumber) {
+      console.log('Phone number is empty.');
+      return;
+    }
+
+    // Define the URL format for both iOS and Android
+    let phoneUrl;
+    if (Platform.OS === 'android') {
+      phoneUrl = `tel:${phoneNumber}`;
+    } else {
+      phoneUrl = `telprompt:${phoneNumber}`;
+    }
+
+    Linking.openURL(phoneUrl)
+      .then(() => {
+        console.log('Phone dialer opened successfully.');
+      })
+      .catch(error => {
+        console.error('Error opening phone dialer:', error);
+      });
+  };
+  const openEmail = emailAddress => {
+    // Verify that the emailAddress is not empty
+    if (!emailAddress) {
+      console.log('Email address is empty.');
+      return;
+    }
+
+    // Define the URL format for both iOS and Android
+    let emailUrl;
+    if (Platform.OS === 'android') {
+      emailUrl = `mailto:${emailAddress}`;
+    } else {
+      emailUrl = `mailto:${emailAddress}`;
+    }
+
+    Linking.openURL(emailUrl)
+      .then(() => {
+        console.log('Email app opened successfully.');
+      })
+      .catch(error => {
+        console.error('Error opening email app:', error);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <Header1x2x back={true} title={t('contact_us')} />
@@ -104,7 +151,7 @@ const ShoppingScreen = props => {
               </View>
               <View style={styles.contentContainerStyleNew}>
                 <TouchableOpacity
-                  onPress={() => Linking.openURL(orderData?.contact_email)}>
+                  onPress={() => openEmail(orderData?.contact_email)}>
                   <Row
                     style={{
                       justifyContent: 'flex-start',
@@ -125,7 +172,7 @@ const ShoppingScreen = props => {
               </View>
               <View style={styles.contentContainerStyleNew}>
                 <TouchableOpacity
-                  onPress={() => UTILS.dialPhone(orderData?.contact_phone)}>
+                  onPress={() => openPhoneDialer(orderData?.contact_phone)}>
                   <Row
                     style={{
                       justifyContent: 'flex-start',
@@ -190,8 +237,9 @@ const ShoppingScreen = props => {
                       source={IMG.twitter}
                       resizeMode="cover"
                       style={{
-                        width: mvs(26),
-                        height: mvs(26),
+                        width: mvs(25),
+                        height: mvs(25),
+                        marginTop: mvs(3),
                       }}
                     />
                   </TouchableOpacity>

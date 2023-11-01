@@ -75,6 +75,12 @@ const HistoryScreen = props => {
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
+  const formatNumber = number => {
+    // Convert the string to a floating-point number and format it with 2 decimal places
+    return parseFloat(number).toFixed(2);
+  };
+  const formattedTotalEarning = formatNumber(orderData?.total_earing);
+
   return (
     <View style={styles.container}>
       <Header1x2x title={t('history')} />
@@ -94,7 +100,7 @@ const HistoryScreen = props => {
                 style={{paddingHorizontal: mvs(14), marginTop: mvs(10)}}
               />
               <Regular
-                label={orderData?.total_earing}
+                label={formattedTotalEarning}
                 color={colors.white}
                 fontSize={mvs(12)}
                 style={{paddingHorizontal: mvs(14)}}
@@ -121,7 +127,12 @@ const HistoryScreen = props => {
                 label={t('completed_order')}
                 color={colors.white}
                 fontSize={mvs(14)}
-                style={{paddingHorizontal: mvs(14), marginTop: mvs(10)}}
+                style={{
+                  paddingHorizontal: mvs(14),
+                  marginTop: mvs(10),
+                  width: mvs(160),
+                }}
+                numberOfLines={2}
               />
               <Regular
                 label={orderData?.total_orders_count}

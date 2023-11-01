@@ -266,6 +266,29 @@ const OrderDetailsScreen = props => {
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
+  const openPhoneDialer = phoneNumber => {
+    // Verify that the phoneNumber is not empty
+    if (!phoneNumber) {
+      console.log('Phone number is empty.');
+      return;
+    }
+
+    // Define the URL format for both iOS and Android
+    let phoneUrl;
+    if (Platform.OS === 'android') {
+      phoneUrl = `tel:${phoneNumber}`;
+    } else {
+      phoneUrl = `telprompt:${phoneNumber}`;
+    }
+
+    Linking.openURL(phoneUrl)
+      .then(() => {
+        console.log('Phone dialer opened successfully.');
+      })
+      .catch(error => {
+        console.error('Error opening phone dialer:', error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -493,7 +516,7 @@ const OrderDetailsScreen = props => {
                   paddingVertical: mvs(5),
                   borderRadius: mvs(6),
                 }}
-                onPress={() => UTILS.dialPhone(orderData?.phone)}>
+                onPress={() => openPhoneDialer(orderData?.phone)}>
                 <Row style={{alignItems: 'center'}}>
                   <Foundation
                     name="telephone"
