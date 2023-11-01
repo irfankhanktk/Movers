@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
     fontSize: mvs(20),
     color: colors.primary,
   },
+  gradient: {
+    width: mvs(30),
+    height: mvs(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: mvs(6),
+  },
   normaltext: {
     fontSize: mvs(14),
     paddingVertical: mvs(4),

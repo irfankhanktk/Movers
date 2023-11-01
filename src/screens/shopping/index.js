@@ -23,6 +23,7 @@ import {Marker} from 'react-native-maps';
 import MapDirections from 'components/atoms/map-directions';
 import {Loader} from 'components/atoms/loader';
 import * as IMG from 'assets/images';
+import LinearGradient from 'react-native-linear-gradient';
 const ShoppingScreen = props => {
   const user = useAppSelector(s => s?.user);
   const userInfo = user?.userInfo;
@@ -52,6 +53,13 @@ const ShoppingScreen = props => {
   const itemSeparatorComponent = () => {
     return <View style={{paddingVertical: mvs(5)}}></View>;
   };
+  const Instagramcolors = [
+    '#FEDD76', // Light Yellow
+    '#F58529', // Orange
+    '#DD2A7B', // Pink
+    '#BC2A8D', // Purple
+    '#4A4EAB', // Blue
+  ];
 
   const origin = {
     latitude: orderData?.latitude * 1 || 37.78825,
@@ -167,7 +175,7 @@ const ShoppingScreen = props => {
                     name="facebook"
                     color="#3b5998"
                     // color={colors.bluecolor}
-                    size={mvs(26)}
+                    size={mvs(30)}
                   />
                   {/* <MaterialCommunityIcons
                     onPress={() => Linking?.openURL(orderData?.contact_x)}
@@ -182,22 +190,41 @@ const ShoppingScreen = props => {
                       source={IMG.twitter}
                       resizeMode="cover"
                       style={{
-                        width: mvs(24),
-                        height: mvs(24),
+                        width: mvs(26),
+                        height: mvs(26),
                       }}
                     />
                   </TouchableOpacity>
-                  <MaterialCommunityIcons
+
+                  {/* <LinearGradient
+                    colors={Object.values(Instagramcolors)} // Use all colors from the object
+                    style={styles.gradient}
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}>
+                    <MaterialCommunityIcons
+                      onPress={() =>
+                        Linking?.openURL(orderData?.contact_instagram)
+                      }
+                      name="instagram"
+                      color={colors.white} // Use the primary color for the icon
+                      size={26}
+
+                      // style={styles.icon}
+                    />
+                  </LinearGradient> */}
+                  <TouchableOpacity
                     onPress={() =>
                       Linking?.openURL(orderData?.contact_instagram)
-                    }
-                    // onPress={() =>
-                    //   UTILS.openInstagramLink(orderData?.contact_instagram)
-                    // }
-                    name="instagram"
-                    color={colors.primary}
-                    size={mvs(26)}
-                  />
+                    }>
+                    <Image
+                      source={IMG.instagram}
+                      resizeMode="cover"
+                      style={{
+                        width: mvs(40),
+                        height: mvs(30),
+                      }}
+                    />
+                  </TouchableOpacity>
                   <MaterialCommunityIcons
                     onPress={() =>
                       Linking?.openURL(orderData?.contact_linkedin)
@@ -208,7 +235,7 @@ const ShoppingScreen = props => {
                     name="linkedin"
                     color="#0072b1"
                     // color={colors.bluecolor}
-                    size={mvs(26)}
+                    size={mvs(30)}
                   />
                 </Row>
               </View>
