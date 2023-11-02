@@ -78,8 +78,11 @@ const ResetPasswordScreen = props => {
         otp: value,
         ...props?.route?.params,
       });
-      setOtpModalVisible(false);
-      setIsPasswordChanged(true);
+      console.log('res==>', res);
+      if (res?.status == true) {
+        setOtpModalVisible(false);
+        setIsPasswordChanged(true);
+      }
       console.log(res);
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));

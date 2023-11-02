@@ -125,9 +125,15 @@ export const UpdateProfileFormValidation = yup.object().shape({
 export const updatePasswordValidation = yup.object().shape({
   // email: yup.string().email('invalid_email').required('req_email'),
   password: yup.string().required('req_pass').min(8, 'weak_pass'),
+  //   confirm_password: yup
+  //     .string()
+  //     .required('New Password is required')
+  //     .min(8, 'New weak_pass'),
+  // });
   confirm_password: yup
     .string()
     .required('New Password is required')
+    .oneOf([yup.ref('password')], 'Passwords must match') // Check if it matches 'password'
     .min(8, 'New weak_pass'),
 });
 export const forgotPasswordValidation = yup.object().shape({
