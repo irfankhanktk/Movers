@@ -60,7 +60,7 @@ const HeaderX = ({
   const ChangeStatus = async () => {
     try {
       // Toggle the online_status between 0 and 1
-      const newStatus = userInfo?.online_status === 0 ? 1 : 0;
+      const newStatus = userInfo?.online_status === '0' ? '1' : '0';
 
       // Make the API call with the new status
       const res = await getStatusChange(newStatus);
@@ -83,7 +83,7 @@ const HeaderX = ({
   };
   const showAlert = () => {
     const statusMessage =
-      userInfo?.online_status === 0
+      userInfo?.online_status === '0'
         ? 'Are you sure you want to go online?'
         : 'Are you sure you want to go offline?';
 
@@ -122,7 +122,7 @@ const HeaderX = ({
             borderRadius: mvs(20),
             backgroundColor: colors.white,
           }}>
-          {userInfo?.online_status === 0 ? (
+          {userInfo?.online_status === '0' ? (
             <TouchableOpacity
               // onPress={() => setIsOnline(true)}
               // onPress={() => ChangeStatus()}

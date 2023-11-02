@@ -9,11 +9,24 @@ import {Provider} from 'react-redux';
 import {store} from 'store';
 import './src/config/axios-interceptor';
 import 'translation';
+import {requestNotifications} from 'react-native-permissions';
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [initialRoute, setInitialRoute] = useState<string | undefined>(
     'Splash',
   );
+  useEffect(() => {
+    async function requestPermission() {
+      const result = await requestNotifications(['alert', 'sound', 'badge']);
+      if (result.status === 'granted') {
+        // Notifications allowed
+      } else {
+        // Notifications not allowed
+      }
+    }
+
+    requestPermission();
+  }, []);
 
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open

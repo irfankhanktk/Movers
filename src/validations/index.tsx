@@ -96,7 +96,17 @@ export const UpdateProfileFormValidation = yup.object().shape({
   first_line_of_address: yup.string().required('req_first_line_of_address'),
   postal_code: yup.string().required('req_postal_code'),
   city: yup.string().required('req_city'),
-  cnic: yup.number().min(13, 'invalid_cnic'),
+  cnic: yup
+    .string()
+    .test(
+      'is-valid-cnic',
+      'Invalid CNIC format (e.g., 12345-1234567-1)',
+      value => {
+        if (!value) return true; // Allow empty values
+        return /^[0-9]{5}-[0-9]{7}-[0-9]$/.test(value);
+      },
+    )
+    .required('req_cnic'),
   dob: yup.string().required('req_dob'),
 });
 

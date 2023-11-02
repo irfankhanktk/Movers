@@ -30,6 +30,7 @@ import {Clock, FacBookIcon, GoogleIcon, LoginAnimation} from 'assets/icons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {onLogin} from 'services/api/auth-api-actions';
+import {requestNotifications} from 'react-native-permissions';
 const LoginScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -50,6 +51,19 @@ const LoginScreen = props => {
   //     validationSchema: signinFormValidation,
   //     onSubmit: () => {},
   //   });
+
+  React.useEffect(() => {
+    async function requestPermission() {
+      const result = await requestNotifications(['alert', 'sound', 'badge']);
+      if (result.status === 'granted') {
+        // Notifications allowed
+      } else {
+        // Notifications not allowed
+      }
+    }
+
+    requestPermission();
+  }, []);
   async function checkApplicationPermission() {
     const authorizationStatus = await messaging().requestPermission();
 
@@ -77,24 +91,16 @@ const LoginScreen = props => {
       } catch (error) {
         console.log('fcm token error', error);
       }
-      dispatch(onLogin({...values, fcm_token: fcmToken}, setLoading));
+      dispatch(
+        onLogin(
+          {...values, fcm_token: fcmToken, online_status: '0'},
+          setLoading,
+        ),
+      );
     } catch (error) {
       console.log('error=>', error);
       setLoading(false);
     }
-
-    //   messaging()
-    //     .getToken()
-    //     .then(fcmToken => {
-    //       console.log('fcmToken=>', fcmToken);
-    //       dispatch(onLogin({...values, fcm_token: fcmToken}, setLoading));
-    //       // resetStack('Drawer');
-    //     })
-    //     .catch(error => console.log(error));
-    // } catch (error) {
-    //   console.log('error=>', error);
-
-    // }
   };
 
   return (

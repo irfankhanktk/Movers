@@ -22,12 +22,16 @@ import styles from './styles';
 import * as IMG from 'assets/images';
 import {Loader} from 'components/atoms/loader';
 import {
+  getStatusChange,
   onLogoutPress,
   onUpdateProfile,
   postFileData,
   uploadImage,
 } from 'services/api/auth-api-actions';
 import {t} from 'i18next';
+import {STORAGEKEYS} from 'config/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setUserInfo} from 'store/reducers/user-reducer';
 
 type props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'UserTab'>,
@@ -110,6 +114,30 @@ const UserTab = (props: props) => {
     }
   };
 
+  const ChangeStatus = async () => {
+    try {
+      // Toggle the online_status between 0 and 1
+      const newStatus = '0';
+
+      // Make the API call with the new status
+      const res = await getStatusChange(newStatus);
+
+      // Update the userInfo with the new status
+      const updatedUserInfo = {...userInfo, online_status: newStatus};
+
+      // Update user info in AsyncStorage and Redux store
+      await AsyncStorage.setItem(
+        STORAGEKEYS.user,
+        JSON.stringify(updatedUserInfo),
+      );
+      dispatch(setUserInfo(updatedUserInfo));
+
+      console.log(' resp==========>', res);
+    } catch (error) {
+      console.log('Error:', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
   const LogoutAccount = async () => {
     Alert.alert('Logout!', 'Are you sure you want to Logout your account?', [
       {
@@ -119,10 +147,16 @@ const UserTab = (props: props) => {
       },
       {
         text: 'Logout',
-        onPress: () => {
-          userInfo
-            ? dispatch(onLogoutPress())
-            : props?.navigation?.navigate('Login');
+        onPress: async () => {
+          if (userInfo) {
+            // Call ChangeStatus before logging out
+            await ChangeStatus();
+
+            // Dispatch the logout action
+            dispatch(onLogoutPress());
+          } else {
+            props?.navigation?.navigate('Login');
+          }
         },
       },
     ]);
