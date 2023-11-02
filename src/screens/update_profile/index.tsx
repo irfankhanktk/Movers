@@ -161,6 +161,7 @@ const UpdateProfileScreen = (props: props) => {
                 handleChange,
                 handleBlur,
                 handleSubmit,
+                setFieldTouched,
                 setFieldValue,
                 touched,
                 values,
@@ -366,7 +367,7 @@ const UpdateProfileScreen = (props: props) => {
                     value={values.postal_code}
                   />
 
-                  <DatePicker
+                  {/* <DatePicker
                     onPress={() => setFieldTouched('dob', true)}
                     onChangeText={(str: string) => setFieldValue('dob', str)}>
                     <PrimaryInput
@@ -378,8 +379,28 @@ const UpdateProfileScreen = (props: props) => {
                       onBlur={handleBlur('dob', true)}
                       value={values.dob}
                     />
+                  </DatePicker> */}
+                  <DatePicker
+                    onPress={() => {
+                      setFieldTouched('dob', true);
+                    }}
+                    onChangeText={(str: string) => {
+                      setFieldValue('dob', str);
+                    }}>
+                    <PrimaryInput
+                      isCalendar
+                      editable={false}
+                      error={touched?.dob ? errors.dob : ''}
+                      placeholder={t('date_of_birth')}
+                      onChangeText={value => {
+                        setFieldValue('dob', value);
+                      }}
+                      onBlur={() => {
+                        setFieldTouched('dob', true);
+                      }}
+                      value={values.dob}
+                    />
                   </DatePicker>
-
                   <PrimaryButton
                     containerStyle={{
                       borderRadius: mvs(10),

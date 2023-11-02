@@ -23,42 +23,74 @@ type IProps = {
   onPress?: () => void;
   onBlur?: any;
 };
+// export const DatePicker = (props: IProps) => {
+//   const {
+//     style,
+//     onChangeText = (arg: string) => {},
+//     value,
+//     mode = 'date',
+//     children,
+//     onPress = () => {},
+//   } = props;
+//   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+
+//   const hideDatePicker = () => {
+//     setDatePickerVisibility(false);
+//   };
+
+//   const handleConfirm = (date: any) => {
+//     onChangeText(moment(date).format(DATE_FORMAT.yyyy_mm_dd));
+//     hideDatePicker();
+//   };
+//   return (
+//     <TouchableOpacity
+//       activeOpacity={0.7}
+//       onPress={() => {
+//         onPress();
+//         setDatePickerVisibility(true);
+//       }}
+//       style={style}>
+//       {children}
+//       <DateTimePickerModal
+//         isVisible={isDatePickerVisible}
+//         mode={mode}
+//         date={new Date()}
+//         onConfirm={handleConfirm}
+//         onCancel={hideDatePicker}
+//         // maximumDate={new Date(moment().subtract(18, 'years'))}
+//         // minimumDate={new Date(moment().subtract(50, 'years'))}
+//       />
+//     </TouchableOpacity>
+//   );
+// };
 export const DatePicker = (props: IProps) => {
-  const {
-    style,
-    onChangeText = (arg: string) => {},
-    value,
-    mode = 'date',
-    children,
-    onPress = () => {},
-  } = props;
+  const {style, onChangeText, mode = 'date', children} = props;
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date: any) => {
-    onChangeText(moment(date).format(DATE_FORMAT.yyyy_mm_dd));
+  const handleConfirm = (date: Date) => {
+    onChangeText(moment(date).format('YYYY-MM-DD'));
     hideDatePicker();
   };
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => {
-        onPress();
-        setDatePickerVisibility(true);
-      }}
+      onPress={showDatePicker}
       style={style}>
       {children}
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode={mode}
-        date={new Date()}
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
-        // maximumDate={new Date(moment().subtract(18, 'years'))}
-        // minimumDate={new Date(moment().subtract(50, 'years'))}
       />
     </TouchableOpacity>
   );
