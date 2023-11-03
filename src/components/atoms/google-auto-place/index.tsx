@@ -19,7 +19,7 @@ const GoogleSearchBar = ({
   placeholder = 'Enter an address',
   back,
   filter = false,
-  countrySlug = null,
+  countrySlug = ['uk', 'pk'],
   ...props
 }: any) => {
   const autoCompleteRef = React.useRef<any>(null);
@@ -37,7 +37,9 @@ const GoogleSearchBar = ({
             ? {
                 key: 'AIzaSyCHIlIvmsXf-sllfpXK0Q-1dV7uzgyFvfw',
                 language: 'en',
-                components: `country:${countrySlug}`,
+                components: countrySlug
+                  .map(country => `country:${country}`)
+                  .join('|'),
               }
             : {
                 key: 'AIzaSyCHIlIvmsXf-sllfpXK0Q-1dV7uzgyFvfw',
