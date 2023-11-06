@@ -28,25 +28,34 @@ import {
   getHomeBanner,
   getNotifications,
 } from 'services/api/auth-api-actions';
+
 import {UTILS} from 'utils';
 import {setLocation} from 'store/reducers/user-reducer';
 import {useIsFocused} from '@react-navigation/native';
 import Regular from 'typography/regular-text';
 import {Loader} from 'components/atoms/loader';
+import {database} from '@react-native-firebase/database';
+import {PrimaryButton} from 'components/atoms/buttons';
+
+import firestore from '@react-native-firebase/firestore';
+import firebase from '@react-native-firebase/app';
+import Geolocation from 'react-native-geolocation-service';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const isFcous = useIsFocused();
   // const userInfo = user?.userInfo;
-  console.log('user', user);
+  console.log('user==>', user);
   const language = user?.language;
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const {userInfo, unreadNotification, location} = user;
+  console.log('userinfo=>', userInfo);
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState();
   const [latitude, setLatitude] = React.useState();
   const [longitude, setLongitude] = React.useState();
   const [homeBanner, setHomeBanner] = React.useState([]);
+
   React.useEffect(() => {
     UTILS.get_current_location(
       position => {
@@ -75,6 +84,39 @@ const HomeTab = props => {
       },
     );
   }, [dispatch]);
+  React.useEffect(() => {
+    const watchId = Geolocation.watchPosition(
+      position => {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+
+        // Dispatch the location to Redux
+        dispatch(
+          setLocation({
+            latitude: lat,
+            longitude: long,
+          }),
+        );
+
+        // Send data to Firebase Firestore
+        sendLocationToFirestore(lat, long, userInfo?.id);
+
+        // Console log the latitude and longitude
+        console.log('Latitude:', lat);
+        console.log('Longitude:', long);
+      },
+      error => {
+        // Handle the error here if needed
+        console.error('Error fetching location:', error);
+      },
+    );
+
+    return () => {
+      // Clean up the watchPosition when the component unmounts
+      Geolocation.clearWatch(watchId);
+    };
+  }, [dispatch, userInfo]);
+
   // const latitude = user?.location?.latitude;
   // const longitude = user?.location?.longitude;
   const fetchDirection = async setLoading => {
@@ -105,7 +147,9 @@ const HomeTab = props => {
       setLoading(false);
     }
   };
-
+  React.useEffect(() => {
+    if (isFcous) loadNotifications();
+  }, [isFcous]);
   const loadNotifications = async () => {
     try {
       if (!userInfo?.id) return;
@@ -114,9 +158,41 @@ const HomeTab = props => {
       console.log('error=>', error);
     }
   };
-  React.useEffect(() => {
-    if (isFcous) loadNotifications();
-  }, [isFcous]);
+  const basePath = 'luggage-app';
+
+  // Function to send location data to Firebase
+  const sendLocationToFirestore = (latitude, longitude, userId) => {
+    // Ensure that documentPath is correctly defined to point to a document
+    const documentPath = `${basePath}/${userId}`; // Modify this as per your Firestore structure
+
+    if (documentPath) {
+      // Assuming you have Firebase initialized with your configuration
+      const firestore = firebase.firestore();
+      const userDocument = firestore.doc(documentPath);
+      const driverCollection = userDocument.collection('Driver');
+
+      // Create a document with the data to be sent
+      const locationData = {
+        id: userId,
+        latitude: latitude,
+        longitude: longitude,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Add a timestamp
+      };
+
+      // Add the location data to the 'Driver' subcollection within the user's document
+      driverCollection
+        .add(locationData)
+        .then(docRef => {
+          console.log('Data sent to Firestore with ID:', docRef.id);
+        })
+        .catch(error => {
+          console.error('Error sending data to Firestore:', error);
+        });
+    } else {
+      console.error('Invalid documentPath:', documentPath);
+    }
+  };
+
   React.useEffect(() => {
     fetchDirection(setLoading);
     const intervalId = setInterval(() => {
@@ -186,6 +262,22 @@ const HomeTab = props => {
         ) : (
           <>
             <HomeSwiper item={homeBanner} />
+            {/* <PrimaryButton
+              title="Switch Theme"
+              onPress={() => {
+                switchTheme({
+                  switchThemeFunction: () => {
+                    console.log('Current theme:', theme);
+                    setTheme(theme === 'light' ? 'dark' : 'light');
+                    console.log('Updated theme:', theme); // your switch theme function
+                  },
+                  animationConfig: {
+                    type: 'fade',
+                    duration: 900,
+                  },
+                });
+              }}
+            /> */}
             <View style={styles.body}>
               <CustomFlatList
                 ListHeaderComponent={
