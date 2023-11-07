@@ -4,7 +4,7 @@ import ServiceCard from 'components/molecules/service-card';
 import {SERVICE_LIST} from 'config/constants';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   Alert,
   Image,
@@ -40,16 +40,17 @@ import {PrimaryButton} from 'components/atoms/buttons';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import Geolocation from 'react-native-geolocation-service';
+import {useFocusEffect} from '@react-navigation/native';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const isFcous = useIsFocused();
   // const userInfo = user?.userInfo;
-  console.log('user==>', user);
+  // console.log('user==>', user);
   const language = user?.language;
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const {userInfo, unreadNotification, location} = user;
-  console.log('userinfo=>', userInfo);
+  // console.log('userinfo=>', userInfo);
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState();
   const [latitude, setLatitude] = React.useState();
@@ -84,39 +85,72 @@ const HomeTab = props => {
       },
     );
   }, [dispatch]);
+  // React.useEffect(() => {
+  //   const watchId = Geolocation.watchPosition(
+  //     position => {
+  //       const lat = position.coords.latitude;
+  //       const long = position.coords.longitude;
+
+  //       // Dispatch the location to Redux
+  //       dispatch(
+  //         setLocation({
+  //           latitude: lat,
+  //           longitude: long,
+  //         }),
+  //       );
+
+  //       // Send data to Firebase Firestore
+  //       sendLocationToFirestore(lat, long, userInfo?.id);
+
+  //       // Console log the latitude and longitude
+  //       console.log('Latitude:', lat);
+  //       console.log('Longitude:', long);
+  //     },
+  //     error => {
+  //       // Handle the error here if needed
+  //       console.error('Error fetching location:', error);
+  //     },
+  //   );
+
+  //   return () => {
+  //     // Clean up the watchPosition when the component unmounts
+  //     Geolocation.clearWatch(watchId);
+  //   };
+  // }, [dispatch, userInfo]);
   React.useEffect(() => {
-    const watchId = Geolocation.watchPosition(
-      position => {
-        const lat = position.coords.latitude;
-        const long = position.coords.longitude;
+    const locationInterval = setInterval(() => {
+      Geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
 
-        // Dispatch the location to Redux
-        dispatch(
-          setLocation({
-            latitude: lat,
-            longitude: long,
-          }),
-        );
+          // Dispatch the location to Redux
+          dispatch(
+            setLocation({
+              latitude: lat,
+              longitude: long,
+            }),
+          );
 
-        // Send data to Firebase Firestore
-        sendLocationToFirestore(lat, long, userInfo?.id);
+          // Send data to Firebase Firestore
+          sendLocationToFirestore(lat, long, userInfo?.id);
 
-        // Console log the latitude and longitude
-        console.log('Latitude:', lat);
-        console.log('Longitude:', long);
-      },
-      error => {
-        // Handle the error here if needed
-        console.error('Error fetching location:', error);
-      },
-    );
+          // Console log the latitude and longitude
+          console.log('Latitude:', lat);
+          console.log('Longitude:', long);
+        },
+        error => {
+          // Handle the error here if needed
+          console.error('Error fetching location:', error);
+        },
+      );
+    }, 15000); // 15 seconds in milliseconds
 
     return () => {
-      // Clean up the watchPosition when the component unmounts
-      Geolocation.clearWatch(watchId);
+      // Clear the interval when the component unmounts
+      clearInterval(locationInterval);
     };
   }, [dispatch, userInfo]);
-
   // const latitude = user?.location?.latitude;
   // const longitude = user?.location?.longitude;
   const fetchDirection = async setLoading => {
