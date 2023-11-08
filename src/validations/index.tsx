@@ -21,7 +21,7 @@ export const renewpasswordFormValidation = yup.object().shape({
 });
 export const signupFormValidation = yup.object().shape({
   first_name: yup.string().required('req_first_name'),
-  middle_name: yup.string().required('req_middle_name'),
+  // middle_name: yup.string().required('req_middle_name'),
   email: yup.string().email('invalid_email').required('req_email'),
   // phone: yup
   //   .number()
@@ -74,7 +74,7 @@ export const signupDetailsFormValidation = yup.object().shape({
 });
 export const UpdateProfileFormValidation = yup.object().shape({
   first_name: yup.string().required('req_first_name'),
-  middle_name: yup.string().required('req_middle_name'),
+  // middle_name: yup.string().required('req_middle_name'),
   email: yup.string().email('invalid_email').required('req_email'),
   // phone: yup
   //   .number()

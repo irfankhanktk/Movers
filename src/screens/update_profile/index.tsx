@@ -178,7 +178,7 @@ const UpdateProfileScreen = (props: props) => {
                     value={values.first_name}
                   />
                   <PrimaryInput
-                    error={touched?.middle_name ? t(errors.middle_name) : ''}
+                    // error={touched?.middle_name ? t(errors.middle_name) : ''}
                     placeholder={t('middle_name')}
                     onChangeText={handleChange('middle_name')}
                     onBlur={handleBlur('middle_name')}
