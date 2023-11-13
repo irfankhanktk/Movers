@@ -55,7 +55,7 @@ const SignupNext = (props: props) => {
   const initialValues = {
     ...data,
     license_number: '',
-    cnic:'38301-1257520-1',
+    // cnic:'38301-1257520-1',
     house_name: '',
     first_line_of_address: '',
     city: '',
@@ -158,7 +158,9 @@ const SignupNext = (props: props) => {
                   </View>
                   <View style={{marginTop: mvs(20)}}>
                     <PrimaryInput
-                      error={touched?.license_number ? t(errors.license_number) : ''}
+                      error={
+                        touched?.license_number ? t(errors.license_number) : ''
+                      }
                       placeholder={t('License Number')}
                       // placeholder={'license_number or 12345-1234567-1'}
                       onChangeText={handleChange('license_number')}

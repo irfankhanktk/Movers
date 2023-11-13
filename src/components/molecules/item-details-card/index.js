@@ -61,24 +61,26 @@ const ItemDetailsCard = ({
         <Regular
           // style={{width: width / 3}}
           style={{flex: 1}}
-          label={item?.label} // Display the selected label here
+          label={`${item?.label}(${item?.name})`} // Display the selected label here
           fontSize={mvs(9)}
           color={colors.white}
         />
-        <PrimaryButton
-          title={item?.quantity || 0}
-          containerStyle={{
-            width: mvs(31),
-            height: mvs(20),
-            backgroundColor: colors.bluecolor,
-            borderColor: colors.lightGray,
-            marginLeft: mvs(5),
-          }}
-          textStyle={{
-            color: colors.white,
-            fontSize: mvs(10),
-          }}
-        />
+        {item?.quantity && (
+          <PrimaryButton
+            title={item?.quantity || 0}
+            containerStyle={{
+              width: mvs(31),
+              height: mvs(20),
+              backgroundColor: colors.bluecolor,
+              borderColor: colors.lightGray,
+              marginLeft: mvs(5),
+            }}
+            textStyle={{
+              color: colors.white,
+              fontSize: mvs(10),
+            }}
+          />
+        )}
       </Row>
     </View>
   );

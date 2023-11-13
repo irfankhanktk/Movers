@@ -321,12 +321,22 @@ const UpdateProfileScreen = (props: props) => {
                     />
                   </Row>
 
-                  <PrimaryInput
+                  {/* <PrimaryInput
                     error={touched?.cnic ? t(errors.cnic) : ''}
                     placeholder={t('cnic')}
                     onChangeText={handleChange('cnic')}
                     onBlur={handleBlur('cnic')}
                     value={values.cnic}
+                  /> */}
+                  <PrimaryInput
+                    error={
+                      touched?.license_number ? t(errors.license_number) : ''
+                    }
+                    placeholder={t('License Number')}
+                    // placeholder={'license_number or 12345-1234567-1'}
+                    onChangeText={handleChange('license_number')}
+                    onBlur={handleBlur('license_number')}
+                    value={values.license_number}
                   />
                   <PrimaryInput
                     keyboardType={'email-address'}
