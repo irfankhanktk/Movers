@@ -59,17 +59,22 @@ export const signupDetailsFormValidation = yup.object().shape({
   postal_code: yup.string().required('req_postal_code'),
   city: yup.string().required('req_city'),
   // cnic: yup.number().required('req_cnic').min(13, 'invalid_cnic'),
-  cnic: yup
-    .string()
-    .test(
-      'is-valid-cnic',
-      'Invalid CNIC format (e.g., 12345-1234567-1)',
-      value => {
-        if (!value) return true; // Allow empty values
-        return /^[0-9]{5}-[0-9]{7}-[0-9]$/.test(value);
-      },
-    )
-    .required('req_cnic'),
+  // cnic: yup
+  //   .string()
+  //   .test(
+  //     'is-valid-cnic',
+  //     'Invalid CNIC format (e.g., 12345-1234567-1)',
+  //     value => {
+  //       if (!value) return true; // Allow empty values
+  //       return /^[0-9]{5}-[0-9]{7}-[0-9]$/.test(value);
+  //     },
+  //   )
+  //   .required('req_cnic'),
+  license_number:yup.string()
+  .required('License number is required')
+  .matches(/^[0-9]+$/, "Must be only digits")
+  .min(5, 'Must be exactly 5 digits')
+  .max(5, 'Must be exactly 5 digits'),
   dob: yup.string().required('req_dob'),
 });
 export const UpdateProfileFormValidation = yup.object().shape({

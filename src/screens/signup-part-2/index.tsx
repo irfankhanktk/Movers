@@ -54,7 +54,8 @@ const SignupNext = (props: props) => {
   const dispatch = useAppDispatch();
   const initialValues = {
     ...data,
-    cnic: '',
+    license_number: '',
+    cnic:'38301-1257520-1',
     house_name: '',
     first_line_of_address: '',
     city: '',
@@ -157,12 +158,12 @@ const SignupNext = (props: props) => {
                   </View>
                   <View style={{marginTop: mvs(20)}}>
                     <PrimaryInput
-                      error={touched?.cnic ? t(errors.cnic) : ''}
-                      // placeholder={t('cnic')}
-                      placeholder={'cnic or 12345-1234567-1'}
-                      onChangeText={handleChange('cnic')}
-                      onBlur={handleBlur('cnic')}
-                      value={values.cnic}
+                      error={touched?.license_number ? t(errors.license_number) : ''}
+                      placeholder={t('License Number')}
+                      // placeholder={'license_number or 12345-1234567-1'}
+                      onChangeText={handleChange('license_number')}
+                      onBlur={handleBlur('license_number')}
+                      value={values.license_number}
                     />
                   </View>
                   <PrimaryInput
