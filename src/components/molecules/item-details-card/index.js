@@ -61,9 +61,10 @@ const ItemDetailsCard = ({
         <Regular
           // style={{width: width / 3}}
           style={{flex: 1}}
-          label={`${item?.label}(${item?.name})`} // Display the selected label here
+          label={`${item?.label} (${item?.name})`} // Display the selected label here
           fontSize={mvs(9)}
           color={colors.white}
+          numberOfLines={2}
         />
         {item?.quantity && (
           <PrimaryButton

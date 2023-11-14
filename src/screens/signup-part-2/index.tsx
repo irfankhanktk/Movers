@@ -53,7 +53,6 @@ const SignupNext = (props: props) => {
 
   const dispatch = useAppDispatch();
   const initialValues = {
-    ...data,
     license_number: '',
     // cnic:'38301-1257520-1',
     house_name: '',
@@ -62,26 +61,37 @@ const SignupNext = (props: props) => {
     postal_code: '',
     roles: 'Driver',
     dob: '',
+    ...props?.route?.params,
   };
   const [loading, setLoading] = React.useState(false);
 
   const handleFormSubmit = async values => {
-    try {
-      setLoading(true);
-      const res = await onSignup({
-        ...values,
-        ...data,
-        ...props?.route?.params,
-        fcm_token: '123',
-      });
-      setOtpModalVisible(true);
-      console.log(res);
-    } catch (error) {
-      Alert.alert('Error', UTILS.returnError(error));
-    } finally {
-      setLoading(false);
+    // dispatch(onSignup(values, setLoading));
+    navigate('SignupCard', {
+      ...values,
+      ...data,
+    });
+    {
+      console.log('values form siubmit', values);
     }
   };
+  // const handleFormSubmit = async values => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await onSignup({
+  //       ...values,
+  //       ...data,
+  //       ...props?.route?.params,
+  //       fcm_token: '123',
+  //     });
+  //     setOtpModalVisible(true);
+  //     console.log(res);
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const handlePlaceSelection = (data, details) => {
     // Extract latitude and longitude from details.geometry.location
     const {lat, lng} = details.geometry.location;
@@ -248,7 +258,8 @@ const SignupNext = (props: props) => {
                     }}
                     loading={loading}
                     onPress={handleSubmit}
-                    title={t('login')}
+                    title={'Continue'}
+                    // title={t('login')}
                   />
                 </>
               )}

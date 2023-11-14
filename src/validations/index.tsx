@@ -74,6 +74,14 @@ export const signupDetailsFormValidation = yup.object().shape({
 
   dob: yup.string().required('req_dob'),
 });
+export const signupCardFormValidation = yup.object().shape({
+  card_number: yup.string().required('Card Number is Required'),
+  card_expiry_date: yup.string().required('Card Expiry Date is Required'),
+  card_issue_date: yup.string().required('Card Issue Date is Required'),
+  card_cvv: yup.string().required('CVV is Required'),
+
+  card_holder: yup.string().required('Card Holder is required'),
+});
 export const UpdateProfileFormValidation = yup.object().shape({
   first_name: yup.string().required('req_first_name'),
   // middle_name: yup.string().required('req_middle_name'),

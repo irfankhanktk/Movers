@@ -51,6 +51,7 @@ import MessageHomeScreen from 'screens/messageHome';
 import UpdateProfileScreen from 'screens/update_profile';
 import ContactUsScreen from 'screens/contact-us';
 import UserTab from 'screens/user-tab';
+import SignupCard from 'screens/signup-part-3';
 
 const Stack = createNativeStackNavigator();
 
@@ -84,6 +85,7 @@ export const RootNavigator = () => {
             component={ResetPasswordScreen}
           />
           <Stack.Screen name="SignupNext" component={SignupNext} />
+          <Stack.Screen name="SignupCard" component={SignupCard} />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
           <Stack.Screen name="Search" component={Search} />

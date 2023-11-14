@@ -33,6 +33,7 @@ const LabelValue = ({label, value, containerStyle, labelStyle, valueStyle}) => (
       label={value}
       fontSize={mvs(12)}
       color={colors.white}
+      numberOfLines={5}
     />
   </Row>
 );
