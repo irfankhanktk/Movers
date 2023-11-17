@@ -57,7 +57,7 @@ import {
   onStoreVehicle,
 } from 'services/api/auth-api-actions';
 import {Loader} from 'components/atoms/loader';
-
+import ImageView from 'react-native-image-viewing';
 const VehicleInsuranceScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -65,7 +65,9 @@ const VehicleInsuranceScreen = props => {
   const [fileLoading, setFileLoading] = React.useState(false);
   const [saveFile, setSaveFile] = React.useState({});
   const [value, setValue] = React.useState('');
-
+  const [showImage, setShowImage] = React.useState(false);
+  const [visible, setIsVisible] = React.useState(false);
+  const [imageUri, setImageUri] = React.useState('');
   const [documentList, setDocumentList] = React.useState('');
   const initialValues = {
     insurance_company: documentList?.insurance_company || '',
@@ -74,7 +76,16 @@ const VehicleInsuranceScreen = props => {
     vehicle_insurance_photo: '' || documentList?.vehicle_insurance_photo,
   };
   const [loading, setLoading] = React.useState(false);
+  const handleImagePress = uri => {
+    setImageUri(uri);
+    setIsVisible(true);
+  };
 
+  const images = [
+    {
+      uri: imageUri, // The URI of the image you want to display
+    },
+  ];
   const handleFormSubmit = async values => {
     try {
       console.log('values', values);
@@ -239,21 +250,30 @@ const VehicleInsuranceScreen = props => {
                             onPress={() => onPressAttachment()}>
                             {documentList?.vehicle_insurance_photo ||
                             saveFile?.uri ? (
-                              <Image
-                                // label={
-                                //   saveFile?.uri || documentList?.license_photo
-                                // }
-                                source={{
-                                  uri:
-                                    saveFile?.uri ||
-                                    documentList?.vehicle_insurance_photo,
-                                }}
-                                resizeMode="cover"
+                              <TouchableOpacity
                                 style={{width: mvs(50), height: mvs(50)}}
-                                // color={colors.primary}
-                                // fontSize={mvs(14)}
-                                // style={styles.filenametext}
-                              />
+                                onPress={() =>
+                                  handleImagePress(
+                                    documentList?.vehicle_insurance_photo ||
+                                      saveFile?.uri,
+                                  )
+                                }>
+                                <Image
+                                  // label={
+                                  //   saveFile?.uri || documentList?.license_photo
+                                  // }
+                                  source={{
+                                    uri:
+                                      saveFile?.uri ||
+                                      documentList?.vehicle_insurance_photo,
+                                  }}
+                                  resizeMode="cover"
+                                  style={{width: mvs(50), height: mvs(50)}}
+                                  // color={colors.primary}
+                                  // fontSize={mvs(14)}
+                                  // style={styles.filenametext}
+                                />
+                              </TouchableOpacity>
                             ) : (
                               <Row style={{justifyContent: 'center'}}>
                                 <FileSVG width={mvs(25)} height={mvs(25)} />
@@ -363,6 +383,12 @@ const VehicleInsuranceScreen = props => {
           </View>
         )}
       </ScrollView>
+      <ImageView
+        images={images}
+        imageIndex={0}
+        visible={visible}
+        onRequestClose={() => setIsVisible(false)}
+      />
     </View>
   );
 };

@@ -28,6 +28,7 @@ import DocumentPicker from 'react-native-document-picker';
 import Regular from 'typography/regular-text';
 import {Loader} from 'components/atoms/loader';
 import {goBack} from 'navigation/navigation-ref';
+import ImageView from 'react-native-image-viewing';
 const LicenseDetailsScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -38,7 +39,9 @@ const LicenseDetailsScreen = props => {
   const [documentList, setDocumentList] = React.useState('');
   const [value, setValue] = React.useState('');
   // const [selectedFile, setSelectedFile] = useState(null);
-
+  const [showImage, setShowImage] = React.useState(false);
+  const [visible, setIsVisible] = React.useState(false);
+  const [imageUri, setImageUri] = React.useState('');
   const initialValues = {
     driver_license_no: documentList?.driver_license_no || '',
     license_issue_date: documentList?.license_issue_date || '',
@@ -47,6 +50,16 @@ const LicenseDetailsScreen = props => {
   };
   const [loading, setLoading] = React.useState(false);
 
+  const handleImagePress = uri => {
+    setImageUri(uri);
+    setIsVisible(true);
+  };
+
+  const images = [
+    {
+      uri: imageUri, // The URI of the image you want to display
+    },
+  ];
   const handleFormSubmit = async values => {
     try {
       console.log('values', values);
@@ -267,21 +280,30 @@ const LicenseDetailsScreen = props => {
                             style={styles.uploadphotoview}
                             onPress={() => onPressAttachment()}>
                             {documentList?.license_photo || saveFile?.uri ? (
-                              <Image
-                                // label={
-                                //   saveFile?.uri || documentList?.license_photo
-                                // }
-                                source={{
-                                  uri:
-                                    saveFile?.uri ||
-                                    documentList?.license_photo,
-                                }}
-                                resizeMode="cover"
+                              <TouchableOpacity
                                 style={{width: mvs(50), height: mvs(50)}}
-                                // color={colors.primary}
-                                // fontSize={mvs(14)}
-                                // style={styles.filenametext}
-                              />
+                                onPress={() =>
+                                  handleImagePress(
+                                    documentList?.license_photo ||
+                                      saveFile?.uri,
+                                  )
+                                }>
+                                <Image
+                                  // label={
+                                  //   saveFile?.uri || documentList?.license_photo
+                                  // }
+                                  source={{
+                                    uri:
+                                      saveFile?.uri ||
+                                      documentList?.license_photo,
+                                  }}
+                                  resizeMode="cover"
+                                  style={{width: mvs(50), height: mvs(50)}}
+                                  // color={colors.primary}
+                                  // fontSize={mvs(14)}
+                                  // style={styles.filenametext}
+                                />
+                              </TouchableOpacity>
                             ) : (
                               <Row style={{justifyContent: 'center'}}>
                                 <FileSVG width={mvs(25)} height={mvs(25)} />
@@ -390,6 +412,12 @@ const LicenseDetailsScreen = props => {
           </View>
         )}
       </ScrollView>
+      <ImageView
+        images={images}
+        imageIndex={0}
+        visible={visible}
+        onRequestClose={() => setIsVisible(false)}
+      />
     </View>
   );
 };

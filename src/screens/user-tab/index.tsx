@@ -32,7 +32,7 @@ import {t} from 'i18next';
 import {STORAGEKEYS} from 'config/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setUserInfo} from 'store/reducers/user-reducer';
-
+import ImageView from 'react-native-image-viewing';
 type props = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'UserTab'>,
   NativeStackScreenProps<RootStackParamList>
@@ -44,6 +44,9 @@ const UserTab = (props: props) => {
   const dispatch = useAppDispatch();
   const [saveFile, setSaveFile] = React.useState(null);
   const [fileLoading, setFileLoading] = React.useState(false);
+  const [showImage, setShowImage] = React.useState(false);
+  const [visible, setIsVisible] = React.useState(false);
+  const [imageUri, setImageUri] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   // const ImageUpload = async () => {
   //   try {
@@ -64,6 +67,10 @@ const UserTab = (props: props) => {
   //     Alert.alert('Error', UTILS?.returnError(error));
   //   }
   // };
+  const handleImagePress = uri => {
+    setImageUri(uri);
+    setIsVisible(true);
+  };
   const onPressAttachment = async () => {
     try {
       setFileLoading(true);
@@ -189,14 +196,20 @@ const UserTab = (props: props) => {
           {loading ? (
             <Loader color={colors.white} />
           ) : (
-            <Image
-              source={userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.User_img}
-              // source={{uri: saveFile?.uri}}
-              // source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}
-              // source={IMG.Drawerman}
-              style={styles.imgUpload}
-              resizeMode="cover"
-            />
+            <TouchableOpacity
+              onPress={() => handleImagePress(userInfo?.avatar)}
+              style={styles.imgUpload}>
+              <Image
+                source={
+                  userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.Drawerman
+                }
+                // source={{uri: saveFile?.uri}}
+                // source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}
+                // source={IMG.Drawerman}
+                style={styles.imgUpload}
+                resizeMode="cover"
+              />
+            </TouchableOpacity>
           )}
           {userInfo?.id && (
             <TouchableOpacity
@@ -361,6 +374,12 @@ const UserTab = (props: props) => {
           </ScrollView>
         </View>
       </View>
+      <ImageView
+        images={[{uri: imageUri}]}
+        imageIndex={0}
+        visible={visible}
+        onRequestClose={() => setIsVisible(false)}
+      />
     </View>
   );
 };
