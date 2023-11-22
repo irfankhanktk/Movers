@@ -63,11 +63,11 @@ const CustomMap: React.FC<CustomMapProps> = ({
         {children}
         {currentLocation && <Marker coordinate={currentLocation} />}
       </MapView>
-      <View style={[styles.currentLocationButton]}>
+      {/* <View style={[styles.currentLocationButton]}>
         <TouchableOpacity onPress={handleCurrentLocationPress}>
           <CurrentLocation height={'100%'} width={'100%'} />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

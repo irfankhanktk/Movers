@@ -28,7 +28,6 @@ import {
   getHomeBanner,
   getNotifications,
 } from 'services/api/auth-api-actions';
-
 import {UTILS} from 'utils';
 import {setLocation} from 'store/reducers/user-reducer';
 import {useIsFocused} from '@react-navigation/native';
@@ -36,7 +35,6 @@ import Regular from 'typography/regular-text';
 import {Loader} from 'components/atoms/loader';
 import {database} from '@react-native-firebase/database';
 import {PrimaryButton} from 'components/atoms/buttons';
-
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import Geolocation from 'react-native-geolocation-service';

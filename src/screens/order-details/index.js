@@ -318,6 +318,7 @@ const OrderDetailsScreen = props => {
                 </CustomMap>
               </View>
               <TouchableOpacity
+                activeOpacity={0.7}
                 style={{
                   // width: mvs(120),
                   paddingHorizontal: mvs(10),

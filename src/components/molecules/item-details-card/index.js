@@ -68,6 +68,7 @@ const ItemDetailsCard = ({
         />
         {item?.quantity && (
           <PrimaryButton
+            disabled={true}
             title={item?.quantity || 0}
             containerStyle={{
               width: mvs(31),
