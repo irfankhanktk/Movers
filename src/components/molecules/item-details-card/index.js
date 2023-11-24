@@ -58,14 +58,16 @@ const ItemDetailsCard = ({
           marginHorizontal: mvs(5),
           alignItems: 'center',
         }}>
-        <Regular
-          // style={{width: width / 3}}
-          style={{flex: 1}}
-          label={`${item?.label} (${item?.name})`} // Display the selected label here
-          fontSize={mvs(9)}
-          color={colors.white}
-          numberOfLines={2}
-        />
+        {item?.name != 'any_instruction' && (
+          <Regular
+            // style={{width: width / 3}}
+            style={{flex: 1}}
+            label={`${item?.label} (${item?.name})`} // Display the selected label here
+            fontSize={mvs(9)}
+            color={colors.white}
+            numberOfLines={2}
+          />
+        )}
         {item?.quantity && (
           <PrimaryButton
             disabled={true}

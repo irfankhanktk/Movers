@@ -202,7 +202,7 @@ const OrderDetailsScreen = props => {
       const res = await getOrderDetails(id);
       setOrderData(res?.value);
 
-      console.log('data', res?.value);
+      console.log('data===>>>', res?.value);
     } catch (error) {
       setLoading(false);
     } finally {
@@ -227,36 +227,7 @@ const OrderDetailsScreen = props => {
   };
 
   const renderAppointmentItem = ({item, index}) => {
-    // // Filter out items with type 'hidden' or 'header'
-    // const visibleItems = Array.isArray(item.values)
-    //   ? item.values.filter(
-    //       value => value.type !== 'hidden' && value.type !== 'header',
-    //     )
-    //   : [];
-
-    // // Find the selected label in visibleItems
-    // const selectedValue = visibleItems.find(value => value.selected === 1);
-    // const selectedLabel = selectedValue ? selectedValue.label : '';
-
-    // // Find the corresponding quantity_json value based on the selectedLabel
-    // const quantityJson = orderData?.quantity_json
-    //   ? JSON.parse(orderData.quantity_json)
-    //   : {};
-
-    // const quantity = quantityJson[selectedLabel] || '';
-
-    // // Check if there are visible items to render
-    // if (visibleItems.length > 0) {
-    return (
-      <ItemDetailsCard
-        item={item}
-        // selectedLabel={selectedLabel}
-        // quantity={quantity}
-      />
-    );
-    // } else {
-    //   return null; // Don't render anything if no visible items
-    // }
+    return <ItemDetailsCard item={item} />;
   };
   const openGoogleMapsDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}`;
@@ -289,6 +260,7 @@ const OrderDetailsScreen = props => {
         console.error('Error opening phone dialer:', error);
       });
   };
+  console.log('orderData?.any_instruction', orderData?.any_instruction);
 
   return (
     <View style={styles.container}>
@@ -371,6 +343,29 @@ const OrderDetailsScreen = props => {
                   // ItemSeparatorComponent={itemSeparatorComponent()}
                   keyExtractor={(_, index) => index?.toString()}
                 />
+                {orderData?.any_instruction && (
+                  <View>
+                    <Medium
+                      label={'Any Instruction:'}
+                      fontSize={mvs(12)}
+                      color={colors.white}
+                    />
+                    <View
+                      style={{
+                        width: '100%',
+                        backgroundColor: colors.gray,
+                        padding: mvs(5),
+                        borderRadius: mvs(4),
+                      }}>
+                      <Medium
+                        label={orderData?.any_instruction}
+                        fontSize={mvs(10)}
+                        color={colors.black}
+                        numberOfLines={10}
+                      />
+                    </View>
+                  </View>
+                )}
               </View>
               {orderData?.driver_status === 'delivered' &&
                 orderData?.review && (
