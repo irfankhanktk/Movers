@@ -1,52 +1,32 @@
-import messaging from '@react-native-firebase/messaging';
 import * as IMG from 'assets/images';
-import {auth_bg} from 'assets/images';
-import {PrimaryButton} from 'components/atoms/buttons';
-import OtpModal from 'components/molecules/modals/otp-modal';
-import {height, mvs, width} from 'config/metrices';
-import {Formik, useFormik} from 'formik';
-import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import {goBack, navigate, resetStack} from 'navigation/navigation-ref';
+import { PrimaryButton } from 'components/atoms/buttons';
+import Header1x2x from 'components/atoms/headers/header-1x-2x';
+import PrimaryInput, { InputWithIcon } from 'components/atoms/inputs';
+import { KeyboardAvoidScrollview } from 'components/atoms/keyboard-avoid-scrollview/index';
+import { colors } from 'config/colors';
+import { mvs } from 'config/metrices';
+import { Formik } from 'formik';
+import { useAppDispatch, useAppSelector } from 'hooks/use-store';
+import { goBack } from 'navigation/navigation-ref';
 import React from 'react';
 import {
-  ImageBackground,
-  TouchableOpacity,
-  View,
-  Image,
-  StyleSheet,
-  ScrollView,
   Alert,
+  Image,
+  ImageBackground,
+  ScrollView,
+  View
 } from 'react-native';
-import LottieView from 'lottie-react-native';
-import PrimaryInput, {InputWithIcon} from 'components/atoms/inputs';
-import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollview/index';
-import i18n from 'translation';
-import Bold from 'typography/bold-text';
-import Medium from 'typography/medium-text';
-import {
-  addVheicleValidation,
-  forgotPasswordValidation,
-  signinFormValidation,
-} from 'validations';
-import styles from './styles';
-import {colors} from 'config/colors';
-import {Row} from 'components/atoms/row';
-import {
-  Clock,
-  FacBookIcon,
-  ForgotPasswordAnimation,
-  GoogleIcon,
-  LoginAnimation,
-} from 'assets/icons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header1x2x from 'components/atoms/headers/header-1x-2x';
 import {
   onCreateVehicle,
-  onSignup,
-  onStoreVehicle,
+  onStoreVehicle
 } from 'services/api/auth-api-actions';
-import {UTILS} from 'utils';
+import i18n from 'translation';
+import Bold from 'typography/bold-text';
+import { UTILS } from 'utils';
+import {
+  addVheicleValidation
+} from 'validations';
+import styles from './styles';
 const AddVehicleScreen = props => {
   const {user} = useAppSelector(s => s);
   const dispatch = useAppDispatch();
@@ -123,6 +103,7 @@ const AddVehicleScreen = props => {
                   <View style={styles.contentContainerStyle}>
                     <View style={styles.contentContainerStyleNew}>
                       <KeyboardAvoidScrollview
+                      
                         contentContainerStyle={styles.keyboardcontentcontainer}>
                         <Bold
                           label={t('add_vehicle')}

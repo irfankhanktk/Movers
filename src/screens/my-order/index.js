@@ -1,40 +1,33 @@
+import { useIsFocused } from '@react-navigation/native';
+import { CrossModal } from 'assets/icons';
+import { PrimaryButton } from 'components/atoms/buttons';
+import CustomFlatList from 'components/atoms/custom-flatlist';
+import { Loader } from 'components/atoms/loader';
 import Header1x2x from 'components/atoms/myorder-headers/header-1x-2x';
-import {Loader} from 'components/atoms/loader';
-import {Row} from 'components/atoms/row';
-import {colors} from 'config/colors';
-import {mvs} from 'config/metrices';
-import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import moment from 'moment';
-import React, {useEffect} from 'react';
+import { Row } from 'components/atoms/row';
+import MyOrderCard from 'components/molecules/my-order-card';
+import { colors } from 'config/colors';
+import { mvs } from 'config/metrices';
+import { useAppDispatch, useAppSelector } from 'hooks/use-store';
+import { navigate } from 'navigation/navigation-ref';
+import React, { useEffect } from 'react';
 import {
   Alert,
-  FlatList,
-  Image,
   Modal,
   RefreshControl,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import i18n from 'translation';
-import Medium from 'typography/medium-text';
-import Regular from 'typography/regular-text';
-import styles from './styles';
-import {EmptyList} from 'components/atoms/empty-list';
-import CustomFlatList from 'components/atoms/custom-flatlist';
-import {PlusButton, PrimaryButton} from 'components/atoms/buttons';
-import MyOrderCard from 'components/molecules/my-order-card';
-import {ORDER_LIST} from 'config/constants';
 import {
   getOrderListList,
   getOrderStatusChange,
   getOrderStatusChange2,
 } from 'services/api/auth-api-actions';
-import {UTILS} from 'utils';
-import {useIsFocused} from '@react-navigation/native';
-import {onCreateConveration} from 'services/api/chat-api-actions';
-import {navigate} from 'navigation/navigation-ref';
-import {CheckmarkAnimation, CrossModal, OTPAnimation} from 'assets/icons';
+import { onCreateConveration } from 'services/api/chat-api-actions';
+import i18n from 'translation';
+import { UTILS } from 'utils';
+import styles from './styles';
 
 const MyOrderScreen = props => {
   const dispatch = useAppDispatch();
@@ -241,7 +234,7 @@ const MyOrderScreen = props => {
           <PrimaryButton
             title={t('accepted')}
             containerStyle={{
-              width: mvs(88),
+              width: '30%',
               height: mvs(39),
               backgroundColor:
                 selectedOrder === 'accepted' ? colors.primary : colors.white,
@@ -264,7 +257,7 @@ const MyOrderScreen = props => {
           <PrimaryButton
             title={t('start')}
             containerStyle={{
-              width: mvs(88),
+              width: '30%',
               height: mvs(39),
               backgroundColor:
                 selectedOrder === 'start' ? colors.primary : colors.white,
@@ -286,7 +279,7 @@ const MyOrderScreen = props => {
           <PrimaryButton
             title={t('completed')}
             containerStyle={{
-              width: mvs(88),
+              width: '30%',
               height: mvs(39),
               backgroundColor:
                 selectedOrder === 'delivered' ? colors.primary : colors.white,

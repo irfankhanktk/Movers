@@ -1,10 +1,7 @@
 import { WhereFilterOp } from '@firebase/firestore-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import Rnfirestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import { setUserInfo } from '../../store/reducers/user-reducer';
 import { UTILS } from 'utils';
 
 export const getCurrentUserId = () => auth()?.currentUser?.uid;

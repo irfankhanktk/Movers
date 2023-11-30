@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     // flexGrow: 1,
+    flex:1,
+    marginBottom:mvs(20),
     // paddingTop: '50%',
-    height: height - 220,
+    // height: height - 220,
     paddingHorizontal: mvs(20),
   },
   txt: {marginBottom: mvs(10), fontSize: mvs(20)},
@@ -57,6 +59,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  scrollcontentcontainer: {
+    paddingHorizontal: mvs(0),
+    flexGrow: 1,
+    paddingBottom: mvs(50),
   },
 });
 export default styles;

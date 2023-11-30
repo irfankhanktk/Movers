@@ -91,12 +91,16 @@ const TermsandConditionsScreen = props => {
           <Loader />
         ) : (
           <View style={styles.contentContainerStyleNew}>
-            <KeyboardAvoidScrollview
+          <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.scrollcontentcontainer}>
+            {/* <KeyboardAvoidScrollview
               contentContainerStyle={{
                 paddingHorizontal: mvs(0),
                 flexGrow: 0,
                 paddingBottom: mvs(50),
-              }}>
+              }}> */}
+
               <Bold
                 label={t('terms_&_conditions')}
                 color={colors.red}
@@ -108,13 +112,14 @@ const TermsandConditionsScreen = props => {
               label={
                 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'
               }
-              fontSize={mvs(14)}
+              fontSize={mvs(14)}P
               color={colors.black}
               style={{textAlign: 'justify'}}
               numberOfLines={60}
             /> */}
               <HtmlView html={term} />
-            </KeyboardAvoidScrollview>
+              </ScrollView>
+            {/* </KeyboardAvoidScrollview> */}
             {/* <PrimaryButton
             containerStyle={{
               borderRadius: mvs(10),

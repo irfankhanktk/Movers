@@ -1,30 +1,26 @@
-import {useNavigation} from '@react-navigation/native';
-import {colors} from 'config/colors';
-import {mvs} from 'config/metrices';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { colors } from 'config/colors';
+import { STORAGEKEYS } from 'config/constants';
+import { mvs } from 'config/metrices';
+import { useAppDispatch, useAppSelector } from 'hooks/use-store';
+import { t } from 'i18next';
 import React from 'react';
 import {
   Alert,
-  I18nManager,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Medium from 'typography/medium-text';
-import {Row} from '../row';
-import {SearchInput} from '../inputs';
-import {HoemSVG} from 'assets/icons';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {t} from 'i18next';
-import {getStatusChange} from 'services/api/auth-api-actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {STORAGEKEYS} from 'config/constants';
-import {setUserInfo} from 'store/reducers/user-reducer';
-import {UTILS} from 'utils';
-import {useAppDispatch, useAppSelector} from 'hooks/use-store';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import { getStatusChange } from 'services/api/auth-api-actions';
+import { setUserInfo } from 'store/reducers/user-reducer';
+import Medium from 'typography/medium-text';
+import { UTILS } from 'utils';
+import { SearchInput } from '../inputs';
+import { Row } from '../row';
 const HeaderX = ({
   style = {},
   mtop = 0,
@@ -136,8 +132,8 @@ const HeaderX = ({
                 borderRadius: mvs(16),
               }}>
               <Row style={{alignItems: 'center'}}>
-                <FontAwesome6
-                  name="circle-arrow-right"
+                <Feather
+                  name="arrow-right-circle"
                   size={mvs(25)}
                   color={colors.homegreen}
                 />

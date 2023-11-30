@@ -1,44 +1,38 @@
+import firebase from '@react-native-firebase/app';
+import { useIsFocused } from '@react-navigation/native';
+import * as IMG from 'assets/images';
+import CustomFlatList from 'components/atoms/custom-flatlist';
 import Header1x2x from 'components/atoms/header-home/header-1x-2x';
-import SwiperCard from 'components/atoms/swiper';
+import { Loader } from 'components/atoms/loader';
+import { Row } from 'components/atoms/row';
+import HomeSwiper from 'components/molecules/home-swiper';
 import ServiceCard from 'components/molecules/service-card';
-import {SERVICE_LIST} from 'config/constants';
-import {mvs} from 'config/metrices';
-import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import React, {useCallback} from 'react';
+import { colors } from 'config/colors';
+import { SERVICE_LIST } from 'config/constants';
+import { mvs } from 'config/metrices';
+import { useAppDispatch, useAppSelector } from 'hooks/use-store';
+import { navigate } from 'navigation/navigation-ref';
+import React from 'react';
 import {
   Alert,
-  Image,
   ImageBackground,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import i18n from 'translation';
-import Bold from 'typography/bold-text';
-import Medium from 'typography/medium-text';
-import styles from './styles';
-import HomeSwiper from 'components/molecules/home-swiper';
-import CustomFlatList from 'components/atoms/custom-flatlist';
-import * as IMG from 'assets/images';
+import Geolocation from 'react-native-geolocation-service';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {colors} from 'config/colors';
-import {Row} from 'components/atoms/row';
-import {navigate} from 'navigation/navigation-ref';
 import {
   getDirection,
   getHomeBanner,
   getNotifications,
 } from 'services/api/auth-api-actions';
-import {UTILS} from 'utils';
-import {setLocation} from 'store/reducers/user-reducer';
-import {useIsFocused} from '@react-navigation/native';
+import { setLocation } from 'store/reducers/user-reducer';
+import i18n from 'translation';
+import Bold from 'typography/bold-text';
+import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
-import {Loader} from 'components/atoms/loader';
-import {database} from '@react-native-firebase/database';
-import {PrimaryButton} from 'components/atoms/buttons';
-import firestore from '@react-native-firebase/firestore';
-import firebase from '@react-native-firebase/app';
-import Geolocation from 'react-native-geolocation-service';
-import {useFocusEffect} from '@react-navigation/native';
+import { UTILS } from 'utils';
+import styles from './styles';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
   const isFcous = useIsFocused();
@@ -115,40 +109,40 @@ const HomeTab = props => {
   //     Geolocation.clearWatch(watchId);
   //   };
   // }, [dispatch, userInfo]);
-  React.useEffect(() => {
-    const locationInterval = setInterval(() => {
-      Geolocation.getCurrentPosition(
-        position => {
-          const lat = position.coords.latitude;
-          const long = position.coords.longitude;
+  // React.useEffect(() => {
+  //   const locationInterval = setInterval(() => {
+  //     Geolocation.getCurrentPosition(
+  //       position => {
+  //         const lat = position.coords.latitude;
+  //         const long = position.coords.longitude;
 
-          // Dispatch the location to Redux
-          dispatch(
-            setLocation({
-              latitude: lat,
-              longitude: long,
-            }),
-          );
+  //         // Dispatch the location to Redux
+  //         dispatch(
+  //           setLocation({
+  //             latitude: lat,
+  //             longitude: long,
+  //           }),
+  //         );
 
-          // Send data to Firebase Firestore
-          sendLocationToFirestore(lat, long, userInfo?.id);
+  //         // Send data to Firebase Firestore
+  //         sendLocationToFirestore(lat, long, userInfo?.id);
 
-          // Console log the latitude and longitude
-          console.log('Latitude:', lat);
-          console.log('Longitude:', long);
-        },
-        error => {
-          // Handle the error here if needed
-          console.error('Error fetching location:', error);
-        },
-      );
-    }, 15000); // 15 seconds in milliseconds
+  //         // Console log the latitude and longitude
+  //         console.log('Latitude:', lat);
+  //         console.log('Longitude:', long);
+  //       },
+  //       error => {
+  //         // Handle the error here if needed
+  //         console.error('Error fetching location:', error);
+  //       },
+  //     );
+  //   }, 15000); // 15 seconds in milliseconds
 
-    return () => {
-      // Clear the interval when the component unmounts
-      clearInterval(locationInterval);
-    };
-  }, [dispatch, userInfo]);
+  //   return () => {
+  //     // Clear the interval when the component unmounts
+  //     clearInterval(locationInterval);
+  //   };
+  // }, [dispatch, userInfo]);
   // const latitude = user?.location?.latitude;
   // const longitude = user?.location?.longitude;
   const fetchDirection = async setLoading => {
@@ -193,37 +187,37 @@ const HomeTab = props => {
   const basePath = 'luggage-app';
 
   // Function to send location data to Firebase
-  const sendLocationToFirestore = (latitude, longitude, userId) => {
-    // Ensure that documentPath is correctly defined to point to a document
-    const documentPath = `${basePath}/${userId}`; // Modify this as per your Firestore structure
+  // const sendLocationToFirestore = (latitude, longitude, userId) => {
+  //   // Ensure that documentPath is correctly defined to point to a document
+  //   const documentPath = `${basePath}/${userId}`; // Modify this as per your Firestore structure
 
-    if (documentPath) {
-      // Assuming you have Firebase initialized with your configuration
-      const firestore = firebase.firestore();
-      const userDocument = firestore.doc(documentPath);
-      const driverCollection = userDocument.collection('Driver');
+  //   if (documentPath) {
+  //     // Assuming you have Firebase initialized with your configuration
+  //     const firestore = firebase.firestore();
+  //     const userDocument = firestore.doc(documentPath);
+  //     const driverCollection = userDocument.collection('Driver');
 
-      // Create a document with the data to be sent
-      const locationData = {
-        id: userId,
-        latitude: latitude,
-        longitude: longitude,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Add a timestamp
-      };
+  //     // Create a document with the data to be sent
+  //     const locationData = {
+  //       id: userId,
+  //       latitude: latitude,
+  //       longitude: longitude,
+  //       timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Add a timestamp
+  //     };
 
-      // Add the location data to the 'Driver' subcollection within the user's document
-      driverCollection
-        .add(locationData)
-        .then(docRef => {
-          console.log('Data sent to Firestore with ID:', docRef.id);
-        })
-        .catch(error => {
-          console.error('Error sending data to Firestore:', error);
-        });
-    } else {
-      console.error('Invalid documentPath:', documentPath);
-    }
-  };
+  //     // Add the location data to the 'Driver' subcollection within the user's document
+  //     driverCollection
+  //       .add(locationData)
+  //       .then(docRef => {
+  //         console.log('Data sent to Firestore with ID:', docRef.id);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error sending data to Firestore:', error);
+  //       });
+  //   } else {
+  //     console.error('Invalid documentPath:', documentPath);
+  //   }
+  // };
 
   React.useEffect(() => {
     fetchDirection(setLoading);

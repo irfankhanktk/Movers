@@ -1,46 +1,22 @@
-import messaging from '@react-native-firebase/messaging';
 import * as IMG from 'assets/images';
-import {auth_bg} from 'assets/images';
-import {PrimaryButton} from 'components/atoms/buttons';
-import OtpModal from 'components/molecules/modals/otp-modal';
-import {height, mvs, width} from 'config/metrices';
-import {useFormik} from 'formik';
-import {useAppDispatch} from 'hooks/use-store';
-import {navigate, resetStack} from 'navigation/navigation-ref';
+import { KeyboardAvoidScrollview } from 'components/atoms/keyboard-avoid-scrollview/index';
+import { colors } from 'config/colors';
+import { mvs, width } from 'config/metrices';
+import { useAppDispatch } from 'hooks/use-store';
 import React from 'react';
 import {
-  ImageBackground,
-  TouchableOpacity,
-  View,
   Image,
-  StyleSheet,
   ScrollView,
+  View
 } from 'react-native';
-import LottieView from 'lottie-react-native';
-import PrimaryInput from 'components/atoms/inputs';
-import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollview/index';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
-import Medium from 'typography/medium-text';
-import {signinFormValidation} from 'validations';
-import styles from './styles';
-import {colors} from 'config/colors';
-import {Row} from 'components/atoms/row';
-import {
-  Clock,
-  FacBookIcon,
-  ForgotPasswordAnimation,
-  GoogleIcon,
-  LoginAnimation,
-} from 'assets/icons';
 import HtmlView from '../../components/atoms/render-html';
+import styles from './styles';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import Regular from 'typography/regular-text';
-import {getPrivacyPolicy} from 'services/api/auth-api-actions';
-import {Loader} from 'components/atoms/loader';
+import { Loader } from 'components/atoms/loader';
+import { getPrivacyPolicy } from 'services/api/auth-api-actions';
 const PrivacyPolicyScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
@@ -89,12 +65,15 @@ const PrivacyPolicyScreen = props => {
           <Loader />
         ) : (
           <View style={styles.contentContainerStyleNew}>
-            <KeyboardAvoidScrollview
+             <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.scrollcontentcontainer}>
+            {/* <KeyboardAvoidScrollview
               contentContainerStyle={{
                 paddingHorizontal: mvs(0),
                 flexGrow: 0,
                 paddingBottom: mvs(50),
-              }}>
+              }}> */}
               <Bold
                 label={t('return_policy & private_policy')}
                 color={colors.red}
@@ -112,7 +91,8 @@ const PrivacyPolicyScreen = props => {
               numberOfLines={60}
             /> */}
               <HtmlView html={term} />
-            </KeyboardAvoidScrollview>
+              </ScrollView>
+            {/* </KeyboardAvoidScrollview> */}
             {/* <PrimaryButton
             containerStyle={{
               borderRadius: mvs(10),
