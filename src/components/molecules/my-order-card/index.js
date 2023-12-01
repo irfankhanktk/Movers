@@ -178,6 +178,7 @@ const MyOrderCard = ({
             fontSize={mvs(12)}
             color={colors.grey}
             style={{flex: 1}}
+            numberOfLines={4}
           />
         </Row>
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>

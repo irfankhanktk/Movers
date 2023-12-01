@@ -161,6 +161,7 @@ const MangeVehcileCard = ({
             color={colors.white}
             style={{flex: 1}}
             fontSize={mvs(12)}
+            numberOfLines={2}
           />
         </Row>
         <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
