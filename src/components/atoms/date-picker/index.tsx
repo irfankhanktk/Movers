@@ -22,6 +22,8 @@ type IProps = {
   mode?: 'date' | 'time';
   onPress?: () => void;
   onBlur?: any;
+  isVisible:boolean
+  onCancel: () => void; 
 };
 // export const DatePicker = (props: IProps) => {
 //   const {
@@ -64,7 +66,7 @@ type IProps = {
 //   );
 // };
 export const DatePicker = (props: IProps) => {
-  const {style, onChangeText, mode = 'date', children} = props;
+  const {style, onChangeText, mode = 'date', children,isVisible,onCancel} = props;
   const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 
   const showDatePicker = () => {
@@ -81,16 +83,19 @@ export const DatePicker = (props: IProps) => {
   };
 
   return (
+    
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={showDatePicker}
       style={style}>
       {children}
       <DateTimePickerModal
-        isVisible={isDatePickerVisible}
+        isVisible={isVisible}
+        // isVisible={isDatePickerVisible}
+
         mode={mode}
         onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
+        onCancel={onCancel}
       />
     </TouchableOpacity>
   );

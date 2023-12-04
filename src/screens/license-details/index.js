@@ -338,6 +338,7 @@ const LicenseDetailsScreen = props => {
                                 // documentList?.driver_license_no
                               }
                             />
+                            <View>
                             <DatePicker
                               onPress={() =>
                                 setFieldTouched('license_issue_date', true)
@@ -365,6 +366,7 @@ const LicenseDetailsScreen = props => {
                                 }
                               />
                             </DatePicker>
+                            </View>
 
                             <DatePicker
                               onPress={() =>

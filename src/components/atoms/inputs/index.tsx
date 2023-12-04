@@ -30,6 +30,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {t} from 'i18next';
 import {menue} from 'assets/images';
 import StartOrderDropdownModal from 'components/molecules/modals/startorder-dropdown-modal';
+import { DatePicker } from '../date-picker';
+import moment from 'moment';
 type props = {
   isRequired?: boolean;
   onChangeText: (text: string) => void;
@@ -127,8 +129,12 @@ export const InputPresciption = (props: props) => {
   );
 };
 const PrimaryInput = (props: props) => {
+
+  const [isDatePickerVisible, setDatePickerVisible] = useState(false); // Add state for DateTimePickerModal
+
   const [secure, setSecure] = useState(true);
   const {language} = useAppSelector(s => s.user);
+
   const {
     onChangeText,
     value,
@@ -149,6 +155,17 @@ const PrimaryInput = (props: props) => {
     onPressIn = () => {},
     isRequired = false,
   } = props;
+  const showDatePicker = () => {
+    setDatePickerVisible(true);
+  };
+  const hideDatePicker = () => {
+   setDatePickerVisible(false) // Call onCancel when the modal is canceled
+  };
+  const handleConfirm = (date: Date) => {
+    onChangeText(moment(date).format('YYYY-MM-DD'));
+    hideDatePicker();
+  };
+
   return (
     <View style={[mainContainer]}>
       {label && (
@@ -188,11 +205,20 @@ const PrimaryInput = (props: props) => {
           <TouchableOpacity
             style={styles.PasswordIcon}
             // onPress={() => setSecure(!secure)}
+            onPress={showDatePicker}
           >
             <FontAwesome size={20} name={'calendar'} color={colors.black} />
           </TouchableOpacity>
         )}
       </View>
+      <DatePicker
+        isVisible={isDatePickerVisible}
+        onChangeText={(str) => {
+          setDatePickerVisible(false);
+          onChangeText(str);
+        }}
+        onCancel={hideDatePicker}
+      />
       <Regular
         label={error ? error : ''}
         style={[styles.errorLabel, errorStyle]}
