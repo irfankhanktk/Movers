@@ -73,6 +73,7 @@ const CustomDrawerContent = props => {
           <Image
             source={userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.Drawerman}
             style={styles.drawerman}
+            // resizeMode="cover" 
           />
         </View>
 

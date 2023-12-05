@@ -37,8 +37,10 @@ const SignUpModal = ({
         }),
         // setLoading,
       );
-      Alert.alert('Your Account has been created Successfully and your 3 Month Free Trial Period is activated');
-
+      Alert.alert(
+        `Your Account has been created Successfully 
+        and your 3 Month Free Trial Period is activated`
+      );
       navigate('Login');
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));

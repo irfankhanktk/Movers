@@ -201,7 +201,8 @@ const UserTab = (props: props) => {
               style={styles.imgUpload}>
               <Image
                 source={
-                  userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.Drawerman
+                  userInfo?.avatar ? {uri: userInfo?.avatar} :
+                   IMG.Drawerman
                 }
                 // source={{uri: saveFile?.uri}}
                 // source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}

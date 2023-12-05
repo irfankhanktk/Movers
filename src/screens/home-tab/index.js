@@ -259,8 +259,8 @@ const HomeTab = props => {
             label={`Hi, ${
               userInfo?.first_name +
               ' ' +
-              userInfo?.middle_name +
-              ' ' +
+              // userInfo?.middle_name +
+              // ' ' +
               userInfo?.surname
             }`}
             fontSize={mvs(20)}
