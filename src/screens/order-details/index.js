@@ -289,6 +289,7 @@ const OrderDetailsScreen = props => {
                   />
                 </CustomMap>
               </View>
+
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={{
@@ -405,7 +406,6 @@ const OrderDetailsScreen = props => {
                     </View>
                   </Row>
                 )}
-
               {orderData?.driver_status !== 'start' &&
                 orderData?.driver_status !== 'delivered' && (
                   <View style={{marginHorizontal: mvs(20)}}>
