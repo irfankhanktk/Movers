@@ -4,6 +4,8 @@ import {
   I18nManager,
   Image,
   ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -111,70 +113,79 @@ const InboxScreen = props => {
     <InboxChatCard item={{...item, me: userInfo?.id === item?.user_id}} />
   );
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          paddingHorizontal: mvs(20),
-          paddingVertical: mvs(15),
-        }}>
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust behavior for iOS
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0} // Optionally adjust vertical offset for iOS
+    >
+      <View style={styles.container}>
+        <View
+          style={{
+            paddingHorizontal: mvs(20),
+            paddingVertical: mvs(15),
+          }}>
+          <Row
+            style={{
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity onPress={() => goBack()}>
+              <FontAwesome5
+                name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
+                size={mvs(20)}
+                color={colors.primary}
+              />
+            </TouchableOpacity>
+            <View style={styles.imageContainer}>
+              <Image
+                borderRadius={mvs(10)}
+                source={
+                  info?.receiver_image
+                    ? {uri: info.receiver_image}
+                    : image
+                    ? {uri: image}
+                    : IMG.Drawerman
+                }
+                // source={IMG.messagelogo}
+                style={styles.backGroundImage}
+              />
+            </View>
+            <View style={{paddingHorizontal: mvs(10), flex: 1}}>
+              <Bold label={info?.receiver_name || title} />
+              <Regular
+                numberOfLines={1}
+                label={info?.receiver_email || email}
+              />
+            </View>
+          </Row>
+        </View>
+        {loading ? (
+          <Loader />
+        ) : (
+          <CustomFlatList
+            inverted
+            showsVerticalScrollIndicator={false}
+            data={messages || []}
+            renderItem={featuredProduct}
+            contentContainerStyle={{
+              paddingBottom: mvs(20),
+              paddingHorizontal: mvs(20),
+            }}
+          />
+        )}
+
         <Row
           style={{
+            marginHorizontal: mvs(20),
             alignItems: 'center',
+            paddingBottom: Platform.OS === 'ios' ? mvs(50) : mvs(10),
           }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <FontAwesome5
-              name={I18nManager.isRTL ? 'arrow-right' : 'arrow-left'}
-              size={mvs(20)}
-              color={colors.primary}
-            />
+          <MessageInput value={message} onChangeText={setMessage} />
+          <TouchableOpacity style={styles.sendIcon} onPress={sendMessage}>
+            <Feather name={'send'} size={25} color={colors.white} />
           </TouchableOpacity>
-          <View style={styles.imageContainer}>
-            <Image
-              borderRadius={mvs(10)}
-              source={
-                info?.receiver_image
-                  ? {uri: info.receiver_image}
-                  : image
-                  ? {uri: image}
-                  : IMG.Drawerman
-              }
-              // source={IMG.messagelogo}
-              style={styles.backGroundImage}
-            />
-          </View>
-          <View style={{paddingHorizontal: mvs(10), flex: 1}}>
-            <Bold label={info?.receiver_name || title} />
-            <Regular numberOfLines={1} label={info?.receiver_email || email} />
-          </View>
         </Row>
       </View>
-      {loading ? (
-        <Loader />
-      ) : (
-        <CustomFlatList
-          inverted
-          showsVerticalScrollIndicator={false}
-          data={messages || []}
-          renderItem={featuredProduct}
-          contentContainerStyle={{
-            paddingBottom: mvs(20),
-            paddingHorizontal: mvs(20),
-          }}
-        />
-      )}
-
-      <Row
-        style={{
-          marginHorizontal: mvs(20),
-          alignItems: 'center',
-          paddingBottom: mvs(20),
-        }}>
-        <MessageInput value={message} onChangeText={setMessage} />
-        <TouchableOpacity style={styles.sendIcon} onPress={sendMessage}>
-          <Feather name={'send'} size={25} color={colors.white} />
-        </TouchableOpacity>
-      </Row>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 export default InboxScreen;
