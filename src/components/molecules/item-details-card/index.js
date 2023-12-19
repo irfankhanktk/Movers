@@ -58,7 +58,7 @@ const ItemDetailsCard = ({
           marginHorizontal: mvs(5),
           alignItems: 'center',
         }}>
-        {item?.name != 'any_instruction' && (
+        {/* {item?.name != 'any_instruction' && (
           <Regular
             // style={{width: width / 3}}
             style={{flex: 1}}
@@ -67,7 +67,33 @@ const ItemDetailsCard = ({
             color={colors.white}
             numberOfLines={2}
           />
+        )} */}
+        {/* <Regular
+          // style={{width: width / 3}}
+          style={{flex: 1}}
+          label={${item?.label} (${item?.name})}
+          fontSize={mvs(9)}
+          color={colors.white}
+        /> */}
+        {/* <Text>Name: {item.name}</Text> */}
+        {Array.isArray(item.value) ? (
+          <Regular
+            style={{flex: 1}}
+            label={` ${item?.label}: ${item.value.join('\n ')}`}
+            numberOfLines={41}
+            fontSize={mvs(10)}
+            color={colors.white}
+          />
+        ) : (
+          <Regular
+            style={{flex: 1}}
+            label={`${item?.label}: ${item.value}`}
+            numberOfLines={5}
+            fontSize={mvs(10)}
+            color={colors.white}
+          />
         )}
+
         {item?.quantity && (
           <PrimaryButton
             disabled={true}

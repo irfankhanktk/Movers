@@ -407,7 +407,8 @@ const OrderDetailsScreen = props => {
                   </Row>
                 )}
               {orderData?.driver_status !== 'start' &&
-                orderData?.driver_status !== 'delivered' && (
+                orderData?.driver_status !== 'delivered' &&
+                orderData?.status === 'accepted' && (
                   <View style={{marginHorizontal: mvs(20)}}>
                     <Medium
                       label={'Please Select Vechile before start order'}
