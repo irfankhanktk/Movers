@@ -33,7 +33,7 @@ import {DatePicker} from 'components/atoms/date-picker';
 import SignUpModal from 'components/molecules/modals/SignUp-modal';
 import GoogleSearchBar from 'components/atoms/google-auto-place';
 import Regular from 'typography/regular-text';
-Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
+Geocoder.init('AIzaSyDOg2g1eycO5Z3wnr9F8Mdt-ryTJWgPQT8');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
@@ -87,7 +87,6 @@ const SignupNext = (props: props) => {
       });
       setOtpModalVisible(true);
       console.log(res);
-      
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
     } finally {

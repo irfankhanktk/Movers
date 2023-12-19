@@ -32,7 +32,7 @@ import {Checkbox} from 'components/atoms/checkbox';
 import CountryCodemOdal from 'components/molecules/modals/country-code-modal';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {setCountries} from 'store/reducers/user-reducer';
-Geocoder.init('AIzaSyCbFQqjZgQOWRMuQ_RpXU0kGAUIfJhDw98');
+Geocoder.init('AIzaSyDOg2g1eycO5Z3wnr9F8Mdt-ryTJWgPQT8');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
