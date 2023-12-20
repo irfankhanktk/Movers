@@ -53,9 +53,9 @@ const UpdateProfileScreen = (props: props) => {
   const {t} = i18n;
   const {user} = useAppSelector(s => s);
   const userInfo = user?.userInfo;
-  // console.log('userinfo', userInfo);
-  const {location, countries} = user;
-  // console.log('location=>>>', location);
+  console.log('userinfo', userInfo);
+  const {countries} = user;
+  console.log('countries=>>>', countries);
   const dispatch = useAppDispatch();
   const initialValues = {
     ...(userInfo || {}),
@@ -78,25 +78,7 @@ const UpdateProfileScreen = (props: props) => {
   //     setLoading(false);
   //   }
   // };
-  React.useEffect(() => {
-    getCountryCodeDetails();
-    // let copy = [...countries];
-    // copy = copy?.map(x => ({
-    //   ...x,
-    //   selected: x?.phone_code == userInfo?.country_code,
-    // }));
-    // dispatch(setCountries(copy));
-  }, []);
-  const getCountryCodeDetails = async () => {
-    try {
-      dispatch(getCountryCode());
-      // setLoading(false);
-      // setCountryCode(res);
-      // console.log('couyntey code', res);
-    } catch (error) {
-      // setLoading(false);
-    }
-  };
+
   const handleFormSubmit = async values => {
     // Create a copy of values without the avatar property
     const updatedValues = {...values};
@@ -106,10 +88,10 @@ const UpdateProfileScreen = (props: props) => {
       onUpdateProfile(
         {
           ...updatedValues,
-          country_code: countries?.find(x => x?.selected)?.code || 'PK',
           id: userInfo?.id,
           fcm_token: userInfo?.fcm_token,
           type: 'Driver',
+          country_code: countries?.find(x => x?.selected)?.code || 'PK',
         },
         setLoading,
       ),
@@ -131,6 +113,14 @@ const UpdateProfileScreen = (props: props) => {
   //     ),
   //   );
   // };
+  React.useEffect(() => {
+    getCountryCodeDetails();
+  }, []);
+  const getCountryCodeDetails = async () => {
+    try {
+      dispatch(getCountryCode());
+    } catch (error) {}
+  };
   return (
     <View style={styles.container}>
       <Image source={IMG.LogoBackground} style={styles.logobackground} />
@@ -292,7 +282,7 @@ const UpdateProfileScreen = (props: props) => {
                         borderRadius: mvs(10),
                         borderColor: colors.bluecolor,
                         padding: mvs(10),
-                        width: '30%',
+                        width: '25%',
                       }}>
                       <Medium
                         label={countries?.find(x => x?.selected)?.code || 'PK'}
@@ -307,10 +297,36 @@ const UpdateProfileScreen = (props: props) => {
                         />
                       </TouchableOpacity>
                     </Row>
+                    <Row
+                      style={{
+                        borderWidth: 1,
+                        height: mvs(45),
+                        borderRadius: mvs(10),
+                        borderColor: colors.bluecolor,
+                        padding: mvs(10),
+                        // width: '35%',
+                      }}>
+                      <Medium
+                        label={
+                          countries?.find(x => x?.selected)?.phone_code || '92'
+                        }
+                      />
+                      {console.log(
+                        countries?.find(x => x?.selected)?.phone_code,
+                      )}
+                    </Row>
                     <PrimaryInput
                       mainContainer={{
-                        width: '60%',
+                        width: '50%',
                       }}
+                      errorStyle={{
+                        color: colors.red,
+                        fontSize: mvs(10),
+                        marginBottom: mvs(5),
+                        marginHorizontal: mvs(5),
+                        // Add or override any styles specific to this error instance
+                      }}
+                      numberOfLines={3}
                       containerStyle={{borderRadius: mvs(10)}}
                       keyboardType={'number-pad'}
                       error={touched?.phone ? t(errors.phone) : ''}
@@ -428,7 +444,7 @@ const UpdateProfileScreen = (props: props) => {
       <CountryCodemOdal
         items={countries}
         setItems={items => {
-          console.log('items', items);
+          // console.log('items', items);
           dispatch(setCountries(items));
         }}
         visible={countrycodeModal}

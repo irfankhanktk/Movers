@@ -244,11 +244,19 @@ const Signup = (props: props) => {
                         borderRadius: mvs(10),
                         borderColor: colors.bluecolor,
                         padding: mvs(10),
-                        width: '30%',
+                        width: '25%',
                       }}>
                       <Medium
                         label={countries?.find(x => x?.selected)?.code || 'PK'}
                       />
+
+                      {/* <Medium
+                        label={`${
+                          countries?.find(x => x?.selected)?.code || 'PK'
+                        } (${
+                          countries?.find(x => x?.selected)?.phone_code || '+92'
+                        })`}
+                      /> */}
 
                       <TouchableOpacity
                         onPress={() => setCountryCodeModal(true)}>
@@ -259,13 +267,37 @@ const Signup = (props: props) => {
                         />
                       </TouchableOpacity>
                     </Row>
+                    <Row
+                      style={{
+                        borderWidth: 1,
+                        height: mvs(45),
+                        borderRadius: mvs(10),
+                        borderColor: colors.bluecolor,
+                        padding: mvs(10),
+                        // width: '15%',
+                      }}>
+                      <Medium
+                        label={
+                          countries?.find(x => x?.selected)?.phone_code || '92'
+                        }
+                      />
+                    </Row>
                     <PrimaryInput
                       mainContainer={{
-                        width: '60%',
+                        width: '50%',
                       }}
+                      errorStyle={{
+                        color: colors.red,
+                        fontSize: mvs(10),
+                        marginBottom: mvs(5),
+                        marginHorizontal: mvs(5),
+                        // Add or override any styles specific to this error instance
+                      }}
+                      numberOfLines={3}
                       containerStyle={{borderRadius: mvs(10)}}
                       keyboardType={'number-pad'}
-                      error={touched?.phone ? t(errors.phone) : ''}
+                      error={touched?.phone ? `${t(errors.phone)}` : ''}
+                      // error={touched?.phone ? t(errors.phone) : ''}
                       placeholder={t('phone')}
                       onChangeText={handleChange('phone')}
                       onBlur={handleBlur('phone')}

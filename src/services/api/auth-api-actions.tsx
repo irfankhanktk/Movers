@@ -210,6 +210,7 @@ export const getCountryCode = () => {
       const {userInfo} = getState()?.user;
       const res = await getData(URLS.auth.create_user);
       const codeObj = res?.country_codes;
+      console.log('codeObj', codeObj);
       const newList = Object.keys(codeObj)?.map(x => ({
         code: x,
         ...codeObj[x],
@@ -218,13 +219,28 @@ export const getCountryCode = () => {
         let copy = [...newList];
         copy = copy?.map(x => ({
           ...x,
-          selected: x?.phone_code == userInfo?.country_code,
+          // selected: x?.phone_code == userInfo?.country_code,
+          selected: x?.code == userInfo?.code,
         }));
         dispatch(setCountries(copy));
       } else {
         dispatch(setCountries(newList));
         console.log('newList:::', newList);
       }
+    } catch (error) {
+      console.log('error', UTILS.returnError(error));
+      Alert.alert('Error', UTILS.returnError(error));
+    }
+  };
+};
+export const deletePermanentAccount = () => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const res = await getData(`${URLS.auth.delete_account}`);
+      console.log('res of deletaccount', res);
+      Alert.alert('Success', 'Account Deleted Successfully');
+      dispatch(onLogoutPress());
+      return res;
     } catch (error) {
       console.log('error', UTILS.returnError(error));
       Alert.alert('Error', UTILS.returnError(error));

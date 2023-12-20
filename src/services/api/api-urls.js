@@ -20,6 +20,7 @@ export const URLS = {
     driverTerms: 'getDriverTerms',
     privacypolicy: 'getDriverPrivacy',
     contactUs: 'contactUsInfo',
+    delete_account: 'deleteAccount',
   },
   orderlist: {
     getorder: 'DriverOrderList',

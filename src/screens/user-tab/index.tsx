@@ -12,6 +12,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TabParamList from 'types/navigation-types/bottom-tab';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
@@ -22,6 +23,7 @@ import styles from './styles';
 import * as IMG from 'assets/images';
 import {Loader} from 'components/atoms/loader';
 import {
+  deletePermanentAccount,
   getStatusChange,
   onLogoutPress,
   onUpdateProfile,
@@ -168,6 +170,25 @@ const UserTab = (props: props) => {
       },
     ]);
   };
+  const DeleteAcc = async () => {
+    Alert.alert(
+      'Warning',
+      'Are you sure you want to Delete your account?. Your account will be deleted permanently and your all data will be deleted',
+      [
+        {
+          text: t('Cancel'),
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: t('Delete'),
+          onPress: () => {
+            dispatch(deletePermanentAccount());
+          },
+        },
+      ],
+    );
+  };
 
   // const onPressAttachment = async () => {
   //   try {
@@ -201,8 +222,7 @@ const UserTab = (props: props) => {
               style={styles.imgUpload}>
               <Image
                 source={
-                  userInfo?.avatar ? {uri: userInfo?.avatar} :
-                   IMG.Drawerman
+                  userInfo?.avatar ? {uri: userInfo?.avatar} : IMG.Drawerman
                 }
                 // source={{uri: saveFile?.uri}}
                 // source={saveFile?.uri ? {uri: saveFile?.uri} : IMG.Drawerman}
@@ -369,6 +389,16 @@ const UserTab = (props: props) => {
                 style={styles.itemText1}
                 label={`${t(userInfo ? 'logout' : 'login')}`}
               />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.itemtabs}
+              onPress={() => DeleteAcc()}>
+              <MaterialCommunityIcons
+                name="account-cancel"
+                size={mvs(28)}
+                color={colors.red}
+              />
+              <Regular style={styles.itemText1} label={'Delete Account'} />
             </TouchableOpacity>
 
             {/* </View> */}

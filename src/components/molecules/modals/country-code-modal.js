@@ -39,17 +39,24 @@ const CountryCodemOdal = ({
         <ScrollView>
           {items?.map((x, index) => (
             <TouchableOpacity
+              key={x?.code}
               style={{
                 borderTopWidth: StyleSheet.hairlineWidth,
                 paddingVertical: mvs(3),
               }}
-              onPress={() => {
-                const copy = [...items];
-                copy?.map(x => ({...x, selected: false}));
+              // onPress={() => {
+              //   const copy = [...items];
+              //   copy?.map(x => ({...x, selected: false}));
 
-                // x.selected = true;
-                const temp = {...x, selected: true};
-                copy[index] = temp;
+              //   // x.selected = true;
+              //   const temp = {...x, selected: true};
+              //   copy[index] = temp;
+              //   setItems(copy);
+              //   onClose();
+              // }}
+              onPress={() => {
+                const copy = items.map(item => ({...item, selected: false})); // Deselect all items
+                copy[index] = {...x, selected: true}; // Select the clicked item
                 setItems(copy);
                 onClose();
               }}>
