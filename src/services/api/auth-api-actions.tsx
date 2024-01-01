@@ -179,10 +179,13 @@ export const onUpdatePassword = async (values: any) => {
     Alert.alert('', UTILS.returnError(error));
   }
 };
-export const onVerifyOtp = (values: any) =>
+export const onVerifyOtp = (values: any) => {
+  const otp = values?.otp; // Extracting the OTP value
+  console.log('OTP:', otp);
   getData(
     `${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}&type=Driver`,
   );
+};
 
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
 
