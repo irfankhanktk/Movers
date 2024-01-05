@@ -119,7 +119,8 @@ const SignupNext = (props: props) => {
       </View>
       <View style={styles.contentContainerStyle}>
         <KeyboardAvoidScrollview
-          contentContainerStyle={styles.keyboardcontentcontainer}>
+          contentContainerStyle={styles.keyboardcontentcontainer}
+          keyboardShouldPersistTaps={true}>
           <View style={styles.contentContainerStyleNew}>
             <Bold
               label={t('signup_to_movers')}
