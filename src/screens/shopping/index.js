@@ -125,13 +125,19 @@ const ShoppingScreen = props => {
             <>
               <View style={styles.contentContainerStyleNew}>
                 <Row
-                  style={{justifyContent: 'flex-start', alignItems: 'center'}}>
+                  style={{
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    gap: mvs(10),
+                  }}>
                   <MaterialCommunityIcons
                     name="content-save-move"
                     color={colors.primary}
                     size={mvs(26)}
                   />
-                  <HtmlView html={orderData?.contact_us} />
+                  <View style={{flex: 1}}>
+                    <HtmlView html={orderData?.contact_us} />
+                  </View>
                 </Row>
               </View>
               <View style={styles.contentContainerStyleNew}>

@@ -381,7 +381,12 @@ const OrderDetailsScreen = props => {
                       gap: mvs(20),
                     }}>
                     <Image
-                      source={IMG.Drawerman}
+                      source={
+                        orderData?.user?.avatar
+                          ? {uri: orderData?.user?.avatar}
+                          : IMG.Drawerman
+                      }
+                      // source={IMG.Drawerman}
                       style={{
                         height: mvs(40),
                         width: mvs(40),
