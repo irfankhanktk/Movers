@@ -217,7 +217,8 @@ const MyOrderCard = ({
             title={acceptTitle}
             // title={t('accept')}
             containerStyle={{
-              width: mvs(90),
+              // width: mvs(90),
+              width: '27%',
               height: mvs(30),
               backgroundColor: colors.acceptcolor,
               borderColor: colors.lightGray,
@@ -237,13 +238,14 @@ const MyOrderCard = ({
             <PrimaryButton
               title={t('reject')}
               containerStyle={{
-                width: mvs(80),
+                width: '27%', // width: mvs(80),
                 height: mvs(30),
                 backgroundColor: colors.primary,
                 ...colors.shadow,
               }}
               textStyle={{
                 color: colors.white,
+                fontSize: mvs(13),
               }}
               onPress={onPressReject}
               // onPress={() => setIsRejectInputVisible(true)}
@@ -254,7 +256,8 @@ const MyOrderCard = ({
           <PrimaryButton
             title={t('details')}
             containerStyle={{
-              width: mvs(80),
+              // width: mvs(80),
+              width: '27%',
               height: mvs(30),
               backgroundColor: colors.white,
               borderWidth: 1,
@@ -263,6 +266,7 @@ const MyOrderCard = ({
             }}
             textStyle={{
               color: colors.primary,
+              fontSize: mvs(13),
             }}
             onPress={onPressDetails}
           />
