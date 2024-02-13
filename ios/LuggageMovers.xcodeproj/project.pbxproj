@@ -44,6 +44,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LuggageMovers/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LuggageMovers/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LuggageMovers/main.m; sourceTree = "<group>"; };
+		1838AC502B6138F300D5DD3D /* LuggageMovers.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = LuggageMovers.entitlements; path = LuggageMovers/LuggageMovers.entitlements; sourceTree = "<group>"; };
 		1A762BC0B6931279C98AE076 /* Pods-LuggageMovers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LuggageMovers.release.xcconfig"; path = "Target Support Files/Pods-LuggageMovers/Pods-LuggageMovers.release.xcconfig"; sourceTree = "<group>"; };
 		2C644D6025B6DA603DC90072 /* Pods-LuggageMovers-LuggageMoversTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LuggageMovers-LuggageMoversTests.release.xcconfig"; path = "Target Support Files/Pods-LuggageMovers-LuggageMoversTests/Pods-LuggageMovers-LuggageMoversTests.release.xcconfig"; sourceTree = "<group>"; };
 		48FF4603E9F546569E433B95 /* index.tsx */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = index.tsx; path = ../src/assets/fonts/index.tsx; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		13B07FAE1A68108700A75B9A /* LuggageMovers */ = {
 			isa = PBXGroup;
 			children = (
+				1838AC502B6138F300D5DD3D /* LuggageMovers.entitlements */,
 				FA3C9F3E2B1474180010F2A9 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -535,8 +537,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LuggageMovers/LuggageMovers.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T8SLT54ZMR;
+				DEVELOPMENT_TEAM = 63M5ZJS8V5;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LuggageMovers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -563,8 +566,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LuggageMovers/LuggageMovers.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = T8SLT54ZMR;
+				DEVELOPMENT_TEAM = 63M5ZJS8V5;
 				INFOPLIST_FILE = LuggageMovers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -41,23 +41,25 @@
 		</dict>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use music player</string>
+	<string>Movers Club would like to use music player</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos from the app to your gallery</string>
+	<string>Movers Club would like to save photos from the app to your gallery</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your location to get the address and for map center use</string>
+	<string>Your location allows you to view your delievery point</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your location to get the address and for map center use</string>
+	<string>Your location allows you to view your delievery point</string>
 	<key>NSLocationUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your location to get the address and for map center use</string>
+	<string>Your location allows you to view your delievery point</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your location to get the address and for map center use</string>
+	<string>Your location allows you to view your delievery point</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use microphone</string>
+	<string>Movers Club would like to use microphone</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos from the app to your gallery</string>
+	<string>Movers Club would like to save photos from the app to your gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos from the app to your gallery</string>
+	<string>Movers Club would like to save photos from the app to your gallery</string>
+	<key>NSContactsUsageDescription</key>
+<string>Movers Club needs access to your contacts to contact with customer.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -91,8 +93,12 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

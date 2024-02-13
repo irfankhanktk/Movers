@@ -232,7 +232,7 @@ const UserTab = (props: props) => {
               />
             </TouchableOpacity>
           )}
-          {userInfo?.id && (
+          {/* {userInfo?.id && ( */}
             <TouchableOpacity
               style={{
                 backgroundColor: 'white',
@@ -246,14 +246,14 @@ const UserTab = (props: props) => {
               onPress={() => openGallery()}>
               <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
             </TouchableOpacity>
-          )}
+          {/* )} */}
         </View>
         <Medium
-          label={userInfo?.first_name || t('guest_mode')}
+          label={userInfo?.first_name}
           style={styles.name}
         />
         <Regular
-          label={`${userInfo?.email || 'guest@gmail.com'}`}
+          label={`${userInfo?.email }`}
           style={styles.email}
         />
 
