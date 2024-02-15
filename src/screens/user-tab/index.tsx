@@ -381,13 +381,15 @@ const UserTab = (props: props) => {
                 LogoutAccount()
               }>
               <AntDesign
-                name={`${userInfo ? 'logout' : 'login'}`}
+                name={ 'logout'}
+                // name={`${userInfo ? 'logout' : 'login'}`}
                 size={mvs(22)}
                 color={colors.red}
               />
               <Regular
                 style={styles.itemText1}
-                label={`${t(userInfo ? 'logout' : 'login')}`}
+                label={'Logout'}
+                // label={`${t(userInfo ? 'logout' : 'login')}`}
               />
             </TouchableOpacity>
             <TouchableOpacity

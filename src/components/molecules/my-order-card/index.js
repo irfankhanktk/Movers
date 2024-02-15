@@ -218,7 +218,7 @@ const MyOrderCard = ({
             // title={t('accept')}
             containerStyle={{
               // width: mvs(90),
-              width: '27%',
+              width: '35%',
               height: mvs(30),
               backgroundColor: colors.acceptcolor,
               borderColor: colors.lightGray,

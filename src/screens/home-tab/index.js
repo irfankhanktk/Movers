@@ -42,7 +42,7 @@ const HomeTab = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const {userInfo, unreadNotification, location} = user;
-  // console.log('userinfo=>', userInfo);
+  console.log('unreadNotification=>', unreadNotification);
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState();
   const [latitude, setLatitude] = React.useState();

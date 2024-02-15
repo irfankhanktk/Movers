@@ -37,7 +37,7 @@ const Notifications = props => {
   const readNotifications = async () => {
     try {
       const unreadNoti = notifications
-        ?.filter(x => x?.is_read === '0')
+        ?.filter(x => x?.is_read == '0')
         ?.map(x => x?.id);
       console.log('unreadNoti==>', unreadNoti);
       if (!unreadNoti?.length) return;
@@ -58,7 +58,7 @@ const Notifications = props => {
         styles.rendercontainer,
         {
           backgroundColor:
-            item?.is_read === '1' ? colors.white : colors?.blueHalf,
+            item?.is_read == '1' ? colors.white : colors?.blueHalf,
         },
       ]}>
       <View
