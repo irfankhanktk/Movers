@@ -128,7 +128,7 @@ export const uploadImage = (data: any, setLoading: (bool: boolean) => void) => {
     try {
       setLoading(true);
       const res = await postFormData(URLS.auth.uploadImage, data);
-      console.log('ressss', res?.data?.user);
+      console.log('ressss', res?.data);
       // return;
 
       UTILS.setItem(STORAGEKEYS.user, JSON.stringify(res?.data?.user));

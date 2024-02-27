@@ -44,6 +44,8 @@
 	<string>Movers Club would like to use music player</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Movers Club would like to save photos from the app to your gallery</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Movers Club needs access to your contacts to contact with customer.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your location allows you to view your delievery point</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -58,8 +60,6 @@
 	<string>Movers Club would like to save photos from the app to your gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Movers Club would like to save photos from the app to your gallery</string>
-	<key>NSContactsUsageDescription</key>
-<string>Movers Club needs access to your contacts to contact with customer.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -82,6 +82,7 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
