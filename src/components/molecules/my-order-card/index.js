@@ -182,18 +182,39 @@ const MyOrderCard = ({
           />
         </Row>
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
-          <Medium
-            label={t('price')}
+
+         {item?.price_type ==='hour_price'? (<Medium
+            label={'Per Hour Price'}
             fontSize={mvs(12)}
             color={colors.black}
             style={{width: mvs(110)}}
           />
+         ):(
           <Medium
-            label={`${item?.price || 'N/A'}`}
+            label={'Price'}
+            fontSize={mvs(12)}
+            color={colors.black}
+            style={{width: mvs(110)}}
+          />
+         )
+        
+        }
+          {item?.price_type ==='hour_price'? (<Medium
+            label={`${item?.per_hour || 'N/A'}`}
             fontSize={mvs(12)}
             color={colors.grey}
             style={{flex: 1}}
           />
+  ):(
+    <Medium
+            label={`${item?.price || 'N/A'}`}
+            fontSize={mvs(12)}
+            color={colors.grey}
+            style={{flex: 1}}
+            />
+
+  )
+        }
         </Row>
 
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>

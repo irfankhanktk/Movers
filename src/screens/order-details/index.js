@@ -328,11 +328,11 @@ const OrderDetailsScreen = props => {
               <View style={styles.contentContainerStyle}>
                 <OrderDetailsCard item={orderData} />
 
-                <Medium
-                  label={t('item_details')}
-                  color={colors.white}
-                  style={{alignSelf: 'center'}}
-                />
+         {orderData?.price_type != 'hour_price' && <Medium
+            label={t('item_details')}
+            color={colors.white}
+            style={{alignSelf: 'center'}}
+          />}
                 <CustomFlatList
                   // emptyList={<EmptyList label={t('no_notification')} />}
                   contentContainerStyle={styles.contentContainerStyleFlatlist}

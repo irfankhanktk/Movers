@@ -74,7 +74,7 @@ const MyOrderScreen = props => {
       setLoading(true);
       const res = await getOrderListList();
       setOrderData(res?.data);
-
+console.log('object',res?.data)
       console.log(res?.data);
     } catch (error) {
       setLoading(false);

@@ -1,6 +1,6 @@
 // export const IP = 'https://getmovers.katashempstead.com';
-// export const IP = 'https://luggage.prismatic-technologies.com';
-export const IP = 'https://getmovers.co.uk';
+export const IP = 'https://luggage.prismatic-technologies.com';
+// export const IP = 'https://getmovers.co.uk';
 export const URLS = {
   base_url: `${IP}/api/`,
   image_url: `${IP}/`,
