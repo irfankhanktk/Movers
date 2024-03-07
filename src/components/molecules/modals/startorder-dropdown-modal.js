@@ -48,7 +48,6 @@ const StartOrderDropdownModal = ({
                 style={styles.button}>
                 <Medium
                   label={
-                    // item?.title ||
                     // item?.name ||
                     // item?.type ||
                     // item?.id ||

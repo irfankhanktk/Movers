@@ -52,7 +52,11 @@ import {UTILS} from 'utils';
 import {onCreateConveration} from 'services/api/chat-api-actions';
 import {goBack, navigate} from 'navigation/navigation-ref';
 import RatingStar from 'components/molecules/rating-star';
-import {InputWithIcon, InputWithIcon2} from 'components/atoms/inputs';
+import {
+  InputWithIcon,
+  InputWithIcon2,
+  InputWithIcon3,
+} from 'components/atoms/inputs';
 const OrderDetailsScreen = props => {
   const {id} = props?.route?.params;
   console.log(id);
@@ -124,8 +128,26 @@ const OrderDetailsScreen = props => {
       Alert.alert('Error', UTILS.returnError(error));
     }
   };
-  const ChangeStatus2 = async (status, id, vehicle_id, vehicle_number) => {
-    console.log('id', status, id, vehicle_id, vehicle_number);
+
+  const vehcile_id_two = orderData?.vehicle?.id;
+  const vehciel_number_two = orderData?.vehicle?.vehicle_number;
+  const ChangeStatus2 = async (
+    status,
+    id,
+    vehicle_id,
+    vehcile_id_two,
+    vehciel_number_two,
+    vehicle_number,
+  ) => {
+    console.log(
+      'id',
+      status,
+      id,
+      vehicle_id,
+      vehicle_number,
+      vehcile_id_two,
+      vehciel_number_two,
+    );
     // return;
     try {
       // const status = isRejected ? 0 : 1;
@@ -135,6 +157,8 @@ const OrderDetailsScreen = props => {
         id,
         vehicle_id,
         vehicle_number,
+        vehcile_id_two,
+        vehciel_number_two,
       );
 
       console.log('resp==========>', res);
@@ -158,7 +182,12 @@ const OrderDetailsScreen = props => {
           text: 'Start',
           onPress: () => {
             // If the user confirms the acceptance, call the ChangeStatus function
-            ChangeStatus2('start', id, vehicle_id, vehicle_number);
+            ChangeStatus2(
+              'start',
+              id,
+              vehicle_id || orderData?.vehicle?.id,
+              vehicle_number || orderData?.vehicle?.vehicle_number,
+            );
             // Then, refresh the list
 
             Alert.alert('Order has been Started');
@@ -328,11 +357,13 @@ const OrderDetailsScreen = props => {
               <View style={styles.contentContainerStyle}>
                 <OrderDetailsCard item={orderData} />
 
-         {orderData?.price_type != 'hour_price' && <Medium
-            label={t('item_details')}
-            color={colors.white}
-            style={{alignSelf: 'center'}}
-          />}
+                {orderData?.price_type != 'hour_price' && (
+                  <Medium
+                    label={t('item_details')}
+                    color={colors.white}
+                    style={{alignSelf: 'center'}}
+                  />
+                )}
                 <CustomFlatList
                   // emptyList={<EmptyList label={t('no_notification')} />}
                   contentContainerStyle={styles.contentContainerStyleFlatlist}
@@ -415,13 +446,26 @@ const OrderDetailsScreen = props => {
                 orderData?.driver_status !== 'delivered' &&
                 orderData?.status === 'accepted' && (
                   <View style={{marginHorizontal: mvs(20)}}>
-                    <Medium
-                      label={'Please Select Vechile before start order'}
-                      color={colors.white}
-                      fontSize={mvs(12)}
-                    />
-                    <InputWithIcon2
+                    {orderData?.price_type != 'hour_price' && (
+                      <Medium
+                        label={'Please Select Vechile before start order'}
+                        color={colors.white}
+                        fontSize={mvs(12)}
+                      />
+                    )}
+                    {orderData?.price_type != 'hour_price' && (
+                      <InputWithIcon2
+                        placeholder={t('select_vehicle_type')}
+                        onChangeText={selectedId => setVehicle_id(selectedId)}
+                        value={vehicle_id}
+                        id={vehicle_id}
+                        items={vehcileLists}
+                      />
+                    )}
+                    <InputWithIcon3
+                      editable={true}
                       placeholder={t('select_vehicle_type')}
+                      label2={orderData?.vehicle?.vehicle_type}
                       onChangeText={selectedId => setVehicle_id(selectedId)}
                       value={vehicle_id}
                       id={vehicle_id}
@@ -466,7 +510,13 @@ const OrderDetailsScreen = props => {
                     orderData?.driver_status === 'delivered' ||
                     orderData?.driver_status === 'start'
                       ? () => onPressReject(id)
-                      : () => onPressAccept(id, vehicle_id, vehicle_number)
+                      : () =>
+                          onPressAccept(
+                            id,
+                            vehicle_id || orderData?.vehicle?.id,
+                            vehicle_number ||
+                              orderData?.vehicle?.vehicle_number,
+                          )
                   }
                 />
               )}
