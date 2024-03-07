@@ -60,10 +60,11 @@ const styles = StyleSheet.create({
     marginTop: mvs(60),
   },
   sliderImage: {
-    width: width - mvs(40),
+    width: '90%',
+    // width: width - mvs(40),
     height: mvs(180),
     borderRadius: mvs(10),
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   dotStyle: {marginBottom: -mvs(40)},
   activeDotStyle: {marginBottom: -mvs(40), backgroundColor: colors.primary},

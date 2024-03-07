@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: mvs(20),
     // height: height - 450,
     flex: 1,
+    marginVertical: mvs(20),
     // marginBottom: mvs(20),
   },
   txt: {marginBottom: mvs(10), fontSize: mvs(20)},

@@ -125,101 +125,108 @@ const CompanyDetailsScreen = props => {
   };
   return (
     <View style={styles.container}>
-      <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
-      <Header1x2x />
-      <View style={{alignSelf: 'center'}}>
-        <LottieView
-          source={UploadDocumentsAnimation}
-          autoPlay={true}
-          loop={true}
-          style={{width: mvs(200), height: mvs(200)}}
-        />
-      </View>
-      {loading ? (
-        <Loader />
-      ) : (
-        <View style={styles.contentContainerStyle}>
-          <>
-            <Formik
-              initialValues={initialValues}
-              // validationSchema={CompanyDetailsValidation}
-              onSubmit={handleFormSubmit}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                setFieldValue,
-                touched,
-                values,
-                errors,
-              }) => (
-                <>
-                  {console.log('errror2', errors)}
-                  <View style={styles.contentContainerStyleNew}>
-                    <KeyboardAvoidScrollview
-                      contentContainerStyle={styles.keyboardcontenview}>
-                      <Bold
-                        label={t('company_details')}
-                        color={colors.bluecolor}
-                        fontSize={mvs(16)}
-                        style={styles.boldtext}
-                      />
-
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={
-                          touched?.legal_identity
-                            ? t(errors.legal_identity)
-                            : ''
-                        }
-                        placeholder={t('legal_identity')}
-                        onChangeText={handleChange('legal_identity')}
-                        onBlur={handleBlur('legal_identity')}
-                        value={
-                          values.legal_identity
-                          //  || documentList?.legal_identity
-                        }
-                      />
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={
-                          touched?.company_reg ? t(errors.company_reg) : ''
-                        }
-                        placeholder={t('compnay_registration')}
-                        onChangeText={handleChange('company_reg')}
-                        onBlur={handleBlur('company_reg')}
-                        value={
-                          values.company_reg
-                          // || documentList?.company_reg
-                        }
-                      />
-                      <PrimaryInput
-                        keyboardType={'email-address'}
-                        error={touched?.vat_reg ? t(errors.vat_reg) : ''}
-                        placeholder={t('vat_registration')}
-                        onChangeText={handleChange('vat_reg')}
-                        onBlur={handleBlur('vat_reg')}
-                        value={
-                          values.vat_reg
-                          //  || documentList?.vat_reg
-                        }
-                      />
-                    </KeyboardAvoidScrollview>
-                  </View>
-                  <View style={{paddingHorizontal: mvs(20)}}>
-                    <PrimaryButton
-                      containerStyle={styles.registernowbutton}
-                      loading={loading}
-                      onPress={handleSubmit}
-                      title={t('register_now')}
-                    />
-                  </View>
-                </>
-              )}
-            </Formik>
-          </>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <Image source={IMG.LogoBackground} style={styles.backgroundimg} />
+        <Header1x2x />
+        <View style={{alignSelf: 'center'}}>
+          <LottieView
+            source={UploadDocumentsAnimation}
+            autoPlay={true}
+            loop={true}
+            style={{width: mvs(200), height: mvs(200)}}
+          />
         </View>
-      )}
+        {loading ? (
+          <Loader />
+        ) : (
+          <View style={styles.contentContainerStyle}>
+            <>
+              <Formik
+                initialValues={initialValues}
+                // validationSchema={CompanyDetailsValidation}
+                onSubmit={handleFormSubmit}>
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  setFieldValue,
+                  touched,
+                  values,
+                  errors,
+                }) => (
+                  <>
+                    {console.log('errror2', errors)}
+                    <View style={styles.contentContainerStyleNew}>
+                      <KeyboardAvoidScrollview
+                        contentContainerStyle={styles.keyboardcontenview}>
+                        <View style={{marginHorizontal: mvs(20)}}>
+                          <Bold
+                            label={t('company_details')}
+                            color={colors.bluecolor}
+                            fontSize={mvs(16)}
+                            style={styles.boldtext}
+                          />
+                          <View style={{marginVertical: mvs(14)}}>
+                            <PrimaryInput
+                              keyboardType={'email-address'}
+                              error={
+                                touched?.legal_identity
+                                  ? t(errors.legal_identity)
+                                  : ''
+                              }
+                              placeholder={t('legal_identity')}
+                              onChangeText={handleChange('legal_identity')}
+                              onBlur={handleBlur('legal_identity')}
+                              value={
+                                values.legal_identity
+                                //  || documentList?.legal_identity
+                              }
+                            />
+                            <PrimaryInput
+                              keyboardType={'email-address'}
+                              error={
+                                touched?.company_reg
+                                  ? t(errors.company_reg)
+                                  : ''
+                              }
+                              placeholder={t('compnay_registration')}
+                              onChangeText={handleChange('company_reg')}
+                              onBlur={handleBlur('company_reg')}
+                              value={
+                                values.company_reg
+                                // || documentList?.company_reg
+                              }
+                            />
+                            <PrimaryInput
+                              keyboardType={'email-address'}
+                              error={touched?.vat_reg ? t(errors.vat_reg) : ''}
+                              placeholder={t('vat_registration')}
+                              onChangeText={handleChange('vat_reg')}
+                              onBlur={handleBlur('vat_reg')}
+                              value={
+                                values.vat_reg
+                                //  || documentList?.vat_reg
+                              }
+                            />
+                          </View>
+                        </View>
+                      </KeyboardAvoidScrollview>
+                    </View>
+                    <View style={{paddingHorizontal: mvs(20)}}>
+                      <PrimaryButton
+                        containerStyle={styles.registernowbutton}
+                        loading={loading}
+                        onPress={handleSubmit}
+                        title={t('register_now')}
+                      />
+                    </View>
+                  </>
+                )}
+              </Formik>
+            </>
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
 };

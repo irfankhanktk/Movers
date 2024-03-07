@@ -1,23 +1,24 @@
 import firebase from '@react-native-firebase/app';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 import * as IMG from 'assets/images';
 import CustomFlatList from 'components/atoms/custom-flatlist';
 import Header1x2x from 'components/atoms/header-home/header-1x-2x';
-import { Loader } from 'components/atoms/loader';
-import { Row } from 'components/atoms/row';
+import {Loader} from 'components/atoms/loader';
+import {Row} from 'components/atoms/row';
 import HomeSwiper from 'components/molecules/home-swiper';
 import ServiceCard from 'components/molecules/service-card';
-import { colors } from 'config/colors';
-import { SERVICE_LIST } from 'config/constants';
-import { mvs } from 'config/metrices';
-import { useAppDispatch, useAppSelector } from 'hooks/use-store';
-import { navigate } from 'navigation/navigation-ref';
+import {colors} from 'config/colors';
+import {SERVICE_LIST} from 'config/constants';
+import {mvs} from 'config/metrices';
+import {useAppDispatch, useAppSelector} from 'hooks/use-store';
+import {navigate} from 'navigation/navigation-ref';
 import React from 'react';
 import {
   Alert,
   ImageBackground,
+  ScrollView,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -26,12 +27,12 @@ import {
   getHomeBanner,
   getNotifications,
 } from 'services/api/auth-api-actions';
-import { setLocation } from 'store/reducers/user-reducer';
+import {setLocation} from 'store/reducers/user-reducer';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
-import { UTILS } from 'utils';
+import {UTILS} from 'utils';
 import styles from './styles';
 const HomeTab = props => {
   const user = useAppSelector(s => s?.user);
@@ -241,54 +242,55 @@ const HomeTab = props => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={IMG.HomeBackground2}
-        resizeMode="stretch"
-        style={styles.backgroundimg}>
-        <Header1x2x
-          back={false}
-          style={{backgroundColor: colors.transparent}}
-        />
-        <Row
-          style={{
-            alignItems: 'center',
-
-            paddingHorizontal: mvs(20),
-          }}>
-          <Medium
-            label={`Hi, ${
-              userInfo?.first_name +
-              ' ' +
-              // userInfo?.middle_name +
-              // ' ' +
-              userInfo?.surname
-            }`}
-            fontSize={mvs(20)}
-            color={colors.white}
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <ImageBackground
+          source={IMG.HomeBackground2}
+          resizeMode="stretch"
+          style={styles.backgroundimg}>
+          <Header1x2x
+            back={false}
+            style={{backgroundColor: colors.transparent}}
           />
-          <TouchableOpacity onPress={() => navigate('Notifications')}>
-            <Ionicons
-              name={'notifications'}
+          <Row
+            style={{
+              alignItems: 'center',
+
+              paddingHorizontal: mvs(20),
+            }}>
+            <Medium
+              label={`Hi, ${
+                userInfo?.first_name +
+                ' ' +
+                // userInfo?.middle_name +
+                // ' ' +
+                userInfo?.surname
+              }`}
+              fontSize={mvs(20)}
               color={colors.white}
-              size={mvs(25)}
             />
-          </TouchableOpacity>
-          {unreadNotification ? (
-            <View style={styles.notificationbadge}>
-              <Regular
-                label={unreadNotification}
-                fontSize={mvs(10)}
-                style={{lineHeight: mvs(14), color: colors.white}}
+            <TouchableOpacity onPress={() => navigate('Notifications')}>
+              <Ionicons
+                name={'notifications'}
+                color={colors.white}
+                size={mvs(25)}
               />
-            </View>
-          ) : null}
-        </Row>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <HomeSwiper item={homeBanner} />
-            {/* <PrimaryButton
+            </TouchableOpacity>
+            {unreadNotification ? (
+              <View style={styles.notificationbadge}>
+                <Regular
+                  label={unreadNotification}
+                  fontSize={mvs(10)}
+                  style={{lineHeight: mvs(14), color: colors.white}}
+                />
+              </View>
+            ) : null}
+          </Row>
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              <HomeSwiper item={homeBanner} />
+              {/* <PrimaryButton
               title="Switch Theme"
               onPress={() => {
                 switchTheme({
@@ -304,25 +306,26 @@ const HomeTab = props => {
                 });
               }}
             /> */}
-            <View style={styles.body}>
-              <CustomFlatList
-                ListHeaderComponent={
-                  <View style={{marginBottom: mvs(10)}}>
-                    <Bold label={t('quick_tools')} style={styles.heading} />
-                  </View>
-                }
-                numColumns={2}
-                contentContainerStyle={styles.contentContainerStyle}
-                showsVerticalScrollIndicator={false}
-                data={SERVICE_LIST}
-                renderItem={renderServiceList}
-                columnWrapperStyle={{justifyContent: 'space-between'}}
-                ItemSeparatorComponent={itemSeparatorComponent()}
-              />
-            </View>
-          </>
-        )}
-      </ImageBackground>
+              <View style={styles.body}>
+                <CustomFlatList
+                  ListHeaderComponent={
+                    <View style={{marginBottom: mvs(10)}}>
+                      <Bold label={t('quick_tools')} style={styles.heading} />
+                    </View>
+                  }
+                  numColumns={2}
+                  contentContainerStyle={styles.contentContainerStyle}
+                  showsVerticalScrollIndicator={false}
+                  data={SERVICE_LIST}
+                  renderItem={renderServiceList}
+                  columnWrapperStyle={{justifyContent: 'space-between'}}
+                  ItemSeparatorComponent={itemSeparatorComponent()}
+                />
+              </View>
+            </>
+          )}
+        </ImageBackground>
+      </ScrollView>
     </View>
   );
 };

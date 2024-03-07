@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     // flexGrow: 1,
     flex: 1,
+    marginVertical: mvs(20),
     // height: height - 450,
     // paddingTop: '50%',
     // paddingHorizontal: mvs(20),
@@ -24,8 +25,8 @@ const styles = StyleSheet.create({
   },
   contentContainerStyleNew: {
     // flexGrow: 1,
-    paddingHorizontal: mvs(20),
-    // marginVertical: mvs(10),
+    // paddingHorizontal: mvs(20),
+    marginVertical: mvs(10),
     marginHorizontal: mvs(20),
     paddingVertical: mvs(10),
     backgroundColor: colors.white,
