@@ -182,39 +182,54 @@ const MyOrderCard = ({
           />
         </Row>
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
-
-         {item?.price_type ==='hour_price'? (<Medium
-            label={'Per Hour Price'}
-            fontSize={mvs(12)}
-            color={colors.black}
-            style={{width: mvs(110)}}
-          />
-         ):(
-          <Medium
-            label={'Price'}
-            fontSize={mvs(12)}
-            color={colors.black}
-            style={{width: mvs(110)}}
-          />
-         )
-        
-        }
-          {item?.price_type ==='hour_price'? (<Medium
-            label={`${item?.per_hour || 'N/A'}`}
-            fontSize={mvs(12)}
-            color={colors.grey}
-            style={{flex: 1}}
-          />
-  ):(
-    <Medium
-            label={`${item?.price || 'N/A'}`}
-            fontSize={mvs(12)}
-            color={colors.grey}
-            style={{flex: 1}}
+          {item?.price_type === 'hour_price' ? (
+            <Medium
+              label={'Per Hour Price'}
+              fontSize={mvs(12)}
+              color={colors.black}
+              style={{width: mvs(110)}}
             />
+          ) : (
+            <Medium
+              label={'Price'}
+              fontSize={mvs(12)}
+              color={colors.black}
+              style={{width: mvs(110)}}
+            />
+          )}
+          {item?.price_type === 'hour_price' ? (
+            <Medium
+              label={`${item?.per_hour || 'N/A'}`}
+              fontSize={mvs(12)}
+              color={colors.grey}
+              style={{flex: 1}}
+            />
+          ) : (
+            <Medium
+              label={`${item?.price || 'N/A'}`}
+              fontSize={mvs(12)}
+              color={colors.grey}
+              style={{flex: 1}}
+            />
+          )}
+        </Row>
 
-  )
-        }
+        <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
+          <Medium
+            label={'Order Request'}
+            fontSize={mvs(12)}
+            color={colors.black}
+            style={{width: mvs(110)}}
+          />
+          <Medium
+            label={
+              item?.price_type === 'hour_price' ? 'Hourly Price' : 'Fixed Price'
+            }
+            fontSize={mvs(12)}
+            color={colors.grey}
+            style={{flex: 1}}
+            numberOfLines={4}
+          />
         </Row>
 
         <Row style={{paddingHorizontal: mvs(10), paddingVertical: mvs(8)}}>
