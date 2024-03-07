@@ -249,7 +249,9 @@ const MOTDetailsScreen = props => {
                             style={styles.uploadphotoview}
                             onPress={() => onPressAttachment()}>
                             {documentList?.mot_photo || saveFile?.uri ? (
-                              <TouchableOpacity
+                              <>
+                              <Row style={{justifyContent:"flex-start"}}>                       
+                                                            <TouchableOpacity
                                 style={{width: mvs(50), height: mvs(50)}}
                                 onPress={() =>
                                   handleImagePress(
@@ -271,6 +273,17 @@ const MOTDetailsScreen = props => {
                                   // style={styles.filenametext}
                                 />
                               </TouchableOpacity>
+                              <View style={{marginLeft:mvs(60),alignItems:"center",justifyContent:"center", borderWidth: 1,
+    borderStyle: 'dashed',
+    padding: mvs(5),
+    borderRadius: mvs(5),
+    borderColor: colors.bluecolor,
+    paddingVertical: mvs(8),}}>
+<Medium label={'Change Photo'}/>
+</View>
+</Row>
+</>
+
                             ) : (
                               <Row style={{justifyContent: 'center'}}>
                                 <FileSVG width={mvs(25)} height={mvs(25)} />
