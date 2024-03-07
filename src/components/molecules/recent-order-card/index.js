@@ -142,8 +142,12 @@ const RecentOrderCard = ({
           paddingHorizontal: mvs(4),
           paddingVertical: mvs(8),
         }}
-        label={t('price')}
-        value={`USD ${item?.driver_price} ` || 'N/A'}
+        label={item?.price_type === 'hour_price' ? '' : 'Price'}
+        // label={t('price')}
+        value={
+          item?.price_type === 'hour_price' ? '' : `USD  ${item?.driver_price}`
+        }
+        // value={`USD ${item?.driver_price} ` || 'N/A'}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />

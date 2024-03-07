@@ -138,7 +138,11 @@ const HistoryScreen = props => {
                 label={orderData?.total_orders_count}
                 color={colors.white}
                 fontSize={mvs(20)}
-                style={{paddingHorizontal: mvs(14),alignSelf:"center",marginTop:mvs(6)}}
+                style={{
+                  paddingHorizontal: mvs(14),
+                  alignSelf: 'center',
+                  marginTop: mvs(6),
+                }}
               />
 
               {/* <Regular
