@@ -1,31 +1,20 @@
 import * as IMG from 'assets/images';
-import { PrimaryButton } from 'components/atoms/buttons';
+import {PrimaryButton} from 'components/atoms/buttons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import PrimaryInput, { InputWithIcon } from 'components/atoms/inputs';
-import { KeyboardAvoidScrollview } from 'components/atoms/keyboard-avoid-scrollview/index';
-import { colors } from 'config/colors';
-import { mvs } from 'config/metrices';
-import { Formik } from 'formik';
-import { useAppDispatch, useAppSelector } from 'hooks/use-store';
-import { goBack } from 'navigation/navigation-ref';
+import PrimaryInput, {InputWithIcon} from 'components/atoms/inputs';
+import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollview/index';
+import {colors} from 'config/colors';
+import {mvs} from 'config/metrices';
+import {Formik} from 'formik';
+import {useAppDispatch, useAppSelector} from 'hooks/use-store';
+import {goBack} from 'navigation/navigation-ref';
 import React from 'react';
-import {
-  Alert,
-  Image,
-  ImageBackground,
-  ScrollView,
-  View
-} from 'react-native';
-import {
-  onCreateVehicle,
-  onStoreVehicle
-} from 'services/api/auth-api-actions';
+import {Alert, Image, ImageBackground, ScrollView, View} from 'react-native';
+import {onCreateVehicle, onStoreVehicle} from 'services/api/auth-api-actions';
 import i18n from 'translation';
 import Bold from 'typography/bold-text';
-import { UTILS } from 'utils';
-import {
-  addVheicleValidation
-} from 'validations';
+import {UTILS} from 'utils';
+import {addVheicleValidation} from 'validations';
 import styles from './styles';
 const AddVehicleScreen = props => {
   const {user} = useAppSelector(s => s);
@@ -41,7 +30,7 @@ const AddVehicleScreen = props => {
     vehicle_year: '',
     vehicle_load_capacity: '',
     vehicle_number: '',
-    vehicle_price:'',
+    vehicle_price: '',
     ...props?.route?.params?.vehicle,
   };
   const [loading, setLoading] = React.useState(false);
@@ -104,7 +93,6 @@ const AddVehicleScreen = props => {
                   <View style={styles.contentContainerStyle}>
                     <View style={styles.contentContainerStyleNew}>
                       <KeyboardAvoidScrollview
-                      
                         contentContainerStyle={styles.keyboardcontentcontainer}>
                         <Bold
                           label={t('add_vehicle')}
@@ -183,7 +171,7 @@ const AddVehicleScreen = props => {
                               ? t(errors.vehicle_load_capacity)
                               : ''
                           }
-                          placeholder={t('vehicle_load_capacity')}
+                          placeholder={'Vehicle Load Capacity (In Ton)'}
                           onChangeText={handleChange('vehicle_load_capacity')}
                           onBlur={handleBlur('vehicle_load_capacity')}
                           value={values.vehicle_load_capacity}

@@ -66,7 +66,7 @@ type IProps = {
 //     </TouchableOpacity>
 //   );
 // };
-export const DatePicker = (props: IProps) => {
+export const DatePickerBirthday = (props: IProps) => {
   const {
     style,
     onChangeText,
@@ -104,7 +104,7 @@ export const DatePicker = (props: IProps) => {
         mode={mode}
         onConfirm={handleConfirm}
         onCancel={onCancel}
-        maximumDate={maximumDate}
+        // maximumDate={new Date()}
       />
     </TouchableOpacity>
   );

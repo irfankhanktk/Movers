@@ -33,6 +33,7 @@ import {DatePicker} from 'components/atoms/date-picker';
 import SignUpModal from 'components/molecules/modals/SignUp-modal';
 import GoogleSearchBar from 'components/atoms/google-auto-place';
 import Regular from 'typography/regular-text';
+import {DatePickerBirthday} from 'components/atoms/date-picker-birthday';
 Geocoder.init('AIzaSyDOg2g1eycO5Z3wnr9F8Mdt-ryTJWgPQT8');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
@@ -241,6 +242,7 @@ const SignupNext = (props: props) => {
                     }}>
                     <PrimaryInput
                       isCalendar
+                      maximumDate={new Date()}
                       editable={false}
                       error={touched?.dob ? errors.dob : ''}
                       placeholder={t('date_of_birth')}

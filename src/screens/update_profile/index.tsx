@@ -414,6 +414,7 @@ const UpdateProfileScreen = (props: props) => {
                       setFieldValue('dob', str);
                     }}>
                     <PrimaryInput
+                      maximumDate={new Date()}
                       isCalendar
                       editable={false}
                       error={touched?.dob ? errors.dob : ''}

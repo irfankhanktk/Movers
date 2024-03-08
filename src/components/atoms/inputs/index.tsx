@@ -62,6 +62,7 @@ type props = {
   error?: string;
   id?: any;
   mtop?: number;
+  maximumDate?: Date;
   keyboardType?: KeyboardTypeOptions | undefined;
   onBlur?: (e?: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 };
@@ -158,6 +159,7 @@ const PrimaryInput = (props: props) => {
     onBlur = () => {},
     onPressIn = () => {},
     isRequired = false,
+    maximumDate,
   } = props;
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -220,6 +222,7 @@ const PrimaryInput = (props: props) => {
           setDatePickerVisible(false);
           onChangeText(str);
         }}
+        maximumDate={maximumDate}
         onCancel={hideDatePicker}
       />
       <Regular

@@ -233,29 +233,23 @@ const UserTab = (props: props) => {
             </TouchableOpacity>
           )}
           {/* {userInfo?.id && ( */}
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'white',
-                borderRadius: mvs(10),
-                position: 'absolute',
-                right: mvs(-16),
-                alignSelf: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={() => openGallery()}>
-              <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
-            </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'white',
+              borderRadius: mvs(10),
+              position: 'absolute',
+              right: mvs(-16),
+              alignSelf: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => openGallery()}>
+            <MaterialIcons name="edit" color={colors.black} size={mvs(20)} />
+          </TouchableOpacity>
           {/* )} */}
         </View>
-        <Medium
-          label={userInfo?.first_name}
-          style={styles.name}
-        />
-        <Regular
-          label={`${userInfo?.email }`}
-          style={styles.email}
-        />
+        <Medium label={userInfo?.first_name} style={styles.name} />
+        <Regular label={`${userInfo?.email}`} style={styles.email} />
 
         <View style={styles.linkContainer}>
           <ScrollView
@@ -265,11 +259,13 @@ const UserTab = (props: props) => {
             <TouchableOpacity
               style={styles.itemtabs}
               onPress={() => props?.navigation?.navigate('MyOrderScreen')}>
-              <FontAwesome
-                name="shopping-cart"
-                size={mvs(22)}
-                color={colors.primary}
-              />
+              <View style={{width: '8%'}}>
+                <FontAwesome
+                  name="shopping-cart"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+              </View>
               <Regular style={styles.itemText1} label={`${t('my_order')}`} />
             </TouchableOpacity>
             {/* )} */}
@@ -292,11 +288,13 @@ const UserTab = (props: props) => {
               onPress={() =>
                 props?.navigation?.navigate('UpdateProfileScreen')
               }>
-              <FontAwesome5
-                name="user-edit"
-                size={mvs(22)}
-                color={colors.primary}
-              />
+              <View style={{width: '8%'}}>
+                <FontAwesome5
+                  name="user-edit"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+              </View>
               <Regular
                 style={styles.itemText1}
                 label={`${t('update_profile')}`}
@@ -309,11 +307,13 @@ const UserTab = (props: props) => {
               onPress={() =>
                 props?.navigation?.navigate('UploadDocumentsScreen')
               }>
-              <Ionicons
-                name="documents"
-                size={mvs(22)}
-                color={colors.primary}
-              />
+              <View style={{width: '8%'}}>
+                <Ionicons
+                  name="documents"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+              </View>
               <Regular style={styles.itemText1} label={`${t('documents')}`} />
             </TouchableOpacity>
             {/* )} */}
@@ -321,11 +321,13 @@ const UserTab = (props: props) => {
             <TouchableOpacity
               style={styles.itemtabs}
               onPress={() => props?.navigation?.navigate('HistoryScreen')}>
-              <Ionicons
-                name="timer-outline"
-                size={mvs(22)}
-                color={colors.primary}
-              />
+              <View style={{width: '8%'}}>
+                <Ionicons
+                  name="timer-outline"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+              </View>
               <Regular style={styles.itemText1} label={`${t('history')}`} />
             </TouchableOpacity>
             {/* )} */}
@@ -335,11 +337,13 @@ const UserTab = (props: props) => {
               onPress={() =>
                 props?.navigation?.navigate('TermsandConditionsScreen')
               }>
-              <Entypo
-                name="text-document-inverted"
-                size={mvs(22)}
-                color={colors.primary}
-              />
+              <View style={{width: '8%'}}>
+                <Entypo
+                  name="text-document-inverted"
+                  size={mvs(22)}
+                  color={colors.primary}
+                />
+              </View>
               <Regular
                 style={styles.itemText1}
                 label={`${t('terms_and_conditions')}`}
@@ -352,11 +356,13 @@ const UserTab = (props: props) => {
                 onPress={() =>
                   props?.navigation?.navigate('PrivacyPolicyScreen')
                 }>
-                <MaterialIcons
-                  name="privacy-tip"
-                  size={mvs(22)}
-                  color={colors.primary}
-                />
+                <View style={{width: '8%'}}>
+                  <MaterialIcons
+                    name="privacy-tip"
+                    size={mvs(22)}
+                    color={colors.primary}
+                  />
+                </View>
                 <Regular
                   style={styles.itemText1}
                   label={`${t('return_policy & private_policy')}`}
@@ -380,12 +386,14 @@ const UserTab = (props: props) => {
                 //   : props?.navigation?.navigate('Login')
                 LogoutAccount()
               }>
-              <AntDesign
-                name={ 'logout'}
-                // name={`${userInfo ? 'logout' : 'login'}`}
-                size={mvs(22)}
-                color={colors.red}
-              />
+              <View style={{width: '8%'}}>
+                <AntDesign
+                  name={'logout'}
+                  // name={`${userInfo ? 'logout' : 'login'}`}
+                  size={mvs(22)}
+                  color={colors.red}
+                />
+              </View>
               <Regular
                 style={styles.itemText1}
                 label={'Logout'}
@@ -395,11 +403,13 @@ const UserTab = (props: props) => {
             <TouchableOpacity
               style={styles.itemtabs}
               onPress={() => DeleteAcc()}>
-              <MaterialCommunityIcons
-                name="account-cancel"
-                size={mvs(28)}
-                color={colors.red}
-              />
+              <View style={{width: '8%'}}>
+                <MaterialCommunityIcons
+                  name="account-cancel"
+                  size={mvs(28)}
+                  color={colors.red}
+                />
+              </View>
               <Regular style={styles.itemText1} label={'Delete Account'} />
             </TouchableOpacity>
 

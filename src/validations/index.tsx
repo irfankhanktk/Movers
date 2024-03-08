@@ -160,7 +160,10 @@ export const addVheicleValidation = yup.object().shape({
   vehicle_make: yup.string().required('req_vehicle_make'),
   vehicle_model: yup.string().required('req_vehicle_model'),
   vehicle_year: yup.string().required('req_vehicle_year'),
-  vehicle_load_capacity: yup.string().required('req_vehicle_load_capacity'),
+  vehicle_load_capacity: yup
+    .number()
+    .required('req_vehicle_load_capacity')
+    .max(10, 'Vehicle load capacity cannot be greater than 10'),
   vehicle_number: yup.string().required('Vehicle Number is Required'),
   vehicle_price: yup.string().required('Vehicle Price is Required'),
 

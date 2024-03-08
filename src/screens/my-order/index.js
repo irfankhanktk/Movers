@@ -1,32 +1,32 @@
-import { useIsFocused } from '@react-navigation/native';
-import { CrossModal } from 'assets/icons';
-import { PrimaryButton } from 'components/atoms/buttons';
+import {useIsFocused} from '@react-navigation/native';
+import {CrossModal} from 'assets/icons';
+import {PrimaryButton} from 'components/atoms/buttons';
 import CustomFlatList from 'components/atoms/custom-flatlist';
-import { Loader } from 'components/atoms/loader';
+import {Loader} from 'components/atoms/loader';
 import Header1x2x from 'components/atoms/myorder-headers/header-1x-2x';
-import { Row } from 'components/atoms/row';
+import {Row} from 'components/atoms/row';
 import MyOrderCard from 'components/molecules/my-order-card';
-import { colors } from 'config/colors';
-import { mvs } from 'config/metrices';
-import { useAppDispatch, useAppSelector } from 'hooks/use-store';
-import { navigate } from 'navigation/navigation-ref';
-import React, { useEffect } from 'react';
+import {colors} from 'config/colors';
+import {mvs} from 'config/metrices';
+import {useAppDispatch, useAppSelector} from 'hooks/use-store';
+import {navigate} from 'navigation/navigation-ref';
+import React, {useEffect} from 'react';
 import {
   Alert,
   Modal,
   RefreshControl,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import {
   getOrderListList,
   getOrderStatusChange,
   getOrderStatusChange2,
 } from 'services/api/auth-api-actions';
-import { onCreateConveration } from 'services/api/chat-api-actions';
+import {onCreateConveration} from 'services/api/chat-api-actions';
 import i18n from 'translation';
-import { UTILS } from 'utils';
+import {UTILS} from 'utils';
 import styles from './styles';
 
 const MyOrderScreen = props => {
@@ -69,17 +69,32 @@ const MyOrderScreen = props => {
       setChatLoading(false);
     }
   };
+  // const getList = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await getOrderListList();
+  //     setOrderData(res?.data);
+  //     console.log('object', res?.data);
+  //     console.log(res?.data);
+  //   } catch (error) {
+  //     setLoading(false);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const getList = async () => {
     try {
+      setRefreshing(true); // Set refreshing to true when the fetch starts
       setLoading(true);
       const res = await getOrderListList();
       setOrderData(res?.data);
-console.log('object',res?.data)
+      console.log('object', res?.data);
       console.log(res?.data);
     } catch (error) {
       setLoading(false);
     } finally {
       setLoading(false);
+      setRefreshing(false); // Set refreshing to false when the fetch is completed
     }
   };
 
@@ -108,12 +123,12 @@ console.log('object',res?.data)
         },
         {
           text: 'Accept',
-          onPress: () => {
+          onPress: async () => {
             // If the user confirms the acceptance, call the ChangeStatus function
-            ChangeStatus(itemId, 1);
+            await ChangeStatus(itemId, 1);
             // Then, refresh the list
             Alert.alert('Order has been accepted');
-            getList();
+            await getList();
           },
         },
       ],
@@ -133,13 +148,13 @@ console.log('object',res?.data)
         },
         {
           text: 'Reject',
-          onPress: () => {
+          onPress: async () => {
             // If the user confirms the rejection, call the ChangeStatus function
             ChangeStatus2(itemId, 0, reason);
             Alert.alert('Order has been Rejected');
             setReason('');
             // Then, refresh the list
-            getList();
+            await getList();
           },
         },
       ],
