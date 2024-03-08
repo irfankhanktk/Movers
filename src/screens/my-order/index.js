@@ -1,4 +1,4 @@
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {CrossModal} from 'assets/icons';
 import {PrimaryButton} from 'components/atoms/buttons';
 import CustomFlatList from 'components/atoms/custom-flatlist';
@@ -82,6 +82,7 @@ const MyOrderScreen = props => {
   //     setLoading(false);
   //   }
   // };
+
   const getList = async () => {
     try {
       setRefreshing(true); // Set refreshing to true when the fetch starts
@@ -91,18 +92,26 @@ const MyOrderScreen = props => {
       console.log('object', res?.data);
       console.log(res?.data);
     } catch (error) {
-      setLoading(false);
+      console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
       setRefreshing(false); // Set refreshing to false when the fetch is completed
     }
   };
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    getList()
-      .then(() => setRefreshing(false))
-      .catch(() => setRefreshing(false));
+  useFocusEffect(
+    React.useCallback(() => {
+      onRefresh();
+    }, []),
+  );
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true); // Set refreshing to true when the refresh starts
+      await getList(); // Call getList to fetch data
+    } catch (error) {
+      console.error('Error refreshing data:', error);
+    } finally {
+      setRefreshing(false); // Set refreshing to false when the refresh is completed
+    }
   };
   const readNotifications = async () => {
     try {
@@ -169,7 +178,7 @@ const MyOrderScreen = props => {
 
       const res = await getOrderStatusChange(id, status);
 
-      console.log('resp==========>', res);
+      console.log('response==========>', res);
     } catch (error) {
       console.log('Error:', UTILS.returnError(error));
       Alert.alert('Error', UTILS.returnError(error));

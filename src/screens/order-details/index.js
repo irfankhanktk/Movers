@@ -180,9 +180,9 @@ const OrderDetailsScreen = props => {
         },
         {
           text: 'Start',
-          onPress: () => {
+          onPress: async () => {
             // If the user confirms the acceptance, call the ChangeStatus function
-            ChangeStatus2(
+            await ChangeStatus2(
               'start',
               id,
               vehicle_id || orderData?.vehicle?.id,
@@ -191,8 +191,8 @@ const OrderDetailsScreen = props => {
             // Then, refresh the list
 
             Alert.alert('Order has been Started');
-            getList();
-            goBack();
+            await getList();
+            // goBack();
           },
         },
       ],
@@ -211,14 +211,14 @@ const OrderDetailsScreen = props => {
         },
         {
           text: 'Completed',
-          onPress: () => {
+          onPress: async () => {
             // If the user confirms the acceptance, call the ChangeStatus function
-            ChangeStatus('delivered', id);
+            await ChangeStatus('delivered', id);
             // Then, refresh the list
 
-            Alert.alert('Order has been Completed');
+            await Alert.alert('Order has been Completed');
             getList();
-            goBack();
+            // goBack();
           },
         },
       ],
