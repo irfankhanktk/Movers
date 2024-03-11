@@ -251,42 +251,49 @@ const VehicleInsuranceScreen = props => {
                             {documentList?.vehicle_insurance_photo ||
                             saveFile?.uri ? (
                               <>
-                              <Row style={{justifyContent:"flex-start"}}> 
-                              <TouchableOpacity
-                                style={{width: mvs(50), height: mvs(50)}}
-                                onPress={() =>
-                                  handleImagePress(
-                                    documentList?.vehicle_insurance_photo ||
-                                      saveFile?.uri,
-                                  )
-                                }>
-                                <Image
-                                  // label={
-                                  //   saveFile?.uri || documentList?.license_photo
-                                  // }
-                                  source={{
-                                    uri:
-                                      saveFile?.uri ||
-                                      documentList?.vehicle_insurance_photo,
-                                  }}
-                                  resizeMode="cover"
-                                  style={{width: mvs(50), height: mvs(50)}}
-                                  // color={colors.primary}
-                                  // fontSize={mvs(14)}
-                                  // style={styles.filenametext}
-                                />
-                              </TouchableOpacity>
-                              <View style={{marginLeft:mvs(60),alignItems:"center",justifyContent:"center", borderWidth: 1,
-    borderStyle: 'dashed',
-    padding: mvs(5),
-    borderRadius: mvs(5),
-    borderColor: colors.bluecolor,
-    paddingVertical: mvs(8),}}>
-<Medium label={'Change Photo'}/>
-</View>
-</Row>
-</>
-                              
+                                <Row style={{justifyContent: 'space-between'}}>
+                                  <TouchableOpacity
+                                    style={{width: mvs(50), height: mvs(50)}}
+                                    onPress={() =>
+                                      handleImagePress(
+                                        documentList?.vehicle_insurance_photo ||
+                                          saveFile?.uri,
+                                      )
+                                    }>
+                                    <Image
+                                      // label={
+                                      //   saveFile?.uri || documentList?.license_photo
+                                      // }
+                                      source={{
+                                        uri:
+                                          saveFile?.uri ||
+                                          documentList?.vehicle_insurance_photo,
+                                      }}
+                                      resizeMode="cover"
+                                      style={{width: mvs(50), height: mvs(50)}}
+                                      // color={colors.primary}
+                                      // fontSize={mvs(14)}
+                                      // style={styles.filenametext}
+                                    />
+                                  </TouchableOpacity>
+                                  <View
+                                    style={{
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      borderWidth: 1,
+                                      borderStyle: 'dashed',
+                                      padding: mvs(5),
+                                      borderRadius: mvs(5),
+                                      borderColor: colors.bluecolor,
+                                      paddingVertical: mvs(8),
+                                    }}>
+                                    <Medium
+                                      label={'Change Photo'}
+                                      color={colors.bluecolor}
+                                    />
+                                  </View>
+                                </Row>
+                              </>
                             ) : (
                               <Row style={{justifyContent: 'center'}}>
                                 <FileSVG width={mvs(25)} height={mvs(25)} />

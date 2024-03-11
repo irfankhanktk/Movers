@@ -281,43 +281,52 @@ const LicenseDetailsScreen = props => {
                             onPress={() => onPressAttachment()}>
                             {documentList?.license_photo || saveFile?.uri ? (
                               <>
-                              <Row style={{justifyContent:"flex-start"}}>
-                              <TouchableOpacity
-                                style={{width: mvs(50), height: mvs(50)}}
-                                onPress={() =>
-                                  handleImagePress(
-                                    documentList?.license_photo ||
-                                      saveFile?.uri,
-                                  )
-                                }>
-                                <Image
-                                  // label={
-                                  //   saveFile?.uri || documentList?.license_photo
-                                  // }
-                                  source={{
-                                    uri:
-                                      saveFile?.uri ||
-                                      documentList?.license_photo || "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg",
-                                  }}
-                                  resizeMode="cover"
-                                  style={{width: mvs(50), height: mvs(50)}}
-                                  // color={colors.primary}
-                                  // fontSize={mvs(14)}
-                                  // style={styles.filenametext}
-                                />
-                                
-                              </TouchableOpacity>
+                                <Row style={{justifyContent: 'space-between'}}>
+                                  <TouchableOpacity
+                                    style={{width: mvs(50), height: mvs(50)}}
+                                    onPress={() =>
+                                      handleImagePress(
+                                        documentList?.license_photo ||
+                                          saveFile?.uri,
+                                      )
+                                    }>
+                                    <Image
+                                      // label={
+                                      //   saveFile?.uri || documentList?.license_photo
+                                      // }
+                                      source={{
+                                        uri:
+                                          saveFile?.uri ||
+                                          documentList?.license_photo ||
+                                          'https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg',
+                                      }}
+                                      resizeMode="cover"
+                                      style={{width: mvs(50), height: mvs(50)}}
+                                      // color={colors.primary}
+                                      // fontSize={mvs(14)}
+                                      // style={styles.filenametext}
+                                    />
+                                  </TouchableOpacity>
 
-<View style={{marginLeft:mvs(60),alignItems:"center",justifyContent:"center", borderWidth: 1,
-    borderStyle: 'dashed',
-    padding: mvs(5),
-    borderRadius: mvs(5),
-    borderColor: colors.bluecolor,
-    paddingVertical: mvs(8),}}>
-<Medium label={'Change Photo'}/>
-</View>
-</Row>
-</>
+                                  <View
+                                    style={{
+                                      // marginLeft: mvs(60),
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      borderWidth: 1,
+                                      borderStyle: 'dashed',
+                                      padding: mvs(5),
+                                      borderRadius: mvs(5),
+                                      borderColor: colors.bluecolor,
+                                      paddingVertical: mvs(8),
+                                    }}>
+                                    <Medium
+                                      label={'Change Photo'}
+                                      color={colors.bluecolor}
+                                    />
+                                  </View>
+                                </Row>
+                              </>
                             ) : (
                               <Row style={{justifyContent: 'center'}}>
                                 <FileSVG width={mvs(25)} height={mvs(25)} />
@@ -353,33 +362,36 @@ const LicenseDetailsScreen = props => {
                               }
                             />
                             <View>
-                            <DatePicker
-                              onPress={() =>
-                                setFieldTouched('license_issue_date', true)
-                              }
-                              onChangeText={(str: string) =>
-                                setFieldValue('license_issue_date', str)
-                              }>
-                              <PrimaryInput
-                                isCalendar
-                                editable={false}
-                                error={
-                                  touched?.license_issue_date
-                                    ? t(errors.license_issue_date)
-                                    : ''
+                              <DatePicker
+                                onPress={() =>
+                                  setFieldTouched('license_issue_date', true)
                                 }
-                                placeholder={t('license_issue_date')}
-                                onChangeText={handleChange(
-                                  'license_issue_date',
-                                )}
-                                onBlur={handleBlur('license_issue_date', true)}
-                                value={
-                                  values.license_issue_date
-                                  // ||
-                                  // documentList?.license_issue_date
-                                }
-                              />
-                            </DatePicker>
+                                onChangeText={(str: string) =>
+                                  setFieldValue('license_issue_date', str)
+                                }>
+                                <PrimaryInput
+                                  isCalendar
+                                  editable={false}
+                                  error={
+                                    touched?.license_issue_date
+                                      ? t(errors.license_issue_date)
+                                      : ''
+                                  }
+                                  placeholder={t('license_issue_date')}
+                                  onChangeText={handleChange(
+                                    'license_issue_date',
+                                  )}
+                                  onBlur={handleBlur(
+                                    'license_issue_date',
+                                    true,
+                                  )}
+                                  value={
+                                    values.license_issue_date
+                                    // ||
+                                    // documentList?.license_issue_date
+                                  }
+                                />
+                              </DatePicker>
                             </View>
 
                             <DatePicker
