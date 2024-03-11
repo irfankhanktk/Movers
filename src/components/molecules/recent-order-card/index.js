@@ -77,6 +77,7 @@ const RecentOrderCard = ({
 
             ...colors.shadow,
           }}
+          disabled
           textStyle={{
             color: colors.white,
             fontSize: mvs(12),

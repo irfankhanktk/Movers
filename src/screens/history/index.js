@@ -86,7 +86,7 @@ const HistoryScreen = props => {
       <Header1x2x title={t('history')} />
       <View style={styles.contentContainerStyle}>
         <Row>
-          <TouchableOpacity style={styles.earningtoucbaleview}>
+          <View style={styles.earningtoucbaleview}>
             <Image
               source={IMG.historyearning}
               resizeMode="contain"
@@ -115,8 +115,8 @@ const HistoryScreen = props => {
                 />
               </View>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.compleetdorderview}>
+          </View>
+          <View style={styles.compleetdorderview}>
             <Image
               source={IMG.historyCart}
               resizeMode="contain"
@@ -158,7 +158,7 @@ const HistoryScreen = props => {
                 style={{paddingHorizontal: mvs(14)}}
               /> */}
             </View>
-          </TouchableOpacity>
+          </View>
         </Row>
         <Medium
           label={t('recent_orders')}
