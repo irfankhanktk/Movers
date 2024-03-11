@@ -104,7 +104,7 @@ const MangeVehcileCard = ({
             fontSize={mvs(12)}
           />
         </Row>
-        <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
+        {/* <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
           <Regular
             label={'Vehicle Price'}
             color={colors.white}
@@ -117,7 +117,7 @@ const MangeVehcileCard = ({
             style={{flex: 1}}
             fontSize={mvs(12)}
           />
-        </Row>
+        </Row> */}
         <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
           <Regular
             label={t('vehicle_year')}

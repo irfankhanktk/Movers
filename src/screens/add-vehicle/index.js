@@ -30,7 +30,7 @@ const AddVehicleScreen = props => {
     vehicle_year: '',
     vehicle_load_capacity: '',
     vehicle_number: '',
-    vehicle_price: '',
+    // vehicle_price: '',
     ...props?.route?.params?.vehicle,
   };
   const [loading, setLoading] = React.useState(false);
@@ -142,7 +142,7 @@ const AddVehicleScreen = props => {
                           onBlur={handleBlur('vehicle_year', true)}
                           value={values.vehicle_year}
                         />
-                        <PrimaryInput
+                        {/* <PrimaryInput
                           error={
                             touched?.vehicle_price
                               ? t(errors.vehicle_price)
@@ -152,7 +152,7 @@ const AddVehicleScreen = props => {
                           onChangeText={handleChange('vehicle_price')}
                           onBlur={handleBlur('vehicle_price', true)}
                           value={values.vehicle_price}
-                        />
+                        /> */}
                         <PrimaryInput
                           error={
                             touched?.vehicle_number
