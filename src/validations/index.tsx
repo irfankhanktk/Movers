@@ -165,7 +165,7 @@ export const addVheicleValidation = yup.object().shape({
     .required('req_vehicle_load_capacity')
     .max(10, 'Vehicle load capacity cannot be greater than 10'),
   vehicle_number: yup.string().required('Vehicle Number is Required'),
-  vehicle_price: yup.string().required('Vehicle Price is Required'),
+  // vehicle_price: yup.string().required('Vehicle Price is Required'),
 
   // password: yup.string().required('req_pass').min(8, 'weak_pass'),
   // confirm_password: yup
