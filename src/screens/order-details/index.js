@@ -66,11 +66,10 @@ const OrderDetailsScreen = props => {
   const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
-  const [quantityData, setQuantityData] = React.useState({});
-  const [selectedOrder, setSelectedOrder] = React.useState('');
+
   const [orderData, setOrderData] = React.useState({});
   const [chatLoading, setChatLoading] = React.useState(false);
-  const [total, setTotal] = React.useState({});
+
   const [vehicle_id, setVehicle_id] = React.useState('');
   const [vehicle_number, setVehicle_number] = React.useState('');
   const [vehcileLists, setVehicleLists] = React.useState([]);
@@ -81,17 +80,46 @@ const OrderDetailsScreen = props => {
   }, []);
   const getListVehcile = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await getVehcileListOrder();
       setVehicleLists(res?.vehicles);
 
       console.log('screen1', res?.vehicles);
+    } catch (error) {
+      // setLoading(false);
+    } finally {
+      // setLoading(false);
+    }
+  };
+  const getList = async () => {
+    try {
+      setLoading(true);
+      const res = await getOrderDetails(id);
+      setOrderData(res?.value);
+
+      console.log('data===>>>', res?.value);
     } catch (error) {
       setLoading(false);
     } finally {
       setLoading(false);
     }
   };
+  const origin = {
+    latitude: orderData?.pickup_lat * 1 || 37.78825,
+    longitude: orderData?.pickup_long * 1 || -122.4324,
+  };
+
+  const destination = {
+    latitude: orderData?.dropoff_lat * 1 || 37.7749,
+    longitude: orderData?.dropoff_long * 1 || -122.4194,
+  };
+  console.log(
+    'lat',
+    orderData?.pickup_lat,
+    orderData?.pickup_long,
+    orderData?.dropoff_lat,
+    orderData?.dropoff_long,
+  );
 
   const onMessagePress = async user_id => {
     try {
@@ -224,35 +252,6 @@ const OrderDetailsScreen = props => {
       ],
       {cancelable: false},
     );
-  };
-  const getList = async () => {
-    try {
-      setLoading(true);
-      const res = await getOrderDetails(id);
-      setOrderData(res?.value);
-
-      console.log('data===>>>', res?.value);
-    } catch (error) {
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const origin = {
-    latitude: orderData?.pickup_lat * 1 || 37.78825,
-    longitude: orderData?.pickup_long * 1 || -122.4324,
-  };
-  console.log(
-    'lat',
-    orderData?.pickup_lat,
-    orderData?.pickup_long,
-    orderData?.dropoff_lat,
-    orderData?.dropoff_long,
-  );
-  const destination = {
-    latitude: orderData?.dropoff_lat * 1 || 37.7749,
-    longitude: orderData?.dropoff_long * 1 || -122.4194,
   };
 
   const renderAppointmentItem = ({item, index}) => {
