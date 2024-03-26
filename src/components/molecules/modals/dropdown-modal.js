@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: mvs(20),
   },
   button: {
-    paddingHorizontal: mvs(30),
+    // paddingHorizontal: mvs(30),
     marginBottom: mvs(20),
     flexDirection: 'row',
     justifyContent: 'space-between',

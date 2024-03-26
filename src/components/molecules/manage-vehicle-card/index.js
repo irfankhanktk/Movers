@@ -74,6 +74,7 @@ const MangeVehcileCard = ({
             color={colors.white}
             style={{flex: 1}}
             fontSize={mvs(16)}
+            numberOfLines={2}
           />
         </Row>
         <Row style={{paddingHorizontal: mvs(20), paddingVertical: mvs(2)}}>
@@ -194,7 +195,7 @@ const MangeVehcileCard = ({
           />
         </Row>
       </View>
-      <View
+      {/* <View
         style={{
           position: 'absolute',
           alignSelf: 'center',
@@ -219,7 +220,7 @@ const MangeVehcileCard = ({
             height: mvs(122),
           }}
         />
-      </View>
+      </View> */}
     </View>
     // </View>
   );
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
   },
   contentContainerStyleNew: {
     // marginVertical: mvs(10),
-    marginBottom: mvs(60),
+    marginBottom: mvs(20),
     paddingVertical: mvs(8),
     width: '100%',
     height: mvs(300),
