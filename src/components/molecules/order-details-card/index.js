@@ -110,6 +110,45 @@ const OrderDetailsCard = ({
           // paddingHorizontal: mvs(10),
           paddingVertical: mvs(8),
         }}
+        label={'Starting Time:'}
+        value={
+          item?.pickup_date
+            ? moment(item.pickup_date).format('hh:mm:ss A')
+            : 'N/A'
+        }
+        labelStyle={{flex: 1}}
+        valueStyle={{flex: 1}}
+      />
+      {item?.price_type != 'hour_price' && (
+        <LabelValue
+          containerStyle={{
+            // paddingHorizontal: mvs(10),
+            paddingVertical: mvs(8),
+          }}
+          label={'Price Paid:'}
+          value={(item?.price - item?.driver_price) * 1 || 'N/A'}
+          labelStyle={{flex: 1}}
+          valueStyle={{flex: 1}}
+        />
+      )}
+      {item?.price_type != 'hour_price' && (
+        <LabelValue
+          containerStyle={{
+            // paddingHorizontal: mvs(10),
+            paddingVertical: mvs(8),
+          }}
+          label={'Remaining Price:'}
+          value={item?.driver_price || 'N/A'}
+          labelStyle={{flex: 1}}
+          valueStyle={{flex: 1}}
+        />
+      )}
+
+      <LabelValue
+        containerStyle={{
+          // paddingHorizontal: mvs(10),
+          paddingVertical: mvs(8),
+        }}
         label={t('pickup_location')}
         value={item?.pickup_address || 'N/A'}
         labelStyle={{flex: 1}}
@@ -140,8 +179,8 @@ const OrderDetailsCard = ({
           // paddingHorizontal: mvs(10),
           paddingVertical: mvs(8),
         }}
-        label={item?.price_type==='hour_price'? 'Per Hour Price':"Price"}
-        value={ item?.price_type==='hour_price'?item?.per_hour:  item?.price}
+        label={item?.price_type === 'hour_price' ? 'Per Hour Price' : 'Price'}
+        value={item?.price_type === 'hour_price' ? item?.per_hour : item?.price}
         labelStyle={{flex: 1}}
         valueStyle={{flex: 1}}
       />

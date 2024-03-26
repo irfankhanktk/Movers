@@ -1,7 +1,10 @@
 import * as IMG from 'assets/images';
 import {PrimaryButton} from 'components/atoms/buttons';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
-import PrimaryInput, {InputWithIcon} from 'components/atoms/inputs';
+import PrimaryInput, {
+  InputWithIcon,
+  InputWithIconNew,
+} from 'components/atoms/inputs';
 import {KeyboardAvoidScrollview} from 'components/atoms/keyboard-avoid-scrollview/index';
 import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
@@ -33,6 +36,8 @@ const AddVehicleScreen = props => {
     // vehicle_price: '',
     ...props?.route?.params?.vehicle,
   };
+
+  const Load = [{id: '3.5'}, {id: '7.5'}, {id: '10'}];
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     getVehcileTypeDetails();
@@ -112,6 +117,22 @@ const AddVehicleScreen = props => {
                           id={values.vehicle_type}
                           items={vehicle_types}
                         />
+                        <InputWithIconNew
+                          placeholder={'Select Vehcile Load Capacity(Ton)'}
+                          isRequired
+                          error={
+                            touched?.vehicle_load_capacity
+                              ? t(errors.vehicle_load_capacity)
+                              : ''
+                          }
+                          onChangeText={id =>
+                            setFieldValue('vehicle_load_capacity', id)
+                          }
+                          // onBlur={handleChange('vehicle_make')}
+                          value={values.vehicle_load_capacity}
+                          id={values.vehicle_load_capacity}
+                          items={Load}
+                        />
 
                         <PrimaryInput
                           error={
@@ -164,7 +185,7 @@ const AddVehicleScreen = props => {
                           onBlur={handleBlur('vehicle_number', true)}
                           value={values.vehicle_number}
                         />
-                        <PrimaryInput
+                        {/* <PrimaryInput
                           keyboardType={'number-pad'}
                           error={
                             touched?.vehicle_load_capacity
@@ -175,7 +196,7 @@ const AddVehicleScreen = props => {
                           onChangeText={handleChange('vehicle_load_capacity')}
                           onBlur={handleBlur('vehicle_load_capacity')}
                           value={values.vehicle_load_capacity}
-                        />
+                        /> */}
                       </KeyboardAvoidScrollview>
                     </View>
                   </View>

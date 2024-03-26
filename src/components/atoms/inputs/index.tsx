@@ -32,6 +32,7 @@ import {menue} from 'assets/images';
 import StartOrderDropdownModal from 'components/molecules/modals/startorder-dropdown-modal';
 import {DatePicker} from '../date-picker';
 import moment from 'moment';
+import DropdownModalNew from 'components/molecules/modals/new-dropdown-modal';
 type props = {
   isRequired?: boolean;
   onChangeText: (text: string) => void;
@@ -351,6 +352,56 @@ export const InputWithIcon = (props: props) => {
       </TouchableOpacity>
       <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />
       <DropdownModal
+        onClose={() => setVisible(false)}
+        onChangeText={onChangeText}
+        value={id}
+        visible={visible}
+        items={items}
+      />
+    </>
+  );
+};
+export const InputWithIconNew = (props: props) => {
+  const [visible, setVisible] = React.useState(false);
+  const {
+    items = [],
+    onChangeText,
+    onBlur = () => {},
+    value,
+    style,
+    containerStyle,
+    id,
+    placeholder,
+    editable,
+    error,
+    label,
+    isRequired = false,
+  } = props;
+  return (
+    <>
+      {label && (
+        <Regular label={label} style={styles.labelStyle}>
+          {isRequired ? <Regular color={colors.red} label={' *'} /> : null}
+        </Regular>
+      )}
+      <TouchableOpacity
+        disabled={editable}
+        onPress={() => {
+          setVisible(true);
+          onBlur();
+        }}
+        style={[styles.dropDownContainer, containerStyle]}>
+        <Medium
+          label={
+            items?.find(x => x?.id == id)?.title ||
+            items?.find(x => x?.id == id)?.id ||
+            placeholder
+          }
+        />
+        <Feather size={25} name={'chevron-down'} color={colors.black} />
+      </TouchableOpacity>
+      <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />
+      <DropdownModalNew
         onClose={() => setVisible(false)}
         onChangeText={onChangeText}
         value={id}
