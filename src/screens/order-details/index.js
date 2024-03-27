@@ -461,15 +461,17 @@ const OrderDetailsScreen = props => {
                         items={vehcileLists}
                       />
                     )}
-                    <InputWithIcon3
-                      editable={true}
-                      placeholder={t('select_vehicle_type')}
-                      label2={orderData?.vehicle?.vehicle_type}
-                      onChangeText={selectedId => setVehicle_id(selectedId)}
-                      value={vehicle_id}
-                      id={vehicle_id}
-                      items={vehcileLists}
-                    />
+                    {orderData?.price_type === 'hour_price' && (
+                      <InputWithIcon3
+                        editable={true}
+                        placeholder={t('select_vehicle_type')}
+                        label2={orderData?.vehicle?.vehicle_type}
+                        onChangeText={selectedId => setVehicle_id(selectedId)}
+                        value={vehicle_id}
+                        id={vehicle_id}
+                        items={vehcileLists}
+                      />
+                    )}
                   </View>
                 )}
             </ScrollView>
