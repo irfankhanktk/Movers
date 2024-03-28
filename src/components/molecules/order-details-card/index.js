@@ -110,7 +110,7 @@ const OrderDetailsCard = ({
           // paddingHorizontal: mvs(10),
           paddingVertical: mvs(8),
         }}
-        label={'Starting Time:'}
+        label={'Pickup Time:'}
         value={
           item?.pickup_date
             ? moment(item.pickup_date).format('hh:mm:ss A')
