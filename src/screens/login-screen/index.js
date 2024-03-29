@@ -189,7 +189,7 @@ const LoginScreen = props => {
                     title={t('login')}
                   />
                   <View style={styles.createaccountview}>
-                    <Medium label={t('or_create_a_new_account')} />
+                    <Medium label={t('or_create_a_new_account')} color={colors.black} />
                   </View>
 
                   <PrimaryButton

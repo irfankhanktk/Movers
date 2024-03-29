@@ -83,6 +83,7 @@ const ForgotOtpModal = ({
           numberOfLines={3}
           style={styles.msg}
           label={`${t('verfication_desc')} ${email || '@email'}`}
+          color={colors.placeholder}
         />
         <View style={styles.otp}>
           <OtpInput setValue={setValue} value={value} />

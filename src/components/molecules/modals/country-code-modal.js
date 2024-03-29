@@ -35,6 +35,7 @@ const CountryCodemOdal = ({
           label={t('Select_Country_Code')}
           style={{alignSelf: 'center'}}
           fontSize={mvs(18)}
+          color={colors.black}
         />
         <ScrollView>
           {items?.map((x, index) => (
@@ -62,6 +63,7 @@ const CountryCodemOdal = ({
               }}>
               <Regular
                 label={`${x?.name} (${x?.phone_code} )`}
+                color={colors.black}
                 // style={{
                 //   color:
                 //     selectedRoom.selectedRoomNumber === index

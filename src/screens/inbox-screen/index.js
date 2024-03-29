@@ -154,6 +154,7 @@ const InboxScreen = props => {
               <Regular
                 numberOfLines={1}
                 label={info?.receiver_email || email}
+                color={colors.black}
               />
             </View>
           </Row>

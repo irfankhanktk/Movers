@@ -24,6 +24,8 @@ const GoogleSearchBar = ({
 }: any) => {
   const autoCompleteRef = React.useRef<any>(null);
 
+  
+
   return (
     <View style={{...styles.mainContainer, ...style}}>
       <GooglePlacesAutocomplete
@@ -48,6 +50,7 @@ const GoogleSearchBar = ({
         }
         styles={{
           container: {marginHorizontal: mvs(0), ...containerStyle},
+          description:{color:colors.black},
           textInputContainer: {
             backgroundColor: null,
             height: mvs(51),
@@ -55,6 +58,7 @@ const GoogleSearchBar = ({
             borderColor: colors.gray,
             ...textInputContainer,
             borderRadius: mvs(10),
+            
           },
           textInput: {
             backgroundColor: null,
@@ -67,6 +71,7 @@ const GoogleSearchBar = ({
           listView: {},
           row: {zIndex: 1001},
           poweredContainer: {backgroundColor: null},
+          text: { color: 'red' }, 
         }}
         textInputProps={{
           clearButtonMode: false,
@@ -101,7 +106,7 @@ const GoogleSearchBar = ({
                   autoCompleteRef?.current?.setAddressText('');
                 }}
                 style={{...styles.search}}>
-                <Entypo size={mvs(20)} name={'cross'} />
+                <Entypo size={mvs(20)} name={'cross'} color={colors.black}/>
               </TouchableOpacity>
             </>
           );
@@ -110,7 +115,7 @@ const GoogleSearchBar = ({
           return (
             <>
               <View style={{...styles.search, marginEnd: mvs(10)}}>
-                <EvilIcons size={mvs(20)} name={'search'} />
+                <EvilIcons size={mvs(20)} name={'search'} color={colors.black}/>
               </View>
             </>
           );

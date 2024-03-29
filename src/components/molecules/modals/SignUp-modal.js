@@ -86,6 +86,7 @@ const SignUpModal = ({
             numberOfLines={3}
             style={styles.msg}
             label={`${t('verfication_desc')} ${email || '@email'}`}
+            color={colors.placeholder}
           />
           <View style={styles.otp}>
             <OtpInput setValue={setValue} value={value} />
@@ -128,11 +129,14 @@ const SignUpModal = ({
             // numberOfLines={2}
             label={t('your_otp_have_been_setup')}
             style={styles.otpsetuptext}
+
+            color={colors.placeholder}
           />
           <Medium
             numberOfLines={3}
             style={styles.msg}
             label={`${t('now_you_use_this_otp_to_login_to_this_application')} `}
+            color={colors.black}
           />
 
           <TouchableOpacity

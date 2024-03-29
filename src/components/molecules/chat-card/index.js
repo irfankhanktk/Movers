@@ -33,7 +33,7 @@ const ChatCard = ({item, style, onPress, loading}) => {
         </View>
         <View style={{paddingHorizontal: mvs(10), flex: 1}}>
           <Bold label={item?.receiver_name} />
-          <Regular numberOfLines={1} label={item?.receiver_email} />
+          <Regular numberOfLines={1} label={item?.receiver_email} color={colors.black}/>
         </View>
         {/* <Regular label={'08:06'} /> */}
       </Row>

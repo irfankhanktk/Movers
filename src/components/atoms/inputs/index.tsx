@@ -347,6 +347,7 @@ export const InputWithIcon = (props: props) => {
             items?.find(x => x?.id == id)?.id ||
             placeholder
           }
+          color={colors.black}
         />
         <Feather size={25} name={'chevron-down'} color={colors.black} />
       </TouchableOpacity>
@@ -397,6 +398,7 @@ export const InputWithIconNew = (props: props) => {
             items?.find(x => x?.id == id)?.id ||
             placeholder
           }
+          color={colors.black}
         />
         <Feather size={25} name={'chevron-down'} color={colors.black} />
       </TouchableOpacity>
@@ -442,7 +444,7 @@ export const InputWithIcon2 = (props: props) => {
           onBlur();
         }}
         style={[styles.dropDownContainer, containerStyle]}>
-        <Medium label={selectedVehicleType || placeholder} />
+        <Medium label={selectedVehicleType || placeholder} color={colors.black} />
         <Feather size={25} name={'chevron-down'} color={colors.black} />
       </TouchableOpacity>
       <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />
@@ -493,7 +495,7 @@ export const InputWithIcon3 = (props: props) => {
           onBlur();
         }}
         style={[styles.dropDownContainer, containerStyle]}>
-        <Medium label={label2} />
+        <Medium label={label2} color={colors.black}/>
         {/* <Feather size={25} name={'chevron-down'} color={colors.black} /> */}
       </TouchableOpacity>
       <Regular label={error ? `${t(error)}` : ''} style={styles.errorLabel} />

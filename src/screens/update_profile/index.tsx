@@ -285,7 +285,8 @@ const UpdateProfileScreen = (props: props) => {
                         width: '25%',
                       }}>
                       <Medium
-                        label={countries?.find(x => x?.selected)?.code || 'PK'}
+                        label={countries?.find(x => x?.selected)?.code || 'GB'}
+                        color={colors.black}
                       />
                       {console.log(countries?.find(x => x?.selected)?.code)}
                       <TouchableOpacity
@@ -308,8 +309,9 @@ const UpdateProfileScreen = (props: props) => {
                       }}>
                       <Medium
                         label={
-                          countries?.find(x => x?.selected)?.phone_code || '92'
+                          countries?.find(x => x?.selected)?.phone_code || '44'
                         }
+                        color={colors.black}
                       />
                       {console.log(
                         countries?.find(x => x?.selected)?.phone_code,

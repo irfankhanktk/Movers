@@ -32,9 +32,9 @@ export const signupFormValidation = yup.object().shape({
   //   .required('Phone is required'),
   phone: yup
     .string()
-    .test('is-ten-digits', 'Phone must be exactly 10 digits', value => {
+    .test('is-fiften-digits', 'Phone must be exactly 15 digits', value => {
       if (!value) return true; // Allow empty values
-      return value.length === 10 && !isNaN(value); // Check for 10 digits and numeric characters
+      return value.length === 15 && !isNaN(value); // Check for 10 digits and numeric characters
     })
     .required('Phone is required'),
   password: yup.string().required('req_pass').min(8, 'weak_pass'),

@@ -247,7 +247,8 @@ const Signup = (props: props) => {
                         width: '25%',
                       }}>
                       <Medium
-                        label={countries?.find(x => x?.selected)?.code || 'PK'}
+                        label={countries?.find(x => x?.selected)?.code || 'GB'}
+                        color={colors.black}
                       />
 
                       {/* <Medium
@@ -278,8 +279,9 @@ const Signup = (props: props) => {
                       }}>
                       <Medium
                         label={
-                          countries?.find(x => x?.selected)?.phone_code || '92'
+                          countries?.find(x => x?.selected)?.phone_code || '44'
                         }
+                        color={colors.black}
                       />
                     </Row>
                     <PrimaryInput
@@ -311,6 +313,7 @@ const Signup = (props: props) => {
                       fontSize={mvs(10)}
                       label={t('i_agree to the,')}
                       numberOfLines={2}
+                      color={colors.placeholder}
                       style={styles.IAgreeView}>
                       <Medium
                         onPress={() => navigate('TermsandConditionsScreen')}

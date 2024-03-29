@@ -31,6 +31,7 @@ const DropdownModal = ({
           numberOfLines={2}
           style={styles.pick}
           label={t('select_vehicle_type')}
+          color={colors.black}
         />
         <ScrollView
           contentContainerStyle={{
@@ -52,6 +53,7 @@ const DropdownModal = ({
                     item?.id ||
                     item?.vehicle_type
                   }
+                  color={colors.black}
                   style={{fontSize: mvs(16)}}
                 />
                 <Icon

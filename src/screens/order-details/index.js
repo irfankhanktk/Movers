@@ -476,7 +476,7 @@ const OrderDetailsScreen = props => {
                 )}
             </ScrollView>
           ) : (
-            <Medium label={t('no_order_data')} /> // Render an empty state when orderData is not available yet
+            <Medium label={t('no_order_data')}  color={colors.white}/> // Render an empty state when orderData is not available yet
           )}
 
           <Row

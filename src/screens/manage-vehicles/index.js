@@ -83,9 +83,9 @@ const ManageVehicleScreen = props => {
   };
   return (
     <View style={styles.container}>
-      <Header1x2x title={t('manage_vehicle')} />
+      <Header1x2x title={t('manage_vehicle')}/>
       <View style={styles.contentContainerStyle}>
-        <Medium label={t('vehicle_details')} fontSize={mvs(16)} />
+        <Medium label={t('vehicle_details')} fontSize={mvs(16)} color={colors.black}/>
         {loading ? (
           <Loader />
         ) : (

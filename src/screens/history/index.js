@@ -164,6 +164,7 @@ const HistoryScreen = props => {
           label={t('recent_orders')}
           fontSize={mvs(16)}
           style={{marginTop: mvs(12)}}
+          color={colors.black}
         />
         {loading ? (
           <Loader />

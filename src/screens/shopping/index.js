@@ -136,7 +136,7 @@ const ShoppingScreen = props => {
                     size={mvs(26)}
                   />
                   <View style={{flex: 1}}>
-                    <HtmlView html={orderData?.contact_us} />
+                    <HtmlView html={orderData?.contact_us}  />
                   </View>
                 </Row>
               </View>
@@ -152,6 +152,7 @@ const ShoppingScreen = props => {
                     label={orderData?.contact_address}
                     style={{marginLeft: mvs(6)}}
                     numberOfLines={2}
+                    color={colors.placeholder}
                   />
                 </Row>
               </View>
@@ -167,11 +168,13 @@ const ShoppingScreen = props => {
                       name="email"
                       color={colors.primary}
                       size={mvs(26)}
+                      
                     />
                     <Medium
                       label={orderData?.contact_email}
                       style={{marginLeft: mvs(6)}}
                       numberOfLines={2}
+                      color={colors.placeholder}
                     />
                   </Row>
                 </TouchableOpacity>
@@ -193,6 +196,7 @@ const ShoppingScreen = props => {
                       label={orderData?.contact_phone}
                       style={{marginLeft: mvs(6)}}
                       numberOfLines={2}
+                      color={colors.placeholder}
                     />
                   </Row>
                 </TouchableOpacity>
