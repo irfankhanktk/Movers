@@ -76,7 +76,7 @@ const Notifications = props => {
           <Row>
             <Medium label={item?.title} color={colors.black} />
           </Row>
-          <Regular label={item?.text} numberOfLines={3} />
+          <Regular label={item?.text} numberOfLines={3} color={colors.placeholder} />
         </View>
       </Row>
       <Regular
