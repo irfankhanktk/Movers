@@ -65,7 +65,7 @@ const Signup = (props: props) => {
     // dispatch(onSignup(values, setLoading));
     navigate('SignupNext', {
       ...values,
-      country_code: countries?.find(x => x?.selected)?.code || 'PK',
+      country_code: countries?.find(x => x?.selected)?.code || 'GB',
     });
     {
       console.log('values form siubmit', values);
