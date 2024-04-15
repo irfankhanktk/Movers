@@ -150,8 +150,8 @@ const ShoppingScreen = props => {
                   />
                   <Medium
                     label={orderData?.contact_address}
-                    style={{marginLeft: mvs(6)}}
-                    numberOfLines={2}
+                    style={{marginLeft: mvs(6),width:'90%'}}
+                    numberOfLines={6}
                     color={colors.placeholder}
                   />
                 </Row>
