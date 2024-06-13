@@ -362,7 +362,7 @@ export const getDistance = async (
     var km = 1;
     let time = 0;
     const response = await axios.get(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat1},${lon1}&destinations=${lat2},${lon2}&key=AIzaSyDOg2g1eycO5Z3wnr9F8Mdt-ryTJWgPQT8`,
+      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat1},${lon1}&destinations=${lat2},${lon2}&key=AIzaSyBxP_tL24fzdEqNKA5kicip7vyAExtNdPE`,
     );
     if (response?.data?.status === 'OK') {
       console.log('Distance is ');

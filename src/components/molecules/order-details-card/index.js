@@ -125,8 +125,8 @@ const OrderDetailsCard = ({
             // paddingHorizontal: mvs(10),
             paddingVertical: mvs(8),
           }}
-          label={'Remaining Price:'}
-          value={(item?.price - item?.driver_price) * 1 || 'N/A'}
+          label={'Price Paid'}
+          value={(item?.price - item?.driver_price).toFixed(2) * 1 || 'N/A'}
           labelStyle={{flex: 1}}
           valueStyle={{flex: 1}}
         />
@@ -137,8 +137,8 @@ const OrderDetailsCard = ({
             // paddingHorizontal: mvs(10),
             paddingVertical: mvs(8),
           }}
-          label={'Price Paid:'}
-          value={item?.driver_price || 'N/A'}
+          label={'Remaining Price:'}
+          value={(item?.driver_price) || 'N/A'}
           labelStyle={{flex: 1}}
           valueStyle={{flex: 1}}
         />
