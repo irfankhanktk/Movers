@@ -39,7 +39,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {setCountries} from 'store/reducers/user-reducer';
 import {DatePicker} from 'components/atoms/date-picker';
 import {useSSR} from 'react-i18next';
-Geocoder.init('AIzaSyBxP_tL24fzdEqNKA5kicip7vyAExtNdPE');
+Geocoder.init('AIzaSyDGDrN2RHbsqaNEuO0mCN3-MaqtzHgFgmA');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 

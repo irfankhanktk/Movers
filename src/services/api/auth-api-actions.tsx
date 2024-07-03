@@ -179,12 +179,37 @@ export const onUpdatePassword = async (values: any) => {
     Alert.alert('', UTILS.returnError(error));
   }
 };
-export const onVerifyOtp = (values: any) => {
+// export const onVerifyOtp = (values: any) => {
+//   const otp = values?.otp; // Extracting the OTP value
+//   console.log('OTP:', otp);
+//   getData(
+//     `${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}&type=Driver`,
+//   );
+// };
+export const onVerifyOtp = async (values: any) => {
+  const otp = values?.otp;
+  console.log('OTP:', otp);
+
+  try {
+    const res = await getData(
+      `${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}&type=Driver`,
+    );
+    return res; // Return the response to be handled by the caller
+  } catch (error) {
+    throw error; // Rethrow the error to be caught by the caller
+  }
+};
+export const onResendOtp = async (values: any) => {
   const otp = values?.otp; // Extracting the OTP value
   console.log('OTP:', otp);
-  getData(
-    `${URLS.auth.verify_otp}?email=${values?.email}&otp=${values?.otp}&type=Driver`,
-  );
+  try {
+    const res = await getData(
+      `${URLS.auth.resend_otp}?email=${values?.email}&type=Driver`,
+    );
+    return res; // Return the response to be handled by the caller
+  } catch (error) {
+    throw error; // Rethrow the error to be caught by the caller
+  }
 };
 
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
@@ -362,7 +387,7 @@ export const getDistance = async (
     var km = 1;
     let time = 0;
     const response = await axios.get(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat1},${lon1}&destinations=${lat2},${lon2}&key=AIzaSyBxP_tL24fzdEqNKA5kicip7vyAExtNdPE`,
+      `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${lat1},${lon1}&destinations=${lat2},${lon2}&key=AIzaSyDGDrN2RHbsqaNEuO0mCN3-MaqtzHgFgmA`,
     );
     if (response?.data?.status === 'OK') {
       console.log('Distance is ');

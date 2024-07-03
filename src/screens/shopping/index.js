@@ -136,7 +136,7 @@ const ShoppingScreen = props => {
                     size={mvs(26)}
                   />
                   <View style={{flex: 1}}>
-                    <HtmlView html={orderData?.contact_us}  />
+                    <HtmlView html={orderData?.contact_us} />
                   </View>
                 </Row>
               </View>
@@ -150,7 +150,7 @@ const ShoppingScreen = props => {
                   />
                   <Medium
                     label={orderData?.contact_address}
-                    style={{marginLeft: mvs(6),width:'90%'}}
+                    style={{marginLeft: mvs(6), width: '90%'}}
                     numberOfLines={6}
                     color={colors.placeholder}
                   />
@@ -168,7 +168,6 @@ const ShoppingScreen = props => {
                       name="email"
                       color={colors.primary}
                       size={mvs(26)}
-                      
                     />
                     <Medium
                       label={orderData?.contact_email}
@@ -301,8 +300,8 @@ const ShoppingScreen = props => {
                 initialRegion={{
                   latitude: origin.latitude,
                   longitude: origin.longitude,
-                  latitudeDelta: 0.05,
-                  longitudeDelta: 0.05,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
                 }}>
                 <Marker coordinate={origin} />
               </CustomMap>

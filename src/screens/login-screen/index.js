@@ -31,11 +31,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {onLogin} from 'services/api/auth-api-actions';
 import {requestNotifications} from 'react-native-permissions';
+import ResendOtpModal from 'components/molecules/modals/ResendOtp-modal';
+import {UTILS} from 'utils';
 const LoginScreen = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const [otpModalVisible, setOtpModalVisible] = React.useState(false);
   const [value, setValue] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const initialValues = {
     email: '',
     password: '',
@@ -81,6 +84,27 @@ const LoginScreen = props => {
     }
   }
 
+  // const handleFormSubmit = async values => {
+  //   try {
+  //     await checkApplicationPermission();
+  //     let fcmToken = '123456';
+  //     try {
+  //       setLoading(true);
+  //       fcmToken = await messaging().getToken();
+  //     } catch (error) {
+  //       console.log('fcm token error', error);
+  //     }
+  //     dispatch(
+  //       onLogin(
+  //         {...values, fcm_token: fcmToken, online_status: '0'},
+  //         setLoading,
+  //       ),
+  //     );
+  //   } catch (error) {
+  //     console.log('error=>', error);
+  //     setLoading(false);
+  //   }
+  // };
   const handleFormSubmit = async values => {
     try {
       await checkApplicationPermission();
@@ -91,14 +115,22 @@ const LoginScreen = props => {
       } catch (error) {
         console.log('fcm token error', error);
       }
-      dispatch(
+      const res = await dispatch(
         onLogin(
           {...values, fcm_token: fcmToken, online_status: '0'},
           setLoading,
         ),
       );
+      console.log('res', res);
+      // return;
+      // if (UTILS.returnError('Please verify your email first')) {
+      //   setOtpModalVisible(true);
+      //   setEmail(values.email);
+      // }
+      // Check if the response indicates email verification is required
     } catch (error) {
-      console.log('error=>', error);
+      console.log('error=ss>', error);
+
       setLoading(false);
     }
   };
@@ -171,6 +203,7 @@ const LoginScreen = props => {
                     containerStyle={{marginBottom: 0}}
                     errorStyle={{marginBottom: 0}}
                   />
+                  {/* <Row> */}
                   <TouchableOpacity
                     style={styles.forgotpasswordview}
                     onPress={() => navigate('ForgotPasswordScreen')}>
@@ -180,6 +213,16 @@ const LoginScreen = props => {
                       color={colors.bluecolor}
                     />
                   </TouchableOpacity>
+                  {/* <TouchableOpacity
+                      style={styles.forgotpasswordview}
+                      onPress={() => navigate('ForgotPasswordScreen')}>
+                      <Medium
+                        label={'Resend OTP'}
+                        style={{textDecorationLine: 'underline'}}
+                        color={colors.bluecolor}
+                      />
+                    </TouchableOpacity> */}
+                  {/* </Row> */}
                   <PrimaryButton
                     containerStyle={{
                       borderRadius: mvs(10),
@@ -189,7 +232,10 @@ const LoginScreen = props => {
                     title={t('login')}
                   />
                   <View style={styles.createaccountview}>
-                    <Medium label={t('or_create_a_new_account')} color={colors.black} />
+                    <Medium
+                      label={t('or_create_a_new_account')}
+                      color={colors.black}
+                    />
                   </View>
 
                   <PrimaryButton
@@ -218,11 +264,27 @@ const LoginScreen = props => {
                 </Row>
               </TouchableOpacity>
             </Row> */}
-            <OtpModal
+            {/* <OtpModal
               onClose={() => setOtpModalVisible(false)}
               visible={otpModalVisible}
               setValue={setValue}
               value={value}
+            /> */}
+            <ResendOtpModal
+              email={email}
+              // email={props?.route?.params?.email}
+              onClose={() => setOtpModalVisible(false)}
+              visible={otpModalVisible}
+              setValue={setValue}
+              value={value}
+              {...props}
+              isSignup={false}
+              // // email={values?.email}
+              // onClose={() => setOtpModalVisible(false)}
+              // visible={otpModalVisible}
+              // setValue={setValue}
+              // value={value}
+              // {...props}
             />
           </View>
         </KeyboardAvoidScrollview>

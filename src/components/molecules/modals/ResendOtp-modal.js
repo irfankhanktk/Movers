@@ -11,10 +11,11 @@ import Medium from 'typography/medium-text';
 import {mvs} from 'config/metrices';
 import {OtpInput} from 'components/atoms/otp-input';
 import LottieView from 'lottie-react-native';
-import {onVerifyOtp} from 'services/api/auth-api-actions';
+import {onResendOtp, onVerifyOtp} from 'services/api/auth-api-actions';
 import {useAppDispatch} from 'hooks/use-store';
 import {UTILS} from 'utils';
-const SignUpModal = ({
+import Regular from 'typography/regular-text';
+const ResendOtpModal = ({
   disabled,
   // loading,
   style = {},
@@ -28,25 +29,69 @@ const SignUpModal = ({
 }) => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = React.useState(false);
+
+  const [showOtpModal, setShowOtpModal] = React.useState(false);
+  // const FullverifyOtp = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await onVerifyOtp(
+  //       {email, otp: value},
+  //       (onClose = () => {
+  //         setShowOtpModal(true);
+  //       }),
+  //       // setLoading,
+  //     );
+  //     console.log('res', res);
+  //     // return;
+
+  //     if (res == undefined) {
+  //       Alert.alert('Error', 'Wrong OTP', 'Please enter valid otp');
+  //       console.log('errpr');
+  //     } else {
+  //       Alert.alert('Success', 'Your Email has been verified Successfully', [
+  //         {text: 'OK', onPress: () => setShowOtpModal(false)}, // Close modal when OK is pressed
+  //       ]);
+  //     }
+  //   } catch (error) {
+  //     Alert.alert('Error', UTILS.returnError(error));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const FullverifyOtp = async () => {
+    try {
+      setLoading(true);
+      const res = await onVerifyOtp({email, otp: value});
+
+      if (res === undefined) {
+        Alert.alert('Error', 'Wrong OTP', 'Please enter valid OTP');
+      } else {
+        // OTP verification successful
+        Alert.alert('Success', 'Your Email has been verified Successfully', [
+          {text: 'OK', onPress: () => setShowOtpModal(false)}, // Close modal when OK is pressed
+        ]);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'An error occurred while verifying OTP');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const verifyOtp = async () => {
     try {
       setLoading(true);
-      const res = await onVerifyOtp(
+      const res = await onResendOtp(
         {email, otp: value},
-        (onClose = () => {
-          setShowOtpModal(true);
-        }),
+        // (onClose = () => {
+        //   setShowOtpModal(true);
+        // }),
         // setLoading,
       );
-      console.log('res', res);
-      // return;
-
       if (res == undefined) {
-        Alert.alert('Error', 'Wrong OTP', 'Please enter valid otp');
-        console.log('errpr');
+        Alert.alert('Error', 'Eroor');
       } else {
-        Alert.alert(`Your Account has been created Successfully`);
-        navigate('Login');
+        Alert.alert('OTP has beens ended to your email' + ' ' + email);
       }
     } catch (error) {
       Alert.alert('Error', UTILS.returnError(error));
@@ -54,27 +99,6 @@ const SignUpModal = ({
       setLoading(false);
     }
   };
-  // const verifyOtp = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await onVerifyOtp({email, otp: value});
-  //     if (res) {
-  //       // Correct OTP case
-  //       Alert.alert('Success', 'Your account has been created successfully.', [
-  //         {text: 'OK', onPress: () => navigate('Login')},
-  //       ]);
-  //     } else {
-  //       // Incorrect OTP case
-  //       Alert.alert('Error', 'Wrong OTP. Please enter a valid OTP.');
-  //     }
-  //   } catch (error) {
-  //     Alert.alert('Error', 'Failed to verify OTP. Please try again.');
-  //     console.error('Error during OTP verification:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  const [showOtpModal, setShowOtpModal] = React.useState(false);
   return (
     <ModalWrapper
       onBackdropPress={() => onClose()}
@@ -115,13 +139,31 @@ const SignUpModal = ({
             label={`${t('verfication_desc')} ${email || '@email'}`}
             color={colors.placeholder}
           />
+          <TouchableOpacity
+            style={{
+              paddingHorizontal: mvs(20),
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+            onPress={() => {
+              verifyOtp();
+            }}>
+            <Regular
+              fontSize={mvs(18)}
+              style={{
+                textDecorationLine: 'underline',
+                color: colors.bluecolor,
+              }}>
+              Resend OTP
+            </Regular>
+          </TouchableOpacity>
           <View style={styles.otp}>
             <OtpInput setValue={setValue} value={value} />
           </View>
           <TouchableOpacity
             disabled={value?.length !== 4}
             onPress={() => {
-              verifyOtp();
+              FullverifyOtp();
             }}
             style={{
               backgroundColor: colors.blueHalf,
@@ -181,7 +223,7 @@ const SignUpModal = ({
     </ModalWrapper>
   );
 };
-export default SignUpModal;
+export default ResendOtpModal;
 const styles = StyleSheet.create({
   contentContainerStyle: {
     width: '100%',

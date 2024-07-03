@@ -1,6 +1,7 @@
 // export const IP = 'https://getmovers.katashempstead.com';
-export const IP = 'https://luggage.prismatic-technologies.com';
+// export const IP = 'https://luggage.prismatic-technologies.com';
 // export const IP = 'https://getmovers.co.uk';
+export const IP = 'https://app.getmovers.co.uk';
 export const URLS = {
   base_url: `${IP}/api/`,
   image_url: `${IP}/`,
@@ -14,6 +15,7 @@ export const URLS = {
     update_password: 'UpdatePassword',
     driver_location: 'updateDriverLocation',
     get_home_banner: 'bannerList',
+    resend_otp: 'resendOtp',
     // change_password: 'doctor/changePassword',
     // otp_verify: 'doctor/otpVerify',
     // forget_password: 'doctor/forgetPassword',

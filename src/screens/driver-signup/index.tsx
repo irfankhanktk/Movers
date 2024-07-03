@@ -33,7 +33,7 @@ import Regular from 'typography/regular-text';
 import Light from 'typography/light-text';
 import {DatePicker} from 'components/atoms/date-picker';
 import {Row} from 'components/atoms/row';
-Geocoder.init('AIzaSyBxP_tL24fzdEqNKA5kicip7vyAExtNdPE');
+Geocoder.init('AIzaSyDGDrN2RHbsqaNEuO0mCN3-MaqtzHgFgmA');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 

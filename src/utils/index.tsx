@@ -17,7 +17,7 @@ import Geocoder from 'react-native-geocoding';
 
 import DocumentPicker from 'react-native-document-picker';
 
-Geocoder.init('AIzaSyBxP_tL24fzdEqNKA5kicip7vyAExtNdPE');
+Geocoder.init('AIzaSyDGDrN2RHbsqaNEuO0mCN3-MaqtzHgFgmA');
 
 export const pickDocument = async () => {
   try {

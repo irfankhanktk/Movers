@@ -97,7 +97,7 @@ const OrderDetailsScreen = props => {
       const res = await getOrderDetails(id);
       setOrderData(res?.value);
 
-      console.log('data===>>>', res?.value);
+      // console.log('data===>>>', res?.value);
     } catch (error) {
       setLoading(false);
     } finally {
@@ -113,13 +113,13 @@ const OrderDetailsScreen = props => {
     latitude: orderData?.dropoff_lat * 1 || 37.7749,
     longitude: orderData?.dropoff_long * 1 || -122.4194,
   };
-  console.log(
-    'lat',
-    orderData?.pickup_lat,
-    orderData?.pickup_long,
-    orderData?.dropoff_lat,
-    orderData?.dropoff_long,
-  );
+  // console.log(
+  //   'lat',
+  //   orderData?.pickup_lat,
+  //   orderData?.pickup_long,
+  //   orderData?.dropoff_lat,
+  //   orderData?.dropoff_long,
+  // );
 
   const onMessagePress = async user_id => {
     try {
@@ -127,7 +127,7 @@ const OrderDetailsScreen = props => {
       const res = await onCreateConveration({
         receiver_id: user_id,
       });
-      console.log('create message res check karna===>', res);
+      // console.log('create message res check karna===>', res);
       navigate('InboxScreen', {
         id: res?.conversation_id,
         title: res?.receiver_name,
@@ -149,9 +149,10 @@ const OrderDetailsScreen = props => {
       // const status = isRejected ? 0 : 1;
 
       const res = await getOrderDetailsStatusChange(status, id);
-
-      console.log('resp==========>', res);
+      Alert.alert(res.message);
+      // console.log('resp==========>', res);
     } catch (error) {
+      Alert.alert(res.message);
       console.log('Error:', UTILS.returnError(error));
       Alert.alert('Error', UTILS.returnError(error));
     }
@@ -189,14 +190,68 @@ const OrderDetailsScreen = props => {
         vehciel_number_two,
       );
 
+      console.log('Response:', res);
+      Alert.alert(res.message);
+      // if (!res || res.status !== 200) {
+      //   throw new Error(res?.data?.message || 'Failed to start the order');
+      // }
       console.log('resp==========>', res);
     } catch (error) {
+      Alert.alert(res.message);
       console.log('Error:', UTILS.returnError(error));
       Alert.alert('Error', UTILS.returnError(error));
     }
   };
 
+  // const onPressAccept = () => {
+  //   // Display an alert to confirm the acceptance
+  //   Alert.alert(
+  //     'Start',
+  //     'Do you want to Start this order?',
+  //     [
+  //       {
+  //         text: 'Cancel',
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'Start',
+  //         onPress: async () => {
+  //           // If the user confirms the acceptance, call the ChangeStatus function
+  //           await ChangeStatus2(
+  //             console.log(
+
+  //               id,
+  //               vehicle_id,
+  //               vehicle_number,
+  //               orderData?.vehicle?.id,
+  //               orderData?.vehicle?.vehicle_number,
+  //             ),
+  //             'start',
+  //             id,
+  //             vehicle_id || orderData?.vehicle?.id,
+  //             vehicle_number || orderData?.vehicle?.vehicle_number,
+  //           );
+  //           // Then, refresh the list
+
+  //           Alert.alert('Order has been Started');
+  //           await getList();
+  //           // goBack();
+  //         },
+  //       },
+  //     ],
+  //     {cancelable: false},
+  //   );
+  // };
+  const selectedVehicleId = vehicle_id || (orderData?.vehicle?.id ?? undefined);
+  const selectedVehicleNumber =
+    vehicle_number || (orderData?.vehicle?.vehicle_number ?? undefined);
+
   const onPressAccept = () => {
+    const selectedVehicleId =
+      vehicle_id || (orderData?.vehicle?.id ?? undefined);
+    const selectedVehicleNumber =
+      vehicle_number || (orderData?.vehicle?.vehicle_number ?? undefined);
+
     // Display an alert to confirm the acceptance
     Alert.alert(
       'Start',
@@ -209,24 +264,34 @@ const OrderDetailsScreen = props => {
         {
           text: 'Start',
           onPress: async () => {
-            // If the user confirms the acceptance, call the ChangeStatus function
-            await ChangeStatus2(
-              'start',
-              id,
-              vehicle_id || orderData?.vehicle?.id,
-              vehicle_number || orderData?.vehicle?.vehicle_number,
-            );
-            // Then, refresh the list
-
-            Alert.alert('Order has been Started');
-            await getList();
-            // goBack();
+            try {
+              // If the user confirms the acceptance, call the ChangeStatus function
+              await ChangeStatus2(
+                'start',
+                id,
+                selectedVehicleId,
+                selectedVehicleNumber,
+              );
+              // if (res.status == 200) {
+              // Then, refresh the list
+              // Alert.alert('Order has been Started');
+              // Alert.alert(res.message);
+              await getList();
+              // } else {
+              //   Alert.alert(res.message);
+              // }
+              // goBack();
+            } catch (error) {
+              // If there's an error, display an error alert
+              // Alert.alert(res.message);
+            }
           },
         },
       ],
       {cancelable: false},
     );
   };
+
   const onPressReject = () => {
     // Display an alert to confirm the acceptance
     Alert.alert(
@@ -245,6 +310,7 @@ const OrderDetailsScreen = props => {
             // Then, refresh the list
 
             await Alert.alert('Order has been Completed');
+            // await Alert.alert('Order has been Completed');
             getList();
             // goBack();
           },
@@ -476,7 +542,7 @@ const OrderDetailsScreen = props => {
                 )}
             </ScrollView>
           ) : (
-            <Medium label={t('no_order_data')}  color={colors.white}/> // Render an empty state when orderData is not available yet
+            <Medium label={t('no_order_data')} color={colors.white} /> // Render an empty state when orderData is not available yet
           )}
 
           <Row
@@ -514,9 +580,11 @@ const OrderDetailsScreen = props => {
                       : () =>
                           onPressAccept(
                             id,
-                            vehicle_id || orderData?.vehicle?.id,
-                            vehicle_number ||
-                              orderData?.vehicle?.vehicle_number,
+                            // vehicle_id || orderData?.vehicle?.id,
+                            selectedVehicleId,
+                            // vehicle_number ||
+                            //   orderData?.vehicle?.vehicle_number,
+                            selectedVehicleNumber,
                           )
                   }
                 />

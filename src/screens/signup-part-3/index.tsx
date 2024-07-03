@@ -37,7 +37,7 @@ import {DatePicker} from 'components/atoms/date-picker';
 import SignUpModal from 'components/molecules/modals/SignUp-modal';
 import GoogleSearchBar from 'components/atoms/google-auto-place';
 import Regular from 'typography/regular-text';
-Geocoder.init('AIzaSyBxP_tL24fzdEqNKA5kicip7vyAExtNdPE');
+Geocoder.init('AIzaSyDGDrN2RHbsqaNEuO0mCN3-MaqtzHgFgmA');
 
 type props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 

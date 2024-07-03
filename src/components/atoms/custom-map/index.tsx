@@ -1,6 +1,12 @@
 import React, {ReactNode} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import MapView, {LatLng, MapViewProps, Marker, Region} from 'react-native-maps';
+import MapView, {
+  LatLng,
+  PROVIDER_GOOGLE,
+  MapViewProps,
+  Marker,
+  Region,
+} from 'react-native-maps';
 import {PrimaryButton} from '../buttons';
 import {UTILS} from 'utils';
 import {GeoPosition} from 'react-native-geolocation-service';
@@ -56,6 +62,7 @@ const CustomMap: React.FC<CustomMapProps> = ({
   return (
     <View style={styles.container}>
       <MapView
+        // provider={PROVIDER_GOOGLE}
         ref={mapRef}
         {...mapProps}
         style={style}
