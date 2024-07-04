@@ -105,6 +105,7 @@ const LoginScreen = props => {
   //     setLoading(false);
   //   }
   // };
+
   const handleFormSubmit = async values => {
     try {
       await checkApplicationPermission();
@@ -121,16 +122,18 @@ const LoginScreen = props => {
           setLoading,
         ),
       );
-      console.log('res', res);
-      // return;
-      // if (UTILS.returnError('Please verify your email first')) {
-      //   setOtpModalVisible(true);
-      //   setEmail(values.email);
-      // }
-      // Check if the response indicates email verification is required
-    } catch (error) {
-      console.log('error=ss>', error);
+      console.log('ressss', res);
 
+      if (
+        res?.status === false &&
+        res.message === 'Please verify your email first'
+      ) {
+        console.log('Condition met, setting modal visible');
+        setOtpModalVisible(true);
+        setEmail(values.email);
+      }
+    } catch (error) {
+      console.log('error=>', error);
       setLoading(false);
     }
   };

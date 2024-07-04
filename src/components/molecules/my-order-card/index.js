@@ -98,7 +98,9 @@ const MyOrderCard = ({
             numberOfLines={2}
           />
           {['start', 'accepted', 'delivered'].includes(item?.status) && (
-            <TouchableOpacity onPress={onPressChat}>
+            <TouchableOpacity
+              disabled={item?.status === 'delivered'}
+              onPress={onPressChat}>
               <Row
                 style={{
                   width: mvs(100),

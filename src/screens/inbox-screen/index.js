@@ -31,6 +31,8 @@ import InboxChatCard from 'components/molecules/inbox-chat-card';
 import {getChatMessages, onSendMessage} from 'services/api/chat-api-actions';
 import {UTILS} from 'utils';
 import {Loader} from 'components/atoms/loader';
+import {useIsFocused} from '@react-navigation/native';
+import {getOrderListList} from 'services/api/auth-api-actions';
 const InboxScreen = props => {
   const {info, id, title, email, image} = props?.route?.params || {};
   // const {id} = props?.route?.params || {};
@@ -42,6 +44,14 @@ const InboxScreen = props => {
   const [messages, setMessages] = React.useState([]);
   const [message, setMessage] = React.useState('');
   const [loading, setLoading] = React.useState(true);
+  const [orderData, setOrderData] = React.useState([]);
+  const isFocus = useIsFocused();
+
+  // React.useEffect(() => {
+  //   if (isFocus) {
+  //     getList();
+  //   }
+  // }, [isFocus]);
   // const featuredCategories = [
   //   {
   //     id: 1,
@@ -82,10 +92,24 @@ const InboxScreen = props => {
       setLoading(false);
     }
   };
+  const getList = async () => {
+    try {
+      // Set refreshing to true when the fetch starts
+      setLoading(true);
+      const res = await getOrderListList();
+      setOrderData(res?.data);
+      console.log('object', res?.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   React.useEffect(() => {
     //Implementing the setInterval method
     const interval = setInterval(() => {
       getMessages();
+      // getList();
     }, 15000);
 
     //Clearing the interval

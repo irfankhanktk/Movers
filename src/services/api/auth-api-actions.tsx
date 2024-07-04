@@ -33,9 +33,15 @@ export const onLogin = (
       dispatch(setUserInfo(res?.user));
 
       resetStack('Drawer');
+      console.log('login res', res);
+      // return {success: true, data: res};
+      return res;
     } catch (error: any) {
+      const errorMsg = UTILS.returnError(error);
       console.log('error in login', UTILS.returnError(error));
-      Alert.alert('', UTILS.returnError(error));
+      Alert.alert('', errorMsg);
+      // return {success: false, message: errorMsg};
+      // Alert.alert('', UTILS.returnError(error));
     } finally {
       setLoading(false);
     }
