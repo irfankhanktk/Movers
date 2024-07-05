@@ -18,6 +18,7 @@ export const getUserInfo = () => {
 export const onLogin = (
   values: any,
   setLoading: (bool: boolean) => void,
+  setOtpModalVisible: (bool: boolean) => void,
   // props: any,
 ) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -37,9 +38,15 @@ export const onLogin = (
       // return {success: true, data: res};
       return res;
     } catch (error: any) {
-      const errorMsg = UTILS.returnError(error);
+      const res = UTILS.returnError(error);
       console.log('error in login', UTILS.returnError(error));
-      Alert.alert('', errorMsg);
+      if (res == 'Please verify you email first') {
+        setOtpModalVisible(true);
+        Alert.alert('', UTILS.returnError(error));
+      } else {
+        Alert.alert('', UTILS.returnError(error));
+      }
+
       // return {success: false, message: errorMsg};
       // Alert.alert('', UTILS.returnError(error));
     } finally {

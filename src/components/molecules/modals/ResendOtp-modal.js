@@ -67,9 +67,11 @@ const ResendOtpModal = ({
         Alert.alert('Error', 'Wrong OTP', 'Please enter valid OTP');
       } else {
         // OTP verification successful
-        Alert.alert('Success', 'Your Email has been verified Successfully', [
-          {text: 'OK', onPress: () => setShowOtpModal(false)}, // Close modal when OK is pressed
-        ]);
+        // Alert.alert('Success', 'Your Email has been verified Successfully', [
+        //   {text: 'OK', onPress: () => setShowOtpModal(false)}, // Close modal when OK is pressed
+        // ]);
+        Alert.alert('Success', 'Your Email has been verified Successfully');
+        onClose();
       }
     } catch (error) {
       Alert.alert('Error', 'An error occurred while verifying OTP');

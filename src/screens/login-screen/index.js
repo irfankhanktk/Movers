@@ -120,18 +120,20 @@ const LoginScreen = props => {
         onLogin(
           {...values, fcm_token: fcmToken, online_status: '0'},
           setLoading,
+          setOtpModalVisible,
+          setEmail(values.email),
         ),
       );
       console.log('ressss', res);
 
-      if (
-        res?.status === false &&
-        res.message === 'Please verify your email first'
-      ) {
-        console.log('Condition met, setting modal visible');
-        setOtpModalVisible(true);
-        setEmail(values.email);
-      }
+      // if (
+      //   res?.status === false &&
+      //   res.message === 'Please verify your email first'
+      // ) {
+      //   console.log('Condition met, setting modal visible');
+      // setOtpModalVisible(true);
+      // setEmail(values.email);
+      // }
     } catch (error) {
       console.log('error=>', error);
       setLoading(false);
