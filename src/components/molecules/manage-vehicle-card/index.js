@@ -1,26 +1,13 @@
-import * as IMG from 'assets/images';
-import {PrimaryButton} from 'components/atoms/buttons';
 import {Row} from 'components/atoms/row';
+import moment from 'moment';
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/AntDesign';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
 import Regular from 'typography/regular-text';
 import {colors} from '../../../config/colors';
-import {mvs, width} from '../../../config/metrices';
-import {SpecialistLocation} from 'assets/icons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {ColorSpace} from 'react-native-reanimated';
-import moment from 'moment';
-import {DATE_FORMAT} from 'config/constants';
+import {mvs} from '../../../config/metrices';
 const LabelValue = ({label, value, containerStyle, labelStyle, valueStyle}) => (
   <Row style={containerStyle}>
     <Medium
@@ -50,7 +37,6 @@ const MangeVehcileCard = ({
   onPressCart = () => {},
 }) => {
   const {t} = i18n;
-
   return (
     <View style={[styles.contentContainerStyleNew, {backgroundColor}]}>
       <View style={{marginTop: mvs(6)}}>

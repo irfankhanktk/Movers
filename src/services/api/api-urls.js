@@ -43,6 +43,7 @@ export const URLS = {
     vehicle_list: 'vehicleList',
     vehicle_list_order: 'vehicleList',
     update_vehicle: 'vehicle/',
+    edit_vehicle: 'vehicle/',
   },
   status_change: {
     status: 'onlineStatus',

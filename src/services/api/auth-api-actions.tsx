@@ -226,6 +226,8 @@ export const onResendOtp = async (values: any) => {
 };
 
 export const onSignup = (values: any) => postData(URLS.auth.signup, values);
+export const onEditVehicle = (id: any) =>
+  getData(`${URLS.vehcile.edit_vehicle}${id}/edit`);
 
 export const onStoreVehicle = (values: any) =>
   values?.id
@@ -288,22 +290,26 @@ export const deletePermanentAccount = () => {
     }
   };
 };
-export const onCreateVehicle = () => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
-    try {
-      const res = await getData(URLS.vehcile.create_vehilce);
-      const codeObj = res?.types;
-      const newList = Object.keys(codeObj)?.map((x, i) => ({
-        id: codeObj[x],
-      }));
-      dispatch(setVehcileTypes(newList));
-      console.log('newList:::', newList);
-    } catch (error) {
-      console.log('error', UTILS.returnError(error));
-      Alert.alert('Error', UTILS.returnError(error));
-    }
-  };
-};
+// export const onCreateVehicle = () => {
+//   return async (dispatch: AppDispatch, getState: () => RootState) => {
+//     try {
+//       const res = await getData(URLS.vehcile.create_vehilce);
+//       const codeObj = res?.types;
+//       const newList = Object.keys(codeObj)?.map((x, i) => ({
+//         id: codeObj[x],
+//       }));
+//       dispatch(setVehcileTypes(newList));
+//       console.log('newList:::', newList);
+//     } catch (error) {
+//       console.log('error', UTILS.returnError(error));
+//       Alert.alert('Error', UTILS.returnError(error));
+//     }
+//   };
+// };
+
+// export const onCreateVehicle = () => await getData(URLS.vehcile.create_vehilce);
+
+export const onCreateVehicle = () => getData(URLS.vehcile.create_vehilce);
 
 export const getVehcileList = async (slug: string) => {
   try {

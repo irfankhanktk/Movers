@@ -1,32 +1,19 @@
-import Header1x2x from 'components/atoms/myorder-headers/header-1x-2x';
+import {useIsFocused} from '@react-navigation/native';
+import {PlusButton} from 'components/atoms/buttons';
+import CustomFlatList from 'components/atoms/custom-flatlist';
 import {Loader} from 'components/atoms/loader';
-import {Row} from 'components/atoms/row';
+import Header1x2x from 'components/atoms/myorder-headers/header-1x-2x';
+import MangeVehcileCard from 'components/molecules/manage-vehicle-card';
 import {colors} from 'config/colors';
-import {mvs, width} from 'config/metrices';
+import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import moment from 'moment';
+import {navigate} from 'navigation/navigation-ref';
 import React, {useEffect} from 'react';
-import {
-  FlatList,
-  Image,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {View} from 'react-native';
+import {getVehcileList} from 'services/api/auth-api-actions';
 import i18n from 'translation';
 import Medium from 'typography/medium-text';
-import Regular from 'typography/regular-text';
 import styles from './styles';
-import {EmptyList} from 'components/atoms/empty-list';
-import CustomFlatList from 'components/atoms/custom-flatlist';
-import {PlusButton, PrimaryButton} from 'components/atoms/buttons';
-import MyOrderCard from 'components/molecules/my-order-card';
-import {MANAGE_CAR_LIST, ORDER_LIST, RECENT_ORDER_LIST} from 'config/constants';
-import * as IMG from 'assets/images';
-import MangeVehcileCard from 'components/molecules/manage-vehicle-card';
-import {navigate} from 'navigation/navigation-ref';
-import {getVehcileList} from 'services/api/auth-api-actions';
-import {useIsFocused} from '@react-navigation/native';
 
 const ManageVehicleScreen = props => {
   const dispatch = useAppDispatch();
@@ -47,8 +34,6 @@ const ManageVehicleScreen = props => {
       setLoading(true);
       const res = await getVehcileList();
       setVehicleLists(res?.vehicles);
-
-      console.log(res?.vehicles);
     } catch (error) {
       setLoading(false);
     } finally {
@@ -83,9 +68,13 @@ const ManageVehicleScreen = props => {
   };
   return (
     <View style={styles.container}>
-      <Header1x2x title={t('manage_vehicle')}/>
+      <Header1x2x title={t('manage_vehicle')} />
       <View style={styles.contentContainerStyle}>
-        <Medium label={t('vehicle_details')} fontSize={mvs(16)} color={colors.black}/>
+        <Medium
+          label={t('vehicle_details')}
+          fontSize={mvs(16)}
+          color={colors.black}
+        />
         {loading ? (
           <Loader />
         ) : (

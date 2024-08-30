@@ -1,4 +1,3 @@
-import firebase from '@react-native-firebase/app';
 import {useIsFocused} from '@react-navigation/native';
 import * as IMG from 'assets/images';
 import CustomFlatList from 'components/atoms/custom-flatlist';
@@ -20,7 +19,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   getDirection,
@@ -43,7 +41,6 @@ const HomeTab = props => {
   const dispatch = useAppDispatch();
   const {t} = i18n;
   const {userInfo, unreadNotification, location} = user;
-  console.log('unreadNotification=>', unreadNotification);
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState();
   const [latitude, setLatitude] = React.useState();
@@ -167,7 +164,6 @@ const HomeTab = props => {
       setLoading(true);
       const banner = await getHomeBanner();
       setHomeBanner(banner?.data || []);
-      console.log('banner==>', banner?.data);
     } catch (error) {
       setLoading(false);
     } finally {

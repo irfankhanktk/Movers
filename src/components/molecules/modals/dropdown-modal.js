@@ -58,7 +58,7 @@ const DropdownModal = ({
                 />
                 <Icon
                   name={
-                    item?.id === value
+                    item?.id == value
                       ? 'radio-button-checked'
                       : 'radio-button-unchecked'
                   }
