@@ -11,7 +11,7 @@ const MapDirections = props => {
     <MapViewDirections
       origin={origin}
       destination={destination}
-      apikey={'AIzaSyDGDrN2RHbsqaNEuO0mCN3-MaqtzHgFgmA'}
+      apikey={'AIzaSyCZ9ZefKOoG2OKLGFSWLyUL3NvPHFDjA8k'}
       strokeWidth={strokeWidth} // strokeWidth={3}
       strokeColor={strokeColor} // strokeColor="hotpink"
       onReady={handleGetDirections}

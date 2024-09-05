@@ -1,69 +1,49 @@
+import * as IMG from 'assets/images';
 import Header1x2x from 'components/atoms/headers/header-1x-2x';
 import {Loader} from 'components/atoms/loader';
 import {Row} from 'components/atoms/row';
 import {colors} from 'config/colors';
 import {mvs} from 'config/metrices';
 import {useAppDispatch, useAppSelector} from 'hooks/use-store';
-import moment from 'moment';
-import * as IMG from 'assets/images';
 
-import React, {useEffect} from 'react';
+import {PrimaryButton} from 'components/atoms/buttons';
+import CustomFlatList from 'components/atoms/custom-flatlist';
+import CustomMap from 'components/atoms/custom-map';
+import {InputWithIcon2, InputWithIcon3} from 'components/atoms/inputs';
+import MapDirections from 'components/atoms/map-directions';
+import ItemDetailsCard from 'components/molecules/item-details-card';
+import OrderDetailsCard from 'components/molecules/order-details-card';
+import RatingStar from 'components/molecules/rating-star';
+import {navigate} from 'navigation/navigation-ref';
+import React from 'react';
 import {
   Alert,
-  FlatList,
   Image,
   Linking,
   ScrollView,
   TouchableOpacity,
   View,
 } from 'react-native';
-import i18n from 'translation';
-import Medium from 'typography/medium-text';
-import Regular from 'typography/regular-text';
-import styles from './styles';
-import {EmptyList} from 'components/atoms/empty-list';
-import CustomFlatList from 'components/atoms/custom-flatlist';
-import {PlusButton, PrimaryButton} from 'components/atoms/buttons';
-import MyOrderCard from 'components/molecules/my-order-card';
-import {
-  ITEM_DETAILS_LIST,
-  ORDER_DETAILS_LIST,
-  ORDER_LIST,
-} from 'config/constants';
-import MapDirections from 'components/atoms/map-directions';
-import CustomMap from 'components/atoms/custom-map';
 import {Marker} from 'react-native-maps';
-import OrderDetailsCard from 'components/molecules/order-details-card';
-import ItemDetailsCard from 'components/molecules/item-details-card';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Foundation from 'react-native-vector-icons/Foundation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
-  getDistance,
   getOrderDetails,
   getOrderDetailsStatusChange,
   getOrderDetailsStatusChange2,
-  getOrderStatusChange,
-  getVehcileList,
   getVehcileListOrder,
-  onCreateVehicle,
 } from 'services/api/auth-api-actions';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Foundation from 'react-native-vector-icons/Foundation';
-import {UTILS} from 'utils';
 import {onCreateConveration} from 'services/api/chat-api-actions';
-import {goBack, navigate} from 'navigation/navigation-ref';
-import RatingStar from 'components/molecules/rating-star';
-import {
-  InputWithIcon,
-  InputWithIcon2,
-  InputWithIcon3,
-} from 'components/atoms/inputs';
+import i18n from 'translation';
+import Medium from 'typography/medium-text';
+import Regular from 'typography/regular-text';
+import {UTILS} from 'utils';
+import styles from './styles';
 const OrderDetailsScreen = props => {
   const {id} = props?.route?.params;
-  console.log(id);
   const dispatch = useAppDispatch();
   const {user} = useAppSelector(s => s);
-  const {vehicle_types} = user;
-  const {userInfo, notifications} = useAppSelector(s => s.user);
   const {t} = i18n;
   const [loading, setLoading] = React.useState(false);
 
@@ -113,13 +93,6 @@ const OrderDetailsScreen = props => {
     latitude: orderData?.dropoff_lat * 1 || 37.7749,
     longitude: orderData?.dropoff_long * 1 || -122.4194,
   };
-  // console.log(
-  //   'lat',
-  //   orderData?.pickup_lat,
-  //   orderData?.pickup_long,
-  //   orderData?.dropoff_lat,
-  //   orderData?.dropoff_long,
-  // );
 
   const onMessagePress = async user_id => {
     try {
@@ -143,14 +116,10 @@ const OrderDetailsScreen = props => {
   };
 
   const ChangeStatus = async (status, id) => {
-    console.log('id', status, id);
     // return;
     try {
-      // const status = isRejected ? 0 : 1;
-
       const res = await getOrderDetailsStatusChange(status, id);
       Alert.alert(res.message);
-      // console.log('resp==========>', res);
     } catch (error) {
       Alert.alert(res.message);
       console.log('Error:', UTILS.returnError(error));
